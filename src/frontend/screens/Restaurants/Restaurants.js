@@ -1,16 +1,16 @@
 import React from "react";
 
-class ForgotPassword extends React.Component {
+class Restaurants extends React.Component {
 
     render() {
 
         return (
             <>
-                ForgotPassword
+                Restaurants
             </>
         )
     }
 
 }
 
-export default ForgotPassword;
+export default Restaurants;

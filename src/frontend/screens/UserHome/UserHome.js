@@ -1,16 +1,16 @@
 import React from "react";
 
-class ForgotPassword extends React.Component {
+class UserHome extends React.Component {
 
     render() {
 
         return (
             <>
-                ForgotPassword
+                UserHome
             </>
         )
     }
 
 }
 
-export default ForgotPassword;
+export default UserHome;
