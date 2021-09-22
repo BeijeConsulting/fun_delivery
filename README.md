@@ -103,12 +103,161 @@ Questo processo riguarda principalmente:
 - In arrivo
 
 ## Mappa del sito
-![Questa è la mappa del sito](https://imgur.com/PeN1SG8 "alt:mappa")
+![Questa è la mappa del sito](src\common\docs\schema_navigazione_back_office.png)
 
 
+## Struttura dati e campi per singole pagine
+
+### Login:		
+- email(‘email’)
+- Password(‘password’)
+
+        data = {
+            email: ‘mail@mail.com’,
+	        password: ‘password’
+        };
 
 
+### Registrazione
+- email 				(‘email’)	     
+- Password 			    (‘password’)	        	
+- Conferma Password	    (‘confirm_password’) 
+- Nome Persona		    (‘name’)
+- Cognome Persona 		(‘last_name’)
+- Nome Ristorante		(‘restaurant_name’)	
+- Indirizzo			    (‘address.street’)
+- Città				    (‘address.city)
+- Cap				    (‘address.cap)
+- Stato				    (‘address.state)
+- Partita Iva			(‘VAT’)
+- Telefono			    (‘phone_number’)
+- Categoria Ristorante	(‘restaurant_category’)
 
+        data = {
+            email: ‘mail@mail.com’,
+	        password: ‘password’,
+	        name: ‘nome’,
+	        last_name: ‘cognome’,
+	        restaurant_name: ‘nome ristorante’,
+            address: {
+		        street: ‘via ssadad’,
+                city: ‘città’,	
+                cap: ‘57031’,
+                state: ‘IT’
+            },
+            VAT: “3578923578325782”,
+	        phone_number: “23487248923”,
+	        restaurant_category:”ristorante bangladino”
+        }
+
+### Forgot Password
+- email				(‘email’)	
+- Password			(‘password’)	
+- Conferma Password	(‘confirm_password’)
+
+        data = {
+            email: ‘mail@mail.com’,
+	        password: ‘password’
+        }
+
+### Profilo Ristorante (modalità modif)
+- Nome Ristoratore  ('name')
+- Cognome           ('surname')
+- email             ('email')       
+- Nome Ristorante	(‘restaurant_name’)	
+- Indirizzo			(‘address.street’)
+- Città				(‘address.city')
+- Cap				(‘address.cap')
+- Stato				(‘address.state')
+- Partita Iva			(‘VAT’)
+- Telefono			(‘phone_number’)
+- Categoria Ristorante	(‘restaurant_category’)
+- Logo ristorante		(‘restaurant_logo’)
+- Orari di apertura		('restaurant_opening_hours')
+- Descrizione	(‘restaurant_description’)
+- Discount ('restaurant_discount') (dal 10% al 50%)
+- Free Shipping ('restaurant_free_shipping') (0, 1)
+
+        data: {
+            name:'Nome_Ristoratore'
+            surname:'Cognome_Ristoratore'
+            email:'mail@mail.com'
+            restaurant_name: “Bangladesh food”,
+            address: {
+                street: ‘via ssadad’,
+                city: ‘città’,	
+                cap: ‘57031’,
+                state: ‘IT’
+            },
+            VAT: “3578923578325782”,
+            phone_number: “23487248923”,
+            restaurant_category:”ristorante bangladino”
+            restaurant_logo: “una immagine di default”,
+            restaurant_opening_hours: {
+                monday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                tuesday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                wednesday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                thursday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                friday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                saturday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+                sunday: {
+                    from: '9.00',
+                    to: '18.00'
+                },
+            },
+            restaurant_description: ‘description’,
+            restaurant_discount: 0.5,
+            restaurant_free_shipping: 0
+        }
+
+### Pagina nuovo piatto
+- Immagine piatto   		(‘plate_img’) 
+- Nome piatto			(‘plate_name’)
+- Descrizione			(‘plate_description’)
+- Prezzo			(‘plate_price’)
+- Categoria piatto		(‘plate_category’)
+
+        data = {
+          plate_img: ‘https://blablabla.jpg’,
+			plate_name: ‘Spaghetti alla carbonara’,
+			plate_description: ‘Il piatto più buono’,
+			plate_price: 32.3,
+			plate_category: ’primo’,
+        }
+
+
+### Pagina singolo piatto 
+- Immagine piatto   		(‘plate_img’) 
+- Nome piatto			(‘plate_name’)
+- Descrizione			(‘plate_description’)
+- Prezzo			(‘plate_price’)
+- Categoria piatto		(‘plate_category’)
+
+        data: {
+			plate_img: 'https://blablabla.jpg'  
+			plate_name: ‘Spaghetti alla carbonara’,
+			plate_description: ‘Il piatto più buono’,
+			plate_price: 32.3,
+			plate_category: ’primo’,
+        }
 
 
 
