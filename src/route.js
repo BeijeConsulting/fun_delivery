@@ -6,9 +6,11 @@ import RegistrationUser from "./frontend/screens/RegistrationUser/RegistrationUs
 import ForgotPassword from "./frontend/screens/ForgotPassword/ForgotPassword";
 import UserHome from "./frontend/screens/UserHome/UserHome";
 import Restaurants from "./frontend/screens/Restaurants/Restaurants";
+import Navbar from "./frontend/components/ui/navbar/Navbar";
 function Routing() {
     return (
         <Router>
+            <Navbar />
             <Switch>
                 <Route exact path="/" component={Landing} />
                 <Route path="/LoginUser" component={LoginUser} />
