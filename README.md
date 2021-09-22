@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# FUN DELIVERY
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -71,3 +71,44 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Test Backoffice
 just a test for branches
+
+
+
+# 
+
+# Back Office
+
+## Introduction
+
+Il Back Office si occupa della realizzazione del pannello d'amministrazione che aiuta i Ristoratori a gestire l'intero processo in un unico luogo, la dashboard.
+
+Questo processo riguarda principalmente:
+
+- Gestione delle informazioni del ristorante ;
+- Gestione dei piatti e del menù ;
+- Gestione degli ordini e notifiche.
+
+## Struttura delle pagine
+
+- Login
+- Forgot Password
+- Registrazione
+- Profilo
+- Il tuo Menù
+    - Visualizza lista piatti
+    - Aggiungi piatto
+    - Visualizza/Modifica piatto
+- Ordini
+    - Singolo ordine
+- In arrivo
+
+## Mappa del sito
+![Questa è la mappa del sito](https://imgur.com/PeN1SG8 "alt:mappa")
+
+
+
+
+
+
+
+
