@@ -1,14 +1,14 @@
 import './Button.css';
 
-const Button = () => {
+const Button = (props) => {
 
-    handleCallbackBtn = (e) => {
-        return props.callback(e.target.value)
+    const handleCallbackBtn = (e) => {
+        return props.callback(e)
     }
 
     return (
         <button className={props.className} onClick={handleCallbackBtn}>
-            {props.label}
+            {props.text}
         </button>
     );
 }
