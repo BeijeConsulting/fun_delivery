@@ -1,9 +1,9 @@
 import "./InputBox.css";
 
-const InputBox = () => {
+const InputBox = (props) => {
 
-    handleCallbackInputBox = (e) => {
-        props.callback(e.target.value);
+    const handleCallbackInputBox = (e) => {
+        props.callback(e);
     };
 
     return (

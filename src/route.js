@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Landing from "./frontend/screens/Landing/Landing";
-import LoginUser from "./frontend/screens/LoginUser/LoginUser";
-import RegistrationUser from "./frontend/screens/RegistrationUser/RegistrationUser";
-import ForgotPassword from "./frontend/screens/ForgotPassword/ForgotPassword";
-import UserHome from "./frontend/screens/UserHome/UserHome";
-import Restaurants from "./frontend/screens/Restaurants/Restaurants";
+import Landing from "./frontend/screens/landing/Landing";
+import LoginUser from "./frontend/screens/loginUser/LoginUser";
+import RegistrationUser from "./frontend/screens/registrationUser/RegistrationUser";
+import ForgotPassword from "./frontend/screens/forgotPassword/ForgotPassword";
+import UserHome from "./frontend/screens/userHome/UserHome";
+import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
-function Routing() {
+const Routing = () => {
     return (
         <Router>
             <Navbar />
