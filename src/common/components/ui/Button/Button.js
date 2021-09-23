@@ -1,19 +1,16 @@
-import { Component } from 'react'
-import './Button.css'
+import './Button.css';
 
-class Button extends Component {
+const Button = () => {
 
-    handleButton = (e) => {
-        this.props.callback(e.target.value)
+    handleCallbackBtn = (e) => {
+        return props.callback(e.target.value)
     }
 
-    render() {
-        return (
-            <button className={this.props.className} onClick={this.handleButton}>
-                {this.props.label}
-            </button>
-        )
-    }
+    return (
+        <button className={props.className} onClick={handleCallbackBtn}>
+            {props.label}
+        </button>
+    );
 }
 
 export default Button;
