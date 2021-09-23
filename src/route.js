@@ -13,11 +13,11 @@ const Routing = () => {
             <Navbar />
             <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route path="/LoginUser" component={LoginUser} />
-                <Route path="/RegistrationUser" component={RegistrationUser} />
-                <Route path="/ForgotPassword" component={ForgotPassword} />
-                <Route path="/UserHome" component={UserHome} />
-                <Route path="/Restaurants" component={Restaurants} />
+                <Route path="/loginUser" component={LoginUser} />
+                <Route path="/registrationUser" component={RegistrationUser} />
+                <Route path="/forgotPassword" component={ForgotPassword} />
+                <Route path="/userHome" component={UserHome} />
+                <Route path="/restaurants" component={Restaurants} />
             </Switch>
         </Router>
     )
