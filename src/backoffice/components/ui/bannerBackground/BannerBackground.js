@@ -1,8 +1,9 @@
 import React from 'react'
+import './BannerBackground.css'
 
 const BannerBackground = () => {
     return (
-        <div>
+        <div className="bo-banner-background">
             
         </div>
     )
