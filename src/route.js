@@ -25,7 +25,7 @@ const Routing = () => {
                 <Route path="/restaurants" component={Restaurants} />
 
                 {/* Back Office Routes */}
-                <LoginBackOffice path="/restaurant/login" component={LoginBackOffice}/>
+                <Route path="/restaurant/login" component={LoginBackOffice}/>
 
             </Switch>
         </Router>
