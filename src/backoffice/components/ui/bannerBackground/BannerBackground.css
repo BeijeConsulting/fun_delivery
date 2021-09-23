@@ -1,0 +1,7 @@
+.bo-banner-background{
+    background-image: url('../../../assets/images/banner_background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 250px;
+}
