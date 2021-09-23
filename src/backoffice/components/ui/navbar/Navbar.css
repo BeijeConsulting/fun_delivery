@@ -1,0 +1,13 @@
+.bo-navbar{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3F3D56;
+    color: white;
+}
+
+.bo-navbar img{
+    max-width: 50px;
+}
