@@ -7,6 +7,11 @@ import ForgotPassword from "./frontend/screens/ForgotPassword/ForgotPassword";
 import UserHome from "./frontend/screens/UserHome/UserHome";
 import Restaurants from "./frontend/screens/Restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
+
+
+// Back Office Screens
+import { Login as LoginBackOffice } from './backoffice/screens/login/Login' 
+
 function Routing() {
     return (
         <Router>
@@ -18,6 +23,10 @@ function Routing() {
                 <Route path="/ForgotPassword" component={ForgotPassword} />
                 <Route path="/UserHome" component={UserHome} />
                 <Route path="/Restaurants" component={Restaurants} />
+
+                {/* Back Office Routes */}
+                <LoginBackOffice path="/restaurant/login" component={LoginBackOffice}/>
+
             </Switch>
         </Router>
     )
