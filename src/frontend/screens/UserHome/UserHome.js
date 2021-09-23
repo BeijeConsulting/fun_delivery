@@ -1,16 +1,16 @@
 import React from "react";
 
-class LoginUser extends React.Component {
+class UserHome extends React.Component {
 
     render() {
 
         return (
             <>
-                LoginUser
+                UserHome
             </>
         )
     }
 
 }
 
-export default LoginUser;
+export default UserHome;
