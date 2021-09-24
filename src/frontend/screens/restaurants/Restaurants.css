@@ -1,0 +1,15 @@
+.mainContainerRestaurants{
+    display: flex;
+}
+
+.sideNav{
+    flex: 30%;
+}
+
+.restaurantsListContainer{
+    flex:70%;
+}
+
+.priceOrder li{
+    display:inline
+}
