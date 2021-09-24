@@ -9,27 +9,24 @@ class Landing extends Component {
         super(props)
 
         this.state = {
-            addressValue : '',
+            addressValue: '',
         }
     }
 
     handleCallbackInputBox = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
     /* DA ULTIMARE */
     handleCallbackBtn = (e) => {
-        return 
+        return
     }
 
     render() {
         return (
             <div>
-                {/* NAV  */}
-
-
                 <HtmlTag
                     tag='h1'
                     htmlTagStyle=''

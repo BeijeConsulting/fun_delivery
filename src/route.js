@@ -1,33 +1,35 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Landing from "./frontend/screens/landing/Landing";
-import LoginUser from "./frontend/screens/loginUser/LoginUser";
-import RegistrationUser from "./frontend/screens/registrationUser/RegistrationUser";
-import ForgotPassword from "./frontend/screens/forgotPassword/ForgotPassword";
-import UserHome from "./frontend/screens/userHome/UserHome";
-import Restaurants from "./frontend/screens/restaurants/Restaurants";
-import Navbar from "./frontend/components/ui/navbar/Navbar";
 
 
-// Back Office Screens
-import { Login as LoginBackOffice } from './backoffice/screens/login/Login' 
+// Front End Screens an Layout
+import LayoutFrontEnd from "./frontend/components/funcComponents/layoutFrontEnd/LayoutFrontEnd";
+
+// Back Office Screens and Layout
+import LayoutBackOffice from './backoffice/components/funcComponents/layoutBackOffice/LayoutBackOffice';
+
+import { Login as LoginBackOffice } from './backoffice/screens/login/Login';
 
 const Routing = () => {
     return (
         <Router>
-            <Navbar />
+
+            {/* Front End Routes */}
+
             <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route path="/loginUser" component={LoginUser} />
-                <Route path="/registrationUser" component={RegistrationUser} />
-                <Route path="/forgotPassword" component={ForgotPassword} />
-                <Route path="/userHome" component={UserHome} />
-                <Route path="/restaurants" component={Restaurants} />
-
-                {/* Back Office Routes */}
-                <Route path="/restaurant/login" component={LoginBackOffice}/>
-
+                <Route exact path="/" component={LayoutFrontEnd} />
+                <Route path="/restaurant/login" component={LoginBackOffice} />
             </Switch>
+
+
+
+
+
+            {/* Back Office Routes */}
+
+
+
+
         </Router>
     )
 }
