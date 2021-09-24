@@ -4,8 +4,34 @@ import BannerBackground from '../../components/ui/bannerBackground/BannerBackgro
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
+import { Link } from 'react-router-dom'
 
-export class Login extends Component {
+class Login extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            email: '',
+            password: '',
+        }
+    }
+
+    handleInputEmail = (e) => {
+        this.setState({
+            email:e.target.value
+        })
+    }
+
+    handleInputPassword = (e) => {
+        this.setState({
+            password:e.target.value
+        })
+    }
+
+    handelSubmit = () => {
+
+    }
 
     render() {
         return (
@@ -20,16 +46,25 @@ export class Login extends Component {
                         type={'email'}
                         inputClass='bo-input-box'
                         placeholder='Email'
+                        callback={this.handleInputEmail}
                     />
                     <InputBox
                         type={'password'}
                         inputClass='bo-input-box'
                         placeholder='Password'
+                        callback = {this.handleInputPassword}
                     />
+                    <Link to='/restaurant/forgotPassword' className='bo-link'><b>Password dimenticata?</b></Link>
                     <Button
-                    text='ACCEDI'
-                    className='bo-btn'/>
+                        text='ACCEDI'
+                        className='bo-btn'
+                    />
+                    <div style={{ fontSize: '20px' }}>
+                        Vuoi diventare un nostro partner?
+                    </div>
+                    <Link to='/restaurant/registration' className='bo-link'><b>Registrati ora.</b></Link>
                 </div>
+                <br />
             </div>
         )
     }

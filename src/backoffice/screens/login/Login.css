@@ -14,23 +14,47 @@
 }
 
 .bo-input-box{
+    outline: none;
     text-align: center;
     display: block;
     width: 100%;
     margin-bottom: 20px;
     padding: 15px;
     border: 0;
-    border-radius: 12px;
+    border-radius: 5px;
     font-size: 16px;
 }   
 
 .bo-btn{
     width: 100%;
-    background-color: #3F3D56;
-    color: white;
+    background-color: #F2E205;
+    color: black;
     padding: 15px;
     border: 0;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+.bo-btn:hover{
+    transition: 0.2s;
+    background-color: #3F3D56;
+    color:white;
+}
+
+.bo-link{
+    font-size: 20px;
+    background:none;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+}
+
+.bo-link:hover{
+    transform: scale(1.03);
+    text-decoration: underline;
+    /* color: #3F3D56; */
 }
