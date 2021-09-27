@@ -11,6 +11,7 @@ class Landing extends Component {
 
         this.state = {
             addressValue: '',
+            hourValue: '', 
         }
     }
 
@@ -22,7 +23,7 @@ class Landing extends Component {
 
     /* DA ULTIMARE */
     handleCallbackBtn = (e) => {
-        return
+        return true
     }
 
     optionsData = [
@@ -48,6 +49,12 @@ class Landing extends Component {
                         name='addressValue'
                         type='text'
                         value={this.state.addressValue}
+                        callback={this.handleCallbackInputBox}
+                        className='landing-input'
+                    />
+                    <Input
+                        name='hourValue'
+                        type='time'
                         callback={this.handleCallbackInputBox}
                         className='landing-input'
                     />
