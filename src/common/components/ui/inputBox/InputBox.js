@@ -7,8 +7,8 @@ const InputBox = (props) => {
     };
 
     const handleCallbackOnBlur = (e) => {
-        props.callback(e);
-    }
+        props.callbackOnBlur(e);
+    };
 
     return (
         <input
