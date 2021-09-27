@@ -35,8 +35,7 @@ class RegistrationUser extends React.Component {
     render() {
         return (
             <>
-                <h1 style={{ textAlign: 'center' }}>Logo Beije</h1>
-                <h2 style={{ textAlign: 'center' }}>Registration</h2>
+                <h2 style={{ textAlign: 'center' }}>Registrazione</h2>
                 <div className='container'>
                         <div className="grid-container">
                             <div className="grid-item">
@@ -112,7 +111,8 @@ class RegistrationUser extends React.Component {
                             callback={this.handleSignUp}
                         />
                     </div>
-                </div>
+                
+             </div>
             </>
         );
     }
