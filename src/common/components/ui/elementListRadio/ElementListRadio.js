@@ -5,7 +5,7 @@ class ElementListRadio extends React.Component {
     return (
       <div>
         <input type="radio" id={this.props.id} name={this.props.name} value={this.props.value} />
-        <label for={this.props.for}>{this.props.label}</label>
+        <label htmlFor={this.props.for}>{this.props.label}</label>
       </div>
     );
   }

@@ -12,20 +12,35 @@
     /* margin: 1%;
     flex: 1 0 31.3333%;
     display: flex; */
-    margin: 5px;
-
+    margin: 10px;
+}
+.textRest {
+    min-width: 303px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;    
 }
 
-.headerArticleRestaurant {
+.titleRest {
+    font-weight: 500;
+    max-width: 250px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+.ratingRest{
+    margin-right:5px;
+}
+/* .headerArticleRestaurant {
+} */
 
 .imageSingleRestaurant{
-    width: 342px;
+    width: 100%;
     height: 128px;
+    border-radius: 5px;
     max-width: 100%;
     object-fit: cover;
     overflow:hidden;
-
 }
 
 

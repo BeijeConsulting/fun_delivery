@@ -1,13 +1,19 @@
 .mainContainerRestaurants{
     display: flex;
+    
 }
 
 .sideNav{
-    flex: 30%;
+    flex: 25%;
+    margin-left: 50px;
+    min-width: 300px;
+    margin-top: 10px;
+    
+    
 }
 
 .restaurantsListContainer{
-    flex:70%;
+    flex:75%;
 }
 
 .priceOrder li{

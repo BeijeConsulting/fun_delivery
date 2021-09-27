@@ -12,6 +12,7 @@ class Restaurants extends React.Component {
             <main className="mainContainerRestaurants">
                 <SidebarRestaurants />
                 <div className="restaurantsListContainer">
+                    {/* mapping che dipende dal risultato della ricerca*/}
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
