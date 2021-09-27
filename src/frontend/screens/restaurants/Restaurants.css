@@ -1,6 +1,7 @@
 .mainContainerRestaurants{
     display: flex;
     
+   
 }
 
 .sideNav{
@@ -8,14 +9,49 @@
     margin-left: 50px;
     min-width: 300px;
     margin-top: 10px;
-    
-    
+    padding-right: 35px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .restaurantsListContainer{
     flex:75%;
+    border:1px solid black;
+    flex-wrap: wrap;
 }
 
 .priceOrder li{
     display:inline
+}
+.ant-slider-dot-active {
+    border: none;
+    background: #3F3D56;
+}
+.ant-slider-dot {
+    position: absolute;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    background: #3F3D56;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.ant-slider-handle {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background: #3F3D56;
+    box-shadow: 0;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px) {
+    .sideNav{
+        display: none;
+    }
 }

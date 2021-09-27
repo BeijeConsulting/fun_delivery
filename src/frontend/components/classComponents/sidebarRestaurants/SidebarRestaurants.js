@@ -2,8 +2,19 @@ import React from "react";
 import ElementListRadio from "../../../../common/components/ui/elementListRadio/ElementListRadio";
 import "./SidebarRestaurants.css";
 import Button from "../../../../common/components/ui/button/Button";
+import { Slider } from 'antd';
+import 'antd/dist/antd.css';
+
 class SidebarRestaurants extends React.Component {
     render() {
+        // Marks utili allo slider del range di prezzo. Verranno importati dai ristoranti
+        const marks = {
+            0: '€3',
+            20: '€5',
+            40: '€7',
+            60: '€7+'
+        };
+
         return (
             <aside className="sideNav" >
                 <h3>Tutti i locali</h3>
@@ -28,10 +39,7 @@ class SidebarRestaurants extends React.Component {
                     <div className="deliveryRangeContainer">
                         <div className="deliveryRangeSon">
                             <div className="deliveryPriceRange">
-                                <div className="deliveryPrice">
-                                    $3
-                                </div>
-                                <input type="range" id="vol" name="vol" min="0" max="3" />
+                                <Slider marks={marks} step={null} defaultValue={0} max={60} />
                             </div>
                         </div>
                     </div>
