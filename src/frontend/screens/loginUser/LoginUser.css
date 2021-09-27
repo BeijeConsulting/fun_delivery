@@ -1,1 +1,9 @@
-/* Add css here */
+*{
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+h1{
+    font-family: 'Poppins';
+    text-align: center;
+}
