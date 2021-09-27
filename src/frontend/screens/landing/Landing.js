@@ -33,37 +33,31 @@ class Landing extends Component {
 
     render() {
         return (
-            <div>
+            <div className='landing-screen'>
                 {/* NAV  */}
-
 
                 <HtmlTag
                     tag='h1'
-                    htmlTagStyle=''
+                    htmlTagStyle='main-title'
                     text='Fame? Si mangia!'
                 />
 
-                <Input
-                    placeholder='via Roma n.173'
-                    name='addressValue'
-                    type='text'
-                    value={this.state.addressValue}
-                    callback={this.handleCallbackInputBox}
-                    className=''
-                />
+                <div className='main-box'>
+                    <Input
+                        placeholder='via Roma n.173'
+                        name='addressValue'
+                        type='text'
+                        value={this.state.addressValue}
+                        callback={this.handleCallbackInputBox}
+                        className='landing-input'
+                    />
 
-                <Select
-                    id={0}
-                    name='test' 
-                    data={this.optionsData}
-                />
-
-                <Button
-                    text='Trova Ristoranti'
-                    callback={this.handleCallbackBtn}
-                    className=''
-                />
-
+                    <Button
+                        text='Trova Ristoranti'
+                        callback={this.handleCallbackBtn}
+                        className='landing-btn'
+                    />
+                </div>
 
                 {/* FOOTER */}
             </div>
