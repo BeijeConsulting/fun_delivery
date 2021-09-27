@@ -1,7 +1,6 @@
 
 .container{
-    /* height: calc(100vh - 64px - 32px - 42.67px);  */
-    height: fit-content;
+    height: calc(100vh - 64px - 32px - 42.67px);  
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,17 +21,15 @@
 }
 
 
-.inputBox{
+.inputBox_registration{
     height: 35px;
     text-align: center;
     width: 300px;
-    /* border-radius: 5px; */
     margin: 10px 0px;
     border:none;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: black;
-    /* box-shadow: 0px 4px 4px rgb(5, 5, 5, 25%); */
 }
 
 .buttonBox{
@@ -69,7 +66,7 @@
         overflow: hidden;
     }
 
-      .inputBox{
+      .inputBox_registration{
         height: 35px;
         text-align: center;
         width: 80%;
@@ -104,7 +101,7 @@
         padding: 10px;
       }
 
-      .inputBox{
+      .inputBox_registration{
         height: 35px;
         text-align: center;
         width: 80%;

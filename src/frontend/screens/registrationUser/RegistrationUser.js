@@ -45,7 +45,7 @@ class RegistrationUser extends React.Component {
                                     type={"text"}
                                     value={this.state.userName}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
                             <div className="grid-item">
@@ -55,7 +55,7 @@ class RegistrationUser extends React.Component {
                                     type={"text"}
                                     value={this.state.surname}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
 
@@ -66,7 +66,7 @@ class RegistrationUser extends React.Component {
                                     type={"email"}
                                     value={this.state.email}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
 
@@ -77,7 +77,7 @@ class RegistrationUser extends React.Component {
                                     type={"tel"}
                                     value={this.state.phone}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
 
@@ -88,7 +88,7 @@ class RegistrationUser extends React.Component {
                                     type={"password"}
                                     value={this.state.password}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
 
@@ -99,7 +99,7 @@ class RegistrationUser extends React.Component {
                                     type={"password"}
                                     value={this.state.confpsw}
                                     callback={this.handleInputChange}
-                                    inputClass={"inputBox"}
+                                    className={"inputBox_registration"}
                                 />
                             </div>
                             {/* validazione dati e invio dei dati */}
