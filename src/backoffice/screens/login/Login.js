@@ -57,7 +57,7 @@ class Login extends Component {
                     pageTitle='Login'
                 />
                 <BannerBackground />
-                <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>Accedi al tuo ristorante</h1>
+                <h1>Accedi al tuo ristorante</h1>
                 {
                     this.state.warning &&
                     <h3>Email o password errati</h3>
