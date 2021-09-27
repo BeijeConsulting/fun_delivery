@@ -12,11 +12,18 @@
     align-items: center;
 }
 
+img{
+    width: 160px;
+}
 /* BURGER STYLE */
 .burger-menu{
     height: 20px;
     width: 35px;
     position: relative;
+    z-index: 99;
+    cursor: pointer;
+}
+.logo-smartphone{
     z-index: 99;
 }
 .burger{

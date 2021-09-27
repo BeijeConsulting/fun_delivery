@@ -3,7 +3,7 @@
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 88.19px);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -21,7 +21,7 @@
 /* TO BE re-checked */
 .landing-input{
     padding: 10px 20px;
-
+    margin-bottom: 1rem;
     /* TO BE re-checked */
     /* 
     border: 3px solid rgb(48, 124, 211); */
@@ -31,9 +31,11 @@
 .landing-btn{
     margin-top: 1rem;
     padding: 10px 20px;
+    color: white;
+    background-color: #3F3D56;
 }
 .landing-btn:hover{
-    background-color: black;
+    background-color: rgba(63, 61, 86, .85);
     color: white;
 }
 

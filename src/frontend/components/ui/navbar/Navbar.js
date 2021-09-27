@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import './Navbar.css';
 
+import logo from '../../../../common/assets/LogoSvgRosa.svg';
+
 import { useState } from "react";
 
 const Navbar = (props) => {
@@ -20,7 +22,7 @@ const Navbar = (props) => {
             {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
             <div className='box-desktop'>
                 <span>
-                    <Link style={styleObj} to="/"><img src={props.logo} className="img_logo" alt="fun_delivery" /></Link>
+                    <Link style={styleObj} to="/"><img src={logo} className="img_logo" alt="fun_delivery" /></Link>
                 </span>
 
                 <span>
@@ -34,8 +36,8 @@ const Navbar = (props) => {
 
             {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}
             <div className="box-smartphone">
-                <span>
-                    <Link style={styleObj} to="/"><img src={props.logo} className="img_logo" alt="fun_delivery" /></Link>
+                <span className='logo-smartphone'>
+                    <Link style={styleObj} to="/"><img src={logo} className="img_logo" alt="fun_delivery" /></Link>
                 </span>
 
                 <div className='burger-menu' onClick={burgerEffects}>
@@ -48,10 +50,6 @@ const Navbar = (props) => {
                 {/* DROP DOWN LINKBOX */}
                 <div className={`drop-down-link-box ${isBurgerClicked ? 'drop' : ''}`}>
                     <div className='link-container'>
-                        <span>
-                            <Link style={styleObj} to="/"><img src={props.logo} className="img_logo" alt="fun_delivery" /></Link>
-                        </span>
-
                         <span>
                             <Link style={styleObj} to="/LoginUser">Login</Link>
                         </span>
