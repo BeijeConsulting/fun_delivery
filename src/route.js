@@ -10,8 +10,8 @@ import Navbar from "./frontend/components/ui/navbar/Navbar";
 
 
 // Back Office Screens
-import { Login as LoginBackOffice } from './backoffice/screens/login/Login' 
-
+/* import { Login as LoginBackOffice } from './backoffice/screens/login/Login' 
+ */
 const Routing = () => {
     return (
         <Router>
@@ -25,7 +25,7 @@ const Routing = () => {
                 <Route path="/restaurants" component={Restaurants} />
 
                 {/* Back Office Routes */}
-                <LoginBackOffice path="/restaurant/login" component={LoginBackOffice}/>
+                {/* <LoginBackOffice path="/restaurant/login" component={LoginBackOffice}/> */}
 
             </Switch>
         </Router>
