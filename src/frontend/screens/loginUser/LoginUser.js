@@ -1,9 +1,10 @@
-import { logRoles } from "@testing-library/dom";
+
 import React from "react";
 import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
-import LogoRosa from "../../../common/assets/LogoSvgRosa.svg"
+// import LogoRosa from "../../../common/assets/LogoSvgRosa.svg"
+// import Logobianco from "../../../common/assets/Logobianco.svg"
 import "./LoginUser.css"
 // import utilities from "../../utilities/utilities";
 
@@ -67,7 +68,6 @@ class LoginUser extends React.Component {
 
         return (
             <main className="login-container">
-                <img className='logo-style' src={LogoRosa} />
                 <div className='form-login'>
                     <HtmlTag
                         tag="h1"
@@ -77,11 +77,11 @@ class LoginUser extends React.Component {
 
                     <InputBox
                         type='email'
-                        placeholder='Email'
+                        placeholder='Username or Email'
                         name={'email'}
                         callback={this.onEmailChange}
                         value={this.state.email.text}
-                        className={'input'}
+                        inputClass={'input-login'}
                     />
 
                     <InputBox
@@ -90,16 +90,27 @@ class LoginUser extends React.Component {
                         name={'password'}
                         callback={this.onPasswordChange}
                         value={this.state.password.text}
-                       className={'input'}
+                        inputClass={'input-login'}
 
                     />
 
                     <Button
-                        text={'Sign in'}
+                        text={'SIGN IN'}
                         callback={this.validateClick}
-                        className={'button'}
+                        className={'button-login'}
                     />
+
                 </div>
+
+                <HtmlTag
+                    tag="span"
+                    text="Sign up"
+                />
+
+                <HtmlTag
+                    tag="p"
+                    text="Forgot your password?"
+                />
 
             </main>
 
