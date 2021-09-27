@@ -3,11 +3,7 @@ import "./InputBox.css";
 const InputBox = (props) => {
 
     const handleCallbackInputBox = (e) => {
-        props.callback(e);
-    };
-
-    const handleCallbackOnBlur = (e) => {
-        props.callbackOnBlur(e);
+        props.callback(e.target.value);
     };
 
     return (
@@ -17,7 +13,6 @@ const InputBox = (props) => {
             type={props.type}
             value={props.value}
             onChange={handleCallbackInputBox}
-            onChange={handleCallbackOnBlur}
             className={props.className}
         />
     );
