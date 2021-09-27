@@ -3,26 +3,33 @@ import '../landing/Landing.css';
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag';
 import Input from '../../../common/components/ui/inputBox/InputBox';
 import Button from '../../../common/components/ui/button/Button';
+import Select from "../../../common/components/ui/select/Select";
 
 class Landing extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            addressValue : '',
+            addressValue: '',
         }
     }
 
     handleCallbackInputBox = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
     /* DA ULTIMARE */
     handleCallbackBtn = (e) => {
-        return 
+        return
     }
+
+    optionsData = [
+        'option1',
+        'option2',
+        'option3'
+    ]
 
     render() {
         return (
@@ -45,6 +52,11 @@ class Landing extends Component {
                     className=''
                 />
 
+                <Select
+                    id={0}
+                    name='test' 
+                    data={this.optionsData}
+                />
 
                 <Button
                     text='Trova Ristoranti'
