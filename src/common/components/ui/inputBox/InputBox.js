@@ -13,7 +13,7 @@ const InputBox = (props) => {
             type={props.type}
             value={props.value}
             onChange={handleCallbackInputBox}
-            className={props.inputClass}
+            className={props.className}
         />
     );
 }
