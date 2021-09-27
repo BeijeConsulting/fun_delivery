@@ -18,4 +18,9 @@ const InputBox = (props) => {
     );
 }
 
+InputBox.defaultProps = {
+    placeholder : '',
+    type : 'text' 
+}
+
 export default InputBox;
