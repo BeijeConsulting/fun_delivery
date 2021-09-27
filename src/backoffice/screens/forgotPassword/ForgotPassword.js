@@ -5,32 +5,49 @@ import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import { Link } from 'react-router-dom'
-
+import Utils from '../../../common/utils/utils'
 class ForgotPassword extends Component {
 
     constructor(props) {
         super(props)
 
+        this.email = ''
+        this.password = ''
+        this.confirmPsw = ''
         this.state = {
-            email: '',
-            password: '',
+            worning:false
         }
     }
 
     handleInputEmail = (e) => {
-        this.setState({
-            email: e.target.value
-        })
+        this.email = e.target.value
     }
 
     handleInputPassword = (e) => {
-        this.setState({
-            password: e.target.value
-        })
+        this.password = e.target.value
+    }
+
+    handleInputConfirmPsw = (e) => {
+        this.confirmPsw = e.target.value
     }
 
     handelSubmit = () => {
 
+        let emailChecked = Utils.validateEmail(this.email);
+        console.log('emailChecked = ', emailChecked);
+        let passwordChecked = Utils.validatePassword(this.password);
+        console.log('passwordChecked = ', passwordChecked);
+
+        let error = this.state.worning
+        if (!emailChecked || !passwordChecked || (this.password !== this.confirmPsw)) {
+            error = true
+        } else {
+            error = false
+            this.props.history.goBack()
+        }
+        this.setState({
+            worning: error
+        })
     }
     render() {
         return (
@@ -40,6 +57,10 @@ class ForgotPassword extends Component {
                 />
                 <BannerBackground />
                 <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>Password dimenticata?</h1>
+                {
+                    this.state.worning &&
+                    <h3>Email o password errati</h3>
+                }
                 <div className="bo-login-form">
                     <InputBox
                         type={'email'}
@@ -57,11 +78,12 @@ class ForgotPassword extends Component {
                         type={'password'}
                         inputClass='bo-input-box'
                         placeholder='Conferma password'
-
+                        callback={this.handleInputConfirmPsw}
                     />
                     <Button
-                        text='ACCEDI'
+                        text='RESET PASSWORD'
                         className='bo-btn'
+                        callback = {this.handelSubmit}
                     />
                     <div style={{ fontSize: '20px' }}>
                         Sei già un nostro partner?
