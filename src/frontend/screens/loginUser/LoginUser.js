@@ -1,7 +1,9 @@
+import { logRoles } from "@testing-library/dom";
 import React from "react";
 import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
+import LogoRosa from "../../../common/assets/LogoSvgRosa.svg"
 import "./LoginUser.css"
 // import utilities from "../../utilities/utilities";
 
@@ -64,51 +66,42 @@ class LoginUser extends React.Component {
     render() {
 
         return (
-            <div className="login-container">
+            <main className="login-container">
+                <img className='logo-style' src={LogoRosa} />
+                <div className='form-login'>
+                    <HtmlTag
+                        tag="h1"
+                        text="Login"
+                    />
 
-                <header className='logo-container'>
-                    <div className='logo-style'>
 
-                    </div>
+                    <InputBox
+                        type='email'
+                        placeholder='Email'
+                        name={'email'}
+                        callback={this.onEmailChange}
+                        value={this.state.email.text}
+                        className={'input'}
+                    />
 
-                    <div>
-                        <HtmlTag
-                            tag="h1"
-                            text="Login"
-                        />
-                    </div>
-                </header>
+                    <InputBox
+                        type={'password'}
+                        placeholder={'Password'}
+                        name={'password'}
+                        callback={this.onPasswordChange}
+                        value={this.state.password.text}
+                       className={'input'}
 
-                <main>
-                    <div className="input-container">
-                        <InputBox
-                            type='email'
-                            placeholder='Email'
-                            name={'email'}
-                            callback={this.onEmailChange}
-                            value={this.state.email.text}
-                        // className={'da definire'}
-                        />
+                    />
 
-                        <InputBox
-                            type={'password'}
-                            placeholder={'Password'}
-                            name={'password'}
-                            callback={this.onPasswordChange}
-                            value={this.state.password.text}
-                        // className={'da definire'}
+                    <Button
+                        text={'Sign in'}
+                        callback={this.validateClick}
+                        className={'button'}
+                    />
+                </div>
 
-                        />
-
-                        <Button
-                            text={'Sign in'}
-                            callback={this.validateClick}
-                        // className={'da definire'}
-                        />
-
-                    </div>
-                </main>
-            </div>
+            </main>
 
         )
     }

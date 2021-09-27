@@ -1,9 +1,55 @@
 *{
     box-sizing: border-box;
     margin: 0 auto;
+    font-family: 'Poppins';
 }
 
 h1{
-    font-family: 'Poppins';
+    color: #3F3D56;
+    font-size: 30px;
+}
+
+.logo-style{
+    width: 175px;
+    margin-bottom: 50px;
+}
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.form-login{
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button{
     text-align: center;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    transition: 200ms;
+    height: 50px;
+    width: 100px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background-color:#F24464 ;
+}
+
+.input{
+    text-align:center;
+    width: 80%;
+    border-radius: 5px;
+    margin: 10px;
 }
