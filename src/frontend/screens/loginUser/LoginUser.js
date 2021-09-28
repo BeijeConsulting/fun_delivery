@@ -3,9 +3,9 @@ import React from "react";
 import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
-// import LogoRosa from "../../../common/assets/LogoSvgRosa.svg"
-// import Logobianco from "../../../common/assets/Logobianco.svg"
+import delivery from "../../../common/assets/delivery.png"
 import "./LoginUser.css"
+import { Link } from "react-router-dom";
 // import utilities from "../../utilities/utilities";
 
 
@@ -81,7 +81,7 @@ class LoginUser extends React.Component {
                         name={'email'}
                         callback={this.onEmailChange}
                         value={this.state.email.text}
-                        inputClass={'input-login'}
+                        className={'input-login'}
                     />
 
                     <InputBox
@@ -90,7 +90,7 @@ class LoginUser extends React.Component {
                         name={'password'}
                         callback={this.onPasswordChange}
                         value={this.state.password.text}
-                        inputClass={'input-login'}
+                        className={'input-login'}
 
                     />
 
@@ -102,16 +102,24 @@ class LoginUser extends React.Component {
 
                 </div>
 
-                <HtmlTag
-                    tag="span"
-                    text="Sign up"
-                />
 
-                <HtmlTag
-                    tag="p"
-                    text="Forgot your password?"
-                />
+                <Link to="/registrationUser">
+                    <HtmlTag
+                        tag="span"
+                        text="Sign up"
 
+                    />
+                </Link>
+
+                <Link to="/forgotPassword">
+                    <HtmlTag
+                        tag="p"
+                        text="Forgot your password?"
+                    />
+                </Link>
+                <div className='logo-style'>
+                    <img src={delivery} />
+                </div>
             </main>
 
         )
