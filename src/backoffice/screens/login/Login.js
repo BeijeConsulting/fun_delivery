@@ -19,7 +19,6 @@ class Login extends Component {
         this.state = {
             worning: false
         }
-
     }
 
     handleInputEmail = (e) => {

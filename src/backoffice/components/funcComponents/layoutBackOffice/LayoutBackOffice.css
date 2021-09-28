@@ -59,3 +59,9 @@ span.ant-layout-sider-zero-width-trigger.ant-layout-sider-zero-width-trigger-lef
     font-size: 13px;
     font-weight: 500;
 }
+
+@media screen and (max-width: 960px){
+    .content{
+        padding: 50px 20px;
+    }
+}
