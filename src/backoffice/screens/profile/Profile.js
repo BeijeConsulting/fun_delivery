@@ -90,13 +90,6 @@ class Profile extends Component {
                                     className="bo-input-box"
                                 />
                             </div>
-                            <div className="bo-profile-flex-inputs">
-
-                                <InputBox
-                                    type="email"
-                                    placeholder="Email"
-                                    className="bo-input-box"
-                                />
                                 <InputBox
                                     type="email"
                                     placeholder="Email"
