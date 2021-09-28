@@ -194,6 +194,7 @@ class Registration extends Component {
                                     selectID='categories'
                                     name='categories'
                                     className = 'bo-input-box'
+                                    callback = {this.handleCallbackInput}
                                 />
                             </div>
 
