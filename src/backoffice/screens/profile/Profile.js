@@ -5,6 +5,7 @@ import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import { EditOutlined, EditFilled } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
+import TextArea from "../../../common/components/ui/textarea/TextArea";
 import 'antd/dist/antd.css';
 
 class Profile extends Component {
@@ -45,24 +46,48 @@ class Profile extends Component {
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
-                                    placeholder="Nome ristorante"
+                                    placeholder="Nome"
                                     className="bo-input-box"
                                 />
                                 <InputBox
                                     type="text"
-                                    placeholder="Via"
+                                    placeholder="Cognome"
                                     className="bo-input-box"
                                 />
                             </div>
                             <InputBox
                                 type="email"
-                                placeholder="CAP"
+                                placeholder="email"
                                 className="bo-input-box"
                             />
                         </div>
 
                         <div className="bo-profile-form">
                             <h3>Il tuo ristorante</h3>
+                            <div className="bo-profile-flex-inputs">
+                                <InputBox
+                                    type="text"
+                                    placeholder="Nome ristorante"
+                                    className="bo-input-box"
+                                />
+                                <InputBox
+                                    type="tel"
+                                    placeholder="Telefono"
+                                    className="bo-input-box"
+                                />
+                            </div>
+                            <div className="bo-profile-flex-inputs">
+                                <InputBox
+                                    type="text"
+                                    placeholder="Via"
+                                    className="bo-input-box"
+                                />
+                                <InputBox
+                                    type="text"
+                                    placeholder="CAP"
+                                    className="bo-input-box"
+                                />
+                            </div>
                             <div className="bo-profile-flex-inputs">
                                 <Select
                                     selectID="state"
@@ -77,29 +102,35 @@ class Profile extends Component {
                                 />
                             </div>
                             <div className="bo-profile-flex-inputs">
-
                                 <InputBox
                                     type="text"
                                     placeholder="P.IVA"
                                     className="bo-input-box"
                                 />
                                 <Select
-                                    selectID="state"
-                                    selectName="state"
+                                    selectID="category"
+                                    selectName="category"
                                     data={['cat1', 'cat2', 'cat3']}
                                     className="bo-input-box"
                                 />
                             </div>
-                                <InputBox
-                                    type="email"
-                                    placeholder="Email"
-                                    className="bo-input-box"
-                                />
-                            </div>
-
+                            <Select
+                                selectID="discount"
+                                selectName="discount"
+                                data={['cat1', 'cat2', 'cat3']}
+                                className="bo-input-box"
+                            />
+                            <TextArea 
+                                name="description"
+                                className="bo-input-box"
+                                id="description"
+                                value="test prova ciao"
+                            />
                         </div>
 
                     </div>
+
+
                 </LayoutBackOffice>
             </>
         )

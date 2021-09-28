@@ -27,19 +27,20 @@
     margin-top: 60px;
 }
 
-
 .bo-profile-img {
     height: 45px;
     width: 45px;
 }
+
 .bo-profile-img img {
    height: 100%;
    width: 100%;
     object-fit: contain;
 }
 
-
-select[name="state"] {
+select[name="state"], 
+select[name="category"],
+select[name="discount"]{
     outline: none;
     text-align: center;
     display: block;
@@ -51,7 +52,6 @@ select[name="state"] {
     font-size: 16px;
 }
 
-
 @media screen and (max-width: 960px) {
     .bo-profile-first-row {
         flex-direction: column-reverse;
@@ -61,6 +61,4 @@ select[name="state"] {
         flex-direction: column;
         align-items: center;
     }
-
-
 }
