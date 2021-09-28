@@ -15,7 +15,7 @@ class ForgotPassword extends Component {
         this.password = ''
         this.confirmPsw = ''
         this.state = {
-            worning:false
+            warning:false
         }
     }
 
@@ -38,7 +38,7 @@ class ForgotPassword extends Component {
         let passwordChecked = Utils.validatePassword(this.password);
         console.log('passwordChecked = ', passwordChecked);
 
-        let error = this.state.worning
+        let error = this.state.warning
         if (!emailChecked || !passwordChecked || (this.password !== this.confirmPsw)) {
             error = true
         } else {
@@ -46,7 +46,7 @@ class ForgotPassword extends Component {
             this.props.history.goBack()
         }
         this.setState({
-            worning: error
+            warning: error
         })
     }
     render() {
@@ -58,25 +58,25 @@ class ForgotPassword extends Component {
                 <BannerBackground />
                 <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>Password dimenticata?</h1>
                 {
-                    this.state.worning &&
+                    this.state.warning &&
                     <h3>Email o password errati</h3>
                 }
                 <div className="bo-login-form">
                     <InputBox
                         type={'email'}
-                        inputClass='bo-input-box'
+                        className='bo-input-box'
                         placeholder='Email'
                         callback={this.handleInputEmail}
                     />
                     <InputBox
                         type={'password'}
-                        inputClass='bo-input-box'
+                        className='bo-input-box'
                         placeholder='Password'
                         callback={this.handleInputPassword}
                     />
                     <InputBox
                         type={'password'}
-                        inputClass='bo-input-box'
+                        className='bo-input-box'
                         placeholder='Conferma password'
                         callback={this.handleInputConfirmPsw}
                     />
