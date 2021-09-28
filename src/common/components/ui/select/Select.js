@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Select = (props) => {
 
-    handlecallback = (e) => {
+    const handlecallback = (e) => {
         props.callback(e)
     }
 
@@ -12,7 +12,7 @@ const Select = (props) => {
         <select id={props.selectID}
             name={props.selectName}
             className={props.className}
-            onChange={props.handlecallback}
+            onChange={handlecallback}
         >
             {
                 props.data.map((item, index) => {
