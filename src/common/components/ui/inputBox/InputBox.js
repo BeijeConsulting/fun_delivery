@@ -6,6 +6,10 @@ const InputBox = (props) => {
         props.callback(e);
     };
 
+    const handleCallbackOnBlur = (e) => {
+        props.callbackOnBlur(e);
+    };
+
     return (
         <input
             placeholder={props.placeholder}
@@ -13,6 +17,7 @@ const InputBox = (props) => {
             type={props.type}
             value={props.value}
             onChange={handleCallbackInputBox}
+            onChange={handleCallbackOnBlur}
             className={props.className}
         />
     );
