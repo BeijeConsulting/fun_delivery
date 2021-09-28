@@ -10,9 +10,9 @@ class SidebarRestaurants extends React.Component {
         // Marks utili allo slider del range di prezzo. Verranno importati dai ristoranti
         const marks = {
             0: '€3',
-            20: '€5',
-            40: '€7',
-            60: '€7+'
+            3: '€5',
+            6: '€7',
+            8: '€7+'
         };
 
         return (
@@ -21,9 +21,9 @@ class SidebarRestaurants extends React.Component {
                 <div className="orderBy">
                     <h4>Ordina</h4>
                     {/* <ElementListRadio id={"chosenRadio"} name="chosen" value="chosen for you" for={"chosenRadio"} label={"Chosen for you"} /> Quelli consigliati */}
-                    <ElementListRadio id={"popularRadio"} name="order" value="most popular" for={"popularRadio"} label={"Most popular"} />
-                    <ElementListRadio id={"ratingRadio"} name="order" value="best rating" for={"ratingRadio"} label={"Best rating"} />
-                    <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery time" for={"deliveryTimeRadio"} label={"Delivery time"} />
+                    <ElementListRadio id={"popularRadio"} name="order" value="most popular" for={"popularRadio"} label={" Most popular"} />
+                    <ElementListRadio id={"ratingRadio"} name="order" value="best rating" for={"ratingRadio"} label={" Best rating"} />
+                    <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery time" for={"deliveryTimeRadio"} label={" Delivery time"} />
                 </div>
                 <div className="priceOrder">
                     <h4>Fascia di prezzo</h4>
@@ -39,7 +39,7 @@ class SidebarRestaurants extends React.Component {
                     <div className="deliveryRangeContainer">
                         <div className="deliveryRangeSon">
                             <div className="deliveryPriceRange">
-                                <Slider marks={marks} step={null} defaultValue={0} max={60} />
+                                <Slider handleStyle={{'backgroundColor': '#ffffff', 'border': 'solid 2px #f24464'}} trackStyle={{ 'backgroundColor': '#f24464' }}marks={marks} step={null} defaultValue={8} max={8} />
                             </div>
                         </div>
                     </div>
