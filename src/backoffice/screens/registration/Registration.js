@@ -30,7 +30,7 @@ class Registration extends Component {
             restaurant_category: null,
         }
 
-        this.country = ['Italy','England']
+        this.country = ['Italy', 'England']
 
         this.categories = [
             'Ristoranti',
@@ -42,6 +42,7 @@ class Registration extends Component {
         ]
 
         this.state = {
+            data:this.objData,
             warning: false
         }
     }
@@ -57,44 +58,24 @@ class Registration extends Component {
         ]
     }
 
-    handleCallbackName = (param) => {
-        this.objData.firstName = param
-    }
-    handleCallbackSurname = (param) => {
-        this.objData.lastName = param
-    }
-    handleCallbackEmail = (param) => {
-        this.objData.email = param
-    }
-    handleCallbacPassword = (param) => {
-        this.objData.password = param
-    }
-    handleCallbacConfirmPassword = (param) => {
-        this.objData.confirmPsw = param
-    }
-    handleCallbacNameRestourant = (param)=>{
-        this.objData.restaurant_name = param
-    }
-    handleCallbackAddress = (param)=>{
-        this.objData.address.street = param
-    }
-    handleCallbackCity = (param)=>{
-        this.objData.address.city = param
-    }
-    handleCallbackCap = (param)=>{
-        this.objData.address.cap = param
-    }
-    handleCallTelephoneNumber = (param) =>{
-        this.objData.phone_number = param
-    }
-    handleCallVAT = (param)=>{
-        this.objData.VAT = param
+    handleCallbackInput = (e) => {
+        const words = e.target.name.split(' ')
+        if (words[0] === 'address') {
+            this.objData.address[words[1]] = e.target.value
+        } else {
+            this.objData[e.target.name] = e.target.value
+        }
+        console.log('objData', this.objData);
+        this.setState({
+            data:this.objData
+        })
     }
 
     // Manca Stato e Categoria 
-    
+
     handleSubmit = () => {
         let error = this.state.warning
+        console.log('arrObj', this.objData);
         /* Controllo sul Nome Ristoratore*/
         if (!Utils.validateName(this.objData.firstName)) { error = true }
 
@@ -150,14 +131,16 @@ class Registration extends Component {
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="Nome"
-                                    callback={this.handleCallbackName}
+                                    callback={this.handleCallbackInput}
+                                    name='firstName'
 
                                 />
                                 <InputBox
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="Cognome"
-                                    callback={this.handleCallbackSurname}
+                                    callback={this.handleCallbackInput}
+                                    name='lastName'
                                 />
                             </div>
 
@@ -165,7 +148,8 @@ class Registration extends Component {
                                 type="email"
                                 className="bo-input-box"
                                 placeholder="Email"
-                                callback={this.handleCallbackEmail}
+                                callback={this.handleCallbackInput}
+                                name = 'email'
                             />
 
                             <div className="flex-inputs">
@@ -173,13 +157,15 @@ class Registration extends Component {
                                     type="password"
                                     className="bo-input-box"
                                     placeholder="Password"
-                                    callback={this.handleCallbacPassword}
+                                    callback={this.handleCallbackInput}
+                                    name = 'password'
                                 />
                                 <InputBox
                                     type="password"
                                     className="bo-input-box"
                                     placeholder="Conferma password"
-                                    callback={this.handleCallbacConfirmPassword}
+                                    callback={this.handleCallbackInput}
+                                    name = 'confirmPsw'
                                 />
                             </div>
 
@@ -195,7 +181,8 @@ class Registration extends Component {
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="Nome ristorante"
-                                    callback = {this.handleCallbacNameRestourant}
+                                    callback={this.handleCallbackInput}
+                                    name='restaurant_name'
                                 />
                                 {/* </div> */}
 
@@ -204,8 +191,9 @@ class Registration extends Component {
                                 {/* </div> */}
                                 <Select
                                     data={this.categories}
-                                    selectID={0}
+                                    selectID='categories'
                                     name='categories'
+                                    className = 'bo-input-box'
                                 />
                             </div>
 
@@ -214,13 +202,15 @@ class Registration extends Component {
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="Via"
-                                    callback={this.handleCallbackAddress}
+                                    callback={this.handleCallbackInput}
+                                    name='address street'
                                 />
                                 <InputBox
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="Città"
-                                    callback={this.handleCallbackCity}
+                                    callback={this.handleCallbackInput}
+                                    name='address city'
                                 />
                             </div>
 
@@ -229,7 +219,8 @@ class Registration extends Component {
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="CAP"
-                                    callback={this.handleCallbackCap}
+                                    callback={this.handleCallbackInput}
+                                    name = 'address cap'
                                 />
                                 <select className="bo-input-box">
                                     <option>Stato</option>
@@ -243,19 +234,21 @@ class Registration extends Component {
                                     type="tel"
                                     className="bo-input-box"
                                     placeholder="Telefono"
-                                    callback = {this.handleCallTelephoneNumber}
+                                    callback={this.handleCallbackInput}
+                                    name = 'phone_number'
                                 />
                                 <InputBox
                                     type="text"
                                     className="bo-input-box"
                                     placeholder="P.IVA"
-                                    callback = {this.handleCallVAT}
+                                    callback={this.handleCallbackInput}
+                                    name = 'VAT'
                                 />
                             </div>
                             <Button
                                 text='REGISTRATI'
                                 className='bo-btn'
-                                callback={this.handleSubmit} />
+                                callback={this.handleCallbackInput} />
                         </div>
                     </div>
 

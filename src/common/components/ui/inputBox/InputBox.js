@@ -3,7 +3,7 @@ import "./InputBox.css";
 const InputBox = (props) => {
 
     const handleCallbackInputBox = (e) => {
-        props.callback(e.target.value);
+        props.callback(e);
     };
 
     return (
