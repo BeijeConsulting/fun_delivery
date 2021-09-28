@@ -2,6 +2,11 @@ import React from 'react'
 import './TextArea.css'
 
 const TextArea = (props) => {
+    
+    const handleTextAreaCallback = (e) => {
+        props.callback(e)
+    }
+    
     return(
         <textarea 
             name={props.name} 
@@ -9,6 +14,7 @@ const TextArea = (props) => {
             className={props.className}
             col="4"
             rows="5"
+            onChange={handleTextAreaCallback}
         >
             {
                 props.value &&
