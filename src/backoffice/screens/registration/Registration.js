@@ -57,7 +57,6 @@ class Registration extends Component {
         } else {
             this.objData[e.target.name] = e.target.value
         }
-        console.log('objData', this.objData);
         this.setState({
             data: this.objData
         })
@@ -70,71 +69,73 @@ class Registration extends Component {
         /* Controllo sul Nome Ristoratore*/
         if (!utils.validateName(this.objData.firstName)) {
             error = true
-            console.log('validateName:', toString(error));
+            console.log('validateName:', error);
         }
 
         /* Controllo Cognome Ristoratore */
         if (!utils.validateName(this.objData.lastName)) {
             error = true
-            console.log('validatelastName:', toString(error));
+            console.log('validatelastName:', error);
         }
 
         /* Controllo Nome Ristorante */
         if (!utils.validateName(this.objData.restaurant_name)) {
             error = true
-            console.log('validateRestourantName:', toString(error));
+            console.log('validateRestourantName:', error);
         }
 
         /* Controllo email */
         if (!utils.validateEmail(this.objData.email)) {
             error = true
-            console.log('validateEmail:', toString(error));
+            console.log('validateEmail:', error);
         }
 
         /* Controllo password e conferma password */
         if (!utils.validatePassword(this.objData.password) || !utils.validatePassword(this.objData.confirmPsw) || !utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
             error = true
-            console.log('validatePassword:', toString(error));
+            console.log('validatePassword:', error);
         }
 
         /* Controllo Restaurant_Category */
         if (!this.objData.restaurant_category) {
             error = true
-            console.log('validateRestourant:', toString(error));
+            console.log('validateRestourantCategory:', error);
         }
 
         /* Controllo State */
         if (!this.objData.address.country) {
             error = true
-            console.log('validateCountry:', toString(error));
+            console.log('validateCountry:', error);
         }
 
         /* Controllo Via */
         if (!utils.validateAddress(this.objData.address.street)) {
             error = true
-            console.log('validateAddressStreet:', toString(error));
+            console.log('validateAddressStreet:', error);
         }
 
         /* Controllo  Città */
         if (!utils.validateCity(this.objData.address.city)) {
             error = true
-            console.log('validateCity:', toString(error));
+            console.log('validateCity:', error);
         }
 
         /* Controllo CAP */
         if (!utils.validateCap(this.objData.address.cap)) {
             error = true
-            console.log('validateCap:', toString(error));
+            console.log('validateCap:', error);
         }
         /* Controllo Telefono */
         if (!utils.validatePhone(this.objData.phone_number)) {
             error = true
-            console.log('validatePhone:', toString(error));
+            console.log('validatePhone:', error);
         }
         /* Controllo P.IVA */
-        if (!utils.validateVAT(this.objData.VAT)) { error = true 
-        
-            console.log('validateVAT:', toString(error));}
+        if (!utils.validateVAT(this.objData.VAT)) {
+            error = true
+
+            console.log('validateVAT:', error);
+        }
 
         this.setState({
             warning: error
@@ -224,7 +225,7 @@ class Registration extends Component {
                                 <Select
                                     data={this.categories}
                                     selectID='categories'
-                                    name='restaurant_category'
+                                    selectName='restaurant_category'
                                     className='bo-input-box'
                                     callback={this.handleCallbackInput}
                                 />
@@ -260,7 +261,7 @@ class Registration extends Component {
                                     selectID='countrys'
                                     className='bo-input-box'
                                     callback={this.handleCallbackInput}
-                                    selectName='address state'
+                                    selectName='address country'
                                 />
                             </div>
 
