@@ -4,7 +4,7 @@ import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
-import Utils from '../../../common/utils/utils'
+import utils from '../../../common/utils/utils'
 import Select from '../../../common/components/ui/select/Select'
 // import { message, Button as ButtonAnt } from 'antd';
 class Registration extends Component {
@@ -77,19 +77,19 @@ class Registration extends Component {
         let error = this.state.warning
         console.log('arrObj', this.objData);
         /* Controllo sul Nome Ristoratore*/
-        if (!Utils.validateName(this.objData.firstName)) { error = true }
+        if (!utils.validateName(this.objData.firstName)) { error = true }
 
         /* Controllo Cognome Ristoratore */
-        if (!Utils.validateName(this.objData.lastName)) { error = true }
+        if (!utils.validateName(this.objData.lastName)) { error = true }
 
         /* Controllo Nome Ristorante */
-        if (!Utils.validateName(this.objData.restaurant_name)) { error = true }
+        if (!utils.validateName(this.objData.restaurant_name)) { error = true }
 
         /* Controllo email */
-        if (!Utils.validateEmail(this.objData.email)) { error = true }
+        if (!utils.validateEmail(this.objData.email)) { error = true }
 
         /* Controllo password e conferma password */
-        if (!Utils.validatePassword(this.objData.password) || !Utils.validatePassword(this.objData.confirmPsw) || !Utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
+        if (!utils.validatePassword(this.objData.password) || !utils.validatePassword(this.objData.confirmPsw) || !utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
             error = true
         }
 
@@ -98,11 +98,11 @@ class Registration extends Component {
         /* Controllo  Città */
 
         /* Controllo CAP */
-        if (!Utils.validateCap(this.objData.address.cap)) { error = true }
+        if (!utils.validateCap(this.objData.address.cap)) { error = true }
         /* Controllo Telefono */
-        if (!Utils.validatePhone(this.objData.phone_number)) { error = true }
+        if (!utils.validatePhone(this.objData.phone_number)) { error = true }
         /* Controllo P.IVA */
-        if (!Utils.validateVAT(this.objData.VAT)) { error = true }
+        if (!utils.validateVAT(this.objData.VAT)) { error = true }
 
         this.setState({
             warning: error
