@@ -2,9 +2,8 @@
 input {
     text-align: center;
     border-radius: 5px;
-    cursor: pointer;
     border: none;
     outline: none;
-    transition: 0.2;
-    padding: 10px 25px;
+    transition: 200ms;
+    padding: 10px;
 }
