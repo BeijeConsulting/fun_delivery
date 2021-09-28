@@ -4,6 +4,7 @@ import './Navbar.css';
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
 
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 const Navbar = (props) => {
 
@@ -18,6 +19,12 @@ const Navbar = (props) => {
         setIsBurgerClicked(isBurgerClicked ? false : true);
     }
 
+    // VA IMPLEMENTATO IL RENDER DI ALCUNI ELEMENTI DINAMICI ALL'interno della navbar 
+    // per mostrare la barra di ricerca del ristorante
+
+    let location = useLocation();
+    console.log(location.pathname);
+    
     return (
         <nav className="navbar">
             {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
@@ -67,11 +74,11 @@ const Navbar = (props) => {
                 <div className={`drop-down-link-box ${isBurgerClicked ? 'drop' : ''}`}>
                     <div className='link-container'>
                         <span>
-                            <Link style={styleObj} to="/loginUser">Login</Link>
+                            <Link style={{color:'#3f3d56',textDecoration: 'none'}} to="/loginUser">Login</Link>
                         </span>
 
                         <span>
-                            <Link style={styleObj} to="/registrationUser">Registrazione</Link>
+                            <Link style={{color:'#3f3d56',textDecoration: 'none'}} to="/registrationUser">Registrazione</Link>
                         </span>
                     </div>
 
