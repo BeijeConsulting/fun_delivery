@@ -11,7 +11,7 @@ class Landing extends Component {
 
         this.state = {
             addressValue: '',
-            hourValue: '', 
+            hourValue: '',
         }
     }
 
@@ -35,38 +35,40 @@ class Landing extends Component {
     render() {
         return (
             <div className='landing-screen'>
-                {/* NAV  */}
+                <div className='landing-content'>
+                    {/* NAV  */}
 
-                <HtmlTag
-                    tag='h1'
-                    htmlTagStyle='main-title'
-                    text='Fame? Si mangia!'
-                />
-
-                <div className='main-box'>
-                    <Input
-                        placeholder='via Roma n.173'
-                        name='addressValue'
-                        type='text'
-                        value={this.state.addressValue}
-                        callback={this.handleCallbackInputBox}
-                        className='landing-input'
-                    />
-                    <Input
-                        name='hourValue'
-                        type='time'
-                        callback={this.handleCallbackInputBox}
-                        className='landing-input'
+                    <HtmlTag
+                        tag='h1'
+                        htmlTagStyle='main-title'
+                        text='Fame? Si mangia!'
                     />
 
-                    <Button
-                        text='Trova Ristoranti'
-                        callback={this.handleCallbackBtn}
-                        className='landing-btn'
-                    />
+                    <div className='main-box'>
+                        <Input
+                            placeholder='via Roma n.173'
+                            name='addressValue'
+                            type='text'
+                            value={this.state.addressValue}
+                            callback={this.handleCallbackInputBox}
+                            className='landing-input'
+                        />
+                        <Input
+                            name='hourValue'
+                            type='time'
+                            callback={this.handleCallbackInputBox}
+                            className='landing-input'
+                        />
+
+                        <Button
+                            text='Trova Ristoranti'
+                            callback={this.handleCallbackBtn}
+                            className='landing-btn'
+                        />
+                    </div>
+
+                    {/* FOOTER */}
                 </div>
-
-                {/* FOOTER */}
             </div>
         )
     }
