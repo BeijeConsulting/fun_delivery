@@ -8,7 +8,8 @@ const utils = {
     validateCap: (params) => { return /^\d\d\d\d\d$/i.test(params) },
     validateVAT: (params) => { return /^\d\d\d\d\d\d\d\d\d\d\d$/i.test(params) },
     validatePhone: (params) => { return /^\d\d\d\d\d\d\d\d\d\d$/i.test(params)},
-
+    validateCity: (params)=>{return/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/i.test(params)},
+    validateAddress:(params)=>{return/^[a-zA-Z]([a-zA-Z-]+\s)+\d{1,4}$/i.test(params)},
 }
 
 export default utils
