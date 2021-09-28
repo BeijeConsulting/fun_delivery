@@ -18,6 +18,19 @@ class Restaurants extends React.Component {
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                     <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                    <SingleRestaurant image={imagePaniniCaMeusa} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                 </div>
             </main>
         )

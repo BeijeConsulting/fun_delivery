@@ -1,6 +1,7 @@
 .mainContainerRestaurants{
     display: flex;
     
+   
 }
 
 .sideNav{
@@ -8,14 +9,25 @@
     margin-left: 50px;
     min-width: 300px;
     margin-top: 10px;
-    
-    
+    padding-right: 35px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .restaurantsListContainer{
     flex:75%;
+    border:1px solid black;
+    flex-wrap: wrap;
 }
 
 .priceOrder li{
     display:inline
+}
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px) {
+    .sideNav{
+        display: none;
+    }
 }
