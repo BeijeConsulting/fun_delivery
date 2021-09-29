@@ -8,6 +8,12 @@
     color: white;
 }
 
+.bo-navbar h2 {
+    color: #fff;
+    font-weight: 600;
+    margin: 0;
+}
+
 .bo-navbar img{
     max-width: 120px;
 }

@@ -19,7 +19,6 @@ class Login extends Component {
         this.state = {
             warning: false
         }
-
     }
 
     handleInputEmail = (e) => {

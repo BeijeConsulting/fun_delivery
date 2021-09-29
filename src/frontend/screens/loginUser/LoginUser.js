@@ -1,13 +1,127 @@
+
 import React from "react";
+import Button from "../../../common/components/ui/button/Button";
+import InputBox from "../../../common/components/ui/inputBox/InputBox";
+import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
+import delivery from "../../../common/assets/delivery.png"
+import "./LoginUser.css"
+import { Link } from "react-router-dom";
+// import utilities from "../../utilities/utilities";
+
+
+
 
 class LoginUser extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+
+
+            // buttonClick: false,
+
+            email: {
+                text: "",
+                isValid: false,
+
+            },
+            password: {
+                text: "",
+                isValid: false,
+
+            }
+
+        }
+    }
+
+
+
+    validateClick = (e) => {
+
+        return true
+
+    }
+
+
+    onEmailChange = (e) => {
+        this.setState({
+            email: {
+                text: e.target.value,
+                isValid: false
+            }
+        })
+    }
+
+    onPasswordChange = (e) => {
+        this.setState({
+            password: {
+                text: e.target.value,
+                isValid: false
+            }
+        })
+    }
+
+
+
 
     render() {
 
         return (
-            <>
-                LoginUser
-            </>
+            <main className="login-container">
+                <div className='form-login'>
+                    <HtmlTag
+                        tag="h1"
+                        text="Login"
+                    />
+
+
+                    <InputBox
+                        type='email'
+                        placeholder='Username or Email'
+                        name={'email'}
+                        callback={this.onEmailChange}
+                        value={this.state.email.text}
+                        className={'input-login'}
+                    />
+
+                    <InputBox
+                        type={'password'}
+                        placeholder={'Password'}
+                        name={'password'}
+                        callback={this.onPasswordChange}
+                        value={this.state.password.text}
+                        className={'input-login'}
+
+                    />
+
+                    <Button
+                        text={'SIGN IN'}
+                        callback={this.validateClick}
+                        className={'button-login'}
+                    />
+
+                </div>
+
+
+                <Link to="/registrationUser">
+                    <HtmlTag
+                        tag="span"
+                        text="Sign up"
+
+                    />
+                </Link>
+
+                <Link to="/forgotPassword">
+                    <HtmlTag
+                        tag="p"
+                        text="Forgot your password?"
+                    />
+                </Link>
+                <div className='logo-style'>
+                    <img src={delivery} />
+                </div>
+            </main>
+
         )
     }
 
