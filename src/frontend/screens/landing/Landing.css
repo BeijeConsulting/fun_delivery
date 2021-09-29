@@ -3,7 +3,7 @@
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
-    height: calc(100vh - 88.19px);
+    height: calc(100vh - 82px);
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
