@@ -67,11 +67,12 @@ class LoginUser extends React.Component {
     render() {
 
         return (
-            <main className="login-container">
-                <div className='form-login'>
+            <main className="frontend-outer-container fe-login">
+                <div className='frontend-inner-container'>
                     <HtmlTag
                         tag="h1"
                         text="Login"
+                        className='frontend-h1'
                     />
 
 
@@ -81,7 +82,7 @@ class LoginUser extends React.Component {
                         name={'email'}
                         callback={this.onEmailChange}
                         value={this.state.email.text}
-                        className={'input-login'}
+                        className={'frontend-input'}
                     />
 
                     <InputBox
@@ -90,36 +91,36 @@ class LoginUser extends React.Component {
                         name={'password'}
                         callback={this.onPasswordChange}
                         value={this.state.password.text}
-                        className={'input-login'}
+                        className={'frontend-input'}
 
                     />
 
                     <Button
                         text={'SIGN IN'}
                         callback={this.validateClick}
-                        className={'button-login'}
+                        className={'frontend-primary-btn'}
                     />
 
                 </div>
 
 
-                <Link to="/registrationUser">
+                <Link to="/registrationUser" style={{ textDecoration: 'none' }}>
                     <HtmlTag
                         tag="span"
                         text="Sign up"
-
+                        className='frontend-link'
                     />
                 </Link>
 
-                <Link to="/forgotPassword">
+                <Link to="/forgotPassword" style={{ textDecoration: 'none' }}>
                     <HtmlTag
-                        tag="p"
+                        tag="span"
                         text="Forgot your password?"
+                        className='frontend-link'
                     />
                 </Link>
-                <div className='logo-style'>
-                    <img src={delivery} />
-                </div>
+
+                <img className='frontend-img' src={delivery} />
             </main>
 
         )

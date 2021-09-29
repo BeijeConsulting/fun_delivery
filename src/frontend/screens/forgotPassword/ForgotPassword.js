@@ -31,50 +31,38 @@ export default class ForgotPassword extends Component {
 
     render() {
         return (
-            <main className='container'>
-                <div className='form'>
+            <main className='frontend-outer-container fe-forgot'>
+                <div className='frontend-inner-container'>
                     <HtmlTag
                         tag="h1"
                         text="Reset Password"
+                        className='frontend-h1'
                     />
                     <InputBox
-                        className='inputBoxPass'
                         placeholder='Username or Email'
                         callback={this.controlMail}
                         trueorfalse={this.state.mailControl}
+                        className='frontend-input'
                     />
 
                     <InputBox
-                        className='inputBoxPass'
                         placeholder='Password'
                         callback={this.controlPassword}
+                        className='frontend-input'
                     />
                     <InputBox
-                        className='inputBoxPass'
                         placeholder='Confirm Password'
                         callback={this.controlPassword}
+                        className='frontend-input'
                     />
                     <Button
-                        className='buttonForgot'
-                        text='SIGN IN'
+                        text='RESET'
                         callback={this.controlRes}
+                        className='frontend-primary-btn'
                     />
-
-
                 </div>
 
-
-                <Link to="/registrationUser">
-                    <HtmlTag
-                        tag="span"
-                        text="Sign up"
-
-                    />
-                </Link>
-
-                <div className='logo-forgot-style'>
-                    <img src={delivery} />
-                </div>
+                <img className='frontend-img' src={delivery} />
 
             </main>
         )

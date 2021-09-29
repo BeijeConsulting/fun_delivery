@@ -1,5 +1,10 @@
 /* Add css here */
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
@@ -9,35 +14,35 @@
     flex-direction: column;
     padding: 5rem 2rem 0 2rem
 }
-.landing-content{
+.landing-screen .landing-content{
     width: 50%;
 }
 
-.main-box{
+.landing-screen .main-box{
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 100%;
 }
 /* TO BE re-checked */
-.landing-input{
+.landing-screen .landing-input{
     padding: 10px 20px;
     margin-bottom: 1rem;
     /* TO BE re-checked */
     /* 
     border: 3px solid rgb(48, 124, 211); */
 }
-.landing-btn{
+.landing-screen .landing-btn{
     margin-top: 1rem;
     padding: 10px 20px;
     color: white;
     background-color: #3F3D56;
 }
-.landing-btn:hover{
+.landing-screen .landing-btn:hover{
     background-color: rgba(63, 61, 86, .85);
     color: white;
 }
-.main-title{
+.landing-screen .main-title{
     color: white;
     margin-bottom: 2rem;
 }
@@ -46,7 +51,7 @@
     .landing-screen{
         align-items: center;
     }
-    .landing-content{
+    .landing-screen .landing-content{
         width: 100%;
     }
 }

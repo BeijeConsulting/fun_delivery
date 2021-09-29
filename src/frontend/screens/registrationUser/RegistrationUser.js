@@ -3,7 +3,8 @@ import React from "react";
 //import Button
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import Button from "../../../common/components/ui/button/Button";
-
+import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
+import delivery from '../../../common/assets/delivery.png'
 import { Link } from "react-router-dom";
 import './RegistrationUser.css'
 
@@ -23,8 +24,8 @@ class RegistrationUser extends React.Component {
 
     handleInputChange = (e) => {
         console.log(e.target.name);
-        this.setState({ 
-            [e.target.name] : e.target.value 
+        this.setState({
+            [e.target.name]: e.target.value
         });
     };
 
@@ -35,18 +36,21 @@ class RegistrationUser extends React.Component {
 
     render() {
         return (
-            <>
-                <h1 style={{ textAlign: 'center' }}>Logo Beije</h1>
-                <h2 style={{ textAlign: 'center' }}>Registration</h2>
-                <form className="container">
-                    <div className="form">
+
+            <div className="frontend-outer-container fe-registration">
+                <div className="frontend-inner-container">
+                    <HtmlTag
+                        tag="h1"
+                        text="Register"
+                        className='frontend-h1'
+                    />
                     <InputBox
                         placeholder={"Nome"}
                         name={"userName"}
                         type={"text"}
                         value={this.state.name}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
                     <InputBox
                         placeholder={"Cognome"}
@@ -54,7 +58,7 @@ class RegistrationUser extends React.Component {
                         type={"text"}
                         value={this.state.surname}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
 
                     <InputBox
@@ -63,7 +67,7 @@ class RegistrationUser extends React.Component {
                         type={"email"}
                         value={this.state.email}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
 
                     <InputBox
@@ -72,7 +76,7 @@ class RegistrationUser extends React.Component {
                         type={"tel"}
                         value={this.state.phone}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
 
                     <InputBox
@@ -81,7 +85,7 @@ class RegistrationUser extends React.Component {
                         type={"password"}
                         value={this.state.password}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
 
                     <InputBox
@@ -90,17 +94,18 @@ class RegistrationUser extends React.Component {
                         type={"password"}
                         value={this.state.confpsw}
                         callback={this.handleInputChange}
-                        inputClass={"inputBox"}
+                        className={"frontend-input"}
                     />
                     {/* validazione dati e invio dei dati */}
                     <Button
-                        text={"SIGN IN"}
-                        className={"buttonBox"}
+                        text={"SIGN UP"}
                         callback={this.handleSignUp}
+                        className={"frontend-primary-btn"}
                     />
-                    </div>
-                </form>
-            </>
+                </div>
+
+                <img className='frontend-img' src={delivery} />
+            </div>
         );
     }
 }
