@@ -13,32 +13,33 @@ class Registration extends Component {
         super(props)
 
         this.objData = {
-            firstName: null,
-            lastName: null,
-            email: null,
-            password: null,
-            confirmPsw: null,
-            restaurant_name: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPsw: '',
+            restaurant_name: '',
             address: {
-                street: null,
-                city: null,
+                street: '',
+                city: '',
                 cap: null,
-                country: null,
+                country: '',
             },
             VAT: null,
             phone_number: null,
-            restaurant_category: null,
+            restaurant_category:'',
         }
 
         this.countrys = ['State', 'Italy', 'England']
 
         this.categories = [
             'Categories',
-            'Ristoranti',
-            'Cucina Italiana Locale - Regionale',
-            'Cucina statunitense - Fast Food',
-            'Cucina orientale',
-            'Cucina occidentale',
+            'Pizza',
+            'Pokè',
+            'Sushi',
+            'Messicano',
+            'Italiano',
+            'Hamburger',
             'Altro'
         ]
 
