@@ -48,6 +48,24 @@
         margin: 10px 5px 10px 5px;
     }
 }
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) {
+
+    .restaurantsListContainer{
+        height: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        margin-right: -3px;
+    }
+    .wrapperImage {
+        width: 45vw;
+    }
+    
+
+}
 /* @media only screen 
   and (min-device-width: 375px)
   and (max-width: 568px){

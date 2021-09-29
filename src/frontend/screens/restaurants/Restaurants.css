@@ -16,7 +16,6 @@
 
 .restaurantsListContainer{
     flex:75%;
-    border:1px solid black;
     flex-wrap: wrap;
 }
 
@@ -28,6 +27,39 @@
   and (min-device-width: 320px) 
   and (max-device-width: 480px) {
     .sideNav{
+        display: none;
+    }
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (orientation: landscape) {
+    .sideNav{
+        display: none;
+    }
+}
+@media only screen 
+  and (min-device-width: 480px) 
+  and (max-device-width: 768px) 
+  and (orientation: portrait) {
+      .sideNav{
+        display: none;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) {
+      .sideNav{
+        display: none;
+    }
+}
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) {
+      .sideNav{
         display: none;
     }
 }
