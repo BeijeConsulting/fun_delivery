@@ -6,6 +6,21 @@ import { Slider } from 'antd';
 import 'antd/dist/antd.css';
 
 class SidebarRestaurants extends React.Component {
+    constructor(props){
+        super(props)
+    }
+    
+    // orderByRestaurants = (e) => {
+    //     console.log(e.target.value)
+    //     e.target.value==="delivery_time" ? orderBy(this.props.restaurantList, [e.target.value], ['asc']) : orderBy(this.props.restaurantList, [e.target.value], ['desc'])
+    //     console.log( e.target.value==="delivery_time" ? orderBy(this.props.restaurantList, [e.target.value], ['asc']) : orderBy(this.props.restaurantList, [e.target.value], ['desc']))
+        
+    // }
+
+    handleChangeElementRadio = (e) => {
+        return this.props.callbackElementRadio(e)
+      } 
+
     render() {
         // Marks utili allo slider del range di prezzo. Verranno importati dai ristoranti
         const marks = {
@@ -14,21 +29,21 @@ class SidebarRestaurants extends React.Component {
             6: '€7',
             8: '€7+'
         };
-
+        
         return (
             <aside className="sideNav" >
                 <h3>Tutti i locali</h3>
                 <div className="orderBy">
                     <h4>Ordina</h4>
                     {/* <ElementListRadio id={"chosenRadio"} name="chosen" value="chosen for you" for={"chosenRadio"} label={"Chosen for you"} /> Quelli consigliati */}
-                    <ElementListRadio id={"popularRadio"} name="order" value="most popular" for={"popularRadio"} label={" Most popular"} />
-                    <ElementListRadio id={"ratingRadio"} name="order" value="best rating" for={"ratingRadio"} label={" Best rating"} />
-                    <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery time" for={"deliveryTimeRadio"} label={" Delivery time"} />
+                    <ElementListRadio id={"popularRadio"} name="order" value="number_orders" for={"popularRadio"} label={" Most popular"} callback={this.handleChangeElementRadio}/>
+                    <ElementListRadio id={"ratingRadio"} name="order" value="rating" for={"ratingRadio"} label={" Best rating"} callback={this.handleChangeElementRadio}/>
+                    <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery_time" for={"deliveryTimeRadio"} label={" Delivery time"} callback={this.handleChangeElementRadio}/>
                 </div>
                 <div className="priceOrder">
                     <h4>Fascia di prezzo</h4>
                     <div>
-                        <Button className="orderPriceButton" text={"€"} />
+                        <Button className="orderPriceButton" text={"€"}/>
                         <Button className="orderPriceButton" text={"€€"} />
                         <Button className="orderPriceButton" text={"€€€"} />
                         <Button className="orderPriceButton" text={"€€€€"} />
