@@ -9,11 +9,11 @@ const SingleRestaurant = (props) => {
             </picture>
                 <header className='textRest'>
                     <div className='wrapRating'>
-                    <h4 className='titleRest'>Nome ristoranteNome ristoranteNome ristoranteNome ristorante</h4>
-                    <div className='ratingRest'> 4.9 </div> 
+                    <h4 className='titleRest'>{props.restaurantName}</h4>
+                    <div className='ratingRest'> {props.restaurantRating}</div> 
                     </div>
                      {/* Sarà una prop e ci va la valutazione*/}
-                    <p>Costo: €1.40 • 35-45 min</p> {/* Saranno props*/}
+                    <p>Consegna: {props.restaurantShipping===0 ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
                     
                 </header>
         </article>
