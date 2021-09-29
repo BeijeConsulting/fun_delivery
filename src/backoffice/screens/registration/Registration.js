@@ -122,8 +122,7 @@ class Registration extends Component {
                                     className={`bo-input-box ${this.state.warnings.name ? 'alert' : ''}`}                                    
                                     placeholder="Nome"
                                     callback={this.handleCallbackInput}
-                                    name='firstName'
-
+                                    name='firstName'                              
                                 />
                                 <InputBox
                                     type="text"

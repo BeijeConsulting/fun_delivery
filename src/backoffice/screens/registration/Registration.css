@@ -12,12 +12,15 @@
 }
 
 .bo-registration h2{
+    color: white;
     margin-bottom: 10px;
 }
 
 .bo-registration h1{
+    font-weight: bold;
+    color: white;
     padding: 20px;
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .bo-reg-row {
