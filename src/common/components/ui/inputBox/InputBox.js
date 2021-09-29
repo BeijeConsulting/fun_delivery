@@ -6,9 +6,9 @@ const InputBox = (props) => {
         props.callback(e);
     };
 
-    const handleCallbackOnFocus = ()=> {
+    const handleCallbackOnFocus = (e)=> {
         if(props.callbackOnFocus) {
-            props.callbackOnFocus()
+            props.callbackOnFocus(e)
         }
     }
 

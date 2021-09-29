@@ -8,9 +8,9 @@ const Select = (props) => {
         props.callback(e)
     }
 
-    const handleCallBackOnFocus = () => {
+    const handleCallBackOnFocus = (e) => {
         if(props.callbackOnFocus) {
-            props.callbackOnFocus()
+            props.callbackOnFocus(e)
         }
     }
 
