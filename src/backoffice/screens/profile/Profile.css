@@ -1,0 +1,84 @@
+.bo-profile-welcome h2{
+    margin: 0;
+}
+
+.bo-profile-welcome{
+    display: flex;
+    align-items: baseline;
+}
+
+.bo-icon-edit{
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.bo-profile-first-row, .bo-profile-second-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bo-profile-form{
+    margin-top: 60px;
+}
+
+.bo-profile-form .bo-input-box{
+    text-align: left;
+}
+
+.bo-profile-flex-inputs{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bo-profile-flex-inputs>.bo-input-box {
+    width: 49%;
+    display: block;
+    text-align: left;
+}
+
+.bo-profile-img {
+    height: 45px;
+    width: 45px;
+}
+
+.bo-profile-img img {
+   height: 100%;
+   width: 100%;
+    object-fit: contain;
+}
+
+select[name="state"], 
+select[name="category"],
+select[name="discount"]{
+    outline: none;
+    /* text-align: center; */
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+@media screen and (max-width: 960px) {
+    .bo-profile-first-row {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .bo-profile-second-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bo-profile-flex-inputs {
+        flex-wrap: wrap;
+    }
+    .bo-profile-flex-inputs>.bo-input-box {
+        width: 100%;
+    }
+    .bo-profile-container{
+        text-align: center;
+    }
+}

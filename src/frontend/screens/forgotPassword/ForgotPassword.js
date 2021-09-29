@@ -2,15 +2,14 @@ import React from 'react'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import './ForgotPassword.css'
-import LogoRosa from '../../../common/assets/LogoSvgRosa.svg'
 import { Component } from 'react/cjs/react.production.min'
-// import Motoretta from '../../../common/assets/images/gifDelivery.gif'
-export default class ForgotPassword extends Component
-{
+import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag'
+import { Link } from "react-router-dom";
+import delivery from '../../../common/assets/delivery.png'
+export default class ForgotPassword extends Component {
 
-    constructor ( props )
-    {
-        super( props )
+    constructor(props) {
+        super(props)
         this.state = {
             mailInput: '',
             passInput: '',
@@ -29,40 +28,41 @@ export default class ForgotPassword extends Component
     controlPassword = (e) => {
         return true
     }
-    
-    render ()
-    {
+
+    render() {
         return (
-            <main className='container'>
-                <img className='logo' src={ LogoRosa } />
-                <div className='form'>
-
-                    <h1 className='title'>Reset Password</h1>
+            <main className='frontend-outer-container fe-forgot'>
+                <div className='frontend-inner-container'>
+                    <HtmlTag
+                        tag="h1"
+                        text="Reset Password"
+                        className='frontend-h1'
+                    />
                     <InputBox
-                        inputClass='inputBoxPass'
-                        placeholder='Inserisci mail'
-                        callback = {this.controlMail}
-                        trueorfalse={ this.state.mailControl }
+                        placeholder='Username or Email'
+                        callback={this.controlMail}
+                        trueorfalse={this.state.mailControl}
+                        className='frontend-input'
                     />
 
                     <InputBox
-                        inputClass='inputBoxPass'
-                        placeholder='Inserisci password'
-                        callback = {this.controlPassword} 
+                        placeholder='Password'
+                        callback={this.controlPassword}
+                        className='frontend-input'
                     />
                     <InputBox
-                        inputClass='inputBoxPass'
-                        placeholder='Conferma Password'
-                        callback = {this.controlPassword} 
+                        placeholder='Confirm Password'
+                        callback={this.controlPassword}
+                        className='frontend-input'
                     />
                     <Button
-                        className=
-                        'buttonForgot'
-                        text='SIGN IN'
-                        callback={ this.controlRes }
+                        text='RESET'
+                        callback={this.controlRes}
+                        className='frontend-primary-btn'
                     />
-                    <p className='signUp'>Sign Up</p>
                 </div>
+
+                <img className='frontend-img' src={delivery} />
 
             </main>
         )
