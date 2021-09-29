@@ -3,9 +3,10 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditOutlined, EditFilled } from '@ant-design/icons';
+import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
+import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import 'antd/dist/antd.css';
 
 class Profile extends Component {
@@ -16,7 +17,6 @@ class Profile extends Component {
     render() {
         return (
             <>
-
                 <LayoutBackOffice
                     pageTitle="PROFILE"
                 >
@@ -27,20 +27,19 @@ class Profile extends Component {
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
                                 <span className="bo-icon-edit"><EditFilled /></span>
+                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
                             </div>
 
                             <div className="bo-profile-img">
                                 <img src={LogoBeije} alt="" />
                             </div>
-
                         </div>
-
 
                         <div className="bo-profile-form">
                             <div className="bo-profile-second-row">
                                 <h3>I tuoi dati</h3>
                                 <div className="bo-profile-switch">
-                                    <p>Free Shipping <span>Switch</span></p>
+                                    <p>Free Shipping <span><SwitchProfile/> </span></p> 
                                 </div>
                             </div>
                             <div className="bo-profile-flex-inputs">
@@ -57,7 +56,7 @@ class Profile extends Component {
                             </div>
                             <InputBox
                                 type="email"
-                                placeholder="email"
+                                placeholder="Email"
                                 className="bo-input-box"
                             />
                         </div>
@@ -92,7 +91,7 @@ class Profile extends Component {
                                 <Select
                                     selectID="state"
                                     selectName="state"
-                                    data={['cat1', 'cat2', 'cat3']}
+                                    data={['State1', 'State2', 'State3']}
                                     className="bo-input-box"
                                 />
                                 <InputBox
@@ -110,14 +109,14 @@ class Profile extends Component {
                                 <Select
                                     selectID="category"
                                     selectName="category"
-                                    data={['cat1', 'cat2', 'cat3']}
+                                    data={['Category1', 'Category2', 'Category3']}
                                     className="bo-input-box"
                                 />
                             </div>
                             <Select
                                 selectID="discount"
                                 selectName="discount"
-                                data={['cat1', 'cat2', 'cat3']}
+                                data={['Discount1', 'Discount2', 'Discount3']}
                                 className="bo-input-box"
                             />
                             <TextArea 
@@ -127,10 +126,7 @@ class Profile extends Component {
                                 value="test prova ciao"
                             />
                         </div>
-
                     </div>
-
-
                 </LayoutBackOffice>
             </>
         )

@@ -19,12 +19,23 @@
     justify-content: space-between;
 }
 
-.bo-profile-container {
-    text-align: center;
-}
-
 .bo-profile-form{
     margin-top: 60px;
+}
+
+.bo-profile-form .bo-input-box{
+    text-align: left;
+}
+
+.bo-profile-flex-inputs{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bo-profile-flex-inputs>.bo-input-box {
+    width: 49%;
+    display: block;
+    text-align: left;
 }
 
 .bo-profile-img {
@@ -42,7 +53,7 @@ select[name="state"],
 select[name="category"],
 select[name="discount"]{
     outline: none;
-    text-align: center;
+    /* text-align: center; */
     display: block;
     width: 100%;
     margin-bottom: 20px;
@@ -60,5 +71,14 @@ select[name="discount"]{
     .bo-profile-second-row {
         flex-direction: column;
         align-items: center;
+    }
+    .bo-profile-flex-inputs {
+        flex-wrap: wrap;
+    }
+    .bo-profile-flex-inputs>.bo-input-box {
+        width: 100%;
+    }
+    .bo-profile-container{
+        text-align: center;
     }
 }
