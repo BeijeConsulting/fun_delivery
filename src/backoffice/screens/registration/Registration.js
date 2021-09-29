@@ -6,6 +6,8 @@ import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
 import Select from '../../../common/components/ui/select/Select'
+/* import IsEmpty from 'lodash'; */
+
 // import { message, Button as ButtonAnt } from 'antd';
 class Registration extends Component {
 
@@ -27,7 +29,7 @@ class Registration extends Component {
             },
             VAT: null,
             phone_number: null,
-            restaurant_category:'',
+            restaurant_category: '',
         }
 
         this.countrys = ['State', 'Italy', 'England']
@@ -43,13 +45,14 @@ class Registration extends Component {
             'Altro'
         ]
 
-        
+
         this.state = {
             warnings: {
-                name:false,
-                lastName:false,
+                name: false,
+                lastName: false,
                 email: false,
                 password: false,
+                confirm_password: false,
                 restaurant_name: false,
                 street: false,
                 city: false,
@@ -57,7 +60,7 @@ class Registration extends Component {
                 country: false,
                 VAT: false,
                 phone_number: false,
-                restaurant_category:false,
+                restaurant_category: false,
             }
         }
     }
@@ -77,82 +80,22 @@ class Registration extends Component {
     }
 
     handleSubmit = () => {
-        let error = this.state.warnings
-        console.log('arrObj', this.objData);
-
-        /* Controllo sul Nome Ristoratore*/
-        if (!utils.validateName(this.objData.firstName)) {
-            error.name = true
-            console.log('validateName:', error);
-        }
-
-        /* Controllo Cognome Ristoratore */
-        if (!utils.validateName(this.objData.lastName)) {
-            error.lastName = true
-            console.log('validatelastName:', error);
-        }
-
-        /* Controllo Nome Ristorante */
-        if (!utils.validateName(this.objData.restaurant_name)) {
-            error.restaurant_name = true
-            console.log('validateRestourantName:', error);
-        }
-
-        /* Controllo email */
-        if (!utils.validateEmail(this.objData.email)) {
-            error.email = true
-            console.log('validateEmail:', error);
-        }
-
-        /* Controllo password e conferma password */
-        if (!utils.validatePassword(this.objData.password) || !utils.validatePassword(this.objData.confirmPsw) || !utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
-            error.password = true
-            console.log('validatePassword:', error);
-        }
-
-        /* Controllo Restaurant_Category */
-        if (!this.objData.restaurant_category) {
-            error.restaurant_category = true
-            console.log('validateRestourantCategory:', error);
-        }
-
-        /* Controllo State */
-        if (!this.objData.address.country) {
-            error.country = true
-            console.log('validateCountry:', error);
-        }
-
-        /* Controllo Via */
-        if (!utils.validateAddress(this.objData.address.street)) {
-            error.street = true
-            console.log('validateAddressStreet:', error);
-        }
-
-        /* Controllo  Città */
-        if (!utils.validateCity(this.objData.address.city)) {
-            error.city = true
-            console.log('validateCity:', error);
-        }
-
-        /* Controllo CAP */
-        if (!utils.validateCap(this.objData.address.cap)) {
-            error.cap = true
-            console.log('validateCap:', error);
-        }
-        /* Controllo Telefono */
-        if (!utils.validatePhone(this.objData.phone_number)) {
-            error.phone_number = true
-            console.log('validatePhone:', error);
-        }
-        /* Controllo P.IVA */
-        if (!utils.validateVAT(this.objData.VAT)) {
-            error.VAT = true
-
-            console.log('validateVAT:', error);
-        }
-
         this.setState({
-            warnings: error
+            warnings: {
+                name: !utils.validateName(this.objData.firstName),
+                lastName: !utils.validateName(this.objData.lastName),
+                email: !utils.validateEmail(this.objData.email),
+                password: !utils.validatePassword(this.objData.password), 
+                confirm_password: this.objData.password !== this.objData.confirmPsw,                
+                restaurant_name: !utils.validateName(this.objData.restaurant_name),
+                street: !utils.validateAddress(this.objData.address.street),
+                city: !utils.validateCity(this.objData.address.city),
+                cap: !utils.validateCap(this.objData.address.cap),
+                country: (this.objData.address.country.length <= 0),
+                VAT: !utils.validateVAT(this.objData.VAT),
+                phone_number: !utils.validatePhone(this.objData.phone_number),
+                restaurant_category: (this.objData.restaurant_category.length <= 0)
+            }
         })
     }
     render() {
@@ -176,7 +119,7 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.name ? 'alert' : ''}`}                                    
                                     placeholder="Nome"
                                     callback={this.handleCallbackInput}
                                     name='firstName'
@@ -184,7 +127,7 @@ class Registration extends Component {
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.lastName ? 'alert' : ''}`}
                                     placeholder="Cognome"
                                     callback={this.handleCallbackInput}
                                     name='lastName'
@@ -193,7 +136,7 @@ class Registration extends Component {
 
                             <InputBox
                                 type="email"
-                                className="bo-input-box"
+                                className={`bo-input-box ${this.state.warnings.email ? 'alert' : ''}`}
                                 placeholder="Email"
                                 callback={this.handleCallbackInput}
                                 name='email'
@@ -202,14 +145,14 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="password"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Password"
                                     callback={this.handleCallbackInput}
                                     name='password'
                                 />
                                 <InputBox
                                     type="password"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Conferma password"
                                     callback={this.handleCallbackInput}
                                     name='confirmPsw'
@@ -226,7 +169,7 @@ class Registration extends Component {
                                 {/* <div className="input-flexed"> */}
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.restaurant_name ? 'alert' : ''}`}
                                     placeholder="Nome ristorante"
                                     callback={this.handleCallbackInput}
                                     name='restaurant_name'
@@ -240,7 +183,7 @@ class Registration extends Component {
                                     data={this.categories}
                                     selectID='categories'
                                     selectName='restaurant_category'
-                                    className='bo-input-box'
+                                    className={`bo-input-box ${this.state.warnings.restaurant_category ? 'alert' : ''}`}
                                     callback={this.handleCallbackInput}
                                 />
                             </div>
@@ -248,14 +191,14 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.street ? 'alert' : ''}`}
                                     placeholder="Via"
                                     callback={this.handleCallbackInput}
                                     name='address street'
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.city ? 'alert' : ''}`}
                                     placeholder="Città"
                                     callback={this.handleCallbackInput}
                                     name='address city'
@@ -265,7 +208,7 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.cap ? 'alert' : ''}`}
                                     placeholder="CAP"
                                     callback={this.handleCallbackInput}
                                     name='address cap'
@@ -273,7 +216,7 @@ class Registration extends Component {
                                 <Select
                                     data={this.countrys}
                                     selectID='countrys'
-                                    className='bo-input-box'
+                                    className={`bo-input-box ${this.state.warnings.country ? 'alert' : ''}`}
                                     callback={this.handleCallbackInput}
                                     selectName='address country'
                                 />
@@ -282,14 +225,14 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="tel"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.phone_number ? 'alert' : ''}`}
                                     placeholder="Telefono"
                                     callback={this.handleCallbackInput}
                                     name='phone_number'
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.VAT ? 'alert' : ''}`}
                                     placeholder="P.IVA"
                                     callback={this.handleCallbackInput}
                                     name='VAT'
