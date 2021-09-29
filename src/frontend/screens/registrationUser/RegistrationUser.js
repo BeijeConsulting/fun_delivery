@@ -22,9 +22,8 @@ class RegistrationUser extends React.Component {
     }
 
     handleInputChange = (e) => {
-        console.log(e.target.name);
-        this.setState({ 
-            [e.target.name] : e.target.value 
+        this.setState({
+            [e.target.name]: e.target.value
         });
     };
 
@@ -36,70 +35,84 @@ class RegistrationUser extends React.Component {
     render() {
         return (
             <>
-                <h1 style={{ textAlign: 'center' }}>Logo Beije</h1>
-                <h2 style={{ textAlign: 'center' }}>Registration</h2>
-                <form className="container">
-                    <div className="form">
-                    <InputBox
-                        placeholder={"Nome"}
-                        name={"userName"}
-                        type={"text"}
-                        value={this.state.name}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
-                    <InputBox
-                        placeholder={"Cognome"}
-                        name={"surname"}
-                        type={"text"}
-                        value={this.state.surname}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
+                <h2 style={{ textAlign: 'center' }}>Registrazione</h2>
+                <div className='container'>
+                        <div className="grid-container">
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Nome"}
+                                    name={"userName"}
+                                    type={"text"}
+                                    value={this.state.userName}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Cognome"}
+                                    name={"surname"}
+                                    type={"text"}
+                                    value={this.state.surname}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
 
-                    <InputBox
-                        placeholder={"Email"}
-                        name={"email"}
-                        type={"email"}
-                        value={this.state.email}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Email"}
+                                    name={"email"}
+                                    type={"email"}
+                                    value={this.state.email}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
 
-                    <InputBox
-                        placeholder={"Numero di Telefono"}
-                        name={"phone"}
-                        type={"tel"}
-                        value={this.state.phone}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Numero di Telefono"}
+                                    name={"phone"}
+                                    type={"tel"}
+                                    value={this.state.phone}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
 
-                    <InputBox
-                        placeholder={"Password"}
-                        name={"password"}
-                        type={"password"}
-                        value={this.state.password}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Password"}
+                                    name={"password"}
+                                    type={"password"}
+                                    value={this.state.password}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
 
-                    <InputBox
-                        placeholder={"Confirm password"}
-                        name={"confpsw"}
-                        type={"password"}
-                        value={this.state.confpsw}
-                        callback={this.handleInputChange}
-                        inputClass={"inputBox"}
-                    />
-                    {/* validazione dati e invio dei dati */}
-                    <Button
-                        text={"SIGN IN"}
-                        className={"buttonBox"}
-                        callback={this.handleSignUp}
-                    />
+                            <div className="grid-item">
+                                <InputBox
+                                    placeholder={"Confirm password"}
+                                    name={"confpsw"}
+                                    type={"password"}
+                                    value={this.state.confpsw}
+                                    callback={this.handleInputChange}
+                                    className={"inputBox_registration"}
+                                />
+                            </div>
+                            {/* validazione dati e invio dei dati */}
+                        </div>
+                    <div className="wrapper-button">
+                        <Button
+                            text={"SIGN IN"}
+                            className={"buttonBox"}
+                            callback={this.handleSignUp}
+                        />
                     </div>
-                </form>
+                
+             </div>
             </>
         );
     }

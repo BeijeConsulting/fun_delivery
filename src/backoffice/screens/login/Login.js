@@ -17,9 +17,8 @@ class Login extends Component {
         this.password = ''
 
         this.state = {
-            worning: false
+            warning: false
         }
-
     }
 
     handleInputEmail = (e) => {
@@ -36,7 +35,7 @@ class Login extends Component {
         let passwordChecked = Utils.validatePassword(this.password);
         console.log('passwordChecked = ', passwordChecked);
 
-        let error = this.state.worning
+        let error = this.state.warning
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
@@ -46,7 +45,7 @@ class Login extends Component {
             })
         }
         this.setState({
-            worning: error
+            warning: error
         })
     }
 
@@ -57,21 +56,21 @@ class Login extends Component {
                     pageTitle='Login'
                 />
                 <BannerBackground />
-                <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>Accedi al tuo ristorante</h1>
+                <h1>Accedi al tuo ristorante</h1>
                 {
-                    this.state.worning &&
+                    this.state.warning &&
                     <h3>Email o password errati</h3>
                 }
                 <div className="bo-login-form">
                     <InputBox
                         type={'email'}
-                        inputClass='bo-input-box'
+                        className='bo-input-box'
                         placeholder='Email'
                         callback={this.handleInputEmail}
                     />
                     <InputBox
                         type={'password'}
-                        inputClass='bo-input-box'
+                        className='bo-input-box'
                         placeholder='Password'
                         callback={this.handleInputPassword}
                     />
