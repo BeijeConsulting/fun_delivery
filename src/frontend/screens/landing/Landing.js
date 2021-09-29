@@ -40,7 +40,7 @@ class Landing extends Component {
 
                     <HtmlTag
                         tag='h1'
-                        htmlTagStyle='main-title'
+                        className='main-title'
                         text='Fame? Si mangia!'
                     />
 

@@ -3,7 +3,8 @@ import React from "react";
 //import Button
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import Button from "../../../common/components/ui/button/Button";
-
+import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
+import delivery from '../../../common/assets/delivery.png'
 import { Link } from "react-router-dom";
 import './RegistrationUser.css'
 
@@ -34,86 +35,76 @@ class RegistrationUser extends React.Component {
 
     render() {
         return (
-            <>
-                <h2 style={{ textAlign: 'center' }}>Registrazione</h2>
-                <div className='container'>
-                        <div className="grid-container">
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Nome"}
-                                    name={"userName"}
-                                    type={"text"}
-                                    value={this.state.userName}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Cognome"}
-                                    name={"surname"}
-                                    type={"text"}
-                                    value={this.state.surname}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
 
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Email"}
-                                    name={"email"}
-                                    type={"email"}
-                                    value={this.state.email}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
+            <div className="frontend-outer-container fe-registration">
+                <div className="frontend-inner-container">
+                    <HtmlTag
+                        tag="h1"
+                        text="Register"
+                        className='frontend-h1'
+                    />
+                    <InputBox
+                        placeholder={"Nome"}
+                        name={"userName"}
+                        type={"text"}
+                        value={this.state.name}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
+                    <InputBox
+                        placeholder={"Cognome"}
+                        name={"surname"}
+                        type={"text"}
+                        value={this.state.surname}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
 
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Numero di Telefono"}
-                                    name={"phone"}
-                                    type={"tel"}
-                                    value={this.state.phone}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
+                    <InputBox
+                        placeholder={"Email"}
+                        name={"email"}
+                        type={"email"}
+                        value={this.state.email}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
 
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Password"}
-                                    name={"password"}
-                                    type={"password"}
-                                    value={this.state.password}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
+                    <InputBox
+                        placeholder={"Numero di Telefono"}
+                        name={"phone"}
+                        type={"tel"}
+                        value={this.state.phone}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
 
-                            <div className="grid-item">
-                                <InputBox
-                                    placeholder={"Confirm password"}
-                                    name={"confpsw"}
-                                    type={"password"}
-                                    value={this.state.confpsw}
-                                    callback={this.handleInputChange}
-                                    className={"inputBox_registration"}
-                                />
-                            </div>
-                            {/* validazione dati e invio dei dati */}
-                        </div>
-                    <div className="wrapper-button">
-                        <Button
-                            text={"SIGN IN"}
-                            className={"buttonBox"}
-                            callback={this.handleSignUp}
-                        />
-                    </div>
-                
-             </div>
-            </>
+                    <InputBox
+                        placeholder={"Password"}
+                        name={"password"}
+                        type={"password"}
+                        value={this.state.password}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
+
+                    <InputBox
+                        placeholder={"Confirm password"}
+                        name={"confpsw"}
+                        type={"password"}
+                        value={this.state.confpsw}
+                        callback={this.handleInputChange}
+                        className={"frontend-input"}
+                    />
+                    {/* validazione dati e invio dei dati */}
+                    <Button
+                        text={"SIGN UP"}
+                        callback={this.handleSignUp}
+                        className={"frontend-primary-btn"}
+                    />
+                </div>
+
+                <img className='frontend-img' src={delivery} />
+            </div>
         );
     }
 }
