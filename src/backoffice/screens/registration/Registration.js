@@ -43,9 +43,22 @@ class Registration extends Component {
             'Altro'
         ]
 
+        
         this.state = {
-            data: this.objData,
-            warning: false
+            warnings: {
+                name:false,
+                lastName:false,
+                email: false,
+                password: false,
+                restaurant_name: false,
+                street: false,
+                city: false,
+                cap: false,
+                country: false,
+                VAT: false,
+                phone_number: false,
+                restaurant_category:false,
+            }
         }
     }
 
@@ -64,82 +77,82 @@ class Registration extends Component {
     }
 
     handleSubmit = () => {
-        let error = this.state.warning
+        let error = this.state.warnings
         console.log('arrObj', this.objData);
 
         /* Controllo sul Nome Ristoratore*/
         if (!utils.validateName(this.objData.firstName)) {
-            error = true
+            error.name = true
             console.log('validateName:', error);
         }
 
         /* Controllo Cognome Ristoratore */
         if (!utils.validateName(this.objData.lastName)) {
-            error = true
+            error.lastName = true
             console.log('validatelastName:', error);
         }
 
         /* Controllo Nome Ristorante */
         if (!utils.validateName(this.objData.restaurant_name)) {
-            error = true
+            error.restaurant_name = true
             console.log('validateRestourantName:', error);
         }
 
         /* Controllo email */
         if (!utils.validateEmail(this.objData.email)) {
-            error = true
+            error.email = true
             console.log('validateEmail:', error);
         }
 
         /* Controllo password e conferma password */
         if (!utils.validatePassword(this.objData.password) || !utils.validatePassword(this.objData.confirmPsw) || !utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
-            error = true
+            error.password = true
             console.log('validatePassword:', error);
         }
 
         /* Controllo Restaurant_Category */
         if (!this.objData.restaurant_category) {
-            error = true
+            error.restaurant_category = true
             console.log('validateRestourantCategory:', error);
         }
 
         /* Controllo State */
         if (!this.objData.address.country) {
-            error = true
+            error.country = true
             console.log('validateCountry:', error);
         }
 
         /* Controllo Via */
         if (!utils.validateAddress(this.objData.address.street)) {
-            error = true
+            error.street = true
             console.log('validateAddressStreet:', error);
         }
 
         /* Controllo  Città */
         if (!utils.validateCity(this.objData.address.city)) {
-            error = true
+            error.city = true
             console.log('validateCity:', error);
         }
 
         /* Controllo CAP */
         if (!utils.validateCap(this.objData.address.cap)) {
-            error = true
+            error.cap = true
             console.log('validateCap:', error);
         }
         /* Controllo Telefono */
         if (!utils.validatePhone(this.objData.phone_number)) {
-            error = true
+            error.phone_number = true
             console.log('validatePhone:', error);
         }
         /* Controllo P.IVA */
         if (!utils.validateVAT(this.objData.VAT)) {
-            error = true
+            error.VAT = true
 
             console.log('validateVAT:', error);
         }
 
         this.setState({
-            warning: error
+            warnings: error
         })
     }
     render() {
