@@ -1,0 +1,74 @@
+.bo-io-home h2{
+    margin: 0;
+}
+
+.bo-io-home{
+    display: flex;
+    align-items: baseline;
+    margin-left: 10px;
+    margin: 10px;
+}
+
+.bo-icon-edit{
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.bo-io-first-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bo-io-form{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bo-io-h2{
+    background-color: #DFE4E9;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 10px;
+    height: 100%;
+}
+
+
+.bo-btn-incoming-order{
+    background-color: dodgerblue;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: 200ms;
+    color: white;
+    height: 70%;
+    width: 150px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 960px) {
+    .bo-io-first-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bo-io-container{
+        text-align: center;
+    }
+    .bo-io-form{
+        margin: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .bo-io-h2{
+        
+        margin-top: 15px;
+    }
+}

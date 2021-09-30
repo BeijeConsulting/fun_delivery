@@ -68,7 +68,7 @@ class Registration extends Component {
 
 
     handleCallbackInput = (e) => {
-        const words = e.target.name.split(' ')
+        const words = e.target.name
         if (words[0] === 'address') {
             this.objData.address[words[1]] = e.target.value
         } else {
@@ -127,16 +127,16 @@ class Registration extends Component {
                                     className={`bo-input-box ${this.state.warnings.firstName ? 'alert' : ''}`}                                    
                                     placeholder="Nome"
                                     callback={this.handleCallbackInput}
-                                    name='firstName'     
                                     callbackOnFocus={this.handleCallBackFocus}                         
+                                    name='firstName'     
                                 />
                                 <InputBox
                                     type="text"
                                     className={`bo-input-box ${this.state.warnings.lastName ? 'alert' : ''}`}
                                     placeholder="Cognome"
                                     callback={this.handleCallbackInput}
-                                    name='lastName'
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    name='lastName'
                                 />
                             </div>
 
@@ -145,8 +145,8 @@ class Registration extends Component {
                                 className={`bo-input-box ${this.state.warnings.email ? 'alert' : ''}`}
                                 placeholder="Email"
                                 callback={this.handleCallbackInput}
-                                name='email'
                                 callbackOnFocus={this.handleCallBackFocus}
+                                name='email'
                             />
 
                             <div className="flex-inputs">
@@ -155,16 +155,16 @@ class Registration extends Component {
                                     className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Password"
                                     callback={this.handleCallbackInput}
-                                    name='password'
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    name='password'
                                 />
                                 <InputBox
                                     type="password"
                                     className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Conferma password"
                                     callback={this.handleCallbackInput}
-                                    name='confirmPsw'
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    name='confirmPsw'
                                 />
                             </div>
 
@@ -181,8 +181,8 @@ class Registration extends Component {
                                     className={`bo-input-box ${this.state.warnings.restaurant_name ? 'alert' : ''}`}
                                     placeholder="Nome ristorante"
                                     callback={this.handleCallbackInput}
-                                    name='restaurant_name'
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    name='restaurant_name'
                                 />
                                 {/* </div> */}
 
@@ -204,8 +204,8 @@ class Registration extends Component {
                                     type="text"
                                     className={`bo-input-box ${this.state.warnings.street ? 'alert' : ''}`}
                                     placeholder="Via"
-                                    callback={this.handleCallbackInput}
                                     name='address street'
+                                    callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
@@ -223,8 +223,8 @@ class Registration extends Component {
                                     type="text"
                                     className={`bo-input-box ${this.state.warnings.cap ? 'alert' : ''}`}
                                     placeholder="CAP"
-                                    callback={this.handleCallbackInput}
                                     name='address cap'
+                                    callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <Select
