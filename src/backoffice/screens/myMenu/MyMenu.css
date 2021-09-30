@@ -1,0 +1,48 @@
+.bo-mymenu-welcome h2{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.bo-mymenu-welcome{
+    display: flex;
+    align-items: baseline;
+}
+
+.bo-mymenu-first-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bo-mymenu-form{
+    display: flex;
+    margin-top: 30px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.bo-mymenu-flex-cards{
+    margin-right: 45px;
+    justify-content: center;
+}
+
+
+
+@media screen and (max-width: 766px) {
+    .bo-mymenu-first-row {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .bo-mymenu-form {
+        flex-wrap: wrap;
+    }
+    .bo-mymenu-form>.bo-mymenu-flex-cards {
+        width: 100%;
+        margin: 0;
+    }
+    .bo-profile-container{
+        text-align: center;
+    }
+}
