@@ -30,7 +30,8 @@ class RegistrationUser extends React.Component {
         });
     };
 
-    //TEMP
+    //TEST TEMP
+    //Levare alert e mettere i vari messaggi di errori e di login effettuato
     handleSignUp = () => {
         if(utils.validateName(this.state.userName) === false) {
             alert("nome errato")
