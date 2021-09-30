@@ -3,7 +3,12 @@
     font-weight: bold;
     margin: 0;
 }
-
+.bo-mymenu-welcome h3{
+    font-size: 18px;
+    padding-left: 5px;
+    margin: 0;
+    cursor: pointer;
+}
 .bo-mymenu-welcome{
     display: flex;
     align-items: baseline;

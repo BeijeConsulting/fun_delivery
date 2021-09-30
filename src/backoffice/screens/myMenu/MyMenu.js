@@ -19,7 +19,11 @@ class MyMenu extends Component {
     constructor(props) {
         super(props)
     }
-
+    handleCallbackPagePlates = () => {
+        this.props.history.push('/restaurant/plates',{
+            titlePage: 'PRIMI'
+        })
+    }
     render() {
         return (
             <>
@@ -41,6 +45,7 @@ class MyMenu extends Component {
                                 <Card
                                     title='Primi'
                                     img={Primi}
+                                    callback={this.handleCallbackPagePlates}
                                 />
                             </div>
                             <div className="bo-mymenu-flex-cards">
