@@ -13,7 +13,8 @@ export default class ForgotPassword extends Component {
         this.state = {
             email: '',
             password: '',
-            confpsw: ""
+            confpsw: "",
+            errormsg: ''
         }
     }
 
@@ -26,15 +27,20 @@ export default class ForgotPassword extends Component {
     //TEST TEMP
     //Levare alert e mettere i vari messaggi di errori e di reset password effettuato
     handleSignUp = () => {
-        if(utils.validateEmail(this.state.email) === false) {
-            alert("email errata")
-        }else if (utils.validatePassword(this.state.password) === false) {
-            alert("password errata")
-        }else if (this.state.confpsw !== this.state.password) {
-            alert("password non corrispondono")
-        }else{
-            alert("password cambiata")
+        let error = this.state.errormsg
+        if (utils.validateEmail(this.state.email) === false) {
+            error = 'invalid email'
+        } else if (utils.validatePassword(this.state.password) === false) {
+            error = 'invalid password'
+        } else if (this.state.confpsw !== this.state.password) {
+            error = 'password does not match'
+        } else {
+            error = "Password changed"
         }
+
+        this.setState({
+            errormsg: error
+        })
     }
 
 
@@ -48,6 +54,9 @@ export default class ForgotPassword extends Component {
                         text="Reset Password"
                         className='frontend-h1'
                     />
+                    <h3 style={{
+                        color:"#F24464"
+                    }}>{this.state.errormsg}</h3>
                     <InputBox
                         placeholder={"Email"}
                         name={"email"}
@@ -75,14 +84,14 @@ export default class ForgotPassword extends Component {
                         className={"frontend-input"}
                     />
 
-                    <Button 
+                    <Button
                         text={"RESET"}
                         callback={this.handleSignUp}
                         className={"frontend-primary-btn"}
                     />
 
                 </div>
-                
+
                 <img className='frontend-img' src={delivery} alt='delivery guy' />
 
             </main>
