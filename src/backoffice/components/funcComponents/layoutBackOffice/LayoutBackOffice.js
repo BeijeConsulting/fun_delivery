@@ -1,7 +1,7 @@
 import './LayoutBackOffice.css';
 import 'antd/dist/antd.css';
 import Button from '../../../../common/components/ui/button/Button';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import Navbar from '../../ui/navbar/Navbar';
 import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutlined, DollarCircleOutlined } from '@ant-design/icons';
 
