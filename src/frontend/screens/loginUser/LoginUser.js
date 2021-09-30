@@ -6,6 +6,7 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from "../../../common/assets/delivery.png"
 import "./LoginUser.css"
 import { Link } from "react-router-dom";
+import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
 
 
@@ -16,48 +17,51 @@ class LoginUser extends React.Component {
         super(props)
 
         this.state = {
-
-
-            // buttonClick: false,
-
-            email: {
-                text: "",
-                isValid: false,
-
-            },
-            password: {
-                text: "",
-                isValid: false,
-
-            }
-
+            email: "",
+            password: "",
+            errorMsg: ""
         }
     }
 
 
 
-    validateClick = (e) => {
 
-        return true
+    validateClick = () => {
+        let mailControlled = utils.validateEmail(this.state.email);
+        let passwordControlled = utils.validatePassword(this.state.password);
+
+        let error = this.state.errorMsg
+        if (mailControlled === false) {
+            error = "Invalid Email"
+        } else if (passwordControlled === false) {
+            error = "Invalid password"
+        }
+
+        if (mailControlled === false && passwordControlled === false) {
+            error = "Invalid email and password "
+            // alert(error)
+        } else if (mailControlled && passwordControlled) {
+            alert('Signed in!')
+            //inserire this.props.history.push('/UserPage")
+        }
+
+        this.setState({
+            errorMsg: error
+        })
 
     }
 
 
+
     onEmailChange = (e) => {
         this.setState({
-            email: {
-                text: e.target.value,
-                isValid: false
-            }
+            email: e.target.value
         })
     }
 
     onPasswordChange = (e) => {
         this.setState({
-            password: {
-                text: e.target.value,
-                isValid: false
-            }
+            password: e.target.value
         })
     }
 
@@ -75,13 +79,17 @@ class LoginUser extends React.Component {
                     />
 
 
+                    <h5 style={{ color: "#F24464" }}>{this.state.errorMsg}</h5>
+
+
                     <InputBox
                         type='email'
                         placeholder='Username or Email'
                         name={'email'}
                         callback={this.onEmailChange}
-                        value={this.state.email.text}
+                        value={this.state.email}
                         className={'input-login'}
+
                     />
 
                     <InputBox
@@ -89,7 +97,7 @@ class LoginUser extends React.Component {
                         placeholder={'Password'}
                         name={'password'}
                         callback={this.onPasswordChange}
-                        value={this.state.password.text}
+                        value={this.state.password}
                         className={'input-login'}
 
                     />
