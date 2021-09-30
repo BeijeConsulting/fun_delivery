@@ -12,7 +12,6 @@ const Navbar = (props) => {
     let history = useHistory();
     const pathArray = location.pathname.split('/');
 
-
     // HOOKS STATE
     const [state, setState] = useState({
         isBurgerClicked: false,
@@ -62,7 +61,7 @@ const Navbar = (props) => {
 
                             {/* render dinamico della selezione del tipo di consegna */}
                             {
-                                pathArray[1] === '' &&
+                                (pathArray[1] === '' || pathArray[1] === 'restaurants') &&
                                 <div className='outer-btn' onClick={navOptionSlide}>
                                     <span className={`left-inner-text ${state.selectedPickup}`}>Pickup</span>
                                     <span className={`right-inner-text ${state.selectedDelivery}`}>Consegna</span>
