@@ -1,17 +1,8 @@
 import { Component } from "react";
-import './Profile.css';
-import LogoBeije from '../../assets/images/logo_beijeRosa.png';
-import InputBox from "../../../common/components/ui/inputBox/InputBox";
+import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditOutlined, EditFilled, DollarCircleOutlined } from '@ant-design/icons';
-import Select from "../../../common/components/ui/select/Select";
-import TextArea from "../../../common/components/ui/textarea/TextArea";
-import SwitchProfile from "../../components/ui/switch/SwitchProfile";
+/* import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons'; */
 import 'antd/dist/antd.css';
-import { TimePicker } from 'antd';
-import moment from 'moment';
-
-const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
@@ -22,16 +13,16 @@ class Profile extends Component {
         return (
             <>
                 <LayoutBackOffice
-                    pageTitle="PROFILE"
+                    pageTitle="SPONSOR"
                 >
-                    <div className="bo-profile-container">
+                    <div className="bo-sponsor-container">
 
-                        <div className="bo-profile-first-row">
+                        {/* <div className="bo-profile-first-row">
 
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
                                 <span className="bo-icon-edit"><EditFilled /></span>
-                                {/* <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span> */}
+                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
                             </div>
 
                             <div className="bo-profile-img">
@@ -43,7 +34,7 @@ class Profile extends Component {
                             <div className="bo-profile-second-row">
                                 <h3>I tuoi dati</h3>
                                 <div className="bo-profile-switch">
-                                    <p>Free Shipping <span><SwitchProfile /> </span></p>
+                                    <p>Free Shipping <span><SwitchProfile/> </span></p> 
                                 </div>
                             </div>
                             <div className="bo-profile-flex-inputs">
@@ -67,7 +58,6 @@ class Profile extends Component {
 
                         <div className="bo-profile-form">
                             <h3>Il tuo ristorante</h3>
-
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
@@ -118,44 +108,19 @@ class Profile extends Component {
                                     className="bo-input-box"
                                 />
                             </div>
-
-
-
-                            <div className="bo-profile-flex-inputs">
-                                <div className="bo-profile-flex-inputs-time">
-                                    {/* <h3>Orario di apertura</h3>  */}
-                                    <InputBox
-                                        name="time-start"
-                                        type="time"
-                                        placeholder="Orario di apertura"
-                                        className="bo-input-box"
-                                    />
-                                    {/*  <h3>Orario di chiusura</h3>  */}
-                                    <InputBox
-                                        name="time-end"
-                                        type="time"
-                                        placeholder="Orario di apertura"
-                                        className="bo-input-box"
-                                    />
-                                </div>
-
-                                <Select
-                                    selectID="discount"
-                                    selectName="discount"
-                                    data={['Discount1', 'Discount2', 'Discount3']}
-                                    className="bo-input-box"
-                                />
-                            </div>
-
-
-
-                            <TextArea
+                            <Select
+                                selectID="discount"
+                                selectName="discount"
+                                data={['Discount1', 'Discount2', 'Discount3']}
+                                className="bo-input-box"
+                            />
+                            <TextArea 
                                 name="description"
                                 className="bo-input-box"
                                 id="description"
                                 value="test prova ciao"
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </LayoutBackOffice>
             </>

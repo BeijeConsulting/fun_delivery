@@ -31,6 +31,23 @@
     display: flex;
     justify-content: space-between;
 }
+.bo-profile-flex-inputs-time{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 49%;
+}
+input[name="time-start"]:before {
+    content:'Apertura:';
+    margin-right:.6em;
+    color:#9d9d9d;
+}
+input[name="time-end"]:before {
+    content:'Chiusura:';
+    margin-right:.6em;
+    color:#9d9d9d;
+}
+
 
 .bo-profile-flex-inputs>.bo-input-box {
     width: 49%;
@@ -80,5 +97,11 @@ select[name="discount"]{
     }
     .bo-profile-container{
         text-align: center;
+    }
+    input[name="time-start"]:before {
+        content:''
+    }
+    input[name="time-end"]:before {
+        content:''
     }
 }

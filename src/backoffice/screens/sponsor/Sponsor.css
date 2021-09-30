@@ -1,0 +1,74 @@
+.bo-sponsor-home h2{
+    margin: 0;
+}
+
+.bo-sponsor-home{
+    display: flex;
+    align-items: baseline;
+    margin-left: 10px;
+    margin: 10px;
+}
+
+.bo-icon-edit{
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.bo-sponsor-first-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bo-sponsor-form{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bo-sponsor-h2{
+    background-color: #DFE4E9;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 10px;
+    height: 100%;
+}
+
+
+.bo-btn-incoming-order{
+    background-color: dodgerblue;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: 200ms;
+    color: white;
+    height: 70%;
+    width: 150px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 960px) {
+    .bo-sponsor-first-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bo-sponsor-container{
+        text-align: center;
+    }
+    .bo-sponsor-form{
+        margin: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .bo-sponsor-h2{
+        
+        margin-top: 15px;
+    }
+}
