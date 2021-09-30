@@ -2,6 +2,7 @@
     background-color: white;
     padding: 1rem 2rem;
     width: 100%;
+    box-shadow: 1px 1px 10px grey;
 }
 
 
@@ -12,7 +13,7 @@
     align-items: center;
 }
 
-img{
+.img_logo{
     width: 160px;
     margin-right: 50px;
 }
@@ -23,7 +24,7 @@ img{
     justify-content: space-between;
 }
 .right-nav-side{
-    width: 230px;
+    width: 195px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -42,7 +43,8 @@ img{
 }
 
 .right-btn.register{
-    background-color: #F24464d9;
+    /* background-color: #F24464d9; */
+    background-color: var(--primary-strawberry);
 }
 .right-btn.register:hover{
     background-color: #f24464b6;
@@ -50,8 +52,9 @@ img{
 
 
 .outer-btn{
-    width: 260px;
-    background-color: #F24464d9;
+    width: 220px;
+    /* background-color: #F24464d9; */
+    background-color: var(--primary-strawberry);
     padding: 10px 20px;
     border-radius: 25px;
     position: relative;
@@ -62,8 +65,10 @@ img{
 
 .inner-btn{
     position: absolute;
+    z-index: 0;
+    height: 30px;
+    width: 90px;
     top: 50%;
-    left: 10px;
     transform: translateY(-50%);
     background-color: white;
     padding: 5px 20px;
@@ -71,15 +76,31 @@ img{
     border-radius: 25px;
     transition: .5s;
 }
-.inner-btn:hover{
-    background-color: #3F3D56;
-    color: white;
+.pickup{
+    left: 15px;
 }
-.inner-txt{
+.delivery{
+    left: 115px;
+}
+
+
+.left-inner-text,
+.right-inner-text{
+    font-weight: 700;
+    z-index: 20;
+    color: var(--primary-dark);
     position: absolute;
-    right: 20px;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+.left-inner-text{
+    left: 60px;
+}
+.right-inner-text{    
+    left: 160px;
+}
+.white-txt{
+    color: white;
 }
 
 /* BURGER STYLE */

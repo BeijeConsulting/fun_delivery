@@ -4,6 +4,9 @@ import './index.css';
 import Routing from './route';
 import reportWebVitals from './reportWebVitals';
 
+/* frontend generic style */
+import './frontend/style/frontendStyle.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <Routing />

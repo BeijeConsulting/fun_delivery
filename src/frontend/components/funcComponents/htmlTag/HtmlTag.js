@@ -2,7 +2,7 @@ import "./HtmlTag.css"
 
 const HtmlTag = (props) => {
     return (
-        <props.tag className={props.htmlTagStyle}>
+        <props.tag className={props.className}>
             {props.text}
         </props.tag>
     );

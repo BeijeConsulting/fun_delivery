@@ -3,23 +3,22 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons';
+import { EditFilled, DollarCircleOutlined  } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import 'antd/dist/antd.css';
+// import utils from "../../../common/utils/utils";
 
 class Profile extends Component {
-    constructor(props) {
-        super(props)
-    }
+    // constructor(props) {
+    //     super(props)
+    // }
 
     render() {
         return (
             <>
-                <LayoutBackOffice
-                    pageTitle="PROFILE"
-                >
+                <LayoutBackOffice pageTitle="PROFILE">
                     <div className="bo-profile-container">
 
                         <div className="bo-profile-first-row">
