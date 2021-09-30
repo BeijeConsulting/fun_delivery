@@ -9,27 +9,16 @@ class SidebarRestaurants extends React.Component {
     constructor(props){
         super(props)
     }
-    
-    // orderByRestaurants = (e) => {
-    //     console.log(e.target.value)
-    //     e.target.value==="delivery_time" ? orderBy(this.props.restaurantList, [e.target.value], ['asc']) : orderBy(this.props.restaurantList, [e.target.value], ['desc'])
-    //     console.log( e.target.value==="delivery_time" ? orderBy(this.props.restaurantList, [e.target.value], ['asc']) : orderBy(this.props.restaurantList, [e.target.value], ['desc']))
-        
-    // }
 
     handleChangeElementRadio = (e) => {
         return this.props.callbackElementRadio(e)
-      } 
+    } 
 
-    render() {
-        // Marks utili allo slider del range di prezzo. Verranno importati dai ristoranti
-        const marks = {
-            0: '€3',
-            3: '€5',
-            6: '€7',
-            8: '€7+'
-        };
-        
+    handleChangeButton = (e) => {
+        return this.props.callbackButton(e)
+    }
+
+    render() {        
         return (
             <aside className="sideNav" >
                 <h3>Tutti i locali</h3>
@@ -43,20 +32,10 @@ class SidebarRestaurants extends React.Component {
                 <div className="priceOrder">
                     <h4>Fascia di prezzo</h4>
                     <div>
-                        <Button className="orderPriceButton" text={"€"}/>
-                        <Button className="orderPriceButton" text={"€€"} />
-                        <Button className="orderPriceButton" text={"€€€"} />
-                        <Button className="orderPriceButton" text={"€€€€"} />
-                    </div>
-                </div>
-                <div className="maxDeliveryPrice">
-                    <h4>Costo di consegna massimo</h4>
-                    <div className="deliveryRangeContainer">
-                        <div className="deliveryRangeSon">
-                            <div className="deliveryPriceRange">
-                                <Slider handleStyle={{'backgroundColor': '#ffffff', 'border': 'solid 2px #f24464'}} trackStyle={{ 'backgroundColor': '#f24464' }}marks={marks} step={null} defaultValue={8} max={8} />
-                            </div>
-                        </div>
+                        <Button className="orderPriceButton" text={"€"} value={1} callback={this.handleChangeButton}/>
+                        <Button className="orderPriceButton" text={"€€"} value={2} callback={this.handleChangeButton}/>
+                        <Button className="orderPriceButton" text={"€€€"} value={3} callback={this.handleChangeButton}/>
+                        <Button className="orderPriceButton" text={"€€€€"} value={4} callback={this.handleChangeButton}/>
                     </div>
                 </div>
             </aside>
