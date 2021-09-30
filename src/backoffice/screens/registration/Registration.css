@@ -1,3 +1,10 @@
+/* Alert class for inputs and select */
+.bo-input-box.alert {
+    border: 2px solid red;
+    background-color: #FBC6C7;
+}
+
+
 .bo-registration {
     background-color: #F24464d9;
     color: white;
@@ -5,12 +12,15 @@
 }
 
 .bo-registration h2{
+    color: white;
     margin-bottom: 10px;
 }
 
 .bo-registration h1{
+    font-weight: bold;
+    color: white;
     padding: 20px;
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .bo-reg-row {

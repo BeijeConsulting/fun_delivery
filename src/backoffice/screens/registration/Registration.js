@@ -6,6 +6,8 @@ import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
 import Select from '../../../common/components/ui/select/Select'
+/* import IsEmpty from 'lodash'; */
+
 // import { message, Button as ButtonAnt } from 'antd';
 class Registration extends Component {
 
@@ -13,50 +15,57 @@ class Registration extends Component {
         super(props)
 
         this.objData = {
-            firstName: null,
-            lastName: null,
-            email: null,
-            password: null,
-            confirmPsw: null,
-            restaurant_name: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            confirmPsw: '',
+            restaurant_name: '',
             address: {
-                street: null,
-                city: null,
+                street: '',
+                city: '',
                 cap: null,
-                state: null,
+                country: '',
             },
             VAT: null,
             phone_number: null,
-            restaurant_category: null,
+            restaurant_category: '',
         }
 
-        this.country = ['Italy', 'England']
+        this.countrys = ['State', 'Italy', 'England']
 
         this.categories = [
-            'Ristoranti',
-            'Cucina Italiana Locale - Regionale',
-            'Cucina statunitense - Fast Food',
-            'Cucina orientale',
-            'Cucina occidentale',
+            'Categories',
+            'Pizza',
+            'Pokè',
+            'Sushi',
+            'Messicano',
+            'Italiano',
+            'Hamburger',
             'Altro'
         ]
+
 
         this.state = {
-            data:this.objData,
-            warning: false
+            warnings: {
+                firstName: false,
+                lastName: false,
+                email: false,
+                password: false,
+                confirm_password: false,
+                restaurant_name: false,
+                street: false,
+                city: false,
+                cap: false,
+                country: false,
+                VAT: false,
+                phone_number: false,
+                restaurant_category: false,
+            }
         }
     }
 
-    componentDidMount = () => {
-        this.categories = [
-            'Ristoranti',
-            'Cucina Italiana Locale - Regionale',
-            'Cucina statunitense - Fast Food',
-            'Cucina orientale',
-            'Cucina occidentale',
-            'Altro'
-        ]
-    }
+
 
     handleCallbackInput = (e) => {
         const words = e.target.name.split(' ')
@@ -65,49 +74,39 @@ class Registration extends Component {
         } else {
             this.objData[e.target.name] = e.target.value
         }
-        console.log('objData', this.objData);
         this.setState({
-            data:this.objData
+            data: this.objData
         })
     }
-
-    // Manca Stato e Categoria 
 
     handleSubmit = () => {
-        let error = this.state.warning
-        console.log('arrObj', this.objData);
-        /* Controllo sul Nome Ristoratore*/
-        if (!utils.validateName(this.objData.firstName)) { error = true }
-
-        /* Controllo Cognome Ristoratore */
-        if (!utils.validateName(this.objData.lastName)) { error = true }
-
-        /* Controllo Nome Ristorante */
-        if (!utils.validateName(this.objData.restaurant_name)) { error = true }
-
-        /* Controllo email */
-        if (!utils.validateEmail(this.objData.email)) { error = true }
-
-        /* Controllo password e conferma password */
-        if (!utils.validatePassword(this.objData.password) || !utils.validatePassword(this.objData.confirmPsw) || !utils.checkPassword(this.objData.password, this.objData.confirmPsw)) {
-            error = true
-        }
-
-        /* Controllo Via */
-
-        /* Controllo  Città */
-
-        /* Controllo CAP */
-        if (!utils.validateCap(this.objData.address.cap)) { error = true }
-        /* Controllo Telefono */
-        if (!utils.validatePhone(this.objData.phone_number)) { error = true }
-        /* Controllo P.IVA */
-        if (!utils.validateVAT(this.objData.VAT)) { error = true }
-
         this.setState({
-            warning: error
+            warnings: {
+                firstName: !utils.validateName(this.objData.firstName),
+                lastName: !utils.validateName(this.objData.lastName),
+                email: !utils.validateEmail(this.objData.email),
+                password: !utils.validatePassword(this.objData.password), 
+                confirm_password: this.objData.password !== this.objData.confirmPsw,                
+                restaurant_name: !utils.validateName(this.objData.restaurant_name),
+                street: !utils.validateAddress(this.objData.address.street),
+                city: !utils.validateCity(this.objData.address.city),
+                cap: !utils.validateCap(this.objData.address.cap),
+                country: (this.objData.address.country.length <= 0),
+                VAT: !utils.validateVAT(this.objData.VAT),
+                phone_number: !utils.validatePhone(this.objData.phone_number),
+                restaurant_category: (this.objData.restaurant_category.length <= 0)
+            }
         })
     }
+
+    handleCallBackFocus = (e) => {     
+        this.setState({
+            warnings: {
+                [e.target.name]: false
+            }
+        })
+    }
+
     render() {
         return (
             <div className="bo-registration">
@@ -122,50 +121,50 @@ class Registration extends Component {
                         {/* Form Left */}
                         <div className="bo-left-form">
                             <h2>I tuoi dati</h2>
-                            {
-                                this.state.warning &&
-                                <h3>Dati inseriti non validi</h3>
-                            }
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.firstName ? 'alert' : ''}`}                                    
                                     placeholder="Nome"
                                     callback={this.handleCallbackInput}
-                                    name='firstName'
-
+                                    name='firstName'     
+                                    callbackOnFocus={this.handleCallBackFocus}                         
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.lastName ? 'alert' : ''}`}
                                     placeholder="Cognome"
                                     callback={this.handleCallbackInput}
                                     name='lastName'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
 
                             <InputBox
                                 type="email"
-                                className="bo-input-box"
+                                className={`bo-input-box ${this.state.warnings.email ? 'alert' : ''}`}
                                 placeholder="Email"
                                 callback={this.handleCallbackInput}
-                                name = 'email'
+                                name='email'
+                                callbackOnFocus={this.handleCallBackFocus}
                             />
 
                             <div className="flex-inputs">
                                 <InputBox
                                     type="password"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Password"
                                     callback={this.handleCallbackInput}
-                                    name = 'password'
+                                    name='password'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="password"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
                                     placeholder="Conferma password"
                                     callback={this.handleCallbackInput}
-                                    name = 'confirmPsw'
+                                    name='confirmPsw'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
 
@@ -179,10 +178,11 @@ class Registration extends Component {
                                 {/* <div className="input-flexed"> */}
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.restaurant_name ? 'alert' : ''}`}
                                     placeholder="Nome ristorante"
                                     callback={this.handleCallbackInput}
                                     name='restaurant_name'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 {/* </div> */}
 
@@ -192,64 +192,73 @@ class Registration extends Component {
                                 <Select
                                     data={this.categories}
                                     selectID='categories'
-                                    name='categories'
-                                    className = 'bo-input-box'
-                                    callback = {this.handleCallbackInput}
+                                    selectName='restaurant_category'
+                                    className={`bo-input-box ${this.state.warnings.restaurant_category ? 'alert' : ''}`}
+                                    callback={this.handleCallbackInput}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
 
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.street ? 'alert' : ''}`}
                                     placeholder="Via"
                                     callback={this.handleCallbackInput}
                                     name='address street'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.city ? 'alert' : ''}`}
                                     placeholder="Città"
                                     callback={this.handleCallbackInput}
                                     name='address city'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
 
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.cap ? 'alert' : ''}`}
                                     placeholder="CAP"
                                     callback={this.handleCallbackInput}
-                                    name = 'address cap'
+                                    name='address cap'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                <select className="bo-input-box">
-                                    <option>Stato</option>
-                                    <option>Mex</option>
-                                    <option>blabla</option>
-                                </select>
+                                <Select
+                                    data={this.countrys}
+                                    selectID='countrys'
+                                    className={`bo-input-box ${this.state.warnings.country ? 'alert' : ''}`}
+                                    callback={this.handleCallbackInput}
+                                    selectName='address country'
+                                    callbackOnFocus={this.handleCallBackFocus}
+                                />
                             </div>
 
                             <div className="flex-inputs">
                                 <InputBox
-                                    type="tel"
-                                    className="bo-input-box"
+                                    type="number"
+                                    className={`bo-input-box ${this.state.warnings.phone_number ? 'alert' : ''}`}
                                     placeholder="Telefono"
                                     callback={this.handleCallbackInput}
-                                    name = 'phone_number'
+                                    name='phone_number'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="text"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.warnings.VAT ? 'alert' : ''}`}
                                     placeholder="P.IVA"
                                     callback={this.handleCallbackInput}
-                                    name = 'VAT'
+                                    name='VAT'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
                             <Button
                                 text='REGISTRATI'
                                 className='bo-btn'
-                                callback={this.handleCallbackInput} />
+                                callback={this.handleSubmit} />
                         </div>
                     </div>
 
