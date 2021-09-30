@@ -16,42 +16,47 @@ class Profile extends Component {
         super(props)
 
         this.state = {
-            firstName: [undefined, false],
-            lastName: [undefined, false],
-            email: [undefined, false],
-            password: [undefined, false],
-            restaurant_name: [undefined, false],
-            street: [undefined, false],
-            city: [undefined, false],
-            cap: [undefined, false],
-            country: [undefined, false],
-            VAT: [undefined, false],
-            phone_number: [undefined, false],
-            restaurant_category: [undefined, false],
-            description: [undefined, true],
+            data = {
+                firstName: [undefined, false],
+                lastName: [undefined, false],
+                email: [undefined, false],
+                password: [undefined, false],
+                restaurant_name: [undefined, false],
+                street: [undefined, false],
+                city: [undefined, false],
+                cap: [undefined, false],
+                country: [undefined, false],
+                VAT: [undefined, false],
+                phone_number: [undefined, false],
+                restaurant_category: [undefined, false],
+                description: [undefined, false]
+            },
             editData: false
         }
     }
+    // TODO Sistemare questa function
+    handleCallbackInput = (e) => { this.setState({ ...this.state.data, [`${e.target.name}`]: [e.target.value, false] }) }
 
-    handleCallbackInput = (e) => { this.setState({ ...this.state, [`${e.target.name}`]: [e.target.value, false] }) }
-
-    // TODO button per salvare le modifiche
+    // TODO Sistemare questa function
     handleSubmit = () => {
         this.setState({
-            firstName: [this.state.firstName[0], !utils.validateName(this.objData.firstName)],
-            lastName: [this.state.lastName[0], !utils.validateName(this.objData.lastName)],
-            email: [this.state.email[0], !utils.validateEmail(this.objData.email)],
-            password: [this.state.password[0], !utils.validatePassword(this.objData.password)],
-            restaurant_name: [this.state.restaurant_name[0], !utils.validateName(this.objData.restaurant_name)],
-            street: [this.state.street[0], !utils.validateAddress(this.objData.address.street)],
-            city: [this.state.city[0], !utils.validateCity(this.objData.address.city)],
-            cap: [this.state.cap[0], !utils.validateCap(this.objData.address.cap)],
-            country: [this.state.country[0], (this.objData.address.country.length <= 0)],
-            VAT: [this.state.VAT[0], !utils.validateVAT(this.objData.VAT)],
-            phone_number: [this.state.phone_number[0], !utils.validatePhone(this.objData.phone_number)],
-            restaurant_category: [this.state.restaurant_category[0], (this.objData.restaurant_category.length <= 0)],
-            description: [this.state.description[0], true]
+            data = {
+                firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[1])],
+                lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[1])],
+                email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[1])],
+                password: [this.state.data.password[0], !utils.validatePassword(this.state.data.password[1])],
+                restaurant_name: [this.state.data.restaurant_name[0], !utils.validateName(this.state.data.restaurant_name[1])],
+                street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[1])],
+                city: [this.state.data.city[0], !utils.validateCity(this.state.data.city[1])],
+                cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[1])],
+                country: [this.state.data.country[0], this.state.data.country[1].length <= 0],
+                VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[1])],
+                phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[1])],
+                restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[1].length <= 0],
+                description: [this.state.description[0], false]
+            }
         })
+        !!Object.entries(this.state.data).find((value) => value[1][1] === false) ? console.log("ok") : console.log("no bono")
     }
 
     handelEdit = () => { this.setState({ editData: true }) }
@@ -78,28 +83,28 @@ class Profile extends Component {
                                     <p>Free Shipping <span><SwitchProfile /> </span></p>
                                 </div>
                             </div>
-                            <div className="bo-profile-flex-inputs">
-                                {
+                            {
                                     this.state.editData &&
                                     <Button
                                         text='SALVA'
                                         className='bo-btn'
+                                        callback={this.handleSubmit}
                                     />
                                 }
+                            <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
                                     placeholder="Nome"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.firstName[1] ? 'alert' : ''}`}
                                     name="firstName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
-
                                 />
 
                                 <InputBox
                                     type="text"
                                     placeholder="Cognome"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.lastName[1] ? 'alert' : ''}`}
                                     name="lastName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -109,7 +114,7 @@ class Profile extends Component {
                             <InputBox
                                 type="email"
                                 placeholder="Email"
-                                className="bo-input-box"
+                                className={`bo-input-box ${this.state.data.email[1] ? 'alert' : ''}`}
                                 name="email"
                                 callback={this.handleCallbackInput}
                                 disable={!this.state.editData}
@@ -123,7 +128,7 @@ class Profile extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="Nome ristorante"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.restaurant_name[1] ? 'alert' : ''}`}
                                     name="restaurant_name"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -132,7 +137,7 @@ class Profile extends Component {
                                 <InputBox
                                     type="tel"
                                     placeholder="Telefono"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.phone_number[1] ? 'alert' : ''}`}
                                     name="phone_number"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -144,7 +149,7 @@ class Profile extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="Via"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.street[1] ? 'alert' : ''}`}
                                     name="street"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -153,7 +158,7 @@ class Profile extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="CAP"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.cap[1] ? 'alert' : ''}`}
                                     name="cap"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -166,14 +171,14 @@ class Profile extends Component {
                                     selectID="state"
                                     selectName="state"
                                     data={['State1', 'State2', 'State3']}
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
                                 />
 
                                 <InputBox
                                     type="text"
                                     placeholder="Città"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.city[1] ? 'alert' : ''}`}
                                     name="city"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -185,7 +190,7 @@ class Profile extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="P.IVA"
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.VAT[1] ? 'alert' : ''}`}
                                     name="VAT"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
@@ -195,7 +200,7 @@ class Profile extends Component {
                                     selectID="category"
                                     selectName="category"
                                     data={['Category1', 'Category2', 'Category3']}
-                                    className="bo-input-box"
+                                    className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
                                 />
 
@@ -205,13 +210,13 @@ class Profile extends Component {
                                 selectID="discount"
                                 selectName="discount"
                                 data={['Discount1', 'Discount2', 'Discount3']}
-                                className="bo-input-box"
+                                className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
                                 disable={!this.state.editData}
                             />
 
                             <TextArea
                                 name="description"
-                                className="bo-input-box"
+                                className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
                                 id="description"
                                 value="test prova ciao"
                                 disable={!this.state.editData}

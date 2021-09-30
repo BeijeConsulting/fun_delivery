@@ -2,9 +2,7 @@ import './Button.css';
 
 const Button = (props) => {
 
-    const handleCallbackBtn = (e) => {
-        return props.callback(e)
-    }
+    const handleCallbackBtn = (e) => { return props.callback(e) }
 
     return (
         <button className={props.className} onClick={handleCallbackBtn}>
@@ -14,6 +12,6 @@ const Button = (props) => {
 }
 
 Button.defaultProps = {
-    text : 'Button'
+    text: 'Button'
 }
 export default Button;
