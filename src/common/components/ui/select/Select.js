@@ -8,11 +8,19 @@ const Select = (props) => {
         props.callback(e)
     }
 
+    const handleCallBackOnFocus = (e) => {
+        if (props.callbackOnFocus) {
+            props.callbackOnFocus(e)
+        }
+    }
+
     return (
         <select id={props.selectID}
             name={props.selectName}
             className={props.className}
             onChange={handlecallback}
+            onFocus={handleCallBackOnFocus}
+            disabled={props.disable}
         >
             {
                 props.data.map((item, index) => {

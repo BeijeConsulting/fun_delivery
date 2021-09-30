@@ -15,6 +15,7 @@ const TextArea = (props) => {
             col="4"
             rows="5"
             onChange={handleTextAreaCallback}
+            disabled={props.disable}
         >
             {
                 props.value &&

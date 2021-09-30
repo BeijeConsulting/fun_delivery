@@ -6,6 +6,12 @@ const InputBox = (props) => {
         props.callback(e);
     };
 
+    const handleCallbackOnFocus = (e)=> {
+        if(props.callbackOnFocus) {
+            props.callbackOnFocus(e)
+        }
+    }
+
     return (
         <input
             placeholder={props.placeholder}
@@ -13,7 +19,9 @@ const InputBox = (props) => {
             type={props.type}
             value={props.value}
             onChange={handleCallbackInputBox}
+            onFocus={handleCallbackOnFocus}
             className={props.className}
+            disabled={props.disable}
         />
     );
 }
