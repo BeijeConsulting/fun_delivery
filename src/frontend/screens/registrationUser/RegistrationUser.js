@@ -7,6 +7,9 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from '../../../common/assets/delivery.png'
 import './RegistrationUser.css'
 
+//utils
+import utils from "../../../common/utils/utils";
+
 class RegistrationUser extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +32,22 @@ class RegistrationUser extends React.Component {
 
     //TEMP
     handleSignUp = () => {
-        return true
+        if(utils.validateName(this.state.userName) === false) {
+            alert("nome errato")
+        }else if (utils.validateName(this.state.surname) === false) {
+            alert("cognome errato")
+        }else if (utils.validateEmail(this.state.email) === false) {
+            alert("mail errata")
+        }else if (utils.validatePhone(this.state.phone) === false) {
+            alert("telefono errato")
+        }else if (utils.validatePassword(this.state.password) === false) {
+            alert("password errata")
+        }else if (this.state.confpsw !== this.state.password) {
+            alert("password non corrispondono")
+    }else{
+            alert("login effettuato")
+        }
+
     }
 
     render() {
@@ -46,7 +64,7 @@ class RegistrationUser extends React.Component {
                         placeholder={"Nome"}
                         name={"userName"}
                         type={"text"}
-                        value={this.state.name}
+                        value={this.state.userName}
                         callback={this.handleInputChange}
                         className={"frontend-input"}
                     />
@@ -102,7 +120,7 @@ class RegistrationUser extends React.Component {
                     />
                 </div>
 
-                <img className='frontend-img' src={delivery} alt='delivery guy'/>
+                <img className='frontend-img' src={delivery} alt='delivery guy' />
             </div>
         );
     }
