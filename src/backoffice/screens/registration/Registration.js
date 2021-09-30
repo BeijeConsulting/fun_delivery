@@ -68,7 +68,8 @@ class Registration extends Component {
 
 
     handleCallbackInput = (e) => {
-        const words = e.target.name
+        // Serve per salvare il dato cottettamente all'interno di objDAta
+        const words = e.target.name.split(' ')
         if (words[0] === 'address') {
             this.objData.address[words[1]] = e.target.value
         } else {
@@ -80,6 +81,7 @@ class Registration extends Component {
     }
 
     handleSubmit = () => {
+        console.log('objData',this.objData);
         this.setState({
             warnings: {
                 firstName: !utils.validateName(this.objData.firstName),
@@ -239,7 +241,7 @@ class Registration extends Component {
 
                             <div className="flex-inputs">
                                 <InputBox
-                                    type="number"
+                                    type="text"
                                     className={`bo-input-box ${this.state.warnings.phone_number ? 'alert' : ''}`}
                                     placeholder="Telefono"
                                     callback={this.handleCallbackInput}
