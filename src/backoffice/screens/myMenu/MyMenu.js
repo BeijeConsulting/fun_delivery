@@ -21,7 +21,7 @@ class MyMenu extends Component {
     }
     
     handleCallbackPagePlates = () => {
-        this.props.history.push('/restaurant/plates',{
+        this.props.history.push('/restaurant/:order_id',{
             titlePage: 'PRIMI'
         })
     }
