@@ -1,4 +1,3 @@
-import { Component } from "react";
 import './IncomingOrders.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Button from '../../../common/components/ui/button/Button';
