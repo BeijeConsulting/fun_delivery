@@ -3,13 +3,17 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditFilled, DollarCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, EditFilled, DollarCircleOutlined } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
-import Button from "../../../common/components/ui/button/Button"
+import Button from "../../../common/components/ui/button/Button";
 import 'antd/dist/antd.css';
-import utils from "../../../common/utils/utils";
+import utils from '../../../common/utils/utils'
+import { TimePicker } from 'antd';
+import moment from 'moment';
+
+const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
@@ -64,8 +68,8 @@ class Profile extends Component {
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
-                                <span className="bo-icon-edit"><EditFilled onClick={this.handelEdit} /></span>
-                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
+                                <span className="bo-icon-edit"><EditFilled /></span>
+                                {/* <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span> */}
                             </div>
                             <div className="bo-profile-img">
                                 <img src={LogoBeije} alt="" />
@@ -118,6 +122,7 @@ class Profile extends Component {
                         </div>
                         <div className="bo-profile-form">
                             <h3>Il tuo ristorante</h3>
+
                             <div className="bo-profile-flex-inputs">
 
                                 <InputBox
@@ -201,13 +206,35 @@ class Profile extends Component {
 
                             </div>
 
-                            <Select
-                                selectID="discount"
-                                selectName="discount"
-                                data={['Discount1', 'Discount2', 'Discount3']}
-                                className="bo-input-box"
-                                disable={!this.state.editData}
-                            />
+
+
+                            <div className="bo-profile-flex-inputs">
+                                <div className="bo-profile-flex-inputs-time">
+                                    {/* <h3>Orario di apertura</h3>  */}
+                                    <InputBox
+                                        name="time-start"
+                                        type="time"
+                                        placeholder="Orario di apertura"
+                                        className="bo-input-box"
+                                    />
+                                    {/*  <h3>Orario di chiusura</h3>  */}
+                                    <InputBox
+                                        name="time-end"
+                                        type="time"
+                                        placeholder="Orario di apertura"
+                                        className="bo-input-box"
+                                    />
+                                </div>
+
+                                <Select
+                                    selectID="discount"
+                                    selectName="discount"
+                                    data={['Discount1', 'Discount2', 'Discount3']}
+                                    className="bo-input-box"
+                                />
+                            </div>
+
+
 
                             <TextArea
                                 name="description"

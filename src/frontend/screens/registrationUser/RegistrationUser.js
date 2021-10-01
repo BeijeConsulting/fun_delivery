@@ -5,6 +5,7 @@ import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import Button from "../../../common/components/ui/button/Button";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from '../../../common/assets/delivery.png'
+import { Link } from "react-router-dom";
 import './RegistrationUser.css'
 
 class RegistrationUser extends React.Component {
@@ -102,7 +103,7 @@ class RegistrationUser extends React.Component {
                     />
                 </div>
 
-                <img className='frontend-img' src={delivery} alt='delivery guy'/>
+                <img className='frontend-img' src={delivery} />
             </div>
         );
     }

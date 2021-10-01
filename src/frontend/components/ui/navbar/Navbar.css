@@ -2,7 +2,6 @@
     background-color: white;
     padding: 1rem 2rem;
     width: 100%;
-    box-shadow: 1px 1px 10px grey;
 }
 
 
@@ -24,7 +23,7 @@
     justify-content: space-between;
 }
 .right-nav-side{
-    width: 195px;
+    width: 230px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,8 +42,7 @@
 }
 
 .right-btn.register{
-    /* background-color: #F24464d9; */
-    background-color: var(--primary-strawberry);
+    background-color: #F24464d9;
 }
 .right-btn.register:hover{
     background-color: #f24464b6;
@@ -52,9 +50,8 @@
 
 
 .outer-btn{
-    width: 220px;
-    /* background-color: #F24464d9; */
-    background-color: var(--primary-strawberry);
+    width: 260px;
+    background-color: #F24464d9;
     padding: 10px 20px;
     border-radius: 25px;
     position: relative;
@@ -65,10 +62,8 @@
 
 .inner-btn{
     position: absolute;
-    z-index: 0;
-    height: 30px;
-    width: 90px;
     top: 50%;
+    left: 10px;
     transform: translateY(-50%);
     background-color: white;
     padding: 5px 20px;
@@ -76,31 +71,15 @@
     border-radius: 25px;
     transition: .5s;
 }
-.pickup{
-    left: 15px;
+.inner-btn:hover{
+    background-color: #3F3D56;
+    color: white;
 }
-.delivery{
-    left: 115px;
-}
-
-
-.left-inner-text,
-.right-inner-text{
-    font-weight: 700;
-    z-index: 20;
-    color: var(--primary-dark);
+.inner-txt{
     position: absolute;
+    right: 20px;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-.left-inner-text{
-    left: 60px;
-}
-.right-inner-text{    
-    left: 160px;
-}
-.white-txt{
-    color: white;
 }
 
 /* BURGER STYLE */

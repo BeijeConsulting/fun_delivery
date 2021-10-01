@@ -21,7 +21,6 @@ const InputBox = (props) => {
             onChange={handleCallbackInputBox}
             onFocus={handleCallbackOnFocus}
             className={props.className}
-            disabled={props.disable}
         />
     );
 }

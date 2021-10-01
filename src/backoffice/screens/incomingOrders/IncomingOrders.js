@@ -19,7 +19,7 @@ class IncomingOrders extends Component {
         return (
             <>
                 <LayoutBackOffice
-                    pageTitle="PROFILE"
+                    pageTitle="IN ARRIVO"
                 >
                     <div className="bo-io-container">
 

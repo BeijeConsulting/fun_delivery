@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import Button from '../../../../common/components/ui/button/Button';
 import { Layout } from 'antd';
 import Navbar from '../../ui/navbar/Navbar';
-import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutlined, DollarCircleOutlined } from '@ant-design/icons';
 
 const { Content, Sider } = Layout;
 
@@ -30,6 +30,7 @@ const LayoutBackOffice = (props) => {
                                 <li><span><AppstoreOutlined /></span>Il tuo Menu</li>
                                 <li><span><ShoppingOutlined /></span>Ordini</li>
                                 <li><span><ExclamationCircleOutlined /></span>In arrivo</li>
+                                <li><span><DollarCircleOutlined /></span>Sponsor</li>
                             </ul>
 
                             <div className="bo-btn-logout">
