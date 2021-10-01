@@ -3,6 +3,7 @@ import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 /* import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons'; */
 import 'antd/dist/antd.css';
+import coin from '../../../common/assets/BeijeCoin.png'
 import {HourglassOutlined} from '@ant-design/icons';
 import SingleSponsor from "./singleSponsor/SingleSponsor";
 class Profile extends Component {
@@ -30,7 +31,7 @@ class Profile extends Component {
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div style={{ border: '1px solid black', height: '100%' }} className="bo-sponsor-container">
+                    <div style={{height: '100%' }} className="bo-sponsor-container">
                         <div className="gm-containersponsor">
 
                             <SingleSponsor
@@ -40,6 +41,8 @@ class Profile extends Component {
                                 price={"10"}
                                 componentFromChild={<HourglassOutlined />}
                                 label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
                                 hourGlass={'red'}
                                 classNameBtn={"gm-classNameBtn"}
                                 callbacksponsor={this.handleOnClick({ name: 'sponsor 1', id: 1, durata: 5 })}
@@ -51,6 +54,8 @@ class Profile extends Component {
                                 description="one week"
                                 price={"50"}
                                 label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
                                 componentFromChild={<HourglassOutlined />}
                                 hourGlass={'red'}
                                 classNameBtn={"gm-classNameBtn"}
@@ -63,6 +68,8 @@ class Profile extends Component {
                                 description="one month"
                                 price={"100"}
                                 label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
                                 componentFromChild={<HourglassOutlined />}
                                 hourGlass={'gold'}
                                 classNameBtn={"gm-classNameBtn"}
