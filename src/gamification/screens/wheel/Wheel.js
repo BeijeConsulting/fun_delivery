@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 
 import "./Wheel.css";
 
+
+
 class Wheel extends React.Component {
     state = {
         list: [
