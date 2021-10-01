@@ -9,9 +9,6 @@ import in_progress from '../../assets/images/in_progress.png'
 import 'antd/dist/antd.css';
 
 class Profile extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     handleCallbackPageSingleOrder = () => {
         this.props.history.push('/restaurant/my-orders/'+1, {

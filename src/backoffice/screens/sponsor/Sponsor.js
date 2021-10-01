@@ -5,9 +5,6 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import 'antd/dist/antd.css';
 
 class Profile extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return (

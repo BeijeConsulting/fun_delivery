@@ -3,15 +3,13 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditOutlined, EditFilled, DollarCircleOutlined } from '@ant-design/icons';
+import { EditFilled} from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import Button from "../../../common/components/ui/button/Button";
 import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
-import { TimePicker } from 'antd';
-import moment from 'moment';
 
 const format = 'HH:mm';
 
