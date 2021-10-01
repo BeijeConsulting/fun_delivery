@@ -1,4 +1,3 @@
-
 import React from "react";
 import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
@@ -6,7 +5,9 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from "../../../common/assets/delivery.png"
 import "./LoginUser.css"
 import { Link } from "react-router-dom";
+import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
+import { Helmet } from "react-helmet";
 
 
 
@@ -16,48 +17,51 @@ class LoginUser extends React.Component {
         super(props)
 
         this.state = {
-
-
-            // buttonClick: false,
-
-            email: {
-                text: "",
-                isValid: false,
-
-            },
-            password: {
-                text: "",
-                isValid: false,
-
-            }
-
+            email: "",
+            password: "",
+            errorMsg: ""
         }
     }
 
 
 
-    validateClick = (e) => {
 
-        return true
+    validateClick = () => {
+        let mailControlled = utils.validateEmail(this.state.email);
+        let passwordControlled = utils.validatePassword(this.state.password);
+
+        let error = this.state.errorMsg
+        if (mailControlled === false) {
+            error = "Invalid Email"
+        } else if (passwordControlled === false) {
+            error = "Invalid password"
+        }
+
+        if (mailControlled === false && passwordControlled === false) {
+            error = "Invalid email and password "
+            // alert(error)
+        } else if (mailControlled && passwordControlled) {
+            alert('Signed in!')
+            //inserire this.props.history.push('/UserPage")
+        }
+
+        this.setState({
+            errorMsg: error
+        })
 
     }
 
 
+
     onEmailChange = (e) => {
         this.setState({
-            email: {
-                text: e.target.value,
-                isValid: false
-            }
+            email: e.target.value
         })
     }
 
     onPasswordChange = (e) => {
         this.setState({
-            password: {
-                text: e.target.value,
-                isValid: false
-            }
+            password: e.target.value
         })
     }
 
@@ -67,8 +71,18 @@ class LoginUser extends React.Component {
     render() {
 
         return (
+
             <main className="frontend-outer-container fe-login">
                 <div className='frontend-inner-container'>
+
+                    <head>
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <meta name="description" content="This is a login page" />
+                            <title>Login</title>
+                        </Helmet>
+                    </head>
+
                     <HtmlTag
                         tag="h1"
                         text="Login"
@@ -76,13 +90,17 @@ class LoginUser extends React.Component {
                     />
 
 
+                    <h5 style={{ color: "#F24464" }}>{this.state.errorMsg}</h5>
+
+
                     <InputBox
                         type='email'
                         placeholder='Username or Email'
                         name={'email'}
                         callback={this.onEmailChange}
-                        value={this.state.email.text}
+                        value={this.state.email}
                         className={'frontend-input'}
+
                     />
 
                     <InputBox
@@ -90,7 +108,7 @@ class LoginUser extends React.Component {
                         placeholder={'Password'}
                         name={'password'}
                         callback={this.onPasswordChange}
-                        value={this.state.password.text}
+                        value={this.state.password}
                         className={'frontend-input'}
 
                     />
@@ -120,7 +138,7 @@ class LoginUser extends React.Component {
                     />
                 </Link>
 
-                <img className='frontend-img' src={delivery} />
+                <img className='frontend-img' src={delivery} alt='delivery guy' />
             </main>
 
         )
