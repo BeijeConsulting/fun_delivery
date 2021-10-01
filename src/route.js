@@ -25,6 +25,7 @@ import RestaurantOrders from './backoffice/screens/myOrders/MyOrders';
 import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder';
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
+import Quiz from "./gamification/screens/quiz/Quiz";
 
 const Routing = () => {
 
@@ -55,6 +56,8 @@ const Routing = () => {
                 <Route path="/restaurant/incoming-orders" component={RestaurantIncomingOrders}/>
                 <Route path="/restaurant/sponsor" component={RestaurantSponsor}/>                               
 
+                {/* GAMIFICATION ROUTES */}
+                <Route path="/quiz" component={Quiz}/>
 
                 
             </Switch>
