@@ -183,7 +183,7 @@ class Registration extends Component {
                             <h2>Il tuo ristorante</h2>
 
                             <div className="flex-inputs">
-                                {/* <div className="input-flexed"> */}
+                               
                                 <InputBox
                                     type="text"
                                     className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
@@ -192,11 +192,7 @@ class Registration extends Component {
                                     name='restaurant_name'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                {/* </div> */}
-
-                                {/* <div className="input-flexed"> */}
-
-                                {/* </div> */}
+                                
                                 <Select
                                     data={this.categories}
                                     selectID='categories'

@@ -4,7 +4,8 @@ import BannerBackground from '../../components/ui/bannerBackground/BannerBackgro
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import properties from '../../../common/utils/properties';
 
 // Utils
 import Utils from '../../../common/utils/utils'
@@ -59,7 +60,7 @@ class Login extends Component {
                 <h1>Accedi al tuo ristorante</h1>
                 {
                     this.state.warning &&
-                    <h3>Email o password errati</h3>
+                    <h3 className="alert">Email o password errati</h3>
                 }
                 <div className="bo-login-form">
                     <InputBox
@@ -74,7 +75,7 @@ class Login extends Component {
                         placeholder='Password'
                         callback={this.handleInputPassword}
                     />
-                    <Link to='/restaurant/forgotPassword' className='bo-link'><b>Password dimenticata?</b></Link>
+                    <Link to={properties.BO_ROUTING.FORGOT_PSW} className='bo-link'><b>Password dimenticata?</b></Link>
                     <Button
                         text='ACCEDI'
                         className='bo-btn'
@@ -83,7 +84,7 @@ class Login extends Component {
                     <div style={{ fontSize: '20px' }}>
                         Vuoi diventare un nostro partner?
                     </div>
-                    <Link to='/restaurant/registration' className='bo-link'><b>Registrati ora.</b></Link>
+                    <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>Registrati ora.</b></Link>
                 </div>
                 <br />
             </div>
