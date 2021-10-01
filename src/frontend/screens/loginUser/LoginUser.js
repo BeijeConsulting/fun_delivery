@@ -7,6 +7,7 @@ import delivery from "../../../common/assets/delivery.png"
 import "./LoginUser.css"
 import { Link } from "react-router-dom";
 // import utilities from "../../utilities/utilities";
+import { Helmet } from "react-helmet";
 
 
 
@@ -67,8 +68,18 @@ class LoginUser extends React.Component {
     render() {
 
         return (
+
             <main className="frontend-outer-container fe-login">
                 <div className='frontend-inner-container'>
+
+                    <head>
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <meta name="description" content="This is a login page" />
+                            <title>Login</title>
+                        </Helmet>
+                    </head>
+
                     <HtmlTag
                         tag="h1"
                         text="Login"
@@ -120,7 +131,7 @@ class LoginUser extends React.Component {
                     />
                 </Link>
 
-                <img className='frontend-img' src={delivery} alt='img'/>
+                <img className='frontend-img' src={delivery} alt='delivery guy' />
             </main>
 
         )
