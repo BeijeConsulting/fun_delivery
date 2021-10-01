@@ -120,7 +120,7 @@ class LoginUser extends React.Component {
                     />
                 </Link>
 
-                <img className='frontend-img' src={delivery} alt='delivery guy'/>
+                <img className='frontend-img' src={delivery} />
             </main>
 
         )
