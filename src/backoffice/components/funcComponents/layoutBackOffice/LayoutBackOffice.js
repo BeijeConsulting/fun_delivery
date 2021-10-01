@@ -1,5 +1,6 @@
 import './LayoutBackOffice.css';
 import 'antd/dist/antd.css';
+import { Link } from 'react-router-dom';
 import Button from '../../../../common/components/ui/button/Button';
 import { Layout } from 'antd';
 import Navbar from '../../ui/navbar/Navbar';
@@ -26,11 +27,11 @@ const LayoutBackOffice = (props) => {
                     >
                         <div className="backoffice-menu-container">
                             <ul className="backoffice-menu">
-                                <li><span><UserOutlined /></span>Profilo</li>
-                                <li><span><AppstoreOutlined /></span>Il tuo Menu</li>
-                                <li><span><ShoppingOutlined /></span>Ordini</li>
-                                <li><span><ExclamationCircleOutlined /></span>In arrivo</li>
-                                <li><span><DollarCircleOutlined /></span>Sponsor</li>
+                                <li><Link to="/restaurant/profile"><span><UserOutlined /></span>Profilo</Link></li>
+                                <li><Link to="/restaurant/my-menu"><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
+                                <li><Link to="/restaurant/my-orders"><span><ShoppingOutlined /></span>Ordini</Link></li>
+                                <li><Link to="/restaurant/incoming-orders"><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
+                                <li><Link to="/restaurant/sponsor"><span><DollarCircleOutlined /></span>Sponsor</Link></li>
                             </ul>
 
                             <div className="bo-btn-logout">
