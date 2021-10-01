@@ -1,9 +1,6 @@
 import React from "react";
 
 class ElementListRadio extends React.Component {
-  constructor(props){
-    super(props);
-  }
     
   handleChange = (e) => {
     return this.props.callback(e)

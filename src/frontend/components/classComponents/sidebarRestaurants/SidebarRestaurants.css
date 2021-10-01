@@ -5,18 +5,39 @@
     margin-left: 6px;
     border-radius: 500px;
     cursor: pointer;   
+    font-weight: normal;
+
+}
+.orderFilterButton {
+    background: #EEEEEE;
+    padding: 0px 12px;
+    border-radius: 500px;
+    cursor: pointer;   
+    margin-top: -3%;
+    font-size: 13px;
+    font-weight: normal;
+    
 }
 
+.rowLocal {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    font-weight: lighter;
+    
+}
 
 .orderPriceButton:active{
     background-color: #cacaca;
 }
+
 .orderBy {
-    height: 170px;
+    height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
+
 .priceOrder {
     height: 100px;
     display: flex;
@@ -24,13 +45,16 @@
     justify-content: space-around;
 }
 
-/* .maxDeliveryPrice{
-    
-} */
+.deliveryPrice{
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .deliveryRangeContainer{
     height: 66px;   
     width: calc(100% - 8px);
-   
 }
 
 .deliveryRangeSon{
@@ -40,12 +64,3 @@
 .deliveryPriceRange{
     height: 66px;
 }
-
-
-/* 
-.deliveryPrice{
-}
-
-.deliveryPrice::before{
-} */
-

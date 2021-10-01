@@ -48,6 +48,15 @@
     .wrapperImage{
         margin: 10px 5px 10px 5px;
     }
+    .imageSingleRestaurant{
+        width: 280px;
+        height: 128px;
+        border-radius: 5px;
+        max-width: 100%;
+        object-fit: cover;
+        overflow:hidden;
+        
+    }
 }
 @media only screen 
   and (min-device-width: 768px) 
