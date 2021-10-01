@@ -7,6 +7,9 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from '../../../common/assets/delivery.png'
 import './RegistrationUser.css'
 
+//utils
+import utils from "../../../common/utils/utils";
+
 class RegistrationUser extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +21,7 @@ class RegistrationUser extends React.Component {
             phone: "",
             password: "",
             confpsw: "",
+            errormsg: ''
         }
     }
 
@@ -27,9 +31,30 @@ class RegistrationUser extends React.Component {
         });
     };
 
-    //TEMP
+    //TEST TEMP
+    //Levare alert e mettere i vari messaggi di errori e di login effettuato
     handleSignUp = () => {
-        return true
+        let error = this.state.errormsg
+        if (utils.validateName(this.state.userName) === false) {
+            error = 'invald name'
+        } else if (utils.validateName(this.state.surname) === false) {
+            error = 'invalid surname'
+        } else if (utils.validateEmail(this.state.email) === false) {
+            error = 'invalid email'
+        } else if (utils.validatePhone(this.state.phone) === false) {
+            error = 'invalid phone'
+        } else if (utils.validatePassword(this.state.password) === false) {
+            error = 'invalid password'
+        } else if (this.state.confpsw !== this.state.password) {
+            error = 'password does not match'
+        } else {
+            error = 'Registration made'
+        }
+
+        this.setState({
+            errormsg: error
+        })
+
     }
 
     render() {
@@ -42,11 +67,14 @@ class RegistrationUser extends React.Component {
                         text="Register"
                         className='frontend-h1'
                     />
+                    <h3 style={{
+                        color: "#F24464"
+                    }}>{this.state.errormsg}</h3>
                     <InputBox
                         placeholder={"Nome"}
                         name={"userName"}
                         type={"text"}
-                        value={this.state.name}
+                        value={this.state.userName}
                         callback={this.handleInputChange}
                         className={"frontend-input"}
                     />
@@ -102,7 +130,7 @@ class RegistrationUser extends React.Component {
                     />
                 </div>
 
-                <img className='frontend-img' src={delivery} alt='img'/>
+                <img className='frontend-img' src={delivery} alt='delivery guy' />
             </div>
         );
     }
