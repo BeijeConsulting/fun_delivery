@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
 import './Memory.css'
+import properties from '../../utilities/properties'
 
-import burger from "../../assets/burger.png"
-import chinese from "../../assets/chinese.png"
-import dessert from "../../assets/dessert.png"
-import pizza from "../../assets/pizza.png"
-import poke from "../../assets/poke.png"
-import sushi from "../../assets/sushi.png"
-
-import logo from "../../assets/logo_beije.svg"
-import Title from '../../components/func_components/title/Title.js'
+import Title from '../../components/funcComponents/title/Title.js'
 import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 
@@ -19,20 +12,7 @@ class Memory extends Component {
 
         this.state = {
             shuffle: false,
-            memoryCardsPair: [
-                { name: burger, active: false, visible: true },
-                { name: chinese, active: false, visible: true },
-                { name: dessert, active: false, visible: true },
-                { name: poke, active: false, visible: true },
-                { name: pizza, active: false, visible: true },
-                { name: sushi, active: false, visible: true },
-                { name: burger, active: false, visible: true },
-                { name: chinese, active: false, visible: true },
-                { name: dessert, active: false, visible: true },
-                { name: poke, active: false, visible: true },
-                { name: pizza, active: false, visible: true },
-                { name: sushi, active: false, visible: true }
-            ]
+            memoryCardsPair: properties.memoryCardsPair
         }
     }
 
@@ -49,7 +29,7 @@ class Memory extends Component {
       
     // ONCLICK SET STATE OF CARD OBJ TRUE AND CHECK IF 2 CARDS SELECTED ARE EQUALS OF NOT, IF EQUALS REMOVE CARDS FROM ARRAY, ELSE RESET THE STATE TO FALSE
 
-    handleClick = (card, key) => () => {
+    handleClickMemory = (key) => () => {
 
    
         // SET ACTIVE TRUE ON SELECTED ELEMENT
@@ -74,7 +54,6 @@ class Memory extends Component {
                     newMemoryCardsPair = cardsRemove
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
-                    console.log(newMemoryCardsPair)
                 }
 
                 // FILTERED RESET WAITING NEW COMPARE
@@ -85,7 +64,7 @@ class Memory extends Component {
                 })
             }
         }, 1000)
-        console.log(this.state.memoryCardsPair)
+
     }
 
     render() {
@@ -96,7 +75,7 @@ class Memory extends Component {
                         <div className='info-message'>Trova le coppie uguali</div>
                     </div>
                 <Title
-                    className={"title"}
+                    className={"gm-title"}
                     label={'Memory'}
                     color={'white'}
                     fontWeight={'bold'}
@@ -112,16 +91,16 @@ class Memory extends Component {
                                 <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
                                     <div
                                         key={key}
-                                        className={card.active ? 'card active' : "card wrong-front"} onClick={(this.handleClick(card, key))}>
+                                        className={card.active ? 'card active' : "card wrong-front"} >
                                     </div>
-                                    <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'}></div>
+                                    <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
                                 </div>
                             )
                         })}
                     </div>
                 </div>
                 <div className="general-container">
-                </div>
+                </div> 
             </div>
         )
     }
