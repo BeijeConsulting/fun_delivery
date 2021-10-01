@@ -4,7 +4,7 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import 'antd/dist/antd.css';
 import { LeftOutlined } from '@ant-design/icons'
-import { EditOutlined, EditFilled, DollarCircleOutlined } from '@ant-design/icons';
+import { EditFilled } from '@ant-design/icons';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";

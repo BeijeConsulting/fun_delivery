@@ -16,9 +16,6 @@ import Poke from '../../assets/images/poke.jpg'
 import Sushi from '../../assets/images/sushi.png'
 import Altro from '../../assets/images/altro.jpg'
 class MyMenu extends Component {
-    constructor(props) {
-        super(props)
-    }
     
     handleCallbackPagePlates = () => {
         this.props.history.push('/restaurant/:order_id',{
