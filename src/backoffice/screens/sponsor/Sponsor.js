@@ -15,7 +15,7 @@ class Profile extends Component {
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div className="bo-sponsor-container">
+                    <div className="gm-sponsor-container">
 
                         {/* <div className="bo-profile-first-row">
 

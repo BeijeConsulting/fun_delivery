@@ -1,0 +1,199 @@
+/* CATEGORIES ZONE */
+.headerSombrero {
+    width: 93%;
+    margin-top: 80px;
+    min-width: 100px;
+    height: 200px;
+    background-color: var(--primary-strawberry)  ;
+    border-radius: 10px;
+    flex-wrap: nowrap;
+}
+
+.headerSombrero::before {
+    display: flex;
+    margin-top: -60px;
+    margin-left: 5px;
+    font-weight: 600;
+    flex-wrap: nowrap;
+    font-size: 200%;
+    content:'Approfitta della settimana del Sombrero!'
+}
+
+.orientedLeft {
+    display: flex;
+    justify-content: left;
+    width: 94%;
+}
+
+.categoriesTitle {
+    position: relative;
+    padding: 10px;
+    font-weight: 600;
+    flex-wrap: nowrap;
+    font-size: 150%;
+}
+
+.categoriesListContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.mainContainerCategories {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.categoriesIcon {
+    width: 97%;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.secondPart {
+    display: flex;
+    flex-direction: row;
+}
+
+.piattiCons {
+    width: 50%;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.trendRist {
+    width: 50%;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.cardCat {
+    display: flex;
+    flex-direction: column;
+}
+
+/* CATEGORIES ZONE */
+.mainContainerRestaurants{
+    display: flex;  
+    flex-direction: column;
+}
+
+.sideNav{
+    flex: 25%;
+    margin-left: 50px;
+    min-width: 300px;
+    margin-top: 10px;
+    padding-right: 35px;
+    display: block;
+    box-sizing: border-box;
+}
+
+.restaurantsListContainer{
+    flex:75%;
+    flex-wrap: wrap;
+}
+
+.priceOrder li{
+    display:inline
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon {
+    background-color: transparent;
+    margin:10px;
+    border: 1px solid black;
+    /* box-shadow: 1px 1px 6px var(--primary-strawberry)  ; */
+}
+
+
+/* IPHONE 5 */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px) {
+    .sideNav{
+        display: none;
+    }
+    .headerSombrero {
+        margin-top: 85px;
+        width: 87%;
+        height: 130px;
+    }
+   
+    .headerSombrero::before {
+        display: flex;
+        margin-top: -65px;
+        margin-left: 5px;
+        font-weight: 600;
+        flex-wrap: wrap;
+        font-size: 130%;
+        content:'Approfitta della settimana del Sombrero!'
+    }
+    .categoriesIcon {
+        width: 94%;
+        height: 100px;
+        display: grid;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: -15px;
+        margin-bottom: 50px;
+        grid-template-columns: auto auto auto;
+    }
+}
+
+/* IPHONE 678
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px)
+  and (orientation: landscape) {
+    .sideNav{
+        display: none;
+    }
+    
+    
+   
+} */
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (orientation: landscape) {
+    .sideNav{
+        display: none;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 480px) 
+  and (max-device-width: 768px) 
+  and (orientation: portrait) {
+      .sideNav{
+        display: none;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) {
+      .sideNav{
+        display: none;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) {
+      .sideNav{
+        display: none;
+    }
+}

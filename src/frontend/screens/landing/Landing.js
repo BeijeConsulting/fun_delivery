@@ -3,7 +3,6 @@ import '../landing/Landing.css';
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag';
 import Input from '../../../common/components/ui/inputBox/InputBox';
 import Button from '../../../common/components/ui/button/Button';
-import Select from "../../../common/components/ui/select/Select";
 
 class Landing extends Component {
     constructor(props) {

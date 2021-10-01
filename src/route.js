@@ -9,6 +9,8 @@ import ForgotPassword from "./frontend/screens/forgotPassword/ForgotPassword";
 import UserHome from "./frontend/screens/userHome/UserHome";
 import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
+import UserMissions from "./frontend/screens/userMissions/UserMissions";
+
 
 /* BACKOFFICE SCREENS */
 import LoginBackOffice from './backoffice/screens/login/Login';
@@ -24,6 +26,8 @@ import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder'
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 
+import properties from "./common/utils/properties";
+
 const Routing = () => {
 
     return (
@@ -35,23 +39,23 @@ const Routing = () => {
                 <Route path="/loginUser" component={LoginUser} />
                 <Route path="/registrationUser" component={RegistrationUser} />
                 <Route path="/forgotPassword" component={ForgotPassword} />
-                <Route path="/userHome" component={UserHome} />
                 <Route path="/restaurants" component={Restaurants} />
-
+                <Route exact path="/userHome" component={UserHome} />
+                <Route exact path='/userHome/userMissions' component={UserMissions} />
 
                 {/* BACKOFFICE ROUTES */}
-                <Route path="/restaurant/login" component={LoginBackOffice}/>
-                <Route path="/restaurant/registration" component={RegistrationBackOffice}/>
-                <Route path="/restaurant/forgot-password" component={ForgotPasswordBackOffice}/>
-                <Route path="/restaurant/profile" component={RestaurantProfile}/>
-                <Route path="/restaurant/my-menu" component={MyMenu}/>
-                <Route exact path="/restaurant/plates" component={RestaurantPlates}/>
-                <Route path="/restaurant/plates/:plate_id" component={RestaurantSinglePlate}/>
-                <Route path="/restaurant/new-plate" component={RestaurantNewPlate}/>                
-                <Route path="/restaurant/my-orders" component={RestaurantOrders}/>
-                <Route path="/restaurant/my-orders/:order_id" component={RestaurantSingleOrder}/>                                
-                <Route path="/restaurant/incoming-orders" component={RestaurantIncomingOrders}/>
-                <Route path="/restaurant/sponsor" component={RestaurantSponsor}/>                               
+                <Route path={properties.BO_ROUTING.LOGIN} component={LoginBackOffice}/>
+                <Route path={properties.BO_ROUTING.REGISTRATION} component={RegistrationBackOffice}/>
+                <Route path={properties.BO_ROUTING.FORGOT_PSW} component={ForgotPasswordBackOffice}/>
+                <Route path={properties.BO_ROUTING.PROFILE} component={RestaurantProfile}/>
+                <Route path={properties.BO_ROUTING.MY_MENU} component={MyMenu}/>
+                <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
+                <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate}/>
+                <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate}/>                
+                <Route path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
+                <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder}/>                                
+                <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders}/>
+                <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>                               
 
 
                 
