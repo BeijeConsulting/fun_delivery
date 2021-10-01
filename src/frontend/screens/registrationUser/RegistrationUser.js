@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 //import Button
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
@@ -62,6 +63,15 @@ class RegistrationUser extends React.Component {
 
             <div className="frontend-outer-container fe-registration">
                 <div className="frontend-inner-container">
+
+                    <head>
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <meta name="description" content="This is a registration page" />
+                            <title>Registration</title>
+                        </Helmet>
+                    </head>
+
                     <HtmlTag
                         tag="h1"
                         text="Register"

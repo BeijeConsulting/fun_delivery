@@ -6,6 +6,7 @@ import { Component } from 'react/cjs/react.production.min'
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag'
 import delivery from '../../../common/assets/delivery.png'
 import utils from '../../../common/utils/utils'
+import { Helmet } from 'react-helmet'
 export default class ForgotPassword extends Component {
 
     constructor(props) {
@@ -49,13 +50,22 @@ export default class ForgotPassword extends Component {
         return (
             <main className='frontend-outer-container fe-forgot'>
                 <div className='frontend-inner-container'>
+
+                    <head>
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <meta name="description" content="This is a forgot password page" />
+                            <title>Forgot Password</title>
+                        </Helmet>
+                    </head>
+
                     <HtmlTag
                         tag="h1"
                         text="Reset Password"
                         className='frontend-h1'
                     />
                     <h3 style={{
-                        color:"#F24464"
+                        color: "#F24464"
                     }}>{this.state.errormsg}</h3>
                     <InputBox
                         placeholder={"Email"}
