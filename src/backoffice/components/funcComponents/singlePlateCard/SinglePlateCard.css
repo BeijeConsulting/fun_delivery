@@ -6,8 +6,15 @@
     border-radius: 10px;
     width: 100%;
     height: 250px; 
+    margin-bottom: 20px;
     cursor: pointer;
     box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.18);
+}
+.bo-card-plate-container-img- img{
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 .bo-card-plate-flex-inputs{
     display: flex;

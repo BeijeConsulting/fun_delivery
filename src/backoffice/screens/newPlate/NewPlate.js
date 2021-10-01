@@ -1,9 +1,9 @@
 import { Component } from "react";
 import './NewPlate.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import Card from "../../components/funcComponents/card/Card"
+//import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
-import { get } from 'lodash';
+//import { get } from 'lodash';
 import { LeftOutlined } from '@ant-design/icons'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
 import upload_white from '../../assets/images/upload_white.png'
