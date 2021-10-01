@@ -8,9 +8,17 @@
 .backoffice-layout a {
     color: #fff;
     transition: none;
+    display: block;
+    height: 100%;
+    padding: 10px 30px;
 }
-.backoffice-layout li:hover a {
-    color: #000;
+.backoffice-layout li:hover a,
+.backoffice-layout li.active a {
+    color: #3F3D56;
+}
+.backoffice-layout li.active {
+    background-color: #fff;    
+    transition: .2s;
 }
 
 .content-layout {
@@ -34,7 +42,7 @@
 }
 
 .backoffice-menu li {
-    padding: 10px 30px;
+   
     color: #fff;  
     cursor: pointer;  
 }
@@ -43,7 +51,7 @@
     padding-right: 10px;
 }
 
-.backoffice-menu li:hover{
+.backoffice-menu li:hover {
     background-color: #fff;
     color: #3F3D56;
     transition: .2s;

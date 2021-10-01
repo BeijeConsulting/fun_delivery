@@ -1,33 +1,33 @@
-.bo-sponsor-home h2{
+.gr-sponsor-home h2{
     margin: 0;
 }
 
-.bo-sponsor-home{
+.gr-sponsor-home{
     display: flex;
     align-items: baseline;
     margin-left: 10px;
     margin: 10px;
 }
 
-.bo-icon-edit{
+.gr-icon-edit{
     font-size: 18px;
     margin-left: 10px;
     cursor: pointer;
 }
 
-.bo-sponsor-first-row{
+.gr-sponsor-first-row{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.bo-sponsor-form{
+.gr-sponsor-form{
     margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.bo-sponsor-h2{
+.gr-sponsor-h2{
     background-color: #DFE4E9;
     padding: 15px;
     border-radius: 10px;
@@ -37,7 +37,7 @@
 }
 
 
-.bo-btn-incoming-order{
+.gr-btn-incoming-order{
     background-color: dodgerblue;
     text-align: center;
     border-radius: 5px;
@@ -54,20 +54,20 @@
 }
 
 @media screen and (max-width: 960px) {
-    .bo-sponsor-first-row {
+    .gr-sponsor-first-row {
         flex-direction: column;
         align-items: center;
     }
-    .bo-sponsor-container{
+    .gr-sponsor-container{
         text-align: center;
     }
-    .bo-sponsor-form{
+    .gr-sponsor-form{
         margin: 15px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-    .bo-sponsor-h2{
+    .gr-sponsor-h2{
         
         margin-top: 15px;
     }

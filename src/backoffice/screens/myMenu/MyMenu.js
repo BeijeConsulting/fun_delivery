@@ -4,7 +4,7 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
 // images
-import LogoBeije from '../../assets/images/logo_beijeRosa.png';
+
 import Primi from '../../assets/images/primi.png'
 import Secondi from '../../assets/images/secondi.jfif'
 import Contorni from '../../assets/images/contorni.jpg'
@@ -19,8 +19,9 @@ class MyMenu extends Component {
     constructor(props) {
         super(props)
     }
+    
     handleCallbackPagePlates = () => {
-        this.props.history.push('/restaurant/plates',{
+        this.props.history.push('/restaurant/:order_id',{
             titlePage: 'PRIMI'
         })
     }
