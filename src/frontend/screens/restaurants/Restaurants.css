@@ -2,6 +2,7 @@
 .headerSombrero {
     width: 93%;
     margin-top: 80px;
+    margin-bottom:2.5rem;
     min-width: 100px;
     height: 200px;
     background-color: var(--primary-strawberry)  ;
@@ -15,7 +16,8 @@
     margin-left: 5px;
     font-weight: 600;
     flex-wrap: nowrap;
-    font-size: 200%;
+    font-size: 1.7rem;
+    color: #3F3D56;
     content:'Approfitta della settimana del Sombrero!'
 }
 
@@ -30,7 +32,8 @@
     padding: 10px;
     font-weight: 600;
     flex-wrap: nowrap;
-    font-size: 150%;
+    font-size: 1.7rem;
+    color: #3F3D56;
 }
 
 .categoriesListContainer {
@@ -38,6 +41,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;    
+    margin-bottom:5.5rem;
+
 }
 
 .mainContainerCategories {
@@ -52,8 +57,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 50px;
 }
+
 
 .secondPart {
     display: flex;
@@ -66,11 +71,7 @@
     border: 1px solid black;
 }
 
-.trendRist {
-    width: 50%;
-    height: 200px;
-    border: 1px solid black;
-}
+
 
 .cardCat {
     display: flex;
@@ -84,7 +85,7 @@
 }
 
 .sideNav{
-    flex: 25%;
+    
     margin-left: 50px;
     min-width: 300px;
     margin-top: 10px;
@@ -105,6 +106,8 @@
 .row {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    border: 1px solid black;
 }
 
 .icon {
@@ -146,6 +149,13 @@
         margin-top: -15px;
         margin-bottom: 50px;
         grid-template-columns: auto auto auto;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        border: 1px solid black;
     }
 }
 

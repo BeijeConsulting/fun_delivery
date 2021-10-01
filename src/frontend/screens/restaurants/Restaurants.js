@@ -126,33 +126,43 @@ class Restaurants extends React.Component {
                     </div>
                     <section className='categoriesIcon'>
                         <IconCategories value={"fast_food"} icon={Burger} caption={"Fast food"} callback={this.filterByRestaurants} />
-                        <IconCategories value={"italian"} icon={Italian} caption={"Italian"} callback={this.filterByRestaurants} />
+                        <IconCategories value={"italian"} icon={Italian}ù caption={"Italian"} callback={this.filterByRestaurants} />
                         <IconCategories value={"mexican"} icon={Mexican} caption={"Mexican"} callback={this.filterByRestaurants} />
                         <IconCategories value={"pizza"} icon={Pizza} caption={"Pizza"} callback={this.filterByRestaurants} />
                         <IconCategories value={"poke"} icon={Poke} caption={"Poke"} callback={this.filterByRestaurants} />
                         <IconCategories value={"sushi"} icon={Sushi} caption={"Sushi"} callback={this.filterByRestaurants} />
                     </section>
+                    
                 </div>
 
+                
                 <div className='row'>
                     <SidebarRestaurants callbackElementRadio={this.orderByRestaurants} callbackButton={this.filterByRestaurants} callbackClearButton={this.clearFilters} callbackElementRadioDelivery={this.filterByDeliveryRestaurants} />
-                        <div className="restaurantsListContainer">
-                            {/* mapping che dipende dal risultato della ricerca*/}
-                            {/* tendenza */}
-                            <h3>Ristoranti in tendenza </h3>
-
-                            {this.state.objectRestaurantsForTrend.map((item, key) => {
-                                return (
-                                    <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
-                                )
-                            })}
-                            <h3>Ristoranti in zona </h3>
+                    <div className='restaurantsWrapper'>
+                        <div className='trendRestaurants'> 
+                            <h2 className='trendRist'>Ristoranti in tendenza</h2>
+                            <div className="restaurantsListContainer">
+                                {/* mapping che dipende dal risultato della ricerca*/}
+                                {/* tendenza */}
+                                {this.state.objectRestaurantsForTrend.map((item, key) => {
+                                    return (
+                                        <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                                    )
+                                })}
+                            </div>       
+                        </div>
+                        
+                        <div className='nearbyRestaurants'> 
+                            <h2 className='trendRist'>Ristoranti in zona</h2>
                             {/* tutti */}
-                            {this.state.objectRestaurantsForList.map((item, key) => {
-                                return (
-                                    <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
-                                )
-                            })}
+                            <div className='restaurantsListContainer'>
+                                {this.state.objectRestaurantsForList.map((item, key) => {
+                                    return (
+                                        <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                                        )
+                                    })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
