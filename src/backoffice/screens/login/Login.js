@@ -5,10 +5,10 @@ import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import { Link } from 'react-router-dom';
-import properties from '../../../common/utils/properties';
 
-// Utils
+// Utils & Properties
 import Utils from '../../../common/utils/utils'
+import properties from '../../../common/utils/properties';
 class Login extends Component {
 
     constructor(props) {
@@ -41,7 +41,7 @@ class Login extends Component {
             error = true
         } else {
             error = false
-            this.props.history.push('/restaurant/profile', {
+            this.props.history.push(properties.BO_ROUTING.PROFILE, {
                 validation: true
             })
         }
