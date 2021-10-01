@@ -5,6 +5,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.backoffice-layout a {
+    color: #fff;
+    transition: none;
+}
+.backoffice-layout li:hover a {
+    color: #000;
+}
+
 .content-layout {
     overflow: hidden;
 }

@@ -2,7 +2,7 @@
 :root {
     --white: #ffffff;
     --primary-dark: #3F3D56;
-    --primary-strawberry: #f24464;
+    --primary-strawberry: rgba(242, 68, 100, 0.85);
 
     --primary-desaturated-dark: #666578;
     --primary-desaturated-strawberry: #f67a90;
