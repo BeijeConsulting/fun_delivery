@@ -16,7 +16,7 @@ class Profile extends Component {
         super(props)
 
         this.state = {
-            data = {
+            data: {
                 firstName: [undefined, false],
                 lastName: [undefined, false],
                 email: [undefined, false],
@@ -34,32 +34,42 @@ class Profile extends Component {
             editData: false
         }
     }
-    // TODO Sistemare questa function
-    handleCallbackInput = (e) => { this.setState({ ...this.state.data, [`${e.target.name}`]: [e.target.value, false] }) }
+
+    handleCallbackInput = (e) => {
+        this.setState(prevState => ({
+            data: {
+                ...prevState.data,
+                [`${e.target.name}`]: [e.target.value, false]
+            },
+            editData: true
+        }))
+        console.log(this.state)
+    }
 
     // TODO Sistemare questa function
     handleSubmit = () => {
         this.setState({
-            data = {
+            data: {
                 firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[1])],
                 lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[1])],
-                email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[1])],
+                email: [this.state.data.email[0], utils.validateEmail(this.state.data.email[1])],
                 password: [this.state.data.password[0], !utils.validatePassword(this.state.data.password[1])],
-                restaurant_name: [this.state.data.restaurant_name[0], !utils.validateName(this.state.data.restaurant_name[1])],
+                restaurant_name: [this.state.data.restaurant_name[0], (this.state.data.restaurant_name<=4 ? false: true )],
                 street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[1])],
-                city: [this.state.data.city[0], !utils.validateCity(this.state.data.city[1])],
+                city: [this.state.data.city[0], utils.validateCity(this.state.data.city[1])],
                 cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[1])],
                 country: [this.state.data.country[0], this.state.data.country[1].length <= 0],
                 VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[1])],
                 phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[1])],
                 restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[1].length <= 0],
-                description: [this.state.description[0], false]
-            }
+                description: [this.state.data.description[0], false]
+            },
+            editData: true
         })
-        !!Object.entries(this.state.data).find((value) => value[1][1] === false) ? console.log("ok") : console.log("no bono")
+        // !!Object.entries(this.state.data).find((value) => value[1][1] === true) ? console.log(this.state) : console.log("no bono")
     }
 
-    handelEdit = () => { this.setState({ editData: true }) }
+    handleEdit = () => { this.setState({ editData: true }) }
 
     render() {
         return (
@@ -69,7 +79,7 @@ class Profile extends Component {
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
-                                <span className="bo-icon-edit"><EditFilled onClick={this.handelEdit} /></span>
+                                <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
                                 <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
                             </div>
                             <div className="bo-profile-img">
@@ -84,13 +94,14 @@ class Profile extends Component {
                                 </div>
                             </div>
                             {
-                                    this.state.editData &&
-                                    <Button
-                                        text='SALVA'
-                                        className='bo-btn'
-                                        callback={this.handleSubmit}
-                                    />
-                                }
+                                this.state.editData &&
+                                <Button
+                                    text='SALVA'
+                                    className='bo-btn'
+                                    callback={this.handleSubmit}
+                                />
+                            }
+
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
