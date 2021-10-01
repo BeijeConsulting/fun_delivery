@@ -20,7 +20,6 @@ class Profile extends Component {
                 firstName: [undefined, false],
                 lastName: [undefined, false],
                 email: [undefined, false],
-                password: [undefined, false],
                 restaurant_name: [undefined, false],
                 street: [undefined, false],
                 city: [undefined, false],
@@ -29,7 +28,8 @@ class Profile extends Component {
                 VAT: [undefined, false],
                 phone_number: [undefined, false],
                 restaurant_category: [undefined, false],
-                description: [undefined, false]
+                description: [undefined, false],
+                discount: [undefined, false]
             },
             editData: false
         }
@@ -43,30 +43,31 @@ class Profile extends Component {
             },
             editData: true
         }))
-        console.log(this.state)
+        console.log('data', this.state.data)
     }
 
     // TODO Sistemare questa function
     handleSubmit = () => {
         this.setState({
             data: {
-                firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[1])],
-                lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[1])],
-                email: [this.state.data.email[0], utils.validateEmail(this.state.data.email[1])],
-                password: [this.state.data.password[0], !utils.validatePassword(this.state.data.password[1])],
-                restaurant_name: [this.state.data.restaurant_name[0], (this.state.data.restaurant_name<=4 ? false: true )],
-                street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[1])],
-                city: [this.state.data.city[0], utils.validateCity(this.state.data.city[1])],
-                cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[1])],
-                country: [this.state.data.country[0], this.state.data.country[1].length <= 0],
-                VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[1])],
-                phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[1])],
-                restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[1].length <= 0],
+                firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[0])],
+                lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[0])],
+                email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[0])],
+                restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0] === undefined ? true : this.state.data.restaurant_name[0].length >= 4 ? false : true],
+                street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[0])],
+                city: [this.state.data.city[0], utils.validateCity(this.state.data.city[0])],
+                cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[0])],
+                country: [this.state.data.country[0], this.state.data.country[0] === 'State' ? true : false],
+                VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[0])],
+                phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
+                restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[0] === undefined ? true : false],
+                discount: [this.state.data.discount[0], this.state.data.discount[0] === '' ? true : false],
                 description: [this.state.data.description[0], false]
             },
             editData: true
         })
-        // !!Object.entries(this.state.data).find((value) => value[1][1] === true) ? console.log(this.state) : console.log("no bono")
+        console.log(this.state)
+        !!Object.entries(this.state.data).find((value) => value[1][1] === true) ? console.log(this.state) : console.log("no bono")
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
@@ -179,11 +180,12 @@ class Profile extends Component {
                             <div className="bo-profile-flex-inputs">
 
                                 <Select
-                                    selectID="state"
-                                    selectName="state"
-                                    data={['State1', 'State2', 'State3']}
-                                    className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
+                                    selectID="country"
+                                    selectName="country"
+                                    data={['Stato', 'Italy', 'England']}
+                                    className={`bo-input-box ${this.state.data.country[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
+                                    callback={this.handleCallbackInput}
                                 />
 
                                 <InputBox
@@ -209,10 +211,20 @@ class Profile extends Component {
 
                                 <Select
                                     selectID="category"
-                                    selectName="category"
-                                    data={['Category1', 'Category2', 'Category3']}
-                                    className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
+                                    selectName="restaurant_category"
+                                    data={[
+                                        'Categoria',
+                                        'Pizza',
+                                        'Pokè',
+                                        'Sushi',
+                                        'Messicano',
+                                        'Italiano',
+                                        'Hamburger',
+                                        'Altro'
+                                    ]}
+                                    className={`bo-input-box ${this.state.data.restaurant_category[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
+                                    callback={this.handleCallbackInput}
                                 />
 
                             </div>
@@ -221,16 +233,18 @@ class Profile extends Component {
                                 selectID="discount"
                                 selectName="discount"
                                 data={['Discount1', 'Discount2', 'Discount3']}
-                                className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
+                                className={`bo-input-box ${this.state.data.discount[1] ? 'alert' : ''}`}
                                 disable={!this.state.editData}
+                                callback={this.handleCallbackInput}
                             />
 
                             <TextArea
                                 name="description"
-                                className={`bo-input-box ${this.state.data.password[1] ? 'alert' : ''}`}
+                                className={`bo-input-box ${this.state.data.description[1] ? 'alert' : ''}`}
                                 id="description"
                                 value="test prova ciao"
                                 disable={!this.state.editData}
+                                callback={this.handleCallbackInput}
                             />
                         </div>
                     </div>
