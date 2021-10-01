@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
 import './Navbar.css';
-
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
 
+
 import { useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useHistory, Link } from "react-router-dom";
 
 const Navbar = (props) => {
 
@@ -25,19 +24,27 @@ const Navbar = (props) => {
         textDecoration: 'none',
         color: 'white',
     }
+    
 
     const burgerEffects = () => {
-        setIsBurgerClicked(isBurgerClicked ? false : true);
+        setState({
+            ...state,
+            isBurgerClicked: state.isBurgerClicked ? false : true
+        });
+    }
+    const navOptionSlide = () => {
+        setState({
+            navOptionRightLeft: state.navOptionRightLeft === 'pickup' ? 'delivery' : 'pickup',
+            selectedDelivery: state.navOptionRightLeft === 'delivery' ? 'white-txt' : '',
+            selectedPickup: state.navOptionRightLeft === 'pickup' ? 'white-txt' : ''
+        });
     }
 
-    
-    
-
-    //da formattare eventualmente il return
-           
-    if (pathArray[1] === 'restaurant') {
-        return (false);
+    const goToSelectedPage = (path) => () => {
+        history.push(path)
     }
+
+
     return (
         <>
             {
@@ -75,49 +82,40 @@ const Navbar = (props) => {
                                 {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
                             </span>
                         </div>
-    
                     </div>
-    
-    
-                    <div className='right-nav-side'>
-                        <span className='right-btn login'>
-                            <Link style={styleObj} to="/loginUser">Accedi</Link>
+
+                    {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}
+                    <div className="box-smartphone">
+                        <span className='logo-smartphone'>
+                            <Link style={styleObj} to="/"><img src={logo} className="img_logo" alt="fun_delivery" /></Link>
                         </span>
-    
-                        <span className='right-btn register'>
-                            <Link style={styleObj} to="/registrationUser">Registrati</Link>
-                        </span>
-                    </div>
-                </div>
-    
-                {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}
-                <div className="box-smartphone">
-                    <span className='logo-smartphone'>
-                        <Link style={styleObj} to="/"><img src={logo} className="img_logo" alt="fun_delivery" /></Link>
-                    </span>
-    
-                    <div className='burger-menu' onClick={burgerEffects}>
-                        <div className={`burger upper-line ${isBurgerClicked ? 'show' : ''}`}></div>
-                        <div className={`burger middle-line ${isBurgerClicked ? 'right' : ''}`}></div>
-                        <div className={`burger middle-line ${isBurgerClicked ? 'left' : ''}`}></div>
-                        <div className={`burger lower-line ${isBurgerClicked ? 'show' : ''}`}></div>
-                    </div>
-    
-                    {/* DROP DOWN LINKBOX */}
-                    <div className={`drop-down-link-box ${isBurgerClicked ? 'drop' : ''}`}>
-                        <div className='link-container'>
-                            <span>
-                                <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/loginUser">Login</Link>
-                            </span>
-    
-                            <span>
-                                <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/registrationUser">Registrazione</Link>
-                            </span>
+
+                        <div className='burger-menu' onClick={burgerEffects}>
+                            <div className={`burger upper-line ${state.isBurgerClicked ? 'show' : ''}`}></div>
+                            <div className={`burger middle-line ${state.isBurgerClicked ? 'right' : ''}`}></div>
+                            <div className={`burger middle-line ${state.isBurgerClicked ? 'left' : ''}`}></div>
+                            <div className={`burger lower-line ${state.isBurgerClicked ? 'show' : ''}`}></div>
                         </div>
-    
+
+                        {/* DROP DOWN LINKBOX */}
+                        <div className={`drop-down-link-box ${state.isBurgerClicked ? 'drop' : ''}`}>
+                            <div className='link-container'>
+                                <span onClick={goToSelectedPage('/loginUser')}>
+                                    Login
+                                    {/* <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/loginUser">Login</Link> */}
+                                </span>
+
+                                <span onClick={goToSelectedPage('/registrationUser')}>
+                                    Register
+                                    {/* <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/registrationUser">Registrazione</Link> */}
+                                </span>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            }
+        </>
     );
 
 }

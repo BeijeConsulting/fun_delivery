@@ -4,7 +4,6 @@ import Button from '../../../common/components/ui/button/Button'
 import './ForgotPassword.css'
 import { Component } from 'react/cjs/react.production.min'
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag'
-import { Link } from "react-router-dom";
 import delivery from '../../../common/assets/delivery.png'
 export default class ForgotPassword extends Component {
 
@@ -62,7 +61,7 @@ export default class ForgotPassword extends Component {
                     />
                 </div>
 
-                <img className='frontend-img' src={delivery} />
+                <img className='frontend-img' src={delivery} alt='img'/>
 
             </main>
         )
