@@ -1,6 +1,6 @@
-import "./SingleRestaurant.css";
+import "./SinglePlate.css";
 
-const SingleRestaurant = (props) => {
+const SinglePlate = (props) => {
     return (
         <article className={props.classNameWrapper}>
             <picture>
@@ -13,10 +13,10 @@ const SingleRestaurant = (props) => {
                     <div className='ratingRest'> {props.restaurantRating}</div> 
                     </div>
                      {/* Sarà una prop e ci va la valutazione*/}
-                    <p className='shippingRest'>Consegna: {props.restaurantShipping===0 ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
+                    <p className='shippingMenu'>Consegna: {props.restaurantShipping===0 ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
                     
                 </header>
         </article>
     )
 }
-export default SingleRestaurant;
+export default SinglePlate;

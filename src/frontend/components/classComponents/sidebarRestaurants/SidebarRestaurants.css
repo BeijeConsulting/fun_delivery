@@ -18,9 +18,10 @@
 .orderFilterButton {
     background: #EEEEEE;
     padding: 0px 12px;
-    border-radius: 500px;
-    cursor: pointer;   
-    margin-top: -3%;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 1%;
+    height: 30px;
     font-size: 13px;
     font-weight: normal;
 }

@@ -125,7 +125,7 @@ class Restaurants extends React.Component {
                         <h2 className='categoriesTitle'>Categorie</h2>
                     </div>
                     <section className='categoriesIcon'>
-                        <IconCategories value={"fast_food"} icon={Burger} caption={"Fast food"} callback={this.filterByRestaurants} />
+                        <IconCategories value={"hamburger"} icon={Burger} caption={"Hamburger"} callback={this.filterByRestaurants} />
                         <IconCategories value={"italian"} icon={Italian}ù caption={"Italian"} callback={this.filterByRestaurants} />
                         <IconCategories value={"mexican"} icon={Mexican} caption={"Mexican"} callback={this.filterByRestaurants} />
                         <IconCategories value={"pizza"} icon={Pizza} caption={"Pizza"} callback={this.filterByRestaurants} />

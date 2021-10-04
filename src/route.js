@@ -9,6 +9,7 @@ import ForgotPassword from "./frontend/screens/forgotPassword/ForgotPassword";
 import UserHome from "./frontend/screens/userHome/UserHome";
 import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
+import MenuRestaurant from "./frontend/screens/menuRestaurant/MenuRestaurant";
 
 /* BACKOFFICE SCREENS */
 import LoginBackOffice from './backoffice/screens/login/Login';
@@ -37,6 +38,7 @@ const Routing = () => {
                 <Route path="/forgotPassword" component={ForgotPassword} />
                 <Route path="/userHome" component={UserHome} />
                 <Route path="/restaurants" component={Restaurants} />
+                <Route path="/menuRestaurant" component={MenuRestaurant} />
 
 
                 {/* BACKOFFICE ROUTES */}

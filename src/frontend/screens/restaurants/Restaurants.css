@@ -68,7 +68,6 @@
 .piattiCons {
     width: 50%;
     height: 200px;
-    border: 1px solid black;
 }
 
 
@@ -107,13 +106,15 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    border: 1px solid black;
 }
 
 .icon {
     background-color: transparent;
     margin:10px;
-    border: 1px solid black;
+    /* box-shadow: 1px 1px 6px var(--primary-strawberry)  ; */
+}
+.icon:hover {
+    transform: scale(1.2);
     /* box-shadow: 1px 1px 6px var(--primary-strawberry)  ; */
 }
 
@@ -155,7 +156,6 @@
         flex-direction: row;
         width: 100%;
         justify-content: center;
-        border: 1px solid black;
     }
 }
 
