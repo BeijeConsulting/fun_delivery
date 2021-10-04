@@ -43,31 +43,38 @@ class Profile extends Component {
             },
             editData: true
         }))
-        console.log('data', this.state.data)
     }
 
     // TODO Sistemare questa function
     handleSubmit = () => {
-        this.setState({
-            data: {
-                firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[0])],
-                lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[0])],
-                email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[0])],
-                restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0] === undefined ? true : this.state.data.restaurant_name[0].length >= 4 ? false : true],
-                street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[0])],
-                city: [this.state.data.city[0], utils.validateCity(this.state.data.city[0])],
-                cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[0])],
-                country: [this.state.data.country[0], this.state.data.country[0] === 'State' ? true : false],
-                VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[0])],
-                phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
-                restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[0] === undefined ? true : false],
-                discount: [this.state.data.discount[0], this.state.data.discount[0] === '' ? true : false],
-                description: [this.state.data.description[0], false]
-            },
-            editData: true
-        })
-        console.log(this.state)
-        !!Object.entries(this.state.data).find((value) => value[1][1] === true) ? console.log(this.state) : console.log("no bono")
+        let newData = {
+            firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[0]) || this.state.data.firstName[0] === undefined],
+            lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[0]) || this.state.data.lastName[0] === undefined],
+            email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[0])],
+            restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0] === undefined ? true : this.state.data.restaurant_name[0].length >= 4 ? false : true],
+            street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[0])],
+            city: [this.state.data.city[0], !utils.validateCity(this.state.data.city[0]) || this.state.data.city[0] === undefined],
+            cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[0])],
+            country: [this.state.data.country[0], this.state.data.country[0] === undefined],
+            VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[0])],
+            phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
+            restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[0] === undefined],
+            discount: [this.state.data.discount[0], this.state.data.discount[0] === undefined],
+            description: [this.state.data.description[0], false]
+        }
+
+        if (!!Object.entries(newData).find((value) => value[1][1] === true) && !!Object.entries(newData).find((value) => value[1][0] === "")) {
+            this.setState({
+                data: newData,
+                editData: false
+            })
+            console.log(this.state)
+        } else {
+            this.setState({
+                data: newData,
+                editData: true
+            })
+        }
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
