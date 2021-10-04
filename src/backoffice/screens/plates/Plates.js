@@ -5,21 +5,53 @@ import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
 import { get } from 'lodash';
 import { LeftOutlined } from '@ant-design/icons'
+import properties from "../../../common/utils/properties";
+
 // images
-import Primi from '../../assets/images/primi.png'
 import AddPlate from '../../assets/images/plus.png'
+
 class Plates extends Component {
     constructor(props) {
         super(props)
-        this.pageTitle = get(this.props, 'location.state.titlePage', 'Categoria NON specificata');
+        this.pageTitle = get(this.props, 'location.state.titlePage', false);
+        this.restaurant_category = get(this.props, 'location.state.category_id', false);
+
+        if (!this.pageTitle || !this.restaurant_category) {
+            this.props.history.push(properties.BO_ROUTING.MY_MENU)
+        }
+
+        this.state = {
+            plates: []
+        }
+    }
+
+    componentDidMount = () => {
+
+        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;
+        console.log(allPlates)
+
+        let categoryPlates = allPlates.filter((plate, index) => {
+            return plate.category_id === this.props.category_id;
+        })
+
+        this.setState({
+            plates: categoryPlates
+        })
     }
 
     handleCallbackGoBack = () => {
         this.props.history.goBack()
     }
 
-    handleCallbackGoNewPlate = ()=>{
-        this.props.history.push('/restaurant/new-plate')
+    handleCallbackGoNewPlate = () => {
+        this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
+    }
+
+    handleCallbackSinglePlates = (plate_id,plate_name) => {
+        this.props.history.push(properties.BO_ROUTING.SINGLE_PLATE, {
+            plateId: plate_id,
+            plateName:plate_name
+        })
     }
 
     render() {
@@ -45,16 +77,28 @@ class Plates extends Component {
                                     title='Nuovo Piatto'
                                     img={AddPlate}
                                     newCss='new-plate'
-                                    callback = {this.handleCallbackGoNewPlate}
+                                    callback={this.handleCallbackGoNewPlate}
                                 />
                             </div>
 
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Pasta al Pesto'
-                                    img={Primi}
-                                />
+                            <div className="bo-mymenu-form">
+
+                                {
+                                    this.state.plates.map((plate, index) => {
+                                        return (
+                                            <div className="bo-mymenu-flex-cards" key={index}>
+                                                <Card
+                                                    title={plate.plate_name}
+                                                    img={plate.plate_img}
+                                                    callback={this.handleCallbackSinglePlates(plate.id,plate.plate_name)}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+
                             </div>
+
                         </div>
                     </div>
                 </LayoutBackOffice>
