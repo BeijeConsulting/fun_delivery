@@ -5,7 +5,7 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import 'antd/dist/antd.css';
 import {HourglassOutlined} from '@ant-design/icons';
 import SingleSponsor from "./singleSponsor/SingleSponsor";
-class Profile extends Component {
+ class Profile extends Component {
 
     render() {
         return (
@@ -13,7 +13,7 @@ class Profile extends Component {
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div className="gm-sponsor-container">
+                    {/* <div className="gm-sponsor-container">
 
                          <div className="bo-profile-first-row">
 
@@ -64,11 +64,11 @@ class Profile extends Component {
                             <h1>HAI SCELTO {this.state.choice.name} </h1>
                         }
 
-                    </div>
+                    </div> */}
                 </LayoutBackOffice>
             </>
         )
     }
-}
+} 
 
 export default Profile

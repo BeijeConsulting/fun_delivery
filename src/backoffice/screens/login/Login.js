@@ -11,6 +11,8 @@ import Button from '../../../common/components/ui/button/Button'
 // Utils & Properties
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties';
+import localStorageData from '../../localStorageData/localStorageData';
+
 class Login extends Component {
 
     constructor(props) {
@@ -42,6 +44,10 @@ class Login extends Component {
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
+
+            // SAVE DATA on localStorage
+            localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
+            
             error = false
             this.props.history.push(properties.BO_ROUTING.PROFILE, {
                 validation: true

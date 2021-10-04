@@ -1,14 +1,14 @@
 // Plate categories images
-import Primi from '../../assets/images/primi.png'
-import Secondi from '../../assets/images/secondi.jfif'
-import Contorni from '../../assets/images/contorni.jpg'
-import Dessert from '../../assets/images/dessert.png'
-import Panini from '../../assets/images/hamburger.jpg'
-import Pizze from '../../assets/images/pizza2.png'
-import Messicano from '../../assets/images/messicano.jpg'
-import Poke from '../../assets/images/poke.jpg'
-import Sushi from '../../assets/images/sushi.png'
-import Altro from '../../assets/images/altro.jpg'
+import Primi from '../assets/images/primi.png'
+import Secondi from '../assets/images/secondi.jfif'
+import Contorni from '../assets/images/contorni.jpg'
+import Dessert from '../assets/images/dessert.png'
+import Panini from '../assets/images/hamburger.jpg'
+import Pizze from '../assets/images/pizza2.png'
+import Messicano from '../assets/images/messicano.jpg'
+import Poke from '../assets/images/poke.jpg'
+import Sushi from '../assets/images/sushi.png'
+import Altro from '../assets/images/altro.jpg'
 
 const localStorageData = {
     restaurant_categories: [
