@@ -35,8 +35,8 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    selectID: PropTypes.string.isRequired,
+    selectName: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
 }
 

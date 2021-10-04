@@ -18,11 +18,15 @@ class Plates extends Component {
         this.props.history.goBack()
     }
 
+    handleCallbackGoNewPlate = ()=>{
+        this.props.history.push('/restaurant/new-plate')
+    }
+
     render() {
         return (
             <>
                 <LayoutBackOffice
-                    pageTitle='DASHBOARD'
+                    pageTitle='LISTA PIATTI'
                 >
                     <div className="bo-profile-container">
 
@@ -41,6 +45,7 @@ class Plates extends Component {
                                     title='Nuovo Piatto'
                                     img={AddPlate}
                                     newCss='new-plate'
+                                    callback = {this.handleCallbackGoNewPlate}
                                 />
                             </div>
 

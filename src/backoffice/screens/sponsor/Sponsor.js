@@ -6,23 +6,6 @@ import 'antd/dist/antd.css';
 import {HourglassOutlined} from '@ant-design/icons';
 import SingleSponsor from "./singleSponsor/SingleSponsor";
 class Profile extends Component {
-    constructor(props) {
-        let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
-        super(props);
-        this.state = {
-            choice: storage === null ? '' : storage
-        }
-    }
-
-    handleOnClick = (e) => () => {
-        let choice = this.state.choice;
-        choice = e;
-        this.setState({
-            choice: choice
-        })
-
-        localStorage.setItem('selectedSponsor', JSON.stringify(choice))
-    }
 
     render() {
         return (
@@ -30,8 +13,15 @@ class Profile extends Component {
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div style={{ border: '1px solid black', height: '100%' }} className="bo-sponsor-container">
-                        <div className="gm-containersponsor">
+                    <div className="gm-sponsor-container">
+
+                        {/* <div className="bo-profile-first-row">
+
+                            <div className="bo-profile-welcome">
+                                <h2>Benvenuto, Admin</h2>
+                                <span className="bo-icon-edit"><EditFilled /></span>
+                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
+                            </div>
 
                             <SingleSponsor
                                 className="gm-singlecontainer"
@@ -72,7 +62,7 @@ class Profile extends Component {
                         {
                             this.state.choice !== null &&
                             <h1>HAI SCELTO {this.state.choice.name} </h1>
-                        }
+                        */}
 
                     </div>
                 </LayoutBackOffice>

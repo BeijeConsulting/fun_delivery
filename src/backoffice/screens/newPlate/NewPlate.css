@@ -1,0 +1,44 @@
+.bo-plate-row-button{
+    display: flex;
+    justify-content: flex-end;
+}
+.bo-btn-save{
+    width: 50%;
+    background-color: #50f205;
+    color: white;
+    padding: 15px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+.bo-btn-save:hover{
+    transition: 0.2s;
+    background-color: #50f2059a;
+    color:white;
+}
+.bo-btn-delete{
+    width: 50%;
+    background-color: #F24464d9;
+    color: white;
+    padding: 15px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+.bo-btn-delete:hover{
+    transition: 0.2s;
+    background-color: #F44466A6;
+    color:white;
+}
+
+
+@media screen and (max-width: 960px) {
+    .bo-card-plate-container-img-new-plate {
+        width: 100%;
+        height: 150px; 
+    }
+}

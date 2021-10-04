@@ -5,7 +5,9 @@ import Button from '../../../../common/components/ui/button/Button';
 import { Layout } from 'antd';
 import Navbar from '../../ui/navbar/Navbar';
 import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutlined, DollarCircleOutlined } from '@ant-design/icons';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import properties from '../../../../common/utils/properties';
+
 
 const { Content, Sider } = Layout;
 
@@ -31,11 +33,11 @@ const LayoutBackOffice = (props) => {
                     >
                         <div className="backoffice-menu-container">
                             <ul className="backoffice-menu">
-                                <li className={pathname === '/restaurant/profile' ? 'active' : ''}><Link to="/restaurant/profile"><span><UserOutlined /></span>Profilo</Link></li>
-                                <li className={pathname === '/restaurant/my-menu' ? 'active' : ''}><Link to="/restaurant/my-menu"><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
-                                <li className={pathname === '/restaurant/my-orders' ? 'active' : ''}><Link to="/restaurant/my-orders"><span><ShoppingOutlined /></span>Ordini</Link></li>
-                                <li className={pathname === '/restaurant/incoming-orders' ? 'active' : ''}><Link to="/restaurant/incoming-orders"><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
-                                <li className={pathname === '/restaurant/sponsor' ? 'active' : ''}><Link to="/restaurant/sponsor"><span><DollarCircleOutlined /></span>Sponsor</Link></li>
+                                <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>Profilo</Link></li>
+                                <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
+                                <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>Ordini</Link></li>
+                                <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
+                                <li className={pathname === properties.BO_ROUTING.SPONSOR ? 'active' : ''}><Link to={properties.BO_ROUTING.SPONSOR}><span><DollarCircleOutlined /></span>Sponsor</Link></li>
                             </ul>
 
                             <div className="bo-btn-logout">
