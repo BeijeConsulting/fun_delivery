@@ -15,7 +15,7 @@ class Profile extends Component {
                 >
                     <div className="gm-sponsor-container">
 
-                        {/* <div className="bo-profile-first-row">
+                         <div className="bo-profile-first-row">
 
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
@@ -62,7 +62,7 @@ class Profile extends Component {
                         {
                             this.state.choice !== null &&
                             <h1>HAI SCELTO {this.state.choice.name} </h1>
-                        */}
+                        }
 
                     </div>
                 </LayoutBackOffice>
