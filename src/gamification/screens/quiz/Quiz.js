@@ -6,7 +6,7 @@ import Button from "../../../common/components/ui/button/Button"
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal'
 import HeaderGamePage from "../../components/funcComponents/headerGamePage/HeaderGamePage"
 import ModalReaction from "../../components/ui/modalReaction/ModalReaction"
-
+import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCascade"
 class Quiz extends Component {
 
     constructor(props) {
@@ -158,8 +158,9 @@ class Quiz extends Component {
     resultModal = () => {
         return (
             <GeneralModal
-                // contentModal={this.state.counterWins >= 2 ? 'Hai vinto questa partita' : 'Hai perso questa partita'}
-                contentModal={this.state.counterWins >= 2 ? <ModalReaction /> : <ModalReaction textModal='Mi dispiace, ma hai perso' />}
+                contentModal={this.state.counterWins >= 2 ? 
+                <ModalReaction cascadeMoney={<MoneyCascade/>} textModal="Hai vinto" /> 
+                : <ModalReaction textModal='Mi dispiace, ma hai perso' />}
             />
         )
     }
@@ -167,14 +168,13 @@ class Quiz extends Component {
     render() {
         return (
             <div className='gm-game-page-container' >
-
+                
                 <HeaderGamePage
                     infoMessage='Rispondi correttamente alle domande'
                     iconContainerCss='gm-header-icon-container gm-game-header-page'
                 />
 
-
-                <div className='gm-quiz-container'>
+                <div  className='gm-quiz-container'>
 
 
                     <p className='gm-counter-questions'>{this.state.countQuestion}/3</p>
@@ -212,7 +212,10 @@ class Quiz extends Component {
                 }
                 {
                     this.state.showLoader &&
+
                     this.resultModal()
+                    
+
                 }
 
             </div >
