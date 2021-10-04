@@ -31,19 +31,20 @@ class Profile extends Component {
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div style={{height: '100%' }} className="bo-sponsor-container">
+                    <div style={{minHeight: '100%' }} className="bo-sponsor-container">
                         <div className="gm-containersponsor">
 
                             <SingleSponsor
                                 className="gm-singlecontainer"
                                 title="sponsor 1"
                                 description="one day"
+                                durationClass="duration-wrapper"
                                 price={"10"}
                                 componentFromChild={<HourglassOutlined />}
                                 label={'Sponsorizza'}
                                 srcCoin={coin}
                                 coinClass="gm-sponsor-coin"
-                                hourGlass={'red'}
+                                hourGlass={'green'}
                                 classNameBtn={"gm-classNameBtn"}
                                 callbacksponsor={this.handleOnClick({ name: 'sponsor 1', id: 1, durata: 5 })}
                             />
@@ -52,12 +53,13 @@ class Profile extends Component {
                                 defaultValue={'sponsor1'}
                                 title="sponsor 2"
                                 description="one week"
+                                durationClass="duration-wrapper"
                                 price={"50"}
                                 label={'Sponsorizza'}
                                 srcCoin={coin}
                                 coinClass="gm-sponsor-coin"
                                 componentFromChild={<HourglassOutlined />}
-                                hourGlass={'red'}
+                                hourGlass={'gold'}
                                 classNameBtn={"gm-classNameBtn"}
                                 callbacksponsor={this.handleOnClick({ name: 'sponsor 2', id: 2, durata: 5 })}
                             />
@@ -66,12 +68,13 @@ class Profile extends Component {
                                 defaultValue={'sponsor1'}
                                 title="sponsor 3"
                                 description="one month"
+                                durationClass="duration-wrapper"
                                 price={"100"}
                                 label={'Sponsorizza'}
                                 srcCoin={coin}
                                 coinClass="gm-sponsor-coin"
                                 componentFromChild={<HourglassOutlined />}
-                                hourGlass={'gold'}
+                                hourGlass={'red'}
                                 classNameBtn={"gm-classNameBtn"}
                                 callbacksponsor={this.handleOnClick({ name: 'sponsor 3', id: 3, durata: 5 })}
                             />

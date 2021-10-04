@@ -8,11 +8,13 @@ const SingleSponsor = (props) => {
     return (
         <div className={props.className} value={props.value}>
             <h3>{props.title}</h3>
-            <p>{props.description}</p>
+            <div className={props.durationClass}>
+                <div style={{ color: props.hourGlass }}>{props.componentFromChild}</div>
+                <p>{props.description}</p>
+            </div>
             <p>{props.price}
                 <img className={props.coinClass} src={props.srcCoin}></img>
             </p>
-            <div style={{ color: props.hourGlass }}>{props.componentFromChild}</div>
             <button className={props.classNameBtn} onClick={callBackClick}>
                 {props.label}
             </button>
