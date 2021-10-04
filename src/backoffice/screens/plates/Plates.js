@@ -27,11 +27,10 @@ class Plates extends Component {
 
     componentDidMount = () => {
 
-        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;
-        console.log(allPlates)
+        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;        
 
         let categoryPlates = allPlates.filter((plate, index) => {
-            return plate.category_id === this.props.category_id;
+            return plate.plate_category_id === this.restaurant_category;
         })
 
         this.setState({
@@ -47,10 +46,10 @@ class Plates extends Component {
         this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
     }
 
-    handleCallbackSinglePlates = (plate_id,plate_name) => {
+    handleCallbackSinglePlates = (plate_id,plate_name) => () => {
         this.props.history.push(properties.BO_ROUTING.SINGLE_PLATE, {
             plateId: plate_id,
-            plateName:plate_name
+            plateName: plate_name
         })
     }
 
@@ -81,23 +80,19 @@ class Plates extends Component {
                                 />
                             </div>
 
-                            <div className="bo-mymenu-form">
-
-                                {
-                                    this.state.plates.map((plate, index) => {
-                                        return (
-                                            <div className="bo-mymenu-flex-cards" key={index}>
-                                                <Card
-                                                    title={plate.plate_name}
-                                                    img={plate.plate_img}
-                                                    callback={this.handleCallbackSinglePlates(plate.id,plate.plate_name)}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                                }
-
-                            </div>
+                            {
+                                this.state.plates.map((plate, index) => {
+                                    return (
+                                        <div className="bo-mymenu-flex-cards" key={index}>
+                                            <Card
+                                                title={plate.plate_name}
+                                                img={plate.plate_img}
+                                                callback={this.handleCallbackSinglePlates(plate.id, plate.plate_name)}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }                            
 
                         </div>
                     </div>

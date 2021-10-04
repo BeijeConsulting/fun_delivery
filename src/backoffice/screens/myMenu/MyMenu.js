@@ -3,6 +3,7 @@ import './MyMenu.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
+import properties from "../../../common/utils/properties";
 
 class MyMenu extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class MyMenu extends Component {
 
 
     handleCallbackPagePlates = (category_id, category_name) => () => {
-        this.props.history.push('/restaurant/plates', {
+        this.props.history.push(properties.BO_ROUTING.PLATES, {
             titlePage: category_name.toUpperCase(),
             category_id: category_id
         })

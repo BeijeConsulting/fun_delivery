@@ -50,7 +50,7 @@ const Routing = () => {
                 <Route path={properties.BO_ROUTING.FORGOT_PSW} component={ForgotPasswordBackOffice}/>
                 <Route path={properties.BO_ROUTING.PROFILE} component={RestaurantProfile}/>
                 <Route path={properties.BO_ROUTING.MY_MENU} component={MyMenu}/>
-                <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
+                <Route path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
                 <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate}/>
                 <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate}/>                
                 <Route path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
