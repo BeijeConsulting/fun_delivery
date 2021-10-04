@@ -14,7 +14,7 @@ const localStorageData = {
     restaurant_categories: [
         {
             id: 1,
-            name: 'Pizza' 
+            name: 'Pizza',
         },
         {
             id: 2,
@@ -91,6 +91,107 @@ const localStorageData = {
             id: 10,
             name: 'Altro',
             img_path: Altro 
+        }
+    ],
+    plate_list: [
+        {
+            id: 1,
+            plate_img: Primi,
+            plate_name: 'Spaghetti alla carbonara',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 1,
+            plate_visibility: 1
+        },
+        {
+            id: 2,
+            plate_img: Primi,
+            plate_name: 'Spaghetti al Pesto',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 1,
+            plate_visibility: 1
+        },
+        {
+            id: 3,
+            plate_img: Secondi,
+            plate_name: 'Bistecca',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 2,
+            plate_visibility: 1
+        },
+        {
+            id: 4,
+            plate_img: Contorni,
+            plate_name: 'Insalata',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 3,
+            plate_visibility: 1
+        },
+        {
+            id: 5,
+            plate_img: Dessert,
+            plate_name: 'Torta',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 4,
+            plate_visibility: 1
+        },
+        {
+            id: 6,
+            plate_img: Panini,
+            plate_name: 'Panino al salame',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 5,
+            plate_visibility: 1
+        },
+        {
+            id: 7,
+            plate_img: Pizze,
+            plate_name: 'Margherita',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 6,
+            plate_visibility: 1
+        },
+        {
+            id: 8,
+            plate_img: Messicano,
+            plate_name: 'Tacos',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 7,
+            plate_visibility: 1
+        },
+        {
+            id: 9,
+            plate_img: Poke,
+            plate_name: 'Poke',
+            plate_description: 'Il Poke più buono',
+            plate_price: 32.3,
+            plate_category_id: 8,
+            plate_visibility: 1
+        },
+        {
+            id: 10,
+            plate_img: Sushi,
+            plate_name: 'Sushi',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 9,
+            plate_visibility: 1
+        },
+        {
+            id: 11,
+            plate_img: Altro,
+            plate_name: 'Vermi fritti',
+            plate_description: 'Il piatto più buono',
+            plate_price: 32.3,
+            plate_category_id: 10,
+            plate_visibility: 1
         }
     ]
 };
