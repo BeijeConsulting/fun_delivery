@@ -159,7 +159,7 @@ class Quiz extends Component {
         return (
             <GeneralModal
                 // contentModal={this.state.counterWins >= 2 ? 'Hai vinto questa partita' : 'Hai perso questa partita'}
-                contentModal = {this.state.counterWins >= 2 ? <ModalReaction/> : <ModalReaction textModal = 'Mi dispiace, ma hai perso' />}
+                contentModal={this.state.counterWins >= 2 ? <ModalReaction /> : <ModalReaction textModal='Mi dispiace, ma hai perso' />}
             />
         )
     }
@@ -167,12 +167,12 @@ class Quiz extends Component {
     render() {
         return (
             <div className='gm-game-page-container' >
-                <div className='gm-game-header-page'>
-                    <HeaderGamePage
-                        infoMessage='Rispondi correttamente alle domande'
-                        iconContainerCss='gm-header-icon-container'
-                    />
-                </div>
+
+                <HeaderGamePage
+                    infoMessage='Rispondi correttamente alle domande'
+                    iconContainerCss='gm-header-icon-container gm-game-header-page'
+                />
+
 
                 <div className='gm-quiz-container'>
 
