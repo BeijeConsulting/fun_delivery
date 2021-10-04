@@ -6,6 +6,8 @@ import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
 import Select from '../../../common/components/ui/select/Select'
+import { withTranslation } from 'react-i18next';
+
 /* import IsEmpty from 'lodash'; */
 
 // import { message, Button as ButtonAnt } from 'antd';
@@ -116,6 +118,7 @@ class Registration extends Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <div className="bo-registration">
                 <Navbar pageTitle='SING UP' />
@@ -128,7 +131,7 @@ class Registration extends Component {
 
                         {/* Form Left */}
                         <div className="bo-left-form">
-                            <h2>I tuoi dati</h2>
+                            <h2>{t('backoffice.screens.registration.yourData')}</h2>
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
@@ -273,4 +276,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration
+export default withTranslation()(Registration)

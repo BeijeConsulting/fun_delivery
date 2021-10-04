@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+import i18n from "../../../common/localization/i18n";
+import { withTranslation } from 'react-i18next';
 import './Login.css'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
-import { Link } from 'react-router-dom';
 
 // Utils & Properties
 import Utils from '../../../common/utils/utils'
@@ -50,7 +52,13 @@ class Login extends Component {
         })
     }
 
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
     render() {
+        const { t } = this.props
+        
         return (
             <div className="bo-login">
                 <Navbar
@@ -82,14 +90,16 @@ class Login extends Component {
                         callback={this.handelSubmit}
                     />
                     <div style={{ fontSize: '20px' }}>
-                        Vuoi diventare un nostro partner?
+                        {t('backoffice.screens.login.partner')}
                     </div>
                     <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>Registrati ora.</b></Link>
                 </div>
                 <br />
+                <button value="it" onClick={this.handleClickButton}>it</button>
+                <button value="en" onClick={this.handleClickButton}>en</button>
             </div>
         )
     }
 }
 
-export default Login
+export default withTranslation()(Login);
