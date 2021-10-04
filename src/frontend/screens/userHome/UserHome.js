@@ -5,7 +5,6 @@ import luckySpin from '../../../common/assets/luckySpin.svg';
 
 import Button from '../../../common/components/ui/button/Button'
 import UserNavbar from "../../components/ui/userNavbar/UserNavbar";
-
 import { useHistory } from "react-router-dom";
 
 const UserHome = (props) => {
@@ -40,7 +39,7 @@ const UserHome = (props) => {
 
     const openWheelOfFortuneGame = () => {
         /* WRITE HERE the fo to open the wheel of fortune game */
-        return
+        return 
     }
 
     /* da generalizzare con il parametro path passato alla funzione */

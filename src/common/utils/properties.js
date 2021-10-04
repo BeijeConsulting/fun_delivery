@@ -11,7 +11,7 @@ const properties = {
         MY_ORDERS: '/restaurant/my-orders',
         SINGLE_ORDER: '/restaurant/my-orders/:order_id',
         INCOMING_ORDERS: '/restaurant/incoming-orders',
-        SPONSOR: '/restaurant/sponsor'
+        SPONSOR: '/restaurant/sponsor',
     }
 }
 
