@@ -55,7 +55,6 @@ const Routing = () => {
                 <Route path="/restaurant/incoming-orders" component={RestaurantIncomingOrders}/>
                 <Route path="/restaurant/sponsor" component={RestaurantSponsor}/>                               
 
-
                 
             </Switch>
         </Router>

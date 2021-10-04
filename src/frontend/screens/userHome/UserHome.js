@@ -6,9 +6,16 @@ import luckySpin from '../../../common/assets/luckySpin.svg';
 import Button from '../../../common/components/ui/button/Button'
 import UserNavbar from "../../components/ui/userNavbar/UserNavbar";
 
+import Wheel from '../../../gamification/components/classComponents/wheel/Wheel'
+
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const UserHome = (props) => {
+const [state, setState] = useState({
+    wheelModal: false
+})
+
     let history = useHistory();
 
     /* GAMIFICATION */
@@ -40,7 +47,9 @@ const UserHome = (props) => {
 
     const openWheelOfFortuneGame = () => {
         /* WRITE HERE the fo to open the wheel of fortune game */
-        return
+        setState({
+            wheelModal: true
+        })
     }
 
     /* da generalizzare con il parametro path passato alla funzione */
@@ -93,6 +102,12 @@ const UserHome = (props) => {
                         text='TAP TO SPIN'
                         callback={openWheelOfFortuneGame}
                     />
+                    {state.wheelModal &&
+
+                    <div className="gm-wheel-modal">
+                        <Wheel />
+                    </div>
+                    }
                 </div>
 
                 <Button
