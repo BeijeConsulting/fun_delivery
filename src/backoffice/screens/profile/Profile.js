@@ -11,7 +11,7 @@ import Button from "../../../common/components/ui/button/Button";
 import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
 
-const format = 'HH:mm';
+// const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
@@ -90,7 +90,7 @@ class Profile extends Component {
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
                                 <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
-                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
+                                {/* <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span> */}
                             </div>
                             <div className="bo-profile-img">
                                 <img src={LogoBeije} alt="" />
