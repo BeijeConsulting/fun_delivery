@@ -5,7 +5,7 @@ import Contorni from '../../assets/images/contorni.jpg'
 import Dessert from '../../assets/images/dessert.png'
 import Panini from '../../assets/images/hamburger.jpg'
 import Pizze from '../../assets/images/pizza2.png'
-import Piedine from '../../assets/images/messicano.jpg'
+import Messicano from '../../assets/images/messicano.jpg'
 import Poke from '../../assets/images/poke.jpg'
 import Sushi from '../../assets/images/sushi.png'
 import Altro from '../../assets/images/altro.jpg'
@@ -54,35 +54,43 @@ const localStorageData = {
         },
         {
             id: 3,
-            name: 'Contorni' 
+            name: 'Contorni',
+            img_path: Contorni 
         },
         {
             id: 4,
-            name: 'Dessert' 
+            name: 'Dessert',
+            img_path: Dessert 
         },
         {
             id: 5,
-            name: 'Panini' 
+            name: 'Panini',
+            img_path: Panini 
         },
         {
             id: 6,
-            name: 'Pizze' 
+            name: 'Pizze',
+            img_path: Pizze 
         },
         {
             id: 7,
-            name: 'Messicani' 
+            name: 'Messicani',
+            img_path: Messicano 
         },
         {
             id: 8,
-            name: 'Pokè' 
+            name: 'Pokè',
+            img_path: Poke 
         },
         {
             id: 9,
-            name: 'Sushi' 
+            name: 'Sushi',
+            img_path: Sushi 
         },
         {
             id: 10,
-            name: 'Altro' 
+            name: 'Altro',
+            img_path: Altro 
         }
     ]
 };
