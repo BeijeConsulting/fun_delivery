@@ -32,7 +32,7 @@ class Login extends Component {
         this.password = e.target.value
     }
 
-    handelSubmit = () => {
+    handleSubmit = () => {
         let emailChecked = Utils.validateEmail(this.email);
         console.log('emailChecked = ', emailChecked);
         let passwordChecked = Utils.validatePassword(this.password);
@@ -65,10 +65,10 @@ class Login extends Component {
                     pageTitle='Login'
                 />
                 <BannerBackground />
-                <h1>Accedi al tuo ristorante</h1>
+                <h1>{t('backoffice.screens.login.title')}</h1>
                 {
                     this.state.warning &&
-                    <h3 className="alert">Email o password errati</h3>
+                    <h3 className="alert">{t('backoffice.screens.login.error')}</h3>
                 }
                 <div className="bo-login-form">
                     <InputBox
@@ -83,16 +83,16 @@ class Login extends Component {
                         placeholder='Password'
                         callback={this.handleInputPassword}
                     />
-                    <Link to={properties.BO_ROUTING.FORGOT_PSW} className='bo-link'><b>Password dimenticata?</b></Link>
+                    <Link to={properties.BO_ROUTING.FORGOT_PSW} className='bo-link'><b> {t('backoffice.screens.login.forgot_password')}</b></Link>
                     <Button
-                        text='ACCEDI'
+                        text={t('backoffice.components.button.login')}
                         className='bo-btn'
-                        callback={this.handelSubmit}
+                        callback={this.handleSubmit}
                     />
                     <div style={{ fontSize: '20px' }}>
                         {t('backoffice.screens.login.partner')}
                     </div>
-                    <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>Registrati ora.</b></Link>
+                    <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>{t('backoffice.screens.login.register_now')}</b></Link>
                 </div>
                 <br />
                 <button value="it" onClick={this.handleClickButton}>it</button>
