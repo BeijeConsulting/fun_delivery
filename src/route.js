@@ -25,10 +25,10 @@ import RestaurantOrders from './backoffice/screens/myOrders/MyOrders';
 import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder';
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
-import Quiz from "./gamification/screens/quiz/Quiz";
 
 
 // GAMIFICATION SCREENS
+import Quiz from "./gamification/screens/quiz/Quiz";
 import Memory from './gamification/screens/memory/Memory'
 
 import properties from "./common/utils/properties";

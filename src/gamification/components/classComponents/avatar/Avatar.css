@@ -1,0 +1,339 @@
+.avatar-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f2446438;
+}
+
+.avatar-container {
+    border: 1px solid black;
+    width: 80vw;
+    height: 90vh;
+    background-color: #f3f3f3;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-width: 800px;
+    z-index: 1000;
+}
+
+.gm-icons-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    height: 60px;
+    color: black;
+}
+
+.gm-current-coins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+}
+
+.coin-avatar-image{
+    height: 80%;
+    margin-left: 5px;
+    -webkit-filter: drop-shadow(2px 2px 1px rgb(170, 168, 168));
+    filter: drop-shadow(2px 2px 1px rgb(170, 168, 168)); 
+}
+
+.gm-close-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.links-container {
+    text-align: center;
+    font-size: 20px;
+}
+
+.links-container span {
+    margin: 0 10px;
+    letter-spacing: 1px;
+    transition: .1s linear;
+}
+
+.links-container span:hover {
+    cursor: pointer;
+}
+
+.selected {
+    font-weight: bold;
+    color: #F24464;
+}
+
+.avatar-list-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.avatar-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 110px;
+    position: relative;
+    /* border: 1px solid black; */
+}
+
+.avatar-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+}
+
+.avatar-icon img {
+    width: auto;
+    height: 90%;
+    -webkit-filter: drop-shadow(2px 7px 4px rgb(126, 126, 126));
+    filter: drop-shadow(2px 7px 4px rgb(126, 126, 126)); 
+}
+
+.avatar-icon img:hover {
+    -webkit-filter: drop-shadow(0px 0px 10px #4af244);
+    filter: drop-shadow(0px 0px 10px #4af244); 
+    cursor: pointer;
+}
+
+.avatar-cost {
+    height: 20px;
+    position: absolute;
+    bottom: -12px;
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-cost img{
+    height: 80%;
+    margin-left: 3px;
+    -webkit-filter: drop-shadow(2px 2px 1px rgb(170, 168, 168));
+    filter: drop-shadow(2px 2px 1px rgb(170, 168, 168)); 
+}
+.modal-avatar-cost{
+    height: 20px;
+    position: relative;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-top: 10vh;
+    font-size: 30px;
+}
+
+.modal-avatar-cost img {
+    -webkit-filter:unset !important;
+    filter: unset !important;
+    height: 110%;
+    margin: 3px 0 0 5px;
+}
+
+.buttons-avatar-modal button {
+    background-color: #F24464;
+    color: white;
+    margin: 50px 5px;
+    height: 40px;
+    width: 90px;
+    letter-spacing: 1px;
+}
+.buttons-avatar-modal button:hover {
+    background-color: #f24464;
+    /* letter-spacing: 2px; */
+    box-shadow: 0px 0px 5px 1px #ffffff;
+}
+
+.avatar-detail-modal{
+    height: 100vh;
+    width: 100vw;
+    position:absolute;
+    top: 0px;
+    left:0px;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1px);
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.close-avatar-detail{
+    margin: 5%;
+    max-height: 50px; 
+    color: #f3f3f3 !important;
+}
+.avatar-detail-img{
+    margin-top: 10vh;
+    height: 25vh;
+    width: auto;
+    filter: drop-shadow(0px 0px 15px rgb(255, 255, 255)); 
+}
+.avatar-selected-content{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    position: relative;
+}
+.toast-container {
+    position: relative;
+    width:100%;
+ 
+}
+.avatar-toast{
+    margin-top: 8px;
+    color: red;
+    position: absolute;
+    bottom: -25px;
+    width: inherit;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.avatar-icon-selected{
+    -webkit-filter: drop-shadow(0px 0px 10px #4af244);
+    filter: drop-shadow(0px 0px 10px #4af244); 
+}
+
+/* BADGES---------------------------------------------------------------------------------- */
+.badge-list-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    position: relative;
+    max-width: 750px;
+    margin: 5px auto 0 auto;
+}
+
+.badge-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 105px;
+    position: relative;
+}
+
+.badge-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.badge-icon img {
+    width: auto;
+    height: 90%;
+    -webkit-filter: drop-shadow(2px 7px 4px rgb(126, 126, 126));
+    filter: drop-shadow(2px 7px 4px rgb(126, 126, 126));
+}
+
+.badges-not-owned {
+    filter:brightness(25%)
+}
+
+.badge-page-container {
+    position: relative;
+}
+
+.badge-shelf {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 105px;
+    padding-top: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge-shelf:nth-child(4) {
+    margin-top: -370px;
+}
+
+.badge-shelf img{
+    height: 100%;
+    width: 115%;
+}
+
+@media screen and (max-width: 320px) {
+    .avatar-icon-container {
+        height: 100px;
+    }
+
+    .avatar-icon {
+        width: 20vw;
+        height: 20vw;
+    }
+}
+@media screen and (min-width: 480px) {
+    .avatar-icon-container {
+        height: 120px;
+    }
+
+    .avatar-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-cost {
+        font-size: 16px;
+    }
+
+    .current-coins {
+        font-size: 24px;
+    }
+    
+    .close-icon {
+        font-size: 22px;
+    }
+    
+    .links-container {
+        font-size: 22px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .avatar-icon-container {
+        height: 150px;
+    }
+
+    .avatar-icon {
+        width: 120px;
+        height: 120px;
+    }
+    .avatar-cost {
+        font-size: 20px;
+    }
+
+    .current-coins {
+        font-size: 28px;
+    }
+    
+    .close-icon {
+        font-size: 26px;
+    }
+    
+    .links-container {
+        font-size: 26px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .avatar-list-container {
+        grid-template-columns: auto auto auto auto;
+    }
+
+    .avatar-icon-container {
+        height: 160px;
+    }
+}
