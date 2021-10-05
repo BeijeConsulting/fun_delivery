@@ -54,9 +54,9 @@ var WheelComponentCustom = function WheelComponentCustom(_ref) {
     var canvas = document.getElementById('canvas');
 
     if (navigator.appVersion.indexOf('MSIE') !== -1) {
-      canvas = document.createElement('canvas');
+      canvas = document.createElement('canvas'); 
       canvas.setAttribute('width', 600);
-      canvas.setAttribute('height', 600);
+      canvas.setAttribute('height', 700);
       canvas.setAttribute('id', 'canvas');
       document.getElementById('wheel').appendChild(canvas);
     }
@@ -213,7 +213,7 @@ var WheelComponentCustom = function WheelComponentCustom(_ref) {
 
   var clear = function clear() {
     var ctx = canvasContext;
-    ctx.clearRect(0, 0, 600, 600);
+    ctx.clearRect(0, 0, 600, 700);
   };
 
   return /*#__PURE__*/React__default.createElement("div", {
@@ -221,7 +221,7 @@ var WheelComponentCustom = function WheelComponentCustom(_ref) {
   }, /*#__PURE__*/React__default.createElement("canvas", {
     id: "canvas",
     width: "600",
-    height: "600",
+    height: "700",
     style: {
       pointerEvents: isFinished && isOnlyOnce ? 'none' : 'auto'
     }

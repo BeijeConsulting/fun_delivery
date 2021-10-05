@@ -10,7 +10,8 @@ import { useState } from 'react'
 
 
 
-const Wheel = () => {
+
+const Wheel = (props) => {
 
     useEffect(()=>{
         const actualState = "(╯°□°)╯︵ ┻━┻"
@@ -25,18 +26,19 @@ const Wheel = () => {
     const [state, setState] = useState({
         awards: storage === null ? [] : storage,
         premio: '',
-        id: 0
+        id: 0,
+        isOnlyOnce: false
     })
     const segments = [
         'TRY AGAIN',
         '10 🥮',
         '100 EXP',
-        '10% SALES',
+        '5€ SALES',
         'FREE 🛵',
-        'TRY AGAIN',
+        'NOTHING WON',
         '10 🥮',
         '100 EXP',
-        '10% SALES',
+        'FREE 🛵',
     ]
 
     const segColors = [
@@ -51,12 +53,26 @@ const Wheel = () => {
         '#F2CB05',
     ]
     const onFinished = (winner) => {
-        console.log(winner)
-        if (winner) {
+        if (winner !== 'TRY AGAIN') {
+            if(winner === '10 🥮'){
+                console.log("10 coins")
+            }
+            if(winner === '100 EXP'){
+                console.log('100 EXP')
+            }
+            if(winner === '5€ SALES'){
+                console.log('5€ SALES')
+            }
+            if(winner === 'FREE 🛵'){
+                console.log('FREE 🛵')
+            }
+
             state.awards.push({
                 id: state.id++,
                 single_award: winner
             })
+            state.isOnlyOnce = true
+            
         }
         setState(
             {
@@ -70,16 +86,16 @@ const Wheel = () => {
     return (
 
         <div style={{margin: "0 auto"}}>
-
+            
             <WheelComponentCustom
                 segments={segments}
                 segColors={segColors}
                 onFinished={(winner) => onFinished(winner)}
-                primaryColor='#3f3d56'
+                primaryColor='#f3f3f3'
                 contrastColor='#3F3D56'
                 buttonText='Spin'
-                isOnlyOnce={false}
-                size={290}
+                isOnlyOnce={state.isOnlyOnce}
+                size={280}
                 upDuration={400}
                 downDuration={500}
                 maxSpeed={1000}
