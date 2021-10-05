@@ -4,6 +4,9 @@ import properties from '../../utilities/properties'
 
 import Title from '../../components/funcComponents/title/Title.js'
 import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
+import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
+import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
 
 
 class Memory extends Component {
@@ -12,26 +15,40 @@ class Memory extends Component {
 
         this.state = {
             shuffle: false,
-            memoryCardsPair: properties.memoryCardsPair
+            memoryCardsPair: properties.memoryCardsPair,
+            modal: false
         }
     }
 
     shuffle = (array) => {
         array.sort(() => Math.random() - 0.5);
         this.setState({
-            shuffle:true
+            shuffle: true
         })
-      }
+    }
 
-      componentDidMount=()=>{
-            this.shuffle(this.state.memoryCardsPair)
-      }
-      
+    componentDidMount = () => {
+        this.shuffle(this.state.memoryCardsPair)
+    }
+
+    endgame = (value) => {
+        let tempArray = value
+        let newTempArray = tempArray.filter((item) => {
+            return item === false
+        })
+        if (newTempArray.length == 12) {
+            this.setState({
+                modal: true
+            })
+        }
+        console.log('newTempArray', newTempArray)
+    }
+
     // ONCLICK SET STATE OF CARD OBJ TRUE AND CHECK IF 2 CARDS SELECTED ARE EQUALS OF NOT, IF EQUALS REMOVE CARDS FROM ARRAY, ELSE RESET THE STATE TO FALSE
 
     handleClickMemory = (key) => () => {
 
-   
+
         // SET ACTIVE TRUE ON SELECTED ELEMENT
         let newMemoryCardsPair = this.state.memoryCardsPair
         newMemoryCardsPair[key].active = true
@@ -62,46 +79,57 @@ class Memory extends Component {
                 this.setState({
                     memoryCardsPair: newMemoryCardsPair
                 })
+                this.endgame(newMemoryCardsPair)
             }
         }, 1000)
-
     }
+
+
+
 
     render() {
         return (
-            <div className='memory-page'>
-                <div className='icons-container'>
-                    <div className='info-icon'><InfoCircleOutlined />
-                        <div className='info-message'>Trova le coppie uguali</div>
-                    </div>
-                <Title
-                    className={"gm-title"}
-                    label={'Memory'}
-                    color={'white'}
-                    fontWeight={'bold'}
-                    />
-                    <HomeOutlined className='info-icon'/>
+            <>
+                <div className='memory-page'>
+                    <div className='icons-container'>
+                        <div className='info-icon'><InfoCircleOutlined />
+                            <div className='info-message'>Trova le coppie uguali</div>
+                        </div>
+                        <Title
+                            className={"gm-title"}
+                            label={'Memory'}
+                            color={'white'}
+                            fontWeight={'bold'}
+                        />
+                        <HomeOutlined className='info-icon' />
                     </div>
 
-                <div className="flex-container">
-                    <div className='game-container'>
-                        <div></div>
-                        {this.state.memoryCardsPair.map((card, key) => {
-                            return (
-                                <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
-                                    <div
-                                        key={key}
-                                        className={card.active ? 'card active' : "card wrong-front"} >
+                    <div className="flex-container">
+                        <div className='game-container'>
+                            <div></div>
+                            {this.state.memoryCardsPair.map((card, key) => {
+                                return (
+                                    <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
+                                        <div
+                                            key={key}
+                                            className={card.active ? 'card active' : "card wrong-front"} >
+                                        </div>
+                                        <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
                                     </div>
-                                    <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <div className="general-container">
                     </div>
                 </div>
-                <div className="general-container">
-                </div> 
-            </div>
+                {
+                    this.state.modal &&
+                    <GeneralModal
+                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade />} textModal="Hai vinto" />}
+                    />
+                }
+            </>
         )
     }
 }
