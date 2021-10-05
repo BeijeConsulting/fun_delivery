@@ -9,7 +9,8 @@ const ModalReaction = (props) => {
     }
     return (
         <div className='gm-reaction-container'>
-            <div className="gm-cascade" >{props.cascadeMoney}</div>
+                {/* <div className="gm-cascade" > */}
+                    {props.cascadeMoney}
 
             <p className='gm-reaction-text'>{props.textModal}</p>
             <div className='gm-reaction-container-button'>
@@ -26,6 +27,7 @@ const ModalReaction = (props) => {
                     callback={handleCallback}
                     text={'Vedi stato ordinazione'} />
             </div>
+                    {/* </div> */}
         </div>
     )
 }

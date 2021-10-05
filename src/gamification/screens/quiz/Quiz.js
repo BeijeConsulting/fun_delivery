@@ -177,7 +177,11 @@ class Quiz extends Component {
                 <div  className='gm-quiz-container'>
 
 
-                    <p className='gm-counter-questions'>{this.state.countQuestion}/3</p>
+                    <div className='gm-counter-questions'>
+                        
+                        {this.state.countQuestion}/3
+
+                    </div>
 
                     <div className='gm-quiz-container-question'>
                         <p className='gm-question'>{this.state.singleObjSt.question}</p>
@@ -194,16 +198,22 @@ class Quiz extends Component {
                             this.state.choiceDone &&
                             this.state.singleObjSt.options.map(this.findRightAnswer)
                         }
+                   
+
+                    </div>
+                    <div className="gm-avanti-container">
                         {
                             this.state.choiceDone && this.state.countQuestion < 3 &&
-                            <div className='gm-quiz-container-footer'>
+                            // <div className='gm-quiz-container-footer'>
+                            <div>
+
                                 <Button
                                     className='gm-goOn-button'
                                     callback={this.goToNext}
                                     text={'Avanti'} />
                             </div>
+                            
                         }
-
                     </div>
                 </div>
                 {

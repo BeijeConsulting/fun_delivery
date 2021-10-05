@@ -16,7 +16,7 @@ class MoneyCascade extends Component {
     snow = () => {
         let animationDelay = '0s';
         let fontSize = '100px';
-        let arr = Array.from('Snowflakes are awesome!!! They are like little pieces of magic!!! Love snowflakes!!! Snowflakes are awesome!!! They are like little pieces of magic!!! Love snowflakes!!! Snowflakes are awesome!!! They are like little pieces of magic!!! Love snowflakes!!!')
+        let arr = Array.from('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         return arr.map((el, i) => {
             animationDelay = `${(Math.random() * 30).toFixed(2)}s`;
             fontSize = `${(Math.floor(Math.random() * 10) + 10)}px`;
