@@ -3,6 +3,7 @@
     flex-direction: column;
     padding: 0% 6%;
     position: relative;
+    border: 2px solid red;
 }
 
 .gm-reaction-text {
@@ -21,16 +22,17 @@
     color: white;
     border: 2px solid white;
     box-shadow: inset 4px 4px 15px 0px #fff;
+    z-index: 30;
+}
+.gm-reaction-button:hover {
+    background: pink;
+    color: #3f3d56;
 }
 
-.gm-cascade {
-    height: 500px;
-    width: 600px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);;
-}
+/* .gm-cascade {
+    height: 1000px;
+    width: 100%;
+} */
 
 /* Css laptop */
 
