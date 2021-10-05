@@ -6,6 +6,12 @@ const TextArea = (props) => {
     const handleTextAreaCallback = (e) => {
         props.callback(e)
     }
+
+    const handleTextAreaOnFocus = (e) => {
+        if(props.callbackOnFocus) {
+            props.callbackOnFocus(e);
+        }
+    }
     
     return(
         <textarea 
@@ -15,6 +21,8 @@ const TextArea = (props) => {
             col="4"
             rows="5"
             onChange={handleTextAreaCallback}
+            onFocus={handleTextAreaOnFocus}
+            placeholder={props.placeholder}
         >
             {
                 props.value &&
