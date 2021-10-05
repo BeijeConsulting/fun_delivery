@@ -14,7 +14,7 @@ const HeaderGamePage = (props) => {
 
 HeaderGamePage.defaultProps = {
     infoIconCss: 'gm-info-icon',
-    iconContainerCss: 'gm-icons-container'
+    iconContainerCss: 'gm-header-icons-container'
 }
 
 export default HeaderGamePage

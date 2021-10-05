@@ -12,6 +12,7 @@ const Card = (props) => {
                 <img src={props.img} alt=''/>
             </div>
             <div className= {`bo-card-title`}>{props.title}</div>
+            <h5 className= {`bo-card-status`}>{props.status}</h5>
         </div>
     )
 }
