@@ -11,6 +11,8 @@ import Wheel from '../../../gamification/components/classComponents/wheel/Wheel'
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import { CloseOutlined } from '@ant-design/icons';
+
 const UserHome = (props) => {
 const [state, setState] = useState({
     wheelModal: false
@@ -67,6 +69,11 @@ const [state, setState] = useState({
         return
     }
 
+    const wheelModalClick = () =>{
+        setState({
+            wheelModal: false
+        })
+    }
     return (
         <div>
             {/* ----- NAVBAR ----- */}
@@ -105,6 +112,7 @@ const [state, setState] = useState({
                     {state.wheelModal &&
 
                     <div className="gm-wheel-modal">
+                        <CloseOutlined onClick={wheelModalClick}/>
                         <Wheel />
                     </div>
                     }
