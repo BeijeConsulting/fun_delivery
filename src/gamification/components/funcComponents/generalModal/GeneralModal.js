@@ -12,12 +12,13 @@ const GeneralModal = (props) => {
 
             <div className={props.classCssModal}>
                 <div className='gm-modal-header'>
-                    <img
+                    {props.headerModal}
+                    {/* <img
                         src={closeIcon}
                         alt='close modal icon'
                         onClick={onClickCloseWindow}
                         className="gm-modal-close" />
-                    <div />
+                    <div /> */}
                 </div>
                 <div className="gm-modal-body">
                     {props.contentModal}
