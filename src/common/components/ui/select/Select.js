@@ -21,6 +21,7 @@ const Select = (props) => {
             onChange={handlecallback}
             onFocus={handleCallBackOnFocus}
             value={props.value}
+            disabled={props.disable}
         >
             {
                 props.data.map((item, index) => {

@@ -65,7 +65,7 @@ class Registration extends Component {
         }
     }
 
-    handleCallbackInput = (e) => {        
+    handleCallbackInput = (e) => {
         if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country') {
             this.objData.address[e.target.name] = e.target.value
         } else {
@@ -90,31 +90,27 @@ class Registration extends Component {
                 VAT: !utils.validateVAT(this.objData.VAT),
                 phone_number: !utils.validatePhone(this.objData.phone_number),
                 restaurant_category: (this.objData.restaurant_category.length <= 0)
-            }),            
+            }),
             () => {
                 let responseReady = true;
                 // If any value on the warnings in the state is true, the response is not ready
-                for(let key in this.state) {
-                    if(this.state[key] === true) {
+                for (let key in this.state) {
+                    if (this.state[key] === true) {
                         return responseReady = false;
                     }
                 }
-
-                if(responseReady === true) {
+                if (responseReady === true) {
                     // Here the validation is good, the registration is allowed!
                     console.log('registered:', this.objData);
                 }
-            }               
-        ) 
-        
-        
-        
+            }
+        )
     }
 
-    handleCallBackFocus = (e) => {       
-        this.setState({            
+    handleCallBackFocus = (e) => {
+        this.setState({
             [e.target.name]: false
-        })                
+        })
     }
 
     render() {
@@ -186,7 +182,7 @@ class Registration extends Component {
                             <h2>Il tuo ristorante</h2>
 
                             <div className="flex-inputs">
-                               
+
                                 <InputBox
                                     type="text"
                                     className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
@@ -195,7 +191,7 @@ class Registration extends Component {
                                     name='restaurant_name'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                
+
                                 <Select
                                     data={this.categories}
                                     selectID='categories'

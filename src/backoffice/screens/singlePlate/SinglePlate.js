@@ -11,6 +11,8 @@ import TextArea from "../../../common/components/ui/textarea/TextArea";
 import Button from "../../../common/components/ui/button/Button"
 import Piatto1 from '../../assets/images/piatto1.jpg'
 import utils from "../../../common/utils/utils";
+import SwitchProfile from "../../components/ui/switch/SwitchProfile";
+import properties from "../../../common/utils/properties";
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
@@ -31,7 +33,6 @@ class SinglePlate extends Component {
                 plate_description: ["Spaghetti", false],
                 plate_price: [342.5, false],
                 plate_category_id: ["Italiano", false],
-                plate_visibility: [false, false],
             },
             editData: false,
             plate_visibility: true,
@@ -39,6 +40,17 @@ class SinglePlate extends Component {
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
+
+    handleCallbackInput = (e) => {
+        this.setState(prevState => ({
+            data: {
+                ...prevState.data,
+                [`${e.target.name}`]: [e.target.value, false]
+            },
+            editData: true,
+            ...prevState.plate_visibility
+        }))
+    }
 
     handleSubmit = () => {
         let newData = {
@@ -55,7 +67,7 @@ class SinglePlate extends Component {
                 editData: false
             })
             console.log(this.state)
-        } else { 
+        } else {
             this.setState({ //TODO add plate visibility
                 data: newData,
                 editData: true
@@ -65,12 +77,24 @@ class SinglePlate extends Component {
 
     handleCallbackGoBack = () => { this.props.history.goBack() }
 
+    handleVisibility = (e) => {
+        this.setState(prevState => ({
+            ...prevState.data,
+            ...prevState.editData,
+            plate_visibility: e
+        }))
+        console.log(this.state)
+    }
+
+    handleDelete = () => {
+        console.log("Rimozione piatto: ", this.state)
+        this.props.history.push(properties.BO_ROUTING.PLATES)
+    }
+
     render() {
         return (
             <>
-                <LayoutBackOffice
-                    pageTitle='Piatto'
-                >
+                <LayoutBackOffice pageTitle='Piatto'>
                     <div className="bo-profile-container">
                         <div className="bo-profile-form">
                             <div className="bo-mymenu-first-row">
@@ -80,43 +104,56 @@ class SinglePlate extends Component {
                                 </div>
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
                             </div>
-                            <SinglePlateCard
-                                img={Piatto1}
-                            />
+                            <SinglePlateCard img={Piatto1} />
+                            <div className="bo-profile-switch">
+                                <p>Visibilità
+                                    <span>
+                                        <SwitchProfile
+                                            callback={this.handleVisibility}
+                                            value={this.state.plate_visibility}
+                                        />
+                                    </span>
+                                </p>
+                            </div>
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
                                     placeholder="Nome piatto"
-                                    className={`bo-input-box ${this.state.data.plate_name[0] ? 'alert' : ''}`}
-                                    name="plate"
+                                    className={`bo-input-box ${!this.state.data.plate_name[0] ? 'alert' : ''}`}
+                                    name="plate_name"
                                     value={this.state.data.plate_name[0]}
                                     disable={!this.state.editData}
+                                    callback={this.handleCallbackInput}
                                 />
 
                                 <InputBox
                                     type="text"
                                     placeholder="Prezzo € "
-                                    className={`bo-input-box ${this.state.data.plate_price[0] ? 'alert' : ''}`}
-                                    name="price"
+                                    className={`bo-input-box ${!this.state.data.plate_price[0] ? 'alert' : ''}`}
+                                    name="plate_price"
                                     value={this.state.data.plate_price[0]}
                                     disable={!this.state.editData}
+                                    callback={this.handleCallbackInput}
                                 />
                             </div>
                             <Select
                                 data={this.categories}
+                                name="plate_category_id"
                                 selectID='categories'
                                 selectName='restaurant_category'
-                                className={`bo-input-box ${this.state.data.plate_category_id[0] ? 'alert' : ''}`}
+                                className={`bo-input-box ${!this.state.data.plate_category_id[0] ? 'alert' : ''}`}
                                 value={this.state.data.plate_category_id[0]}
                                 disable={!this.state.editData}
+                                callback={this.handleCallbackInput}
                             />
 
                             <TextArea
-                                name="description"
+                                name="plate_description"
                                 className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
                                 id="description_plate"
                                 value={this.state.data.plate_description[0]}
                                 disable={!this.state.editData}
+                                callback={this.handleCallbackInput}
                             />
                             <div className="bo-plate-row-button">
                                 {
@@ -125,14 +162,16 @@ class SinglePlate extends Component {
                                         <Button
                                             className="bo-btn-save"
                                             text="Salva"
+                                            callback={this.handleSubmit}
                                         />
                                         <Button
                                             className="bo-btn-delete"
                                             text="Elimina"
+                                            callback={this.handleDelete}
                                         />
                                     </>
                                 }
-                                
+
                             </div>
                         </div>
                     </div>
