@@ -7,6 +7,8 @@ import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
 import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
+import Coin from "./../../assets/images/beijeCoin.png";
+import Tear from './../../assets/images/tear.svg';
 
 
 class Memory extends Component {
@@ -16,7 +18,8 @@ class Memory extends Component {
         this.state = {
             shuffle: false,
             memoryCardsPair: properties.memoryCardsPair,
-            modal: false
+            winModal: false,
+            loseModal: false
         }
     }
 
@@ -29,6 +32,7 @@ class Memory extends Component {
 
     componentDidMount = () => {
         this.shuffle(this.state.memoryCardsPair)
+        this.countdown()
     }
 
     endgame = (value) => {
@@ -38,7 +42,7 @@ class Memory extends Component {
         })
         if (newTempArray.length == 12) {
             this.setState({
-                modal: true
+                winModal: true
             })
         }
         console.log('newTempArray', newTempArray)
@@ -84,6 +88,14 @@ class Memory extends Component {
         }, 1000)
     }
 
+    countdown = () => {
+        setTimeout(() => { 
+            this.setState({
+                loseModal: true
+            })
+         }, 60000)
+    }
+
 
 
 
@@ -104,6 +116,9 @@ class Memory extends Component {
                         <HomeOutlined className='info-icon' />
                     </div>
 
+                    <div className='gm-countdown-container'>
+                        <div className='gm-front-countdown'></div>
+                    </div>
                     <div className="flex-container">
                         <div className='game-container'>
                             <div></div>
@@ -124,9 +139,15 @@ class Memory extends Component {
                     </div>
                 </div>
                 {
-                    this.state.modal &&
+                    this.state.winModal &&
                     <GeneralModal
-                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade />} textModal="Hai vinto" />}
+                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin}/>} textModal="Hai vinto" /> }
+                    />
+                }
+                {
+                    this.state.loseModal && this.state.winModal===false && 
+                    <GeneralModal
+                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
                     />
                 }
             </>
