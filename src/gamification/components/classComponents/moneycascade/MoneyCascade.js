@@ -1,6 +1,5 @@
 import { Component } from "react";
 import SingleMoneyCascade  from "../../funcComponents/singlemoneycascade/SingleMoneyCascade"
-import Coin from "../../../assets/images/beijeCoin.png"
 import '../../funcComponents/singlemoneycascade/SingleMoney.css'
 
 
@@ -24,7 +23,7 @@ class MoneyCascade extends Component {
                 animationDelay,
                 fontSize
             }
-            return (<SingleMoneyCascade src={Coin} key={i} id={i} style={style} />)
+            return (<SingleMoneyCascade src={this.props.svgCascade} key={i} id={i} style={style} />)
         })
     }
 

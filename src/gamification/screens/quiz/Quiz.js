@@ -7,6 +7,8 @@ import GeneralModal from '../../components/funcComponents/generalModal/GeneralMo
 import HeaderGamePage from "../../components/funcComponents/headerGamePage/HeaderGamePage"
 import ModalReaction from "../../components/ui/modalReaction/ModalReaction"
 import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCascade"
+import Coin from "./../../assets/images/beijeCoin.png";
+import Tear from './../../assets/images/tear.svg';
 class Quiz extends Component {
 
     constructor(props) {
@@ -159,8 +161,8 @@ class Quiz extends Component {
         return (
             <GeneralModal
                 contentModal={this.state.counterWins >= 2 ? 
-                <ModalReaction cascadeMoney={<MoneyCascade/>} textModal="Hai vinto" /> 
-                : <ModalReaction textModal='Mi dispiace, ma hai perso' />}
+                <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin}/>} textModal="Hai vinto" /> 
+                    : <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
             />
         )
     }
