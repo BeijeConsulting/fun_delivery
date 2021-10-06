@@ -34,10 +34,10 @@ const CountDownTimer = (props) => {
 
 
     return (
-        <div>
-            <p>{`${hrs.toString().padStart(2, '0')}:${mins
+        <div style={{letterSpacing: "1px"}}>
+            {`${hrs.toString().padStart(2, '0')}:${mins
                 .toString()
-                .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}</p>
+                .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`}
         </div>
     );
 }
