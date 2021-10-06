@@ -68,6 +68,8 @@ const UserHome = (props) => {
 
     /* TO BE IMPLEMENTED */
     const logoutUser = () => {
+        localStorage.clear();
+        props.history.push('/')
         return
     }
 

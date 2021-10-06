@@ -15,45 +15,56 @@ class RegistrationUser extends React.Component {
         super(props);
 
         this.state = {
-            userName: "",
-            surname: "",
-            email: "",
-            phone: "",
-            password: "",
-            confpsw: "",
+            userInfo : {
+                userName: "",
+                surname: "",
+                email: "",
+                phone: "",
+                password: "",
+                confpsw: "",
+            },
             errormsg: ''
         }
     }
 
     handleInputChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            userInfo : {
+                ...this.state.userInfo,
+                [e.target.name]: e.target.value
+            }
         });
+
+
     };
 
     //TEST TEMP
     //Levare alert e mettere i vari messaggi di errori e di login effettuato
     handleSignUp = () => {
         let error = this.state.errormsg
-        if (utils.validateName(this.state.userName) === false) {
+
+        if (utils.validateName(this.state.userInfo.userName) === false) {
             error = 'invald name'
-        } else if (utils.validateName(this.state.surname) === false) {
+        } else if (utils.validateName(this.state.userInfo.surname) === false) {
             error = 'invalid surname'
-        } else if (utils.validateEmail(this.state.email) === false) {
+        } else if (utils.validateEmail(this.state.userInfo.email) === false) {
             error = 'invalid email'
-        } else if (utils.validatePhone(this.state.phone) === false) {
-            error = 'invalid phone'
-        } else if (utils.validatePassword(this.state.password) === false) {
+        } /* else if (utils.validatePhone(this.state.userInfo.phone) === false) {
+            error = 'invalid phone' 
+        }*/ else if (utils.validatePassword(this.state.userInfo.password) === false) {
             error = 'invalid password'
-        } else if (this.state.confpsw !== this.state.password) {
+        } else if (this.state.userInfo.confpsw !== this.state.userInfo.password) {
             error = 'password does not match'
         } else {
             error = 'Registration made'
+            this.props.history.push('/userHome')
         }
 
         this.setState({
             errormsg: error
         })
+
+        localStorage.setItem('userInfo', JSON.stringify(this.state))
 
     }
 
