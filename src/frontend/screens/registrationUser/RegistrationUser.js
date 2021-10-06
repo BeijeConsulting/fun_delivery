@@ -15,13 +15,26 @@ class RegistrationUser extends React.Component {
         super(props);
 
         this.state = {
-            userInfo : {
+            userInfo: {
                 userName: "",
                 surname: "",
                 email: "",
                 phone: "",
                 password: "",
                 confpsw: "",
+                beijeCoin: 10,
+                experience: 0,
+                avatar: {
+                    userAvatars: [0],
+                    selectedAvatar: 0,
+                },
+                badge: {
+                    userBadges: [0],
+                    selectedBadge: 0,
+                },
+                mission: [],
+                freeDelivery: false,
+                discount: false
             },
             errormsg: ''
         }
@@ -29,7 +42,7 @@ class RegistrationUser extends React.Component {
 
     handleInputChange = (e) => {
         this.setState({
-            userInfo : {
+            userInfo: {
                 ...this.state.userInfo,
                 [e.target.name]: e.target.value
             }
