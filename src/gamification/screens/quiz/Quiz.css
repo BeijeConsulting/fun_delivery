@@ -4,7 +4,7 @@
   overflow-y: hidden;
   display: flex;
   justify-content: center;
-  background-image: url("../../assets/images/bg-mobile.png");
+  background-image: url("../../assets/images/quiz/bg-mobile.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -195,7 +195,7 @@
     width: 100%;
     overflow-y: hidden;
     padding: 0%;
-    background-image: url("../../assets/images/bg3.png");
+    background-image: url("../../assets/images/quiz/bg3.png");
     background-position: 25%;
   }
   .gm-avanti-container {
@@ -236,8 +236,6 @@
     width: 100%;
     overflow-y: hidden;
     padding: 0%;
-    background-image: url("../../assets/images/bg3.png");
-    background-position: 25%;
   }
   .gm-avanti-container {
     height: 80px;

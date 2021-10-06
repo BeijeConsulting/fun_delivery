@@ -1,6 +1,6 @@
 import "./ChooseGame.css"
-import quiz from "../../../assets/images/Quiz.png"
-import memory from "../../../assets/images/memory.png"
+import quiz from "../../../assets/images/chooseGame/Quiz.png"
+import memory from "../../../assets/images/chooseGame/memory.png"
 
 
 const ChooseGame = () => {
