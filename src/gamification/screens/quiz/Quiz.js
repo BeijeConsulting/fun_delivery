@@ -9,6 +9,7 @@ import ModalReaction from "../../components/ui/modalReaction/ModalReaction"
 import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCascade"
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
+import { RightSquareFilled } from "@ant-design/icons"
 class Quiz extends Component {
 
     constructor(props) {
@@ -51,11 +52,13 @@ class Quiz extends Component {
             },
 
         ]
+        let storage = JSON.parse(localStorage.getItem('userInfo'))
 
         this.loading = true
         this.singleObj = this.getRndQuestion(this.quiz)
 
         this.state = {
+            storage: storage === null ? [] : storage,
             quizData: this.quiz,
             singleObjSt: this.singleObj,
             countQuestion: 0,
@@ -65,11 +68,14 @@ class Quiz extends Component {
             buttonStyle: 'gm-quiz-button',
             iconButton: '',
             choiceDone: false,
-            showLoader: false
+            showLoader: false,
+            beijeCoin: storage.userInfo.beijeCoin
         }
     }
 
     componentDidMount() {
+        console.log('sono componentDidMount')
+        console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
         document.addEventListener('load', this.setTimeout)
     }
 
@@ -101,6 +107,10 @@ class Quiz extends Component {
             choiceDone: true,
             countQuestion: this.state.countQuestion + 1,
         })
+
+        if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
+            this.addCoins()
+        }
     }
 
 
@@ -160,27 +170,44 @@ class Quiz extends Component {
     resultModal = () => {
         return (
             <GeneralModal
-                contentModal={this.state.counterWins >= 2 ? 
-                <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin}/>} textModal="Hai vinto" /> 
+                contentModal={this.state.counterWins >= 2 ?
+                    <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />
                     : <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
             />
         )
     }
 
+    addCoins = () => {
+        let beijeCoin = this.state.storage.userInfo.beijeCoin
+        beijeCoin = beijeCoin + 5
+
+        let tempObj = this.state.storage
+
+        for (let key in tempObj.userInfo) {
+            if (key === 'beijeCoin') {
+                tempObj.userInfo[key] = beijeCoin;
+            }
+        }
+        this.setState({
+            storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
+        })
+
+    }
+
     render() {
         return (
             <div className='gm-game-page-container' >
-                
+
                 <HeaderGamePage
                     infoMessage='Rispondi correttamente alle domande'
                     iconContainerCss='gm-header-icon-container gm-game-header-page'
                 />
 
-                <div  className='gm-quiz-container'>
+                <div className='gm-quiz-container'>
 
 
                     <div className='gm-counter-questions'>
-                        
+
                         {this.state.countQuestion}/3
 
                     </div>
@@ -200,7 +227,7 @@ class Quiz extends Component {
                             this.state.choiceDone &&
                             this.state.singleObjSt.options.map(this.findRightAnswer)
                         }
-                   
+
 
                     </div>
                     <div className="gm-avanti-container">
@@ -214,7 +241,7 @@ class Quiz extends Component {
                                     callback={this.goToNext}
                                     text={'Avanti'} />
                             </div>
-                            
+
                         }
                     </div>
                 </div>
@@ -224,10 +251,7 @@ class Quiz extends Component {
                 }
                 {
                     this.state.showLoader &&
-
                     this.resultModal()
-                    
-
                 }
 
             </div >

@@ -15,11 +15,15 @@ class Memory extends Component {
     constructor(props) {
         super(props)
 
+        let storage = JSON.parse(localStorage.getItem('userInfo'))
+
         this.state = {
+            storage: storage === null ? [] : storage,
             shuffle: false,
             memoryCardsPair: properties.memoryCardsPair,
             winModal: false,
-            loseModal: false
+            loseModal: false,
+            beijeCoin: storage.userInfo.beijeCoin
         }
     }
 
@@ -40,12 +44,30 @@ class Memory extends Component {
         let newTempArray = tempArray.filter((item) => {
             return item === false
         })
-        if (newTempArray.length == 12) {
+        if (newTempArray.length === 12) {
             this.setState({
                 winModal: true
             })
+            this.addCoins()
         }
-        console.log('newTempArray', newTempArray)
+
+    }
+
+    addCoins = () => {
+        let beijeCoin = this.state.storage.userInfo.beijeCoin
+        beijeCoin = beijeCoin + 5
+
+        let tempObj = this.state.storage
+
+        for (let key in tempObj.userInfo) {
+            if (key === 'beijeCoin') {
+                tempObj.userInfo[key] = beijeCoin;
+            }
+        }
+        this.setState({
+            storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
+        })
+
     }
 
     // ONCLICK SET STATE OF CARD OBJ TRUE AND CHECK IF 2 CARDS SELECTED ARE EQUALS OF NOT, IF EQUALS REMOVE CARDS FROM ARRAY, ELSE RESET THE STATE TO FALSE
@@ -89,11 +111,11 @@ class Memory extends Component {
     }
 
     countdown = () => {
-        setTimeout(() => { 
+        setTimeout(() => {
             this.setState({
                 loseModal: true
             })
-         }, 60000)
+        }, 60000)
     }
 
 
@@ -141,11 +163,11 @@ class Memory extends Component {
                 {
                     this.state.winModal &&
                     <GeneralModal
-                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin}/>} textModal="Hai vinto" /> }
+                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />}
                     />
                 }
                 {
-                    this.state.loseModal && this.state.winModal===false && 
+                    this.state.loseModal && this.state.winModal === false &&
                     <GeneralModal
                         contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
                     />
