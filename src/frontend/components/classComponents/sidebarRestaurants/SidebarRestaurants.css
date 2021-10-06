@@ -1,3 +1,10 @@
+.titleSideNav{
+    font-weight: 700;
+}
+
+.pushBottom{
+    margin-bottom:1rem;
+}
 .orderPriceButton{
     background: #EEEEEE;
     padding: 8px 12px;
@@ -6,17 +13,17 @@
     border-radius: 500px;
     cursor: pointer;   
     font-weight: normal;
-
 }
+
 .orderFilterButton {
     background: #EEEEEE;
     padding: 0px 12px;
-    border-radius: 500px;
-    cursor: pointer;   
-    margin-top: -3%;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 1%;
+    height: 30px;
     font-size: 13px;
     font-weight: normal;
-    
 }
 
 .rowLocal {
@@ -24,7 +31,6 @@
     justify-content: space-between;
     width: 250px;
     font-weight: lighter;
-    
 }
 
 .orderPriceButton:active{
@@ -32,21 +38,22 @@
 }
 
 .orderBy {
-    height: 140px;
+    height: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-top:1rem;
 }
 
 .priceOrder {
-    height: 100px;
+    height: 5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .deliveryPrice{
-    height: 140px;
+    height: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
