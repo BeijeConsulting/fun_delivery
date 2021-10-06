@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect } from 'react'
 // import Coin from './../../assets/images/coin.svg'
 import WheelComponentCustom from '../../WheelComponentCustom'
-import 'react-wheel-of-prizes/dist/index.css'
+
 
 import { useState } from 'react'
 
@@ -73,6 +73,9 @@ const Wheel = (props) => {
             })
             state.isOnlyOnce = true
             
+
+            localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
+
         }
         setState(
             {
@@ -83,11 +86,16 @@ const Wheel = (props) => {
         )
         localStorage.setItem('awards', JSON.stringify(state.awards))
     }
+    const clickWheel =()=>{
+    }
+
+
     return (
 
         <div style={{margin: "0 auto"}}>
             
             <WheelComponentCustom
+                onClick={clickWheel}
                 segments={segments}
                 segColors={segColors}
                 onFinished={(winner) => onFinished(winner)}
