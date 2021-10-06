@@ -33,8 +33,8 @@ const UserHome = (props) => {
     let newDate = new Date().getTime()
     let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
     let difference = newDate - oldDate
-    let compare = difference > 10_000 ? true : false
-    let timer = 10000 - difference
+    let compare = difference > 86400000 ? true : false
+    let timer = 86400000 - difference
 
     console.log(difference, "dentro ad un quadrato")
     const msToTime = (milliseconds) => {
@@ -63,14 +63,14 @@ const UserHome = (props) => {
                 ...state,
                 wheelAvailable: newWheelAvaileble
             })
-        }, 10_000 - compare);
+        }, 86400000 - compare);
     }
     useEffect(() => {
         if (oldDate) {
             newWheelAvaileble = compare
             // setState({
             //     ...state,
-            //     wheelAvailable: newDate-oldDate > 10_000 ? true : false
+            //     wheelAvailable: newDate-oldDate > 86400000 ? true : false
             // })
         }
         setState({
@@ -119,7 +119,7 @@ const UserHome = (props) => {
 
         if (oldDate) {
             setState({
-                wheelModal: newDate - oldDate > 10_000 ? true : false
+                wheelModal: newDate - oldDate > 86400000 ? true : false
             })
         } else {
             setState({

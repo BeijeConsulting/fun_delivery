@@ -12,7 +12,9 @@ import { useState } from 'react'
 
 
 const Wheel = (props) => {
+    let user = JSON.parse(localStorage.getItem('userInfo'))
 
+    console.log(user)
     useEffect(()=>{
         const actualState = "(╯°□°)╯︵ ┻━┻"
         const canvas = document.getElementById('canvas')
@@ -55,25 +57,26 @@ const Wheel = (props) => {
     const onFinished = (winner) => {
         if (winner !== 'TRY AGAIN') {
             if(winner === '10 🥮'){
-                console.log("10 coins")
+                user.userInfo.beijeCoin = user.userInfo.beijeCoin + 10
             }
             if(winner === '100 EXP'){
-                console.log('100 EXP')
+                user.userInfo.experience = user.userInfo.experience + 100
             }
             if(winner === '5€ SALES'){
-                console.log('5€ SALES')
+                user.userInfo.discount = true
             }
             if(winner === 'FREE 🛵'){
-                console.log('FREE 🛵')
+                user.userInfo.freeDelivery = true
             }
-
+            
             state.awards.push({
                 id: state.id++,
                 single_award: winner
             })
             state.isOnlyOnce = true
             
-
+            localStorage.setItem('userInfo', JSON.stringify(user))
+            
             localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
 
         }
