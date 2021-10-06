@@ -70,7 +70,6 @@ class Profile extends Component {
                 data: newData,
                 editData: false
             })
-            console.log(this.state)
         } else {
             this.setState({
                 data: newData,
