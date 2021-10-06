@@ -9,7 +9,7 @@ import Messicano from '../assets/images/messicano.jpg'
 import Poke from '../assets/images/poke.jpg'
 import Sushi from '../assets/images/sushi.png'
 import Altro from '../assets/images/altro.jpg'
-
+import Carbonara from'../assets/images/carbonara.jpg'
 const localStorageData = {
     restaurant_categories: [
         {
@@ -96,10 +96,10 @@ const localStorageData = {
     plate_list: [
         {
             id: 1,
-            plate_img: Primi,
+            plate_img: Carbonara,
             plate_name: 'Spaghetti alla carbonara',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 15,
             plate_category_id: 1,
             plate_visibility: 1
         },
@@ -108,7 +108,7 @@ const localStorageData = {
             plate_img: Primi,
             plate_name: 'Spaghetti al Pesto',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 12,
             plate_category_id: 1,
             plate_visibility: 1
         },
@@ -126,7 +126,7 @@ const localStorageData = {
             plate_img: Contorni,
             plate_name: 'Insalata',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 10,
             plate_category_id: 3,
             plate_visibility: 1
         },
@@ -135,7 +135,7 @@ const localStorageData = {
             plate_img: Dessert,
             plate_name: 'Torta',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 6,
             plate_category_id: 4,
             plate_visibility: 1
         },
@@ -144,7 +144,7 @@ const localStorageData = {
             plate_img: Panini,
             plate_name: 'Panino al salame',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 5,
             plate_category_id: 5,
             plate_visibility: 1
         },
@@ -153,7 +153,7 @@ const localStorageData = {
             plate_img: Pizze,
             plate_name: 'Margherita',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 7,
             plate_category_id: 6,
             plate_visibility: 1
         },
@@ -162,7 +162,7 @@ const localStorageData = {
             plate_img: Messicano,
             plate_name: 'Tacos',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 8,
             plate_category_id: 7,
             plate_visibility: 1
         },
@@ -171,7 +171,7 @@ const localStorageData = {
             plate_img: Poke,
             plate_name: 'Poke',
             plate_description: 'Il Poke più buono',
-            plate_price: 32.3,
+            plate_price: 9,
             plate_category_id: 8,
             plate_visibility: 1
         },
@@ -180,7 +180,7 @@ const localStorageData = {
             plate_img: Sushi,
             plate_name: 'Sushi',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 17,
             plate_category_id: 9,
             plate_visibility: 1
         },
@@ -189,7 +189,7 @@ const localStorageData = {
             plate_img: Altro,
             plate_name: 'Vermi fritti',
             plate_description: 'Il piatto più buono',
-            plate_price: 32.3,
+            plate_price: 0,
             plate_category_id: 10,
             plate_visibility: 1
         }
