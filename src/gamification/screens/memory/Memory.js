@@ -9,7 +9,8 @@ import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
-
+import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
+import './../quiz/Quiz.css'
 
 class Memory extends Component {
     constructor(props) {
@@ -125,25 +126,27 @@ class Memory extends Component {
         return (
             <>
                 <div className='memory-page'>
-                    <div className='icons-container'>
-                        <div className='info-icon'><InfoCircleOutlined />
-                            <div className='info-message'>Trova le coppie uguali</div>
-                        </div>
-                        <Title
-                            className={"gm-title"}
-                            label={'Memory'}
-                            color={'white'}
-                            fontWeight={'bold'}
-                        />
-                        <HomeOutlined className='info-icon' />
-                    </div>
+                    <div className="gm-headerTitleContainer"style={{height: '80px', border: '3px solid gold'}}>
 
-                    <div className='gm-countdown-container'>
-                        <div className='gm-front-countdown'></div>
+                        <HeaderGamePage
+
+                            infoMessage='Trova la coppia di carte uguale'
+                            iconContainerCss='gm-header-icon-container gm-game-header-page'
+                        />
                     </div>
-                    <div className="flex-container">
-                        <div className='game-container'>
-                            <div></div>
+                    {/* <Title
+                        className={"gm-title"}
+                        label={'Memory'}
+                        color={'white'}
+                        fontWeight={'bold'}
+                    /> */}
+
+                    <div className="gm-flex-container">
+                        <div className='gm-game-container'>
+                            <div className='gm-countdown-container'>
+                                <div className='gm-front-countdown'></div>
+                            </div>
+
                             {this.state.memoryCardsPair.map((card, key) => {
                                 return (
                                     <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
@@ -157,8 +160,7 @@ class Memory extends Component {
                             })}
                         </div>
                     </div>
-                    <div className="general-container">
-                    </div>
+
                 </div>
                 {
                     this.state.winModal &&
