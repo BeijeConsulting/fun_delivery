@@ -20,6 +20,8 @@ const Select = (props) => {
             className={props.className}
             onChange={handlecallback}
             onFocus={handleCallBackOnFocus}
+            value={props.value}
+            disabled={props.disable}
         >
             {
                 props.data.map((item, index) => {
@@ -35,8 +37,8 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    selectID: PropTypes.string.isRequired,
+    selectName: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
 }
 

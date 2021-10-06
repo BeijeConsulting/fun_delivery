@@ -3,129 +3,86 @@ import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 /* import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons'; */
 import 'antd/dist/antd.css';
-
+import coin from '../../../common/assets/BeijeCoin.png'
+import {HourglassOutlined} from '@ant-design/icons';
+import SingleSponsor from "./singleSponsor/SingleSponsor";
 class Profile extends Component {
     constructor(props) {
-        super(props)
+        let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
+        super(props);
+        this.state = {
+            choice: storage === null ? '' : storage
+        }
     }
-
+    handleOnClick = (e) => () => {
+        let choice = this.state.choice;
+        choice = e;
+        this.setState({
+            choice: choice
+        })
+        localStorage.setItem('selectedSponsor', JSON.stringify(choice))
+    }
     render() {
         return (
             <>
                 <LayoutBackOffice
                     pageTitle="SPONSOR"
                 >
-                    <div className="bo-sponsor-container">
-
-                        {/* <div className="bo-profile-first-row">
-
-                            <div className="bo-profile-welcome">
-                                <h2>Benvenuto, Admin</h2>
-                                <span className="bo-icon-edit"><EditFilled /></span>
-                                <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span>
-                            </div>
-
-                            <div className="bo-profile-img">
-                                <img src={LogoBeije} alt="" />
-                            </div>
-                        </div>
-
-                        <div className="bo-profile-form">
-                            <div className="bo-profile-second-row">
-                                <h3>I tuoi dati</h3>
-                                <div className="bo-profile-switch">
-                                    <p>Free Shipping <span><SwitchProfile/> </span></p> 
-                                </div>
-                            </div>
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    placeholder="Nome"
-                                    className="bo-input-box"
-                                />
-                                <InputBox
-                                    type="text"
-                                    placeholder="Cognome"
-                                    className="bo-input-box"
-                                />
-                            </div>
-                            <InputBox
-                                type="email"
-                                placeholder="Email"
-                                className="bo-input-box"
+                    <div style={{minHeight: '100%' }} className="bo-sponsor-container">
+                        <div className="gm-containersponsor">
+                            <SingleSponsor
+                                className="gm-singlecontainer"
+                                title="sponsor 1"
+                                description="one day"
+                                durationClass="duration-wrapper"
+                                price={"10"}
+                                componentFromChild={<HourglassOutlined />}
+                                label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
+                                hourGlass={'green'}
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick({ name: 'sponsor 1', id: 1, durata: 5 })}
+                            />
+                            <SingleSponsor
+                                className="gm-singlecontainer"
+                                defaultValue={'sponsor1'}
+                                title="sponsor 2"
+                                description="one week"
+                                durationClass="duration-wrapper"
+                                price={"50"}
+                                label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
+                                componentFromChild={<HourglassOutlined />}
+                                hourGlass={'gold'}
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick({ name: 'sponsor 2', id: 2, durata: 5 })}
+                            />
+                            <SingleSponsor
+                                className="gm-singlecontainer"
+                                defaultValue={'sponsor1'}
+                                title="sponsor 3"
+                                description="one month"
+                                durationClass="duration-wrapper"
+                                price={"100"}
+                                label={'Sponsorizza'}
+                                srcCoin={coin}
+                                coinClass="gm-sponsor-coin"
+                                componentFromChild={<HourglassOutlined />}
+                                hourGlass={'red'}
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick({ name: 'sponsor 3', id: 3, durata: 5 })}
                             />
                         </div>
-
-                        <div className="bo-profile-form">
-                            <h3>Il tuo ristorante</h3>
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    placeholder="Nome ristorante"
-                                    className="bo-input-box"
-                                />
-                                <InputBox
-                                    type="tel"
-                                    placeholder="Telefono"
-                                    className="bo-input-box"
-                                />
-                            </div>
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    placeholder="Via"
-                                    className="bo-input-box"
-                                />
-                                <InputBox
-                                    type="text"
-                                    placeholder="CAP"
-                                    className="bo-input-box"
-                                />
-                            </div>
-                            <div className="bo-profile-flex-inputs">
-                                <Select
-                                    selectID="state"
-                                    selectName="state"
-                                    data={['State1', 'State2', 'State3']}
-                                    className="bo-input-box"
-                                />
-                                <InputBox
-                                    type="text"
-                                    placeholder="Città"
-                                    className="bo-input-box"
-                                />
-                            </div>
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    placeholder="P.IVA"
-                                    className="bo-input-box"
-                                />
-                                <Select
-                                    selectID="category"
-                                    selectName="category"
-                                    data={['Category1', 'Category2', 'Category3']}
-                                    className="bo-input-box"
-                                />
-                            </div>
-                            <Select
-                                selectID="discount"
-                                selectName="discount"
-                                data={['Discount1', 'Discount2', 'Discount3']}
-                                className="bo-input-box"
-                            />
-                            <TextArea 
-                                name="description"
-                                className="bo-input-box"
-                                id="description"
-                                value="test prova ciao"
-                            />
-                        </div> */}
+                        {
+                            this.state.choice !== null &&
+                            <h1>HAI SCELTO {this.state.choice.name} </h1>
+                        }
                     </div>
                 </LayoutBackOffice>
             </>
         )
     }
 }
-
 export default Profile

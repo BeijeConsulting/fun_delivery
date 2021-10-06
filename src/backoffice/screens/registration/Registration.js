@@ -5,10 +5,13 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
+import constantsDictionary from '../../../common/utils/constantsDictionary'
 import Select from '../../../common/components/ui/select/Select'
+import { withTranslation } from 'react-i18next';
+import {map as _map} from "lodash";
 /* import IsEmpty from 'lodash'; */
-
 // import { message, Button as ButtonAnt } from 'antd';
+
 class Registration extends Component {
 
     constructor(props) {
@@ -19,7 +22,7 @@ class Registration extends Component {
             lastName: '',
             email: '',
             password: '',
-            confirmPsw: '',
+            confirm_password: '',
             restaurant_name: '',
             address: {
                 street: '',
@@ -32,62 +35,42 @@ class Registration extends Component {
             restaurant_category: '',
         }
 
-        this.countrys = ['State', 'Italy', 'England']
-
-        this.categories = [
-            'Categories',
-            'Pizza',
-            'Pokè',
-            'Sushi',
-            'Messicano',
-            'Italiano',
-            'Hamburger',
-            'Altro'
-        ]
-
-
+        this.countries = _map(constantsDictionary.COUNTRIES)
+        this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
         this.state = {
-            warnings: {
-                firstName: false,
-                lastName: false,
-                email: false,
-                password: false,
-                confirm_password: false,
-                restaurant_name: false,
-                street: false,
-                city: false,
-                cap: false,
-                country: false,
-                VAT: false,
-                phone_number: false,
-                restaurant_category: false,
-            }
+            firstName: false,
+            lastName: false,
+            email: false,
+            password: false,
+            confirm_password: false,
+            restaurant_name: false,
+            street: false,
+            city: false,
+            cap: false,
+            country: false,
+            VAT: false,
+            phone_number: false,
+            restaurant_category: false
         }
     }
 
-
-
     handleCallbackInput = (e) => {
-        const words = e.target.name.split(' ')
-        if (words[0] === 'address') {
-            this.objData.address[words[1]] = e.target.value
+        if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country') {
+            this.objData.address[e.target.name] = e.target.value
         } else {
             this.objData[e.target.name] = e.target.value
         }
-        this.setState({
-            data: this.objData
-        })
     }
 
     handleSubmit = () => {
-        this.setState({
-            warnings: {
+        this.setState(
+            {
                 firstName: !utils.validateName(this.objData.firstName),
                 lastName: !utils.validateName(this.objData.lastName),
                 email: !utils.validateEmail(this.objData.email),
-                password: !utils.validatePassword(this.objData.password), 
-                confirm_password: this.objData.password !== this.objData.confirmPsw,                
-                restaurant_name: !utils.validateName(this.objData.restaurant_name),
+                password: !utils.validatePassword(this.objData.password),
+                confirm_password: this.objData.password !== this.objData.confirm_password || this.objData.password.length <= 0,
+                restaurant_name: this.objData.restaurant_name.length <= 4,
                 street: !utils.validateAddress(this.objData.address.street),
                 city: !utils.validateCity(this.objData.address.city),
                 cap: !utils.validateCap(this.objData.address.cap),
@@ -95,45 +78,58 @@ class Registration extends Component {
                 VAT: !utils.validateVAT(this.objData.VAT),
                 phone_number: !utils.validatePhone(this.objData.phone_number),
                 restaurant_category: (this.objData.restaurant_category.length <= 0)
+            },
+            () => {
+                let responseReady = true;
+                // If any value on the warnings in the state is true, the response is not ready
+                for (let key in this.state) {
+                    if (this.state[key] === true) {
+                        return responseReady = false;
+                    }
+                }
+
+                if (responseReady === true) {
+                    // Here the validation is good, the registration is allowed!
+                    console.log('registered:', this.objData);
+                }
             }
-        })
+        )
     }
 
-    handleCallBackFocus = (e) => {     
+    handleCallBackFocus = (e) => {
         this.setState({
-            warnings: {
-                [e.target.name]: false
-            }
+            [e.target.name]: false
         })
     }
 
     render() {
+        const { t } = this.props
         return (
             <div className="bo-registration">
-                <Navbar pageTitle='SING UP' />
+                <Navbar pageTitle='SIGN UP' />
                 <BannerBackground />
 
                 <div className="bo-reg-form">
-                    <h1>Registra il tuo ristorante.</h1>
+                    <h1>{t('backoffice.screens.registration.title')}</h1>
                     <div className="bo-reg-row">
 
 
                         {/* Form Left */}
                         <div className="bo-left-form">
-                            <h2>I tuoi dati</h2>
+                            <h2>{t('backoffice.screens.registration.your_data')}</h2>
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.firstName ? 'alert' : ''}`}                                    
-                                    placeholder="Nome"
+                                    className={`bo-input-box ${this.state.firstName ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.name')}
                                     callback={this.handleCallbackInput}
-                                    name='firstName'     
-                                    callbackOnFocus={this.handleCallBackFocus}                         
+                                    name='firstName'
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.lastName ? 'alert' : ''}`}
-                                    placeholder="Cognome"
+                                    className={`bo-input-box ${this.state.lastName ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.last_name')}
                                     callback={this.handleCallbackInput}
                                     name='lastName'
                                     callbackOnFocus={this.handleCallBackFocus}
@@ -142,7 +138,7 @@ class Registration extends Component {
 
                             <InputBox
                                 type="email"
-                                className={`bo-input-box ${this.state.warnings.email ? 'alert' : ''}`}
+                                className={`bo-input-box ${this.state.email ? 'alert' : ''}`}
                                 placeholder="Email"
                                 callback={this.handleCallbackInput}
                                 name='email'
@@ -152,7 +148,7 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="password"
-                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
+                                    className={`bo-input-box ${this.state.password ? 'alert' : ''}`}
                                     placeholder="Password"
                                     callback={this.handleCallbackInput}
                                     name='password'
@@ -160,10 +156,10 @@ class Registration extends Component {
                                 />
                                 <InputBox
                                     type="password"
-                                    className={`bo-input-box ${this.state.warnings.password ? 'alert' : ''}`}
-                                    placeholder="Conferma password"
+                                    className={`bo-input-box ${this.state.confirm_password ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.confirm_password')}
                                     callback={this.handleCallbackInput}
-                                    name='confirmPsw'
+                                    name='confirm_password'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
@@ -172,28 +168,24 @@ class Registration extends Component {
 
                         {/* Form Right */}
                         <div className="bo-right-form">
-                            <h2>Il tuo ristorante</h2>
+                            <h2>{t('backoffice.screens.registration.your_restaurant')}</h2>
 
                             <div className="flex-inputs">
-                                {/* <div className="input-flexed"> */}
+
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.restaurant_name ? 'alert' : ''}`}
-                                    placeholder="Nome ristorante"
+                                    className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
+                                    placeholder={t('backoffice.components.inputbox.restaurant_name')}
                                     callback={this.handleCallbackInput}
                                     name='restaurant_name'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                {/* </div> */}
 
-                                {/* <div className="input-flexed"> */}
-
-                                {/* </div> */}
                                 <Select
                                     data={this.categories}
                                     selectID='categories'
                                     selectName='restaurant_category'
-                                    className={`bo-input-box ${this.state.warnings.restaurant_category ? 'alert' : ''}`}
+                                    className={`bo-input-box ${this.state.restaurant_category ? 'alert' : ''}`}
                                     callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
@@ -202,18 +194,18 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.street ? 'alert' : ''}`}
-                                    placeholder="Via"
+                                    className={`bo-input-box ${this.state.street ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.address')}
                                     callback={this.handleCallbackInput}
-                                    name='address street'
+                                    name='street'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.city ? 'alert' : ''}`}
-                                    placeholder="Città"
+                                    className={`bo-input-box ${this.state.city ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.city')}
                                     callback={this.handleCallbackInput}
-                                    name='address city'
+                                    name='city'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
@@ -221,18 +213,18 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.cap ? 'alert' : ''}`}
-                                    placeholder="CAP"
+                                    className={`bo-input-box ${this.state.cap ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.zip')}
                                     callback={this.handleCallbackInput}
-                                    name='address cap'
+                                    name='cap'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <Select
-                                    data={this.countrys}
-                                    selectID='countrys'
-                                    className={`bo-input-box ${this.state.warnings.country ? 'alert' : ''}`}
+                                    data={this.countries}
+                                    selectID='countries'
+                                    className={`bo-input-box ${this.state.country ? 'alert' : ''}`}
                                     callback={this.handleCallbackInput}
-                                    selectName='address country'
+                                    selectName='country'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
@@ -240,23 +232,23 @@ class Registration extends Component {
                             <div className="flex-inputs">
                                 <InputBox
                                     type="number"
-                                    className={`bo-input-box ${this.state.warnings.phone_number ? 'alert' : ''}`}
-                                    placeholder="Telefono"
+                                    className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
+                                    placeholder={t('common.components.inputbox.number')}
                                     callback={this.handleCallbackInput}
                                     name='phone_number'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                                 <InputBox
                                     type="text"
-                                    className={`bo-input-box ${this.state.warnings.VAT ? 'alert' : ''}`}
-                                    placeholder="P.IVA"
+                                    className={`bo-input-box ${this.state.VAT ? 'alert' : ''}`}
+                                    placeholder={t('backoffice.components.inputbox.vat')}
                                     callback={this.handleCallbackInput}
                                     name='VAT'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
                             <Button
-                                text='REGISTRATI'
+                                text={t('backoffice.components.button.register')}
                                 className='bo-btn'
                                 callback={this.handleSubmit} />
                         </div>
@@ -269,4 +261,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration
+export default withTranslation()(Registration)

@@ -1,5 +1,6 @@
 import './Navbar.css';
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
+import scream from '../../../../common/assets/sounds/scream.mp3'
 
 
 import { useState } from "react";
@@ -33,6 +34,9 @@ const Navbar = (props) => {
         });
     }
     const navOptionSlide = () => {
+        let audio = new Audio(scream)
+        audio.volume = 1
+        audio.play()
         setState({
             navOptionRightLeft: state.navOptionRightLeft === 'pickup' ? 'delivery' : 'pickup',
             selectedDelivery: state.navOptionRightLeft === 'delivery' ? 'white-txt' : '',
@@ -49,7 +53,7 @@ const Navbar = (props) => {
         <>
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
-                pathArray[1] !== 'restaurant' && pathArray[1] !== 'userHome' &&
+                pathArray[1] !== 'restaurant' && pathArray[1] !== 'quiz' && pathArray[1] !== "memory" &&
                 
                 <nav className="navbar">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}

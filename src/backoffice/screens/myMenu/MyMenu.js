@@ -3,28 +3,35 @@ import './MyMenu.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
-// images
+import properties from "../../../common/utils/properties";
 
-import Primi from '../../assets/images/primi.png'
-import Secondi from '../../assets/images/secondi.jfif'
-import Contorni from '../../assets/images/contorni.jpg'
-import Dessert from '../../assets/images/dessert.png'
-import Panini from '../../assets/images/hamburger.jpg'
-import Pizze from '../../assets/images/pizza2.png'
-import Piedine from '../../assets/images/messicano.jpg'
-import Poke from '../../assets/images/poke.jpg'
-import Sushi from '../../assets/images/sushi.png'
-import Altro from '../../assets/images/altro.jpg'
 class MyMenu extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+
+       // this.categories = JSON.parse(localStorage.getItem('localStorageData')).plate_categories;
+
+        this.state = {
+            categories: []
+        };
     }
-    
-    handleCallbackPagePlates = () => {
-        this.props.history.push('/restaurant/plates',{
-            titlePage: 'PRIMI'
+
+    componentDidMount = () => {
+        // Simulating api call on localStorage
+        this.setState({
+            categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
+        }) 
+    }
+
+
+    handleCallbackPagePlates = (category_id, category_name) => () => {
+        this.props.history.push(properties.BO_ROUTING.PLATES, {
+            titlePage: category_name.toUpperCase(),
+            category_id: category_id
         })
     }
+
+
     render() {
         return (
             <>
@@ -42,68 +49,20 @@ class MyMenu extends Component {
 
                         <div className="bo-mymenu-form">
 
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Primi'
-                                    img={Primi}
-                                    callback={this.handleCallbackPagePlates}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Secondi'
-                                    img={Secondi}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Contorni'
-                                    img={Contorni}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Dessert'
-                                    img={Dessert}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Panini'
-                                    img={Panini}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Pizze'
-                                    img={Pizze}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Messicano'
-                                    img={Piedine}
-                                />
+                            {
+                                this.state.categories.map((category, index) => {
+                                    return (
+                                        <div className="bo-mymenu-flex-cards" key={index}>
+                                            <Card
+                                                title={category.name}
+                                                img={category.img_path}
+                                                callback={this.handleCallbackPagePlates(category.id, category.name)}
+                                            />
+                                        </div>
+                                    )
+                                }) 
+                            }
 
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Poke'
-                                    img={Poke}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Sushi'
-                                    img={Sushi}
-                                />
-                            </div>
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title='Altro'
-                                    img={Altro}
-                                />
-                            </div>
                         </div>
                     </div>
                 </LayoutBackOffice>

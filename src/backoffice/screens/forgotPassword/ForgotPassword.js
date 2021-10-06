@@ -6,6 +6,8 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import { Link } from 'react-router-dom'
 import Utils from '../../../common/utils/utils'
+import properties from '../../../common/utils/properties'
+
 class ForgotPassword extends Component {
 
     constructor(props) {
@@ -59,7 +61,7 @@ class ForgotPassword extends Component {
                 <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>Password dimenticata?</h1>
                 {
                     this.state.warning &&
-                    <h3>Email o password errati</h3>
+                    <h3 class="alert">Email o password errati</h3>
                 }
                 <div className="bo-login-form">
                     <InputBox
@@ -88,7 +90,7 @@ class ForgotPassword extends Component {
                     <div style={{ fontSize: '20px' }}>
                         Sei già un nostro partner?
                     </div>
-                    <Link to='/restaurant/login' className='bo-link'><b>Accedi ora.</b></Link>
+                    <Link to={properties.BO_ROUTING.LOGIN} className='bo-link'><b>Accedi ora.</b></Link>
                 </div>
                 <br />
             </div>

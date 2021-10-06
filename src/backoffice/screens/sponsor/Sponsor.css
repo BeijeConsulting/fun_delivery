@@ -1,33 +1,34 @@
+
 .bo-sponsor-home h2{
     margin: 0;
 }
 
-.bo-sponsor-home{
+.gr-sponsor-home{
     display: flex;
     align-items: baseline;
     margin-left: 10px;
     margin: 10px;
 }
 
-.bo-icon-edit{
+.gr-icon-edit{
     font-size: 18px;
     margin-left: 10px;
     cursor: pointer;
 }
 
-.bo-sponsor-first-row{
+.gr-sponsor-first-row{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.bo-sponsor-form{
+.gr-sponsor-form{
     margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.bo-sponsor-h2{
+.gr-sponsor-h2{
     background-color: #DFE4E9;
     padding: 15px;
     border-radius: 10px;
@@ -37,7 +38,7 @@
 }
 
 
-.bo-btn-incoming-order{
+.gr-btn-incoming-order{
     background-color: dodgerblue;
     text-align: center;
     border-radius: 5px;
@@ -53,22 +54,54 @@
     margin: 10px;
 }
 
+.gm-containersponsor{
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gm-singlecontainer{
+    width:80%;
+    box-shadow: 0px 3px 5px rgb(0, 0, 0, 0.8);
+    padding: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 700px;
+}
+
+.gm-classNameBtn{
+    color: #f0f2f5;
+    border-radius: 5px;
+    background-color: #3f3d56;
+    padding: 1%;
+}
+.gm-sponsor-coin{
+    height: 40px;
+}
+.duration-wrapper{
+    display:flex;
+    justify-content: center;
+}
 @media screen and (max-width: 960px) {
-    .bo-sponsor-first-row {
+    .gr-sponsor-first-row {
         flex-direction: column;
         align-items: center;
     }
-    .bo-sponsor-container{
+    .gr-sponsor-container{
         text-align: center;
     }
-    .bo-sponsor-form{
+    .gr-sponsor-form{
         margin: 15px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-    .bo-sponsor-h2{
+    .gr-sponsor-h2{
         
         margin-top: 15px;
     }
+
+
 }
