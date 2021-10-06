@@ -53,31 +53,99 @@ export default class MenuRestaurant extends React.Component
 
         ]
 
+        this.objectPlate = [
+
+            {
+                name: "PaneGrana",
+                category: "antipasti",
+                platePic: imagePaniniCaMeusa,
+                price: '10€',
+            },
+            {
+                name: "Tagliere",
+                category: "antipasti",
+                platePic: imagePaniniCaMeusa,
+                price: '11€',
+            },
+            {
+                name: "Tagliere",
+                category: "antipasti",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+            {
+                name: "Primo pesce",
+                category: "primi",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+            {
+                name: "Primo carne",
+                category: "primi",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+            {
+                name: "Primo",
+                category: "primi",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+           
+
+
+
+        ]
+
         this.state = {
             objectRestaurantsForList: this.objectRestaurantsForListReference,
-            objectRestaurantsForTrend: this.objectRestaurantsForListReference
+            objectRestaurantsForTrend: this.objectRestaurantsForListReference,
+            objectPlate: this.objectPlate,
+            isClick: false
         }
+        console.log( this.objectPlate )
     }
+
+    categoryFilter =  (category) => {
+        let arrFilter = category ? this.objectPlate.filter((item) => {
+            return (
+                item.category === category
+            ) 
+        }) : this.objectPlate
+        console.log(arrFilter)
+        this.setState({
+            objectPlate: arrFilter
+        })
+    }
+
+    
+
+
+
+
+
 
     render ()
     {
         return <div className='containerMenu'>
             <div className='headerCenter'>
-                
-                
+
+
+
+
                 <div className='headerRestaurant'>
-                
-            
-                <div className='namePrice'>
-                    <h2 className='nameRest'>Nome Ristorante</h2>
-                    <p className='priceRest'>Costo 1.90€ . 30-40 min  . 4.5 </p>
+
+
+                    <div className='namePrice'>
+                        <h2 className='nameRest'>Nome Ristorante</h2>
+                        <p className='priceRest'>Costo 1.90€ . 30-40 min  . 4.5 </p>
+                    </div>
                 </div>
             </div>
-            </div>
-            
+
             <div className='infoRestaurant'>
-                <p style={ { fontWeight: '600', fontSize:'25px' } }>Pizza 🍕</p>
-                <p style={ { marginTop:'-20px' } }>Via da Cacacas 22 Milano (MI)</p>
+                <p style={ { fontWeight: '600', fontSize: '25px' } }>Pizza 🍕</p>
+                <p style={ { marginTop: '-20px' } }>Via da Cacacas 22 Milano (MI)</p>
             </div>
             <div className='rowSidebar'>
                 <p className='voicePlate'> Antipasti </p>
@@ -85,7 +153,7 @@ export default class MenuRestaurant extends React.Component
                 <p className='voicePlate'> Pizze classiche </p>
                 <p className='voicePlate'> Pizze speciali </p>
                 <p className='voicePlate'> Scelte per te </p>
-   
+
             </div>
             <div className='menuWrapper'>
                 <div className='trendRestaurants'>
@@ -93,12 +161,15 @@ export default class MenuRestaurant extends React.Component
                     <div className="restaurantsMenuContainer">
                         {/* mapping che dipende dal risultato della ricerca*/ }
                         {/* tendenza */ }
-                        { this.state.objectRestaurantsForTrend.map( ( item, key ) =>
-                        {
+                        {this.categoryFilter('antipasti')}
+                        {this.state.objectPlate.map((item,key)=> {
                             return (
-                                <SinglePlate key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                                <SinglePlate key={ key } image={ item.platePic } plateName={ item.name } platePrice={ item.price } classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                             )
-                        } ) }
+                        })}
+                        
+                        
+                            
                     </div>
                 </div>
 
@@ -108,7 +179,7 @@ export default class MenuRestaurant extends React.Component
                     { this.state.objectRestaurantsForList.map( ( item, key ) =>
                     {
                         return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSinglePlate" />
                         )
                     } ) }
                 </div>

@@ -70,31 +70,42 @@
 }
 
 
+.containerModal {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+}
 .restaurantsMenuContainer{
-        display: grid;
-         grid-template-columns: 25% 25% 25% 25%;
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr;
         
 }
 .wrapperImage{
     margin: 10px;
 }
-.wrapRating {
+.wrapRatingPlate {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
+    max-width: 60%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.titleRest {
+.titleSinRest {
     font-weight: 500;
     max-width: 280px;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-top: 1em;
     overflow: hidden;
-}
-.ratingRest{
-    margin-right:5px;
-    margin-top: 1em;
 }
 .headerCenter {
     display: flex;
@@ -107,6 +118,21 @@
     margin: 5px;
     white-space: nowrap;
 }
+.wrapperPlate {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding: 3%;
+    border: 1px solid black;
+}
+.textPlate {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
 
 @media only screen 
   and (min-device-width: 320px) 
@@ -184,5 +210,6 @@
         padding: 5px 10px 0px 0px; 
         
     }
+    
 
   }
