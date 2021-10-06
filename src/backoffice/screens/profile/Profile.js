@@ -63,21 +63,11 @@ class Profile extends Component {
             discount: [this.state.data.discount[0], this.state.data.discount[0] === undefined],
             description: [this.state.data.description[0], false]
         }
-
-        console.log((!!Object.entries(newData).find((value) => value[1][1] === false)))
-
-        if (!(!!Object.entries(newData).find((value) => value[1][1] === false)) && !!Object.entries(newData).find((value) => value[1][0] === "")) {
-            this.setState({
-                data: newData,
-                editData: false
-            })
-            console.log("Dati salvati:", this.state.data)
-        } else {
-            this.setState({
-                data: newData,
-                editData: true
-            })
-        }
+        let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true))
+        this.setState({
+            data: newData,
+            editData: correctCheck ? false : true
+        })
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
