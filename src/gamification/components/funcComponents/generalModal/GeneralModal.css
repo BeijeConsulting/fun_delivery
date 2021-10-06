@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: 10000;
     position: absolute;
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
