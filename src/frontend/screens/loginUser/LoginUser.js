@@ -27,21 +27,31 @@ class LoginUser extends React.Component {
 
 
     validateClick = () => {
-        let mailControlled = utils.validateEmail(this.state.email);
-        let passwordControlled = utils.validatePassword(this.state.password);
+        let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+
 
         let error = ''
-        if (mailControlled === false) {
+        if (!this.state.email) {
             error = "Invalid Email"
-        } else if (passwordControlled === false) {
+        } else if (!this.state.password) {
             error = "Invalid password"
         }
 
-        if (mailControlled === false && passwordControlled === false) {
+        if (!this.state.email && !this.state.password) {
             error = "Invalid email and password "
-            // alert(error)
-        } else if (mailControlled && passwordControlled) {
-            alert('Signed in!')
+
+        } else if (this.state.email && this.state.password) {
+            if (storageUserInfo) {
+                if (storageUserInfo.userInfo.email === this.state.email &&
+                    storageUserInfo.userInfo.password === this.state.password) {
+                    alert('Signed in!')
+                    this.props.history.push('/userHome');
+                }
+            }else{
+                alert('Register First!')
+                this.props.history.push('/registratioUser');
+            }
             //inserire this.props.history.push('/UserPage")
         }
 
