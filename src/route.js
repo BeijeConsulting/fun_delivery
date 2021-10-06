@@ -53,7 +53,7 @@ const Routing = () => {
                 <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
                 <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate}/>
                 <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate}/>                
-                <Route path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
+                <Route exact path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
                 <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder}/>                                
                 <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders}/>
                 <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>                               
