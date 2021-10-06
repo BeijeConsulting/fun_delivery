@@ -48,6 +48,10 @@ const Navbar = (props) => {
         history.push(path)
     }
 
+    const dropDownFunctionCall = (path) => () => {
+        burgerEffects();
+        history.push(path)
+    }
 
     return (
         <>
@@ -104,15 +108,8 @@ const Navbar = (props) => {
                         {/* DROP DOWN LINKBOX */}
                         <div className={`drop-down-link-box ${state.isBurgerClicked ? 'drop' : ''}`}>
                             <div className='link-container'>
-                                <span onClick={goToSelectedPage('/loginUser')}>
-                                    Login
-                                    {/* <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/loginUser">Login</Link> */}
-                                </span>
-
-                                <span onClick={goToSelectedPage('/registrationUser')}>
-                                    Register
-                                    {/* <Link style={{ color: '#3f3d56', textDecoration: 'none' }} to="/registrationUser">Registrazione</Link> */}
-                                </span>
+                                <span onClick={dropDownFunctionCall('/loginUser')}>Login</span>
+                                <span onClick={dropDownFunctionCall('/registrationUser')}>Register</span>
                             </div>
 
                         </div>

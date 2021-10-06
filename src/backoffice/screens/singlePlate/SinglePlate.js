@@ -54,12 +54,13 @@ class SinglePlate extends Component {
 
     handleSubmit = () => {
         let newData = {
-            plate_img: [this.state.data.plate_img[0], this.state.data.plate_img[0] !== undefined],
-            plate_name: [this.state.data.plate_name[0], this.state.data.plate_name[0] !== undefined],
-            plate_description: [this.state.data.plate_description[0], this.state.data.plate_description[0] !== undefined],
-            plate_price: [this.state.data.plate_price[0], utils.checkNumber(this.state.data.plate_price[0])],
-            plate_category_id: [this.state.data.plate_category_id[0], this.state.data.plate_img[0] !== undefined],
+            plate_img: [this.state.data.plate_img[0], !this.state.data.plate_img[0] !== undefined],
+            plate_name: [this.state.data.plate_name[0], !this.state.data.plate_name[0] !== undefined],
+            plate_description: [this.state.data.plate_description[0], !this.state.data.plate_description[0] !== undefined],
+            plate_price: [this.state.data.plate_price[0], !utils.checkNumber(this.state.data.plate_price[0])],
+            plate_category_id: [this.state.data.plate_category_id[0], !this.state.data.plate_img[0] !== undefined],
         }
+        console.log(newData)
 
         if (!!Object.entries(newData).find((value) => value[1][1] === true) && !!Object.entries(newData).find((value) => value[1][0] === "")) {
             this.setState({ //TODO add plate visibility
@@ -72,6 +73,7 @@ class SinglePlate extends Component {
                 data: newData,
                 editData: true
             })
+            console.log(this.state)
         }
     }
 
@@ -119,7 +121,7 @@ class SinglePlate extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="Nome piatto"
-                                    className={`bo-input-box ${!this.state.data.plate_name[0] ? 'alert' : ''}`}
+                                    className={`bo-input-box ${!this.state.data.plate_name[1] ? 'alert' : ''}`}
                                     name="plate_name"
                                     value={this.state.data.plate_name[0]}
                                     disable={!this.state.editData}
@@ -129,7 +131,7 @@ class SinglePlate extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder="Prezzo € "
-                                    className={`bo-input-box ${!this.state.data.plate_price[0] ? 'alert' : ''}`}
+                                    className={`bo-input-box ${!this.state.data.plate_price[1] ? 'alert' : ''}`}
                                     name="plate_price"
                                     value={this.state.data.plate_price[0]}
                                     disable={!this.state.editData}
@@ -141,7 +143,7 @@ class SinglePlate extends Component {
                                 name="plate_category_id"
                                 selectID='categories'
                                 selectName='restaurant_category'
-                                className={`bo-input-box ${!this.state.data.plate_category_id[0] ? 'alert' : ''}`}
+                                className={`bo-input-box ${!this.state.data.plate_category_id[1] ? 'alert' : ''}`}
                                 value={this.state.data.plate_category_id[0]}
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
@@ -149,7 +151,7 @@ class SinglePlate extends Component {
 
                             <TextArea
                                 name="plate_description"
-                                className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
+                                className={`bo-input-box ${!this.state.data.plate_description[1] ? 'alert' : ''}`}
                                 id="description_plate"
                                 value={this.state.data.plate_description[0]}
                                 disable={!this.state.editData}

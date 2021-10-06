@@ -12,6 +12,7 @@ import Navbar from "./frontend/components/ui/navbar/Navbar";
 import UserMissions from "./frontend/screens/userMissions/UserMissions";
 import RecapOrder from "./frontend/screens/recapOrder/RecapOrder";
 
+import MenuRestaurant from "./frontend/screens/menuRestaurant/MenuRestaurant";
 
 /* BACKOFFICE SCREENS */
 import LoginBackOffice from './backoffice/screens/login/Login';
@@ -47,6 +48,8 @@ const Routing = () => {
                 <Route exact path="/userHome" component={UserHome} />
                 <Route exact path='/userHome/userMissions' component={UserMissions} />
                 <Route path="/recapOrder" component={RecapOrder}/>
+                <Route path="/menuRestaurant" component={MenuRestaurant} />
+
 
                 {/* BACKOFFICE ROUTES */}
                 <Route path={properties.BO_ROUTING.LOGIN} component={LoginBackOffice}/>
