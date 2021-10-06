@@ -14,17 +14,14 @@ class Profile extends Component {
             choice: storage === null ? '' : storage
         }
     }
-
     handleOnClick = (e) => () => {
         let choice = this.state.choice;
         choice = e;
         this.setState({
             choice: choice
         })
-
         localStorage.setItem('selectedSponsor', JSON.stringify(choice))
     }
-
     render() {
         return (
             <>
@@ -33,7 +30,6 @@ class Profile extends Component {
                 >
                     <div style={{minHeight: '100%' }} className="bo-sponsor-container">
                         <div className="gm-containersponsor">
-
                             <SingleSponsor
                                 className="gm-singlecontainer"
                                 title="sponsor 1"
@@ -83,12 +79,10 @@ class Profile extends Component {
                             this.state.choice !== null &&
                             <h1>HAI SCELTO {this.state.choice.name} </h1>
                         }
-
                     </div>
                 </LayoutBackOffice>
             </>
         )
     }
 }
-
 export default Profile

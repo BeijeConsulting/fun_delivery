@@ -1,5 +1,6 @@
 import './Navbar.css';
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
+import scream from '../../../../common/assets/sounds/scream.mp3'
 
 
 import { useState } from "react";
@@ -33,6 +34,9 @@ const Navbar = (props) => {
         });
     }
     const navOptionSlide = () => {
+        let audio = new Audio(scream)
+        audio.volume = 1
+        audio.play()
         setState({
             navOptionRightLeft: state.navOptionRightLeft === 'pickup' ? 'delivery' : 'pickup',
             selectedDelivery: state.navOptionRightLeft === 'delivery' ? 'white-txt' : '',
