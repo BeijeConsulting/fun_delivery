@@ -35,10 +35,8 @@ class Login extends Component {
     }
 
     handelSubmit = () => {
-        let emailChecked = Utils.validateEmail(this.email);
-        console.log('emailChecked = ', emailChecked);
-        let passwordChecked = Utils.validatePassword(this.password);
-        console.log('passwordChecked = ', passwordChecked);
+        let emailChecked = Utils.validateEmail(this.email);       
+        let passwordChecked = Utils.validatePassword(this.password);        
 
         let error = this.state.warning
         if (!emailChecked || !passwordChecked) {
@@ -46,8 +44,11 @@ class Login extends Component {
         } else {
 
             // SAVE DATA on localStorage
-            localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-            
+            let storageExists = localStorage.getItem('localStorageData');
+            if(!storageExists) {
+                localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
+            }
+                        
             error = false
             this.props.history.push(properties.BO_ROUTING.PROFILE, {
                 validation: true

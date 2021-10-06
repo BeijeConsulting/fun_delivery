@@ -15,7 +15,7 @@ const SinglePlateCard = (props) => {
                
             >
 
-                <label for="upload-img"
+                <label htmlFor="upload-img"
                     style={{
                         height: '100%',
                         width: '100%',

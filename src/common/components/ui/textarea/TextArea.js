@@ -23,12 +23,8 @@ const TextArea = (props) => {
             onChange={handleTextAreaCallback}
             onFocus={handleTextAreaOnFocus}
             placeholder={props.placeholder}
-        >
-            {
-                props.value &&
-                props.value            
-            }
-        </textarea>
+            value={props.value}
+        />                    
     )
 }
 
