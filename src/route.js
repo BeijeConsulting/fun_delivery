@@ -10,6 +10,7 @@ import UserHome from "./frontend/screens/userHome/UserHome";
 import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
 import UserMissions from "./frontend/screens/userMissions/UserMissions";
+import RecapOrder from "./frontend/screens/recapOrder/RecapOrder";
 
 
 /* BACKOFFICE SCREENS */
@@ -27,7 +28,9 @@ import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/Incomi
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 import Quiz from "./gamification/screens/quiz/Quiz";
 
+
 import properties from "./common/utils/properties";
+
 
 const Routing = () => {
 
@@ -43,6 +46,7 @@ const Routing = () => {
                 <Route path="/restaurants" component={Restaurants} />
                 <Route exact path="/userHome" component={UserHome} />
                 <Route exact path='/userHome/userMissions' component={UserMissions} />
+                <Route path="/recapOrder" component={RecapOrder}/>
 
                 {/* BACKOFFICE ROUTES */}
                 <Route path={properties.BO_ROUTING.LOGIN} component={LoginBackOffice}/>
