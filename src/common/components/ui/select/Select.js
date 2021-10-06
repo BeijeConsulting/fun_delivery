@@ -20,6 +20,8 @@ const Select = (props) => {
             className={props.className}
             onChange={handlecallback}
             onFocus={handleCallBackOnFocus}
+            value={props.value}
+            disabled={props.disable}
         >
             {
                 props.data.map((item, index) => {
