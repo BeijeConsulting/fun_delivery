@@ -3,7 +3,7 @@ import { Component } from "react"
 import musicQuiz from "../../assets/sounds/musicQuiz.mp3"
 import rightQuiz from "../../assets/sounds/rightQuiz.mp3"
 import wrongQuiz from "../../assets/sounds/wrongQuiz.mp3"
-import coins from "../../assets/sounds/coins.mp3"
+import win from "../../assets/sounds/win.mp3"
 import lose from "../../assets/sounds/lose.wav"
 
 
@@ -194,7 +194,7 @@ class Quiz extends Component {
 
     resultModal = () => {
         if (this.state.counterWins >= 2) {
-            let audio = new Audio(coins)
+            let audio = new Audio(win)
             audio.volume = 1
             audio.play()
         } else {
