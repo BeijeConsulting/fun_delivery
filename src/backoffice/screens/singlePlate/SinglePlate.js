@@ -169,7 +169,7 @@ class SinglePlate extends Component {
                                 className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
                                 id="description_plate"
                                 value={this.state.data.plate_description[0]}
-                                disabled={!this.state.editData}
+                                disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
                             />
 
