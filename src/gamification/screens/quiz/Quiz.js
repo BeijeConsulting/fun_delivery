@@ -16,8 +16,6 @@ import ModalReaction from "../../components/ui/modalReaction/ModalReaction"
 import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCascade"
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
-import { RightSquareFilled } from "@ant-design/icons"
-import Element from "antd/lib/skeleton/Element"
 class Quiz extends Component {
 
     constructor(props) {
