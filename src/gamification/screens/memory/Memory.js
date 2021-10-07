@@ -11,7 +11,7 @@ import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
-
+import Rider from './../../assets/images/memoryImg/rider.svg'
 class Memory extends Component {
     constructor(props) {
         super(props)
@@ -126,7 +126,7 @@ class Memory extends Component {
         return (
             <>
                 <div className='memory-page'>
-                    <div className="gm-headerTitleContainer"style={{height: '80px', border: '3px solid gold'}}>
+                    <div className="gm-headerTitleContainer" style={{ height: '80px', border: '3px solid gold' }}>
 
                         <HeaderGamePage
 
@@ -143,8 +143,14 @@ class Memory extends Component {
 
                     <div className="gm-flex-container">
                         <div className='gm-game-container'>
-                            <div className='gm-countdown-container'>
-                                <div className='gm-front-countdown'></div>
+                            <div className="gm-rider-big-container">
+
+                                <div className='gm-countdown-container'>
+                                    <div className='gm-front-countdown'></div>
+                                </div>
+                                <div className="gm-rider-container">
+                                    <img className="Rider" src={Rider} alt="rider"></img>
+                                </div>
                             </div>
 
                             {this.state.memoryCardsPair.map((card, key) => {

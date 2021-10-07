@@ -50,7 +50,7 @@
 .gm-countdown-container {
   border: 1px solid black;
   width: 90%;
-  height: 10px;
+  height: 100px;
   margin: 0 auto;
   margin-top: 50px;
   border-radius: 5px;
@@ -59,6 +59,7 @@
   top: -6%;
   margin-bottom: 20px;
 }
+
 
 .gm-front-countdown {
   width: 100%;
@@ -332,6 +333,35 @@ and (orientation:landscape)
     position: relative;
     overflow: hidden;
   }
+  .gm-rider-big-container{
+      width: 100%;
+      position: relative;
+      /* height: 80px; */
+  }
+  .gm-rider-container{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: -25px;
+    /* border: 2px solid red; */
+    /* z-index: 50000; */
+    animation: rider 63s linear;
+}
+
+@keyframes rider{
+    from {
+        right: 0%;
+    }
+    to{
+        right: 100%;
+        display: none;
+    }
+}
+.Rider{
+    width: 100%;
+}
+
   .gm-countdown-container {
     border: 1px solid black;
     width: 90%;
