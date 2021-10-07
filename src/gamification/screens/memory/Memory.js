@@ -3,6 +3,12 @@ import './Memory.css'
 import properties from '../../utilities/properties'
 
 /* import musicMemory from "../../assets/sounds/musicMemory.mp3" */
+import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
+import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
+import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
+import win from "../../assets/sounds/win.mp3"
+import lose from "../../assets/sounds/lose.wav"
+
 import Title from '../../components/funcComponents/title/Title.js'
 import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
@@ -40,6 +46,7 @@ class Memory extends Component {
 /*         let audio = new Audio(musicMemory);
         audio.volume = 1;
         audio.play(); */
+        
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
     }
@@ -53,6 +60,11 @@ class Memory extends Component {
             this.setState({
                 winModal: true
             })
+            //vinto
+
+                let audio = new Audio(win)
+                audio.volume = 1
+                audio.play()
             this.addCoins()
         }
 
@@ -83,6 +95,10 @@ class Memory extends Component {
         // SET ACTIVE TRUE ON SELECTED ELEMENT
         let newMemoryCardsPair = this.state.memoryCardsPair
         newMemoryCardsPair[key].active = true
+        //qui suono carta che si gira
+        let audio = new Audio(seeCardMemory);
+        audio.volume = 1;
+        audio.play();
 
 
         // ADD SELECTED ELEMENT TO A NEW ARRAY
@@ -100,8 +116,16 @@ class Memory extends Component {
                         el.name === filteredCard[0].name ? el.visible = false : el
                     )
                     newMemoryCardsPair = cardsRemove
+                    // qui suono due carte uguali
+                    let audio = new Audio(rightCardsMemory);
+                    audio.volume = 1;
+                    audio.play();
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
+                    //qui suono due carte diverse
+                    let audio = new Audio(wrongCardsMemory);
+                    audio.volume = 1;
+                    audio.play();
                 }
 
                 // FILTERED RESET WAITING NEW COMPARE
@@ -120,7 +144,12 @@ class Memory extends Component {
             this.setState({
                 loseModal: true
             })
+            //perso
+            let audio = new Audio(lose)
+            audio.volume = 1
+            audio.play()
         }, 60000)
+
     }
 
 
