@@ -15,7 +15,7 @@ import properties from "../../../common/utils/properties";
 
 class SinglePlate extends Component {
     constructor(props) {
-        super(props)        
+        super(props)
         this.state = {
             list_categories: [],
             plate_show_title: "Spaghetti alle vongole",
@@ -38,17 +38,17 @@ class SinglePlate extends Component {
         })
     }
 
-    handleEdit = () => { 
-        this.setState({ 
-            editData: true 
+    handleEdit = () => {
+        this.setState({
+            editData: true
         })
     }
 
     handleCallbackInput = (e) => {
         let data = this.state.data;
-        data[e.target.name] = e.target.name === 'plate_category_id' ? [parseInt(e.target.value), false] : [e.target.value, false]    
+        data[e.target.name] = e.target.name === 'plate_category_id' ? [parseInt(e.target.value), false] : [e.target.value, false]
         this.setState({
-            data: data              
+            data: data
         });
     }
 
@@ -67,14 +67,11 @@ class SinglePlate extends Component {
             editData: correctCheck ? false : true
         })
 
-        if(correctCheck) {
+        if (correctCheck) {
             this.setState({
                 plate_show_title: newData.plate_name[0]
             })
         }
-        
-        
-      
     }
 
     handleCallbackGoBack = () => { this.props.history.goBack() }
@@ -117,7 +114,7 @@ class SinglePlate extends Component {
                                     </span>
                                 </p>
                             </div>
-                            
+
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
@@ -165,7 +162,7 @@ class SinglePlate extends Component {
                                     })
                                 }
 
-                            </select>                                                                                  
+                            </select>
 
                             <TextArea
                                 name="plate_description"
