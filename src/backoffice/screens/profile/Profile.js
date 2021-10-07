@@ -3,7 +3,7 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditFilled} from '@ant-design/icons';
+import { EditFilled } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
@@ -47,7 +47,6 @@ class Profile extends Component {
         }))
     }
 
-    // TODO Sistemare questa function
     handleSubmit = () => {
         let newData = {
             firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[0]) || this.state.data.firstName[0] === undefined],
@@ -64,19 +63,11 @@ class Profile extends Component {
             discount: [this.state.data.discount[0], this.state.data.discount[0] === undefined],
             description: [this.state.data.description[0], false]
         }
-
-        if (!!Object.entries(newData).find((value) => value[1][1] === true) && !!Object.entries(newData).find((value) => value[1][0] === "")) {
-            this.setState({
-                data: newData,
-                editData: false
-            })
-            console.log(this.state)
-        } else {
-            this.setState({
-                data: newData,
-                editData: true
-            })
-        }
+        let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true))
+        this.setState({
+            data: newData,
+            editData: correctCheck ? false : true
+        })
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
