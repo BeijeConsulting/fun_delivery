@@ -15,6 +15,11 @@ class Avatar extends Component {
     super(props)
 
     this.difference = null
+
+    this.userPath = JSON.parse(localStorage.getItem('userInfo'))
+
+
+
     this.state = {
 
       gamification: properties.gamification,
@@ -25,6 +30,7 @@ class Avatar extends Component {
       avatarDetailModal: false,
       avatarDetail: null,
       avatar_page: true,
+      selectedBadge: this.userPath.badge.selectedBadge,
     }
   }
 
@@ -45,15 +51,13 @@ class Avatar extends Component {
   }
 
   avatarDetailModal = (key) => () => {
-
-    let newGamification = { ...this.state.gamification }
-    if (get(this.state.gamification.avatar, "userAvatars").includes(key)) {
-      newGamification.avatar.selectedAvatar = key
+    if (get(this.userPath.avatar, "userAvatars").includes(key)) {
+      this.userPath.avatar.selectedAvatar = key
+      localStorage.setItem('userInfo', JSON.stringify(this.userPath))
     }
     this.setState({
       avatarDetailModal: true,
       avatarDetail: key,
-      gamification: newGamification
     })
   }
 
@@ -64,30 +68,46 @@ class Avatar extends Component {
 
     this.difference = null
   }
-  buyAvatar = () => {
-    let newGamification = { ...this.state.gamification }
-    this.difference = this.state.gamification.coins - this.state.avatar_list[this.state.avatarDetail].cost
-    newGamification.coins = this.state.gamification.coins
 
+  buyAvatar = () => {
+
+    this.difference = this.userPath.beijeCoin - this.state.avatar_list[this.state.avatarDetail].cost
 
     if (this.difference > -1) {
-      newGamification.coins = this.difference
-      newGamification.avatar.userAvatars.push(this.state.avatarDetail)
-      newGamification.avatar.selectedAvatar = this.state.avatarDetail
+      this.userPath.beijeCoin = this.difference
+      this.userPath.avatar.userAvatars.push(this.state.avatarDetail)
+      this.userPath.avatar.selectedAvatar = this.state.avatarDetail
     }
 
     this.setState({
-      gamification: newGamification,
       avatarDetailModal: this.difference > -1 ? false : true
     })
-    console.log(this.state.gamification.avatar.selectedAvatar)
+
+    localStorage.setItem('userInfo', JSON.stringify(this.userPath))
+
+  }
+
+  
+  clickSelectedBadge = (key) =>() =>{
+   if(this.userPath.badge.userBadges.includes(key)){
+    this.userPath.badge.selectedBadge = key
+    localStorage.setItem('userInfo', JSON.stringify(this.userPath))
+
+    let newSelectedBadge = this.userPath.badge.selectedBadge
+
+    this.setState({
+      selectedBadge: newSelectedBadge 
+    })
+   }
   }
 
   printBadge = (badge, key) => {
     return (
       <div key={key} className='badge-page-container'>
         <div className='badge-icon-container'>
-          <div className={this.state.gamification.badge.userBadges.includes(key) ? 'badge-icon' : 'badge-icon badges-not-owned'}><img src={badge.image} alt={'badge'} /></div>
+          <div 
+          style={this.state.selectedBadge === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
+          className={this.userPath.badge.userBadges.includes(key) ? `badge-icon` : "badge-icon badges-not-owned"}><img  onClick={this.clickSelectedBadge(key)} src={badge.image} alt={'badge'} /></div>
         </div>
       </div>
     )
@@ -102,8 +122,8 @@ class Avatar extends Component {
       <div className='avatar-page-container'>
         <div className='avatar-container'>
           <div className='gm-icons-container'>
-            <div className='gm-current-coins'>{this.state.gamification.coins}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
-            <CloseOutlined className='gm-close-icon' onClick={this.closeHandleClick}/>
+            <div className='gm-current-coins'>{this.userPath.beijeCoin}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
+            <CloseOutlined className='gm-close-icon' onClick={this.closeHandleClick} />
           </div>
           <div className='links-container'>
             <span className={this.state.avatar_page ? 'selected' : undefined} onClick={this.avatarPageRedirect}>Avatar</span>
@@ -116,9 +136,9 @@ class Avatar extends Component {
               {this.state.avatar_list.map((avatar, key) => {
                 return (
                   <div key={key} className='avatar-icon-container'>
-                    <div className={get(this.state.gamification.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}><img onClick={this.avatarDetailModal(key)} src={avatar.image} alt={'avatar'} /></div>
+                    <div className={get(this.userPath.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}><img onClick={this.avatarDetailModal(key)} src={avatar.image} alt={'avatar'} /></div>
                     {
-                      this.state.gamification.avatar.userAvatars.includes(key) !== true &&
+                      this.userPath.avatar.userAvatars.includes(key) !== true &&
                       <div className='avatar-cost'>{avatar.cost}<img src={coin} alt={'price'} /></div>
                     }
                   </div>
@@ -127,7 +147,7 @@ class Avatar extends Component {
             </div>
           }
           {
-            this.state.avatarDetailModal && get(this.state.gamification.avatar, "userAvatars").includes(this.state.avatarDetail) !== true &&
+            this.state.avatarDetailModal && get(this.userPath.avatar, "userAvatars").includes(this.state.avatarDetail) !== true &&
             <div className="avatar-detail-modal">
               <CloseOutlined onClick={this.closeAvatarDetailModal} className='gm-close-icon close-avatar-detail' />
               <div className="avatar-selected-content">
@@ -139,7 +159,7 @@ class Avatar extends Component {
                   {this.difference < 0 &&
                     <div className="avatar-toast">
                       BeijeCoins insufficienti, povero!
-                </div>
+                    </div>
                   }
                 </div>
                 <div className="buttons-avatar-modal">

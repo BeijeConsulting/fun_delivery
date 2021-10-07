@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
 
+/* import musicMemory from "../../assets/sounds/musicMemory.mp3" */
 import Title from '../../components/funcComponents/title/Title.js'
 import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
@@ -36,6 +37,9 @@ class Memory extends Component {
     }
 
     componentDidMount = () => {
+/*         let audio = new Audio(musicMemory);
+        audio.volume = 1;
+        audio.play(); */
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
     }

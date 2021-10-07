@@ -2,7 +2,6 @@
 .frontend-user-page {
     max-width: 1000px;
     margin: 0 auto;
-    position: relative;
 }
 .frontend-user-page-container {
     position: relative;
@@ -17,7 +16,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem;
-    /* border: 1px solid black; */
 }
 .frontend-nav-user-icon{
     width: 80px;
@@ -26,6 +24,7 @@
     border: 3px solid rgb(37, 37, 37);
     position: relative;
     background-color: rgb(255, 177, 32);
+    cursor: pointer;
 }
 .frontend-nav-user-icon img {
     width: 100%;

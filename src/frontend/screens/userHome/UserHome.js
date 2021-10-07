@@ -5,7 +5,14 @@ import luckySpin from '../../../common/assets/luckySpin.svg';
 
 import Button from '../../../common/components/ui/button/Button'
 import UserNavbar from "../../components/ui/userNavbar/UserNavbar";
+
+import Wheel from '../../../gamification/components/classComponents/wheel/Wheel'
+
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import CountDownTimer from "../../../gamification/components/funcComponents/CountDownTimer";
+
+import { CloseOutlined } from '@ant-design/icons';
 
 import apple from '../../../gamification/assets/images/avatar/avatar_apple.png'
 import badge from '../../../gamification/assets/images/badges/capitan20.png'
@@ -16,11 +23,67 @@ import Avatar from '../../../gamification/components/classComponents/avatar/Avat
 
 
 const UserHome = (props) => {
-    let history = useHistory();
-
     const [state, setState] = useState({
-        avatarDisplay: false
+        wheelModal: false,
+        wheelAvailable: true,
+        avatarDisplay: false,
     })
+
+    let newWheelAvaileble
+    let newDate = new Date().getTime()
+    let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
+    let difference = newDate - oldDate
+    let compare = difference > 86400000 ? true : false
+    let timer = 86400000 - difference
+
+    let userPath = JSON.parse(localStorage.getItem('userInfo'))
+
+    console.log(difference, "dentro ad un quadrato")
+    const msToTime = (milliseconds) => {
+
+        let seconds = Math.floor((milliseconds / 1000) % 60)
+        let minutes = Math.floor((milliseconds / (1000 * 60)) % 60)
+        let hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24)
+
+
+        let obj = {
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+        }
+
+        return obj
+    }
+
+    if (compare || !oldDate) {
+        newWheelAvaileble = true
+    } else {
+        newWheelAvaileble = false
+        setTimeout(() => {
+            newWheelAvaileble = true
+            setState({
+                ...state,
+                wheelAvailable: newWheelAvaileble
+            })
+        }, 86400000 - compare);
+    }
+    useEffect(() => {
+        if (oldDate) {
+            newWheelAvaileble = compare
+            // setState({
+            //     ...state,
+            //     wheelAvailable: newDate-oldDate > 86400000 ? true : false
+            // })
+        }
+        setState({
+            ...state,
+            wheelAvailable: newWheelAvaileble
+        })
+
+    }, []);
+
+
+    let history = useHistory();
 
     /* GAMIFICATION */
     const callbackSwitcher = (e) => {
@@ -53,7 +116,18 @@ const UserHome = (props) => {
 
     const openWheelOfFortuneGame = () => {
         /* WRITE HERE the fo to open the wheel of fortune game */
-        return
+        let newDate = new Date().getTime()
+        let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
+
+        if (oldDate) {
+            setState({
+                wheelModal: newDate - oldDate > 86400000 ? true : false
+            })
+        } else {
+            setState({
+                wheelModal: true
+            })
+        }
     }
 
     /* da generalizzare con il parametro path passato alla funzione */
@@ -73,6 +147,14 @@ const UserHome = (props) => {
         return
     }
 
+
+    const wheelModalClick = () => {
+        setState({
+            wheelModal: false
+        })
+    }
+
+
     const handleCloseCallback = () => {
         setState({
             avatarDisplay: false
@@ -85,14 +167,7 @@ const UserHome = (props) => {
                 {/* ----- NAVBAR ----- */}
                 <UserNavbar
                     /* from API */
-                    userAvatar={apple}
-                    userBadge={badge}
-                    userName={'Nome Cognome'}
-                    userLvl={0}
-                    userExp={0}
-                    userCoins={0}
                     callback={callbackSwitcher}
-                    coin={coin}
                 />
 
                 {/* ----- MAIN ----- */}
@@ -114,9 +189,12 @@ const UserHome = (props) => {
                     <div className='fortune-wheel-container'>
                         <img src={luckySpin} alt="fortunewheel" className='lucky-spin' />
                         <Button
-                            text='TAP TO SPIN'
+                            style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
+                            text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
                             callback={openWheelOfFortuneGame}
                         />
+
+
                     </div>
 
                     <Button
@@ -125,14 +203,24 @@ const UserHome = (props) => {
                         callback={logoutUser}
                     />
                 </main>
+
+                {state.wheelModal &&
+
+
+                        <div className="gm-wheel-modal">
+                            <CloseOutlined onClick={wheelModalClick} />
+                            <Wheel />
+                        </div>
+
+                }
             </div>
 
             {/* ---- AVATAR ----*/}
             {state.avatarDisplay &&
                 <div className='frontend-avatar'>
-                        <Avatar 
+                    <Avatar
                         closeCallback={handleCloseCallback}
-                        />
+                    />
                 </div>
             }
 

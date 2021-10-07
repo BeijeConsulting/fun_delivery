@@ -3,15 +3,16 @@ import 'antd/dist/antd.css';
 import { Switch } from 'antd';
 
 const SwitchProfile = (props) => {
-    const handleChange = (e) => {
-        props.callback(e)
+
+    const handleSwitch = (e) => {
+       props.handleSwitchCallback(e)
     }
 
     return (
         <>
-            <Switch
-                onChange={handleChange}
-                value={props.value}
+            <Switch 
+                defaultChecked
+                onClick={handleSwitch} 
             />
         </>
     )
