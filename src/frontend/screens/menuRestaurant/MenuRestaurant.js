@@ -120,8 +120,20 @@ export default class MenuRestaurant extends React.Component {
             objectPlate: this.objectPlate,
             isClick: false
         }
-        console.log(this.objectPlate)
+        console.log( this.objectPlate )
     }
+
+    // categoryFilter =  (category) => {
+    //     let arrFilter = category ? this.objectPlate.filter((item) => {
+    //         return (
+    //             item.category === category
+    //         ) 
+    //     }) : this.objectPlate
+    //     console.log(arrFilter)
+    //     this.setState({
+    //         objectPlate: arrFilter
+    //     })
+    // }
 
 
     render() {
