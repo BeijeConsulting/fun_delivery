@@ -1,14 +1,16 @@
 import { Component } from "react";
 import { withTranslation } from 'react-i18next';
-import {orderBy as _orderBy, keys as _keys, map as _map, values as _values, keysIn as _keysIn} from "lodash";
+import { orderBy as _orderBy, keys as _keys, map as _map, values as _values, keysIn as _keysIn } from "lodash";
 import constantsDictionary from '../../../common/utils/constantsDictionary'
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Card from "../../components/funcComponents/card/Card"
 import Select from "../../../common/components/ui/select/Select"
 import utils from '../../../common/utils/utils'
 import properties from "../../../common/utils/properties"
-import delivering from '../../assets/images/truck.svg'
-import preparing from '../../assets/images/in_progress.png'
+import confirmed from '../../assets/images/status_order/confirmed.png'
+import completed from '../../assets/images/status_order/completed.png'
+import delivering from '../../assets/images/status_order/truck.svg'
+import preparing from '../../assets/images/status_order/in_progress.png'
 import './MyOrders.css';
 import 'antd/dist/antd.css';
 
@@ -53,6 +55,23 @@ class MyOrders extends Component {
                 status: "confirmed"
             },
             {
+                order_id: 4,
+                customer_name: "Marco Brambilla",
+                customer_address: "Una via a Milano",
+                ordered: [
+                    {
+                        nameFood: "Margherita",
+                    },
+                    {
+                        nameFood: "Napoli",
+                    },
+                    {
+                        nameFood: "Coca cola",
+                    }
+                ],
+                status: "preparing"
+            },
+            {
                 order_id: 3,
                 customer_name: "Marco Brambilla",
                 customer_address: "Una via a Milano",
@@ -87,7 +106,7 @@ class MyOrders extends Component {
                 status: "completed"
             },
         ]
-        
+
         this.state = {
             orders: []
         }
@@ -99,7 +118,7 @@ class MyOrders extends Component {
         this.orderByDescOrders(this.all_orders)
     }
 
-    orderByDescOrders(orders){
+    orderByDescOrders(orders) {
         let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
         this.setState({
             orders: desc_orders
@@ -108,11 +127,10 @@ class MyOrders extends Component {
 
     handleSelect = (e) => {
         let filtered_orders = []
-        filtered_orders = e.target.value==="all" ? this.all_orders : this.all_orders.filter((item) => item.status === e.target.value)
+        filtered_orders = e.target.value === "all" ? this.all_orders : this.all_orders.filter((item) => item.status === e.target.value)
         this.setState({
             orders: filtered_orders
         })
-        console.log(e.target.value)
     }
 
     handleCallbackPageSingleOrder = (order) => () => {
@@ -124,7 +142,24 @@ class MyOrders extends Component {
     }
 
     handleImageStatus = (status) => {
-        return 
+        let imageToShow = ""
+        switch (status) {
+            case "confirmed":
+                imageToShow = confirmed
+                break;
+            case "delivering":
+                imageToShow = delivering
+                break;
+            case "preparing":
+                imageToShow = preparing
+                break;
+            case "completed":
+                imageToShow = completed
+                break;
+            default:
+                
+        }
+        return imageToShow
     }
 
     render() {
@@ -159,15 +194,14 @@ class MyOrders extends Component {
                         <div className="bo-order-form">
                             {
                                 this.state.orders.map((order, index) => {
-                                    console.log(order.status)
                                     return (
                                         <div className="bo-mymenu-flex-cards" key={index}>
                                             <Card
                                                 title={t('backoffice.screens.my_orders.number_of_order') + order.order_id}
-                                                img={`${properties.PATH_IMAGE + order.status}.png`}
+                                                img={this.handleImageStatus(order.status)}
                                                 callback={this.handleCallbackPageSingleOrder(order)}
                                                 // status={this.convertOrderStatus(order.status)}
-                                                status = {this.status[order.status]}
+                                                status={this.status[order.status]}
                                             />
                                         </div>
                                     )
