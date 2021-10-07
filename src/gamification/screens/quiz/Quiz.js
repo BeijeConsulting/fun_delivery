@@ -1,5 +1,12 @@
 import { Component } from "react"
 
+import musicQuiz from "../../assets/sounds/musicQuiz.mp3"
+import rightQuiz from "../../assets/sounds/rightQuiz.mp3"
+import wrongQuiz from "../../assets/sounds/wrongQuiz.mp3"
+import coins from "../../assets/sounds/coins.mp3"
+import lose from "../../assets/sounds/lose.wav"
+
+
 import './Quiz.css'
 import '../../../common/components/ui/button/Button.css'
 import Button from "../../../common/components/ui/button/Button"
@@ -10,6 +17,7 @@ import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCas
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
 import { RightSquareFilled } from "@ant-design/icons"
+import Element from "antd/lib/skeleton/Element"
 class Quiz extends Component {
 
     constructor(props) {
@@ -74,6 +82,9 @@ class Quiz extends Component {
     }
 
     componentDidMount() {
+        let audio = new Audio(musicQuiz);
+        audio.volume = 1;
+        audio.play();
         console.log('sono componentDidMount')
         console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
         document.addEventListener('load', this.setTimeout)
@@ -108,8 +119,13 @@ class Quiz extends Component {
             countQuestion: this.state.countQuestion + 1,
         })
 
-        if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
-            this.addCoins()
+
+        if (this.state.countQuestion > 2) {
+
+            this.setTime()
+            if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
+                this.addCoins()
+            }
         }
     }
 
@@ -117,18 +133,25 @@ class Quiz extends Component {
     findRightAnswer = (item, index) => {
         let buttonStyle = this.state.buttonStyle
         let iconButton = this.state.iconButton
-        if (item === this.state.chosenAnswer && this.state.chosenAnswer === this.state.singleObjSt.answer) {
+        if (item === this.state.singleObjSt.answer) {
             buttonStyle = 'gm-quiz-button gm-quiz-button-answer gm-quiz-button-right'
             iconButton = '😃'
+            if (this.state.showLoader === false && this.state.chosenAnswer === this.state.singleObjSt.answer) {
+                let audio = new Audio(rightQuiz)
+                audio.volume = 1
+                audio.play()
+            }
         }
         else if (item === this.state.chosenAnswer && this.state.chosenAnswer !== this.state.singleObjSt.answer) {
             buttonStyle = 'gm-quiz-button gm-quiz-button-answer gm-quiz-button-wrong'
             iconButton = '☹️'
+            if (this.state.showLoader === false) {
+                let audio = new Audio(wrongQuiz)
+                audio.volume = 1
+                audio.play()
+            }
         }
-        else if (item === this.state.singleObjSt.answer) {
-            buttonStyle = 'gm-quiz-button gm-quiz-button-answer gm-quiz-button-right'
-            iconButton = '😃'
-        }
+
         return <Button
             className={buttonStyle}
             key={index}
@@ -167,7 +190,19 @@ class Quiz extends Component {
         }
     }
 
+
+
+
     resultModal = () => {
+        if (this.state.counterWins >= 2) {
+            let audio = new Audio(coins)
+            audio.volume = 1
+            audio.play()
+        } else {
+            let audio = new Audio(lose)
+            audio.volume = 1
+            audio.play()
+        }
         return (
             <GeneralModal
                 contentModal={this.state.counterWins >= 2 ?
@@ -245,10 +280,7 @@ class Quiz extends Component {
                         }
                     </div>
                 </div>
-                {
-                    this.state.countQuestion > 2 &&
-                    this.setTime()
-                }
+
                 {
                     this.state.showLoader &&
                     this.resultModal()
