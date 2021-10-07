@@ -3,11 +3,9 @@ import './MenuRestaurant.css'
 import SingleRestaurant from '../../components/classComponents/singleRestaurant/SingleRestaurant'
 import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
 import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate'
-export default class MenuRestaurant extends React.Component
-{
-    constructor ( props )
-    {
-        super( props )
+export default class MenuRestaurant extends React.Component {
+    constructor(props) {
+        super(props)
 
         this.objectRestaurantsForListReference = [
             {
@@ -86,12 +84,31 @@ export default class MenuRestaurant extends React.Component
                 price: '12€',
             },
             {
-                name: "Primo",
-                category: "primi",
+                name: "Secondo 1",
+                category: "secondi",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
-           
+            {
+                name: "Secondo 2",
+                category: "secondi",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+            {
+                name: "Dolce 1",
+                category: "dolci",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+            {
+                name: "Dolce 2",
+                category: "dolci",
+                platePic: imagePaniniCaMeusa,
+                price: '12€',
+            },
+
+
 
 
 
@@ -103,30 +120,11 @@ export default class MenuRestaurant extends React.Component
             objectPlate: this.objectPlate,
             isClick: false
         }
-        console.log( this.objectPlate )
+        console.log(this.objectPlate)
     }
 
-    categoryFilter =  (category) => {
-        let arrFilter = category ? this.objectPlate.filter((item) => {
-            return (
-                item.category === category
-            ) 
-        }) : this.objectPlate
-        console.log(arrFilter)
-        this.setState({
-            objectPlate: arrFilter
-        })
-    }
 
-    
-
-
-
-
-
-
-    render ()
-    {
+    render() {
         return <div className='containerMenu'>
             <div className='headerCenter'>
 
@@ -144,8 +142,8 @@ export default class MenuRestaurant extends React.Component
             </div>
 
             <div className='infoRestaurant'>
-                <p style={ { fontWeight: '600', fontSize: '25px' } }>Pizza 🍕</p>
-                <p style={ { marginTop: '-20px' } }>Via da Cacacas 22 Milano (MI)</p>
+                <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p>
+                <p style={{ marginTop: '-20px' }}>Via da Cacacas 22 Milano (MI)</p>
             </div>
             <div className='rowSidebar'>
                 <p className='voicePlate'> Antipasti </p>
@@ -159,65 +157,81 @@ export default class MenuRestaurant extends React.Component
                 <div className='trendRestaurants'>
                     <h2 className='trendRist'>Antipasti</h2>
                     <div className="restaurantsMenuContainer">
-                        {/* mapping che dipende dal risultato della ricerca*/ }
-                        {/* tendenza */ }
-                        {this.categoryFilter('antipasti')}
-                        {this.state.objectPlate.map((item,key)=> {
+                        {/* mapping che dipende dal risultato della ricerca*/}
+                        {/* tendenza */}
+
+                        {this.objectPlate.filter((item) => {
                             return (
-                                <SinglePlate key={ key } image={ item.platePic } plateName={ item.name } platePrice={ item.price } classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                                item.category === "antipasti"
+                            )
+                        }
+                        ).map((item, key) => {
+                            return (
+                                <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                             )
                         })}
-                        
-                        
-                            
+
+
+
                     </div>
                 </div>
 
-                <h2 className='trendRist'>Pan Bon</h2>
-                {/* tutti */ }
+                <h2 className='trendRist'>Primi</h2>
+                {/* tutti */}
                 <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
+                    {this.objectPlate.filter((item) => {
                         return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSinglePlate" />
+                            item.category === "primi"
                         )
-                    } ) }
+                    }
+                    ).map((item, key) => {
+                        return (
+                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                        )
+                    })}
                 </div>
             </div>
             <div>
-                <h2 className='trendRist'>Pizze classiche</h2>
-                {/* tutti */ }
+                <h2 className='trendRist'>Secondi</h2>
+                {/* tutti */}
                 <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
+                    {this.objectPlate.filter((item) => {
                         return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                            item.category === "secondi"
                         )
-                    } ) }
+                    }
+                    ).map((item, key) => {
+                        return (
+                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                        )
+                    })}
                 </div>
             </div>
             <div>
-                <h2 className='trendRist'>Pizze speciali</h2>
-                {/* tutti */ }
+                <h2 className='trendRist'>Dolci</h2>
+                {/* tutti */}
                 <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
+                    {this.objectPlate.filter((item) => {
                         return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                            item.category === "dolci"
                         )
-                    } ) }
+                    }
+                    ).map((item, key) => {
+                        return (
+                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                        )
+                    })}
                 </div>
             </div>
             <div>
                 <h2 className='trendRist'>Scelte per te</h2>
-                {/* tutti */ }
+                {/* tutti */}
                 <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
+                    {this.state.objectRestaurantsForList.map((item, key) => {
                         return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                            <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
                         )
-                    } ) }
+                    })}
                 </div>
             </div>
 
