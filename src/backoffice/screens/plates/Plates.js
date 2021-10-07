@@ -11,11 +11,11 @@ import properties from "../../../common/utils/properties";
 import AddPlate from '../../assets/images/plus.png'
 
 class Plates extends Component {
+    
     constructor(props) {
         super(props)
         this.pageTitle = get(this.props, 'location.state.titlePage', false);
         this.restaurant_category = get(this.props, 'location.state.category_id', false);
-
         if (!this.pageTitle || !this.restaurant_category) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
         }

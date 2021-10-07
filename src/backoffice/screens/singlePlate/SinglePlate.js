@@ -8,23 +8,24 @@ import { EditFilled } from '@ant-design/icons';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import Button from "../../../common/components/ui/button/Button"
-import Piatto1 from '../../assets/images/piatto1.jpg'
 import utils from "../../../common/utils/utils";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import properties from "../../../common/utils/properties";
+import { get } from "lodash";
 
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
+        this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
         this.state = {
             list_categories: [],
-            plate_show_title: "Spaghetti alle vongole",
+            plate_show_title: "",
             data: {
-                plate_img: [Piatto1, false],
-                plate_name: ["Spaghetti alle vongole", false],
-                plate_description: ["Spaghetti", false],
-                plate_price: [342.5, false],
-                plate_category_id: ["Italiano", false],
+                plate_img: ['', false],
+                plate_name: ["", false],
+                plate_description: ["", false],
+                plate_price: ['', false],
+                plate_category_id: ['', false],
             },
             editData: false,
             plate_visibility: true
@@ -32,10 +33,33 @@ class SinglePlate extends Component {
     }
 
     componentDidMount = () => {
-        // Simulating api call on localStorage
-        this.setState({
-            list_categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
-        })
+        this.plateId = get(this.props, 'location.state.plateId', false);
+        this.plateName = get(this.props, 'location.state.plateName', false);
+
+        if (!this.plateId || !this.plateName) {
+            this.props.history.push(properties.BO_ROUTING.MY_MENU);
+        } else {
+            let plate = this.storageData.plate_list.find(el => {
+                return el.id === this.props.location.state.plateId
+            });
+
+            let plateData = {
+                plate_img: [plate.plate_img, false],
+                plate_name: [plate.plate_name, false],
+                plate_description: [plate.plate_description, false],
+                plate_price: [plate.plate_price, false],
+                plate_category_id: [plate.plate_category_id, false],
+            }
+
+            // Simulating api call on localStorage
+            this.setState({
+                list_categories: this.storageData.plate_categories,
+                data: plateData,
+                plate_show_title: plate.plate_name,
+                plate_visibility: plate.plate_visibility
+            })
+        }
+
     }
 
     handleEdit = () => {
@@ -52,6 +76,25 @@ class SinglePlate extends Component {
         });
     }
 
+    handleVisibility = (e) => {
+        this.setState(
+            () => ({
+                plate_visibility: e
+            }),
+
+            () => {
+
+                const plateList = this.storageData.plate_list.map(el => {
+                    if (el.id === this.props.location.state.plateId) {
+                        el.plate_visibility = this.state.plate_visibility
+                    }
+                    return el
+                })
+                this.storageData.plate_list = plateList;
+                localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
+            })
+    }
+
     handleSubmit = () => {
         let newData = {
             plate_img: [this.state.data.plate_img[0], this.state.data.plate_img[0] ? false : true],
@@ -64,34 +107,64 @@ class SinglePlate extends Component {
 
         this.setState({
             data: newData,
-            editData: correctCheck ? false : true
+            editData: correctCheck ? false : true,
+            plate_show_title: correctCheck ? newData.plate_name[0] : this.state.plate_show_title
         })
 
-        if (correctCheck) {
-            this.setState({
-                plate_show_title: newData.plate_name[0]
+        if (correctCheck) {         
+            // Saving modified plate on localStorage
+            let modifiedPlate = {
+                plate_img: newData.plate_img[0],
+                plate_name: newData.plate_name[0],
+                plate_description: newData.plate_description[0],
+                plate_price:newData.plate_price[0],
+                plate_category_id:newData.plate_category_id[0]
+            }
+
+            console.log(modifiedPlate)
+            
+            const newList = this.storageData.plate_list.map((el) => {
+                if(el.id === this.props.location.state.plateId) {
+                    el = {
+                        ...el,
+                        ...modifiedPlate
+                    }
+                }                
+                return el;
             })
+            this.storageData.plate_list = newList;
+            localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
+
         }
     }
 
-    handleCallbackGoBack = () => { this.props.history.goBack() }
+    handleCallbackGoBack = () => {
+        this.props.history.goBack()
+    }
 
-    // handleVisibility = (e) => {
-    //     this.setState(prevState => ({
-    //         ...prevState.data,
-    //         ...prevState.editData,
-    //         plate_visibility: e
-    //     }))        
-    // }
+    handleDelete = () => {
+        /* Elimination plate to localSotorage */
+        const plateList = this.storageData.plate_list.filter((el, key) => {
+            return el.id !== this.props.location.state.plateId
+        })
+        this.storageData.plate_list = plateList;
+        localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
 
-    // handleDelete = () => {      
-    //     this.props.history.push(properties.BO_ROUTING.PLATES)
-    // }
+        // Find plate category name
+        // let categoryName = this.state.list_categories.find(el => {
+        //     return el.id == this.state.data.plate_category_id[0]
+        // }).name;
+
+        // Redirect to right category page LOL
+        this.props.history.push(properties.BO_ROUTING.PLATES)
+            
+    }
 
     render() {
         return (
             <>
                 <LayoutBackOffice pageTitle='Piatto'>
+
                     <div className="bo-profile-container">
                         <div className="bo-profile-form">
                             <div className="bo-mymenu-first-row">
@@ -102,13 +175,17 @@ class SinglePlate extends Component {
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
                             </div>
 
-                            <SinglePlateCard img={Piatto1} />
+                            <SinglePlateCard 
+                                img={this.state.data.plate_img[0]} 
+                                callback={this.handleCallbackInput} 
+                                name={'plate_img'}
+                            />
 
                             <div className="bo-profile-switch">
                                 <p>Visibilità
                                     <span>
                                         <SwitchProfile
-                                            callback={this.handleVisibility}
+                                            handleSwitchCallback={this.handleVisibility}
                                             value={this.state.plate_visibility}
                                         />
                                     </span>
@@ -143,8 +220,8 @@ class SinglePlate extends Component {
                                 className='bo-input-box'
                                 onChange={this.handleCallbackInput}
                                 //onFocus={this.handleCallBackFocus}
-                                //className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
-                                defaultValue=""
+                                //className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}                                
+                                value={this.state.data.plate_category_id[0]}
                                 disabled={!this.state.editData}
                             >
                                 <option disabled value="">Categorie</option>
