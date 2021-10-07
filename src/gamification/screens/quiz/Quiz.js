@@ -120,15 +120,13 @@ class Quiz extends Component {
         })
 
 
-        /*         if (this.state.countQuestion > 2) {
-                    this.setTime()
-                } */
         if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
             this.addCoins()
             this.setTime()
         }
-        if(this.state.counterWins < 1 && this.state.countQuestion === 2)
-        this.setTime()
+        if (this.state.counterWins < 1 && this.state.countQuestion === 2) {
+            this.setTime()
+        }
     }
 
 
