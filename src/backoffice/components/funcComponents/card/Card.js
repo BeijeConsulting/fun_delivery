@@ -9,7 +9,7 @@ const Card = (props) => {
     return(
         <div className = {'bo-card-default-constainer'}>
             <div className={`bo-card-container-img-${props.newCss? 'new-plate':''}`} onClick = {handleCallbackCard}>
-                <img src={props.img} alt=''/>
+                <img src={props.img} alt='status order'/>
             </div>
             <div className= {`bo-card-title`}>{props.title}</div>
             <h5 className= {`bo-card-status`}>{props.status}</h5>

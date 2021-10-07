@@ -1,23 +1,21 @@
 import { Component } from "react";
-import './MyOrders.css';
+import { withTranslation } from 'react-i18next';
+import {orderBy as _orderBy, keys as _keys, map as _map, values as _values, keysIn as _keysIn} from "lodash";
+import constantsDictionary from '../../../common/utils/constantsDictionary'
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Card from "../../components/funcComponents/card/Card"
 import Select from "../../../common/components/ui/select/Select"
-import properties from "../../../common/utils/properties";
-import confirm from '../../assets/images/confirm.png'
+import utils from '../../../common/utils/utils'
+import properties from "../../../common/utils/properties"
 import delivering from '../../assets/images/truck.svg'
-import in_progress from '../../assets/images/in_progress.png'
+import preparing from '../../assets/images/in_progress.png'
+import './MyOrders.css';
 import 'antd/dist/antd.css';
-import {orderBy as _orderBy} from "lodash";
 
 class MyOrders extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            orders: []
-        }
 
         this.all_orders = [
             {
@@ -35,8 +33,8 @@ class MyOrders extends Component {
                         nameFood: "Coca cola",
                     }
                 ],
-                status: "confermato"
-            }, 
+                status: "confirmed"
+            },
             {
                 order_id: 0,
                 customer_name: "Marco Brambilla",
@@ -52,7 +50,7 @@ class MyOrders extends Component {
                         nameFood: "Coca cola",
                     }
                 ],
-                status: "confermato"
+                status: "confirmed"
             },
             {
                 order_id: 3,
@@ -69,7 +67,7 @@ class MyOrders extends Component {
                         nameFood: "Coca cola",
                     }
                 ],
-                status: "in arrivo"
+                status: "delivering"
             },
             {
                 order_id: 2,
@@ -86,34 +84,51 @@ class MyOrders extends Component {
                         nameFood: "Coca cola",
                     }
                 ],
-                status: "terminato"
+                status: "completed"
             },
         ]
+        
+        this.state = {
+            orders: []
+        }
 
+        this.status = constantsDictionary.ORDER_STATUS
     }
-    componentDidMount() {
-        // let all_orders = JSON.parse(localStorage.getItem('localStorageData')).orders_list;        
 
-        // let categoryPlates = allPlates.filter((plate, index) => {
-        //     return plate.plate_category_id === this.restaurant_category;
-        // })
-       let asc_orders = _orderBy(this.all_orders, ['order_id'], ['desc'])
+    componentDidMount() {
+        this.orderByDescOrders(this.all_orders)
+    }
+
+    orderByDescOrders(orders){
+        let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
         this.setState({
-            orders: asc_orders
+            orders: desc_orders
         })
+    }
+
+    handleSelect = (e) => {
+        let filtered_orders = []
+        filtered_orders = e.target.value==="all" ? this.all_orders : this.all_orders.filter((item) => item.status === e.target.value)
+        this.setState({
+            orders: filtered_orders
+        })
+        console.log(e.target.value)
     }
 
     handleCallbackPageSingleOrder = (order) => () => {
-        this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER,{
+        this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
             order: order,
             titlePage: "#" + order.order_id,
-            order_id: order.order_id,  
+            order_id: order.order_id,
         })
     }
 
-    // Fare funzione che filtri per stato dell'ordine
+    handleImageStatus = (status) => {
+        return 
+    }
 
     render() {
+        const { t } = this.props
         return (
             <>
                 <LayoutBackOffice
@@ -123,58 +138,42 @@ class MyOrders extends Component {
                         <div className="bo-order-first-row">
 
                             <div className="bo-order-welcome">
-                                <h2>I tuoi ordini</h2>
+                                <h2>{t('backoffice.screens.my_orders.your_orders')}</h2>
                             </div>
-                            <Select
-                                selectID="state"
-                                selectName="state"
-                                data={['Tutti', 'Completati', 'In Consegna', 'In Preparazione']}
+                            <select
+                                id="state"
+                                name="state"
                                 className="bo-select-order"
-                            />
+                                onChange={this.handleSelect}>
+                                {
+                                    Object.entries(this.status).map(([keyObject, label], index) => {
+                                        return (
+                                            <option value={keyObject} key={index}>
+                                                {label}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
                         </div>
                         <div className="bo-order-form">
                             {
                                 this.state.orders.map((order, index) => {
+                                    console.log(order.status)
                                     return (
                                         <div className="bo-mymenu-flex-cards" key={index}>
                                             <Card
-                                                title={order.order_id}
-                                                img={confirm}
+                                                title={t('backoffice.screens.my_orders.number_of_order') + order.order_id}
+                                                img={`${properties.PATH_IMAGE + order.status}.png`}
                                                 callback={this.handleCallbackPageSingleOrder(order)}
-                                                status={order.status}
+                                                // status={this.convertOrderStatus(order.status)}
+                                                status = {this.status[order.status]}
                                             />
                                         </div>
                                     )
                                 })
                             }
-
-                            {/*                             
-                             <div className="bo-order-flex-cards">
-                                 <Card 
-                                    title='Ordine #000'
-                                    img={confirm}
-                                    callback={this.handleCallbackPageSingleOrder}
-                                    status = {'🟢 confermato'}
-                                />
-                            </div>
-                            <div className="bo-order-flex-cards">
-                                <Card
-                                    title='Ordine #001'
-                                    img={delivering}
-                                    callback={this.handleCallbackPageSingleOrder}
-                                    status = {'🔵 in arrivo'}
-                                />
-                            </div>
-                            <div className="bo-order-flex-cards">
-                                <Card
-                                    title='Ordine #002'
-                                    img={in_progress}
-                                    callback={this.handleCallbackPageSingleOrder}
-                                    status = {'🟡 in preparazione'}
-                                />
-                            </div> */}
                         </div>
-                        {/* </div> */}
                     </div>
                 </LayoutBackOffice>
             </>
@@ -182,4 +181,4 @@ class MyOrders extends Component {
     }
 }
 
-export default MyOrders
+export default withTranslation()(MyOrders)

@@ -13,6 +13,7 @@ const properties = {
         INCOMING_ORDERS: '/restaurant/incoming-orders',
         SPONSOR: '/restaurant/sponsor'
     },
+    PATH_IMAGE:  '../../assets/images/'
 }
 
 export default properties;
