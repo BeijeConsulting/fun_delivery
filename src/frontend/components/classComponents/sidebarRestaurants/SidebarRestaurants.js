@@ -26,18 +26,18 @@ class SidebarRestaurants extends React.Component {
         return (
             <aside className="sideNav" >
                 <div className='rowLocal'>
-                    <h3>Tutti i locali</h3>
+                    <h2 className="titleSideNav">Tutti i locali</h2>
                     <Button className="orderFilterButton" text={"Pulisci filtri"} callback={this.handleChangeClearButton} />
                 </div>
-                <div className="orderBy">
-                    <h4>Ordina</h4>
+                <div className="orderBy pushBottom">
+                    <h3 className="titleSideNav">Ordina</h3>
                     {/* <ElementListRadio id={"chosenRadio"} name="chosen" value="chosen for you" for={"chosenRadio"} label={"Chosen for you"} /> Quelli consigliati */}
                     <ElementListRadio id={"popularRadio"} name="order" value="number_orders" for={"popularRadio"} label={" Più popolari"} callback={this.handleChangeElementRadio} />
                     <ElementListRadio id={"ratingRadio"} name="order" value="rating" for={"ratingRadio"} label={" Valutazione migliore"} callback={this.handleChangeElementRadio} />
                     <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery_time" for={"deliveryTimeRadio"} label={" Tempo di consegna"} callback={this.handleChangeElementRadio} />
                 </div>
-                <div className="priceOrder">
-                    <h4>Fascia di prezzo</h4>
+                <div className="priceOrder pushBottom">
+                    <h3 className="titleSideNav">Fascia di prezzo</h3>
                     <div>
                         <Button className="orderPriceButton" text={"€"} value={1} callback={this.handleChangeButton} />
                         <Button className="orderPriceButton" text={"€€"} value={2} callback={this.handleChangeButton} />
@@ -46,8 +46,8 @@ class SidebarRestaurants extends React.Component {
                     </div>
                 </div>
 
-                <div className="deliveryPrice">
-                    <h4>Costo di consegna</h4>
+                <div className="deliveryPrice pushBottom">
+                    <h3 className="titleSideNav">Costo di consegna</h3>
                         <ElementListRadio id={"freeRadio"} name="delivery" value={0} for={"freeRadio"} label={" Consegna gratuita"} callback={this.handleChangeElementRadioDelivery} />
                         <ElementListRadio id={"paidRadio"} name="delivery" value={1} for={"paidRadio"} label={" Consegna a pagamento"} callback={this.handleChangeElementRadioDelivery} />
                         <ElementListRadio id={"bothRadio"} name="delivery" value="delivery_time" for={"bothRadio"} label={" Entrambi"} callback={this.handleChangeElementRadioDelivery} />
