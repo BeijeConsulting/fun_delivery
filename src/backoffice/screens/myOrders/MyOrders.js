@@ -1,24 +1,24 @@
 import { Component } from "react";
 import { withTranslation } from 'react-i18next';
-import { orderBy as _orderBy, keys as _keys, map as _map, values as _values, keysIn as _keysIn } from "lodash";
-import constantsDictionary from '../../../common/utils/constantsDictionary'
+import { orderBy as _orderBy, cloneDeep as _cloneDeep } from "lodash";
+import constantsDictionary from '../../../common/utils/constantsDictionary';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import Card from "../../components/funcComponents/card/Card"
-import Select from "../../../common/components/ui/select/Select"
-import utils from '../../../common/utils/utils'
-import properties from "../../../common/utils/properties"
-import confirmed from '../../assets/images/status_order/confirmed.png'
-import completed from '../../assets/images/status_order/completed.png'
-import delivering from '../../assets/images/status_order/truck.svg'
-import preparing from '../../assets/images/status_order/in_progress.png'
+import properties from "../../../common/utils/properties";
+import i18n from "../../../common/localization/i18n";
 import './MyOrders.css';
 import 'antd/dist/antd.css';
+import { SearchOutlined } from '@ant-design/icons';
+import { Table } from 'antd';
+
 
 class MyOrders extends Component {
 
     constructor(props) {
         super(props);
 
+        this.status = constantsDictionary.ORDER_STATUS
+
+        //Order simulated from backend
         this.all_orders = [
             {
                 order_id: 1,
@@ -39,7 +39,7 @@ class MyOrders extends Component {
             },
             {
                 order_id: 0,
-                customer_name: "Marco Brambilla",
+                customer_name: "Lorenzo Chiesa",
                 customer_address: "Una via a Milano",
                 ordered: [
                     {
@@ -73,7 +73,7 @@ class MyOrders extends Component {
             },
             {
                 order_id: 3,
-                customer_name: "Marco Brambilla",
+                customer_name: "Simone Micalizzi",
                 customer_address: "Una via a Milano",
                 ordered: [
                     {
@@ -107,23 +107,119 @@ class MyOrders extends Component {
             },
         ]
 
-        this.state = {
-            orders: []
-        }
+        //Orders with modifed status to show emoji's instead of status
+        this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
+        this.columns = [
+            {
+                title: 'Ordine',
+                dataIndex: 'order_id',
+                key: 'order_id',
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.order_id - b.order_id,
+            },
+            {
+                title: 'Stato',
+                dataIndex: 'status',
+                filters: [
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.completed'),
+                        value: '🟢',
+                    },
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.delivering'),
+                        value: '🟡',
+                    },
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.preparing'),
+                        value: '🟠',
+                    },
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.confirmed'),
+                        value: '🔵',
+                    }
+                ],
+                key: 'status',
+                onFilter: (value, record) => record.status.indexOf(value) === 0,
+            },
+            {
+                title: 'Indirizzo',
+                dataIndex: 'customer_address',
+                key: 'customer_address',
+                ellipsis: true,
+            },
+            {
+                title: 'Visualizza ordine',
+                dataIndex: 'order_id',
+                key: 'action',
+                render: (order_id) => (
+                  <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)} />
+                ),
 
-        this.status = constantsDictionary.ORDER_STATUS
+            },
+
+        ];
     }
 
     componentDidMount() {
-        this.orderByDescOrders(this.all_orders)
+        this.mapObjectForEmojiStatus(this.all_ordersModifiedStatus)
+    //     this.orderByDescOrders(this.all_orders)
+    //     this.mapObjectForEmojiStatus(this.all_orders)
+    // }
+
+    // orderByDescOrders(orders) {
+    //     let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
+    //     this.setState({
+    //         orders: desc_orders
+    //     })
     }
 
-    orderByDescOrders(orders) {
-        let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
-        this.setState({
-            orders: desc_orders
+    mapObjectForEmojiStatus = (order) => {
+        order.map((item) => {
+            item.status = this.handleEmojiStatus(item.status)
         })
     }
+
+    handleEmojiStatus = (status) => {
+        let emojiToShow = ""
+        switch (status) {
+            case "confirmed":
+                emojiToShow = "🟢"
+                break;
+            case "delivering":
+                emojiToShow = "🟡"
+                break;
+            case "preparing":
+                emojiToShow = "🟠"
+                break;
+            case "completed":
+                emojiToShow = "🔵"
+                break;
+            default:
+        }
+        return emojiToShow
+    }
+
+    // handleImageStatus = (status) => {
+    //     let imageToShow = ""
+    //     switch (status) {
+    //         case "confirmed":
+    //             imageToShow = confirmed
+    //             break;
+    //         case "delivering":
+    //             imageToShow = delivering
+    //             break;
+    //         case "preparing":
+    //             imageToShow = preparing
+    //             break;
+    //         case "completed":
+    //             imageToShow = completed
+    //             break;
+    //         default:
+
+    //     }
+    //     return imageToShow
+    // }
+
 
     handleSelect = (e) => {
         let filtered_orders = []
@@ -133,80 +229,38 @@ class MyOrders extends Component {
         })
     }
 
-    handleCallbackPageSingleOrder = (order) => () => {
+    handleCallbackPageSingleOrder = (orderID) => () => {
+        let foundOrder = {}
+        foundOrder = this.all_orders.find((order) => order.order_id === orderID)
+        console.log("lo prende")
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
-            order: order,
-            titlePage: "#" + order.order_id,
-            order_id: order.order_id,
+            order: foundOrder,
+            titlePage: "#" + orderID,
+            order_id: orderID,
         })
     }
 
-    handleImageStatus = (status) => {
-        let imageToShow = ""
-        switch (status) {
-            case "confirmed":
-                imageToShow = confirmed
-                break;
-            case "delivering":
-                imageToShow = delivering
-                break;
-            case "preparing":
-                imageToShow = preparing
-                break;
-            case "completed":
-                imageToShow = completed
-                break;
-            default:
-                
-        }
-        return imageToShow
-    }
+
 
     render() {
         const { t } = this.props
         return (
             <>
-                <LayoutBackOffice
-                    pageTitle="MY ORDERS"
-                >
+                <LayoutBackOffice pageTitle="MY ORDERS">
                     <div className="bo-order-container">
                         <div className="bo-order-first-row">
-
                             <div className="bo-order-welcome">
                                 <h2>{t('backoffice.screens.my_orders.your_orders')}</h2>
                             </div>
-                            <select
-                                id="state"
-                                name="state"
-                                className="bo-select-order"
-                                onChange={this.handleSelect}>
-                                {
-                                    Object.entries(this.status).map(([keyObject, label], index) => {
-                                        return (
-                                            <option value={keyObject} key={index}>
-                                                {label}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
                         </div>
                         <div className="bo-order-form">
-                            {
-                                this.state.orders.map((order, index) => {
-                                    return (
-                                        <div className="bo-mymenu-flex-cards" key={index}>
-                                            <Card
-                                                title={t('backoffice.screens.my_orders.number_of_order') + order.order_id}
-                                                img={this.handleImageStatus(order.status)}
-                                                callback={this.handleCallbackPageSingleOrder(order)}
-                                                // status={this.convertOrderStatus(order.status)}
-                                                status={this.status[order.status]}
-                                            />
-                                        </div>
-                                    )
-                                })
-                            }
+                            <Table 
+                            tableLayout={undefined} 
+                            pagination={false} 
+                            dataSource={this.all_ordersModifiedStatus} 
+                            columns={this.columns} 
+                            bordered 
+                            scroll={{ x: 450, y: 500 }} />
                         </div>
                     </div>
                 </LayoutBackOffice>

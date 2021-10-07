@@ -109,7 +109,7 @@ class NewPlate extends Component {
 
                     // Find category name
                     let categoryName = this.state.list_categories.find((category, index) => {
-                        return category.id == this.new_plate.plate_category_id;
+                        return category.id === this.new_plate.plate_category_id;
                     }).name;                    
 
                     this.props.history.push(properties.BO_ROUTING.PLATES, {
