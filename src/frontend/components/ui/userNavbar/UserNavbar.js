@@ -3,24 +3,36 @@ import properties from '../../../../gamification/utilities/properties';
 import '../userNavbar/UserNavbar.css'
 
 const UserNavbar = (props) => {
-
-
+    let levelExp = 1000
     let userPath = JSON.parse(localStorage.getItem('userInfo'))
-
+    let totalExp = userPath.experience
+    let percentageExp=0
+    
     const userLevel = () =>{
         if(userPath.experience < 1000){
+            percentageExp = totalExp / levelExp   * 100
             return 1
         }
         if(userPath.experience >= 1000 &&  userPath.experience < 3000){
+            totalExp -= 1000
+            levelExp = 2000
+            percentageExp = totalExp / levelExp   * 100
             return 2
         }
         if(userPath.experience >= 3000 &&  userPath.experience < 6000){
+            totalExp -= 3000
+            levelExp = 3000
+            percentageExp = totalExp / levelExp   * 100
             return 3
         }
         if(userPath.experience >= 6000 &&  userPath.experience < 10000){
+            totalExp -= 6000
+            levelExp = 4000
+            percentageExp = totalExp / levelExp   * 100
             return 4
         }
         if(userPath.experience >= 10000){
+            percentageExp = totalExp / levelExp   * 100
             return 5
         }
     }
@@ -41,7 +53,10 @@ const UserNavbar = (props) => {
             <div className='frontend-nav-middle-user'>
                 <span className='frontend-user-name'>{userPath.userName + " " + userPath.surname}</span>
                 <span>Livello: <span><b>{userLevel()}</b></span></span>
-                <span>Esperienza: <span><b>{userPath.experience}</b></span></span>
+                <div className= 'progress-bar-exp-container'>
+                    <div style={{width: `${percentageExp}%`}} className="progress-bar-exp"></div>
+                </div>
+                <span><b>{`${totalExp}/${levelExp}`}</b></span>
             </div>
 
 
