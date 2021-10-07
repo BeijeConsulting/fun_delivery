@@ -120,13 +120,15 @@ class Quiz extends Component {
         })
 
 
-        if (this.state.countQuestion > 2) {
-
+        /*         if (this.state.countQuestion > 2) {
+                    this.setTime()
+                } */
+        if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
+            this.addCoins()
             this.setTime()
-            if (this.state.counterWins >= 1 && this.state.countQuestion === 2) {
-                this.addCoins()
-            }
         }
+        if(this.state.counterWins < 1 && this.state.countQuestion === 2)
+        this.setTime()
     }
 
 
@@ -185,7 +187,6 @@ class Quiz extends Component {
             setTimeout(() => {
 
                 this.setTimeout = this.setState({ showLoader: true })
-
             }, 1000);
         }
     }
