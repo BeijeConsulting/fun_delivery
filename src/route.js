@@ -9,7 +9,6 @@ import ForgotPassword from "./frontend/screens/forgotPassword/ForgotPassword";
 import UserHome from "./frontend/screens/userHome/UserHome";
 import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
-import UserMissions from "./frontend/screens/userMissions/UserMissions";
 import RecapOrder from "./frontend/screens/recapOrder/RecapOrder";
 
 import MenuRestaurant from "./frontend/screens/menuRestaurant/MenuRestaurant";
@@ -32,6 +31,7 @@ import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 // GAMIFICATION SCREENS
 import Quiz from "./gamification/screens/quiz/Quiz";
 import Memory from './gamification/screens/memory/Memory'
+import Mission from "./gamification/screens/missions/Mission";
 
 
 import properties from "./common/utils/properties";
@@ -52,7 +52,6 @@ const Routing = () => {
                 <Route path="/forgotPassword" component={ForgotPassword} />
                 <Route path="/restaurants" component={Restaurants} />
                 <Route exact path="/userHome" component={UserHome} />
-                <Route exact path='/userHome/userMissions' component={UserMissions} />
                 <Route path="/recapOrder" component={RecapOrder}/>
                 <Route path="/menuRestaurant" component={MenuRestaurant} />
 
@@ -74,6 +73,7 @@ const Routing = () => {
                 {/* GAMIFICATION ROUTES */}
                 <Route path="/quiz" component={Quiz}/>
                 <Route path="/memory" component={Memory}/>
+                <Route exact path='/userHome/missions' component={Mission} />
 
                 
             </Switch>

@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --pink : #F24464
+}
+
+.MissionContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MissionMenuContainer{
+    height: 95%;
+    width: 60%;
+}
+
+.MissionMenu{
+    height: 100%;
+    width:  100%;
+}
+
+
+ul.MissionMenu li.MissionSingle{
+    border-color: none;
+    border-radius: 5px;
+    background-color: var(--pink);
+    /* debug */
+    color: white;
+    /*debug*/
+    width: 100%;
+    margin: 10px 0;
+    height: calc(100% / 10 - 100px);
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+
+div.MissionAward{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+@media (min-width: 769px){
+    ul.MissionMenu li.MissionSingle{
+    border-color: none;
+    border-radius: 5px;
+    background-color: var(--pink);
+    /* debug */
+    color: white;
+    /*debug*/
+    width: 100%;
+    margin: 10px 0;
+    height: calc(100% / 10 - 100px);
+    padding: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    /* justify-content: space-around; */
+
+}
+    li.MissionSingle div.MissionSingleTitle{
+        display: flex;
+        width: 70%;
+        flex-direction: column;
+        height: 100%;
+        /* border: 1px solid gold; */
+    /* align-items: center; */
+     min-height: 100px;
+        
+
+        justify-content: space-around;
+    }
+
+
+
+div.MissionAward{
+    width: 18%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* border: 1px solid yellow; */
+    /* padding: 5%; */
+}
+
+.MissionAward span.MissionSub{
+    width: 100%;
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: space-between;
+}
+
+
+}
+
+.BeijeCoinMission{
+    width: 20px;
+    height: 20px;
+}
+
+
+.sepia{
+    
+    color: rgba(153, 147, 147, 0.534);
+    filter: brightness(0.45);}
