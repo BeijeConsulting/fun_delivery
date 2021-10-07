@@ -9,7 +9,7 @@ const utils = {
     validatePhone: (params) => { return /^\d\d\d\d\d\d\d\d\d\d$/i.test(params) },
     validateCity: (params) => { return /^[a-zA-Z',.\s-]{2,25}$/i.test(params) },
     validateAddress: (params) => { return /^[a-zA-Z]([a-zA-Z-]+\s)+\d{1,4}$/i.test(params) },
-    checkNumber: (params) => { return /^\d+$/.test(params) }
+    checkNumber: (params) => { return /(\d+(?:\.\d+)?)/.test(params) }
 }
 
 export default utils
