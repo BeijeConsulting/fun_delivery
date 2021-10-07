@@ -27,6 +27,7 @@ const SinglePlate = ( props ) =>
             <header className='textPlate'>
                 <div className='wrapRatingPlate'>
                     <h4 className='titleSinRest'>{ props.plateName }</h4>
+                    <p className='descriptionPlate'>{props.descriptPlate}</p>
                     <div className='rowButton'>
                         <div className='pricePlate'> { props.platePrice }</div>
                         <button className='buttonAddOrder' onClick={ view }>Add to</button>

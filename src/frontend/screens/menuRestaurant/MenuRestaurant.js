@@ -55,54 +55,77 @@ export default class MenuRestaurant extends React.Component {
 
             {
                 name: "PaneGrana",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
+                category: "antipasti",
+                platePic: imagePaniniCaMeusa,
+                price: '10€',
+            },
+            {
+                name: "PaneGrana",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
+                category: "antipasti",
+                platePic: imagePaniniCaMeusa,
+                price: '10€',
+            },
+            {
+                name: "PaneGrana",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "antipasti",
                 platePic: imagePaniniCaMeusa,
                 price: '10€',
             },
             {
                 name: "Tagliere",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "antipasti",
                 platePic: imagePaniniCaMeusa,
                 price: '11€',
             },
             {
                 name: "Tagliere",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "antipasti",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Primo pesce",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "primi",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Primo carne",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "primi",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Secondo 1",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "secondi",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Secondo 2",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "secondi",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Dolce 1",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "dolci",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
             },
             {
                 name: "Dolce 2",
+                description: 'Lorem Ipsum has been the industry s standard dummy text ever since the 1500s.',
                 category: "dolci",
                 platePic: imagePaniniCaMeusa,
                 price: '12€',
@@ -146,14 +169,14 @@ export default class MenuRestaurant extends React.Component {
                 <div className='headerRestaurant'>
 
 
-                    <div className='namePrice'>
-                        <h2 className='nameRest'>Nome Ristorante</h2>
-                        <p className='priceRest'>Costo 1.90€ . 30-40 min  . 4.5 </p>
+                    <div className='namePricePlate'>
+                        <h2 className='nameRestPlate'>Nome Ristorante</h2>
+                        <p className='priceRestPlate'>Costo 1.90€ . 30-40 min  . 4.5 </p>
                     </div>
                 </div>
             </div>
 
-            <div className='infoRestaurant'>
+            <div className='infoPlate'>
                 <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p>
                 <p style={{ marginTop: '-20px' }}>Via da Cacacas 22 Milano (MI)</p>
             </div>
@@ -167,8 +190,8 @@ export default class MenuRestaurant extends React.Component {
             </div>
             <div className='menuWrapper'>
                 <div className='trendRestaurants'>
-                    <h2 className='trendRist'>Antipasti</h2>
-                    <div className="restaurantsMenuContainer">
+                    <h2 className='trendPlate'>Antipasti</h2>
+                    <div className="plateMenuContainer">
                         {/* mapping che dipende dal risultato della ricerca*/}
                         {/* tendenza */}
 
@@ -179,7 +202,7 @@ export default class MenuRestaurant extends React.Component {
                         }
                         ).map((item, key) => {
                             return (
-                                <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                                <SinglePlate key={key} image={item.platePic} descriptPlate={item.description} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                             )
                         })}
 
@@ -188,9 +211,9 @@ export default class MenuRestaurant extends React.Component {
                     </div>
                 </div>
 
-                <h2 className='trendRist'>Primi</h2>
+                <h2 className='trendPlate'>Primi</h2>
                 {/* tutti */}
-                <div className='restaurantsMenuContainer'>
+                <div className='plateMenuContainer'>
                     {this.objectPlate.filter((item) => {
                         return (
                             item.category === "primi"
@@ -198,15 +221,15 @@ export default class MenuRestaurant extends React.Component {
                     }
                     ).map((item, key) => {
                         return (
-                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                            <SinglePlate key={key} image={item.platePic} descriptPlate={item.description} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                         )
                     })}
                 </div>
             </div>
             <div>
-                <h2 className='trendRist'>Secondi</h2>
+                <h2 className='trendPlate'>Secondi</h2>
                 {/* tutti */}
-                <div className='restaurantsMenuContainer'>
+                <div className='plateMenuContainer'>
                     {this.objectPlate.filter((item) => {
                         return (
                             item.category === "secondi"
@@ -214,15 +237,15 @@ export default class MenuRestaurant extends React.Component {
                     }
                     ).map((item, key) => {
                         return (
-                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                            <SinglePlate key={key} image={item.platePic} descriptPlate={item.description} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                         )
                     })}
                 </div>
             </div>
             <div>
-                <h2 className='trendRist'>Dolci</h2>
+                <h2 className='trendPlate'>Dolci</h2>
                 {/* tutti */}
-                <div className='restaurantsMenuContainer'>
+                <div className='plateMenuContainer'>
                     {this.objectPlate.filter((item) => {
                         return (
                             item.category === "dolci"
@@ -230,18 +253,18 @@ export default class MenuRestaurant extends React.Component {
                     }
                     ).map((item, key) => {
                         return (
-                            <SinglePlate key={key} image={item.platePic} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
+                            <SinglePlate key={key} image={item.platePic} descriptPlate={item.description} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                         )
                     })}
                 </div>
             </div>
             <div>
-                <h2 className='trendRist'>Scelte per te</h2>
+                <h2 className='trendPlate'>Scelte per te</h2>
                 {/* tutti */}
-                <div className='restaurantsMenuContainer'>
+                <div className='plateMenuContainer'>
                     {this.state.objectRestaurantsForList.map((item, key) => {
                         return (
-                            <SingleRestaurant key={key} image={item.restaurant_logo} restaurantName={item.name} restaurantRating={item.rating} restaurantShipping={item.free_shipping} restaurantDeliveryTime={item.delivery_time} classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
+                            <SinglePlate key={key} image={item.platePic} descriptPlate={item.description} plateName={item.name} platePrice={item.price} classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
                         )
                     })}
                 </div>
