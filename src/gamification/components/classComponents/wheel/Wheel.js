@@ -55,24 +55,25 @@ const Wheel = (props) => {
         '#F2CB05',
     ]
     const onFinished = (winner) => {
+        console.log(user)
         if (winner !== 'TRY AGAIN') {
             if(winner === '10 🥮'){
-                user.userInfo.beijeCoin = user.userInfo.beijeCoin + 10
+                user.beijeCoin = user.beijeCoin + 10
             }
             if(winner === '100 EXP'){
-                user.userInfo.experience = user.userInfo.experience + 100
+                user.experience = user.experience + 100
             }
             if(winner === '5€ SALES'){
-                user.userInfo.discount = true
+                user.discount = true
             }
             if(winner === 'FREE 🛵'){
-                user.userInfo.freeDelivery = true
+                user.freeDelivery = true
             }
             
-            state.awards.push({
-                id: state.id++,
-                single_award: winner
-            })
+            // state.awards.push({
+            //     id: state.id++,
+            //     single_award: winner
+            // })
             state.isOnlyOnce = true
             
             localStorage.setItem('userInfo', JSON.stringify(user))
@@ -87,7 +88,7 @@ const Wheel = (props) => {
                 premio: winner
             }
         )
-        localStorage.setItem('awards', JSON.stringify(state.awards))
+        // localStorage.setItem('awards', JSON.stringify(state.awards))
     }
     const clickWheel =()=>{
     }

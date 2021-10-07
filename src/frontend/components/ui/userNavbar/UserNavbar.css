@@ -24,6 +24,7 @@
     border: 3px solid rgb(37, 37, 37);
     position: relative;
     background-color: rgb(255, 177, 32);
+    cursor: pointer;
 }
 .frontend-nav-user-icon img {
     width: 100%;
