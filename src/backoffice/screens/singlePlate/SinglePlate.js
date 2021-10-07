@@ -6,27 +6,19 @@ import 'antd/dist/antd.css';
 import { LeftOutlined } from '@ant-design/icons'
 import { EditFilled } from '@ant-design/icons';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
-import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import Button from "../../../common/components/ui/button/Button"
 import Piatto1 from '../../assets/images/piatto1.jpg'
 import utils from "../../../common/utils/utils";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import properties from "../../../common/utils/properties";
+
 class SinglePlate extends Component {
     constructor(props) {
-        super(props)
-        this.categories = [
-            'Categoria',
-            'Pizza',
-            'Pokè',
-            'Sushi',
-            'Messicano',
-            'Italiano',
-            'Hamburger',
-            'Altro'
-        ]
+        super(props)        
         this.state = {
+            list_categories: [],
+            plate_show_title: "Spaghetti alle vongole",
             data: {
                 plate_img: [Piatto1, false],
                 plate_name: ["Spaghetti alle vongole", false],
@@ -35,63 +27,69 @@ class SinglePlate extends Component {
                 plate_category_id: ["Italiano", false],
             },
             editData: false,
-            plate_visibility: true,
+            plate_visibility: true
         }
     }
 
-    handleEdit = () => { this.setState({ editData: true }) }
+    componentDidMount = () => {
+        // Simulating api call on localStorage
+        this.setState({
+            list_categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
+        })
+    }
+
+    handleEdit = () => { 
+        this.setState({ 
+            editData: true 
+        })
+    }
 
     handleCallbackInput = (e) => {
-        this.setState(prevState => ({
-            data: {
-                ...prevState.data,
-                [`${e.target.name}`]: [e.target.value, false]
-            },
-            editData: true,
-            ...prevState.plate_visibility
-        }))
+        let data = this.state.data;
+        data[e.target.name] = e.target.name === 'plate_category_id' ? [parseInt(e.target.value), false] : [e.target.value, false]    
+        this.setState({
+            data: data              
+        });
     }
 
     handleSubmit = () => {
         let newData = {
-            plate_img: [this.state.data.plate_img[0], !this.state.data.plate_img[0] !== undefined],
-            plate_name: [this.state.data.plate_name[0], !this.state.data.plate_name[0] !== undefined],
-            plate_description: [this.state.data.plate_description[0], !this.state.data.plate_description[0] !== undefined],
-            plate_price: [this.state.data.plate_price[0], !utils.checkNumber(this.state.data.plate_price[0])],
-            plate_category_id: [this.state.data.plate_category_id[0], !this.state.data.plate_img[0] !== undefined],
+            plate_img: [this.state.data.plate_img[0], this.state.data.plate_img[0] ? false : true],
+            plate_name: [this.state.data.plate_name[0], this.state.data.plate_name[0] ? false : true],
+            plate_description: [this.state.data.plate_description[0], this.state.data.plate_description[0] ? false : true],
+            plate_price: [this.state.data.plate_price[0], utils.checkNumber(this.state.data.plate_price[0]) && this.state.data.plate_price[0] ? false : true],
+            plate_category_id: [this.state.data.plate_category_id[0], this.state.data.plate_img[0] ? false : true],
         }
-        console.log(newData)
+        let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true));
 
-        if (!!Object.entries(newData).find((value) => value[1][1] === true) && !!Object.entries(newData).find((value) => value[1][0] === "")) {
-            this.setState({ //TODO add plate visibility
-                data: newData,
-                editData: false
+        this.setState({
+            data: newData,
+            editData: correctCheck ? false : true
+        })
+
+        if(correctCheck) {
+            this.setState({
+                plate_show_title: newData.plate_name[0]
             })
-            console.log(this.state)
-        } else {
-            this.setState({ //TODO add plate visibility
-                data: newData,
-                editData: true
-            })
-            console.log(this.state)
         }
+        
+        
+      
     }
 
     handleCallbackGoBack = () => { this.props.history.goBack() }
 
-    handleVisibility = (e) => {
-        this.setState(prevState => ({
-            ...prevState.data,
-            ...prevState.editData,
-            plate_visibility: e
-        }))
-        console.log(this.state)
-    }
+    // handleVisibility = (e) => {
+    //     this.setState(prevState => ({
+    //         ...prevState.data,
+    //         ...prevState.editData,
+    //         plate_visibility: e
+    //     }))        
+    // }
 
-    handleDelete = () => {
-        console.log("Rimozione piatto: ", this.state)
-        this.props.history.push(properties.BO_ROUTING.PLATES)
-    }
+    // handleDelete = () => {      
+    //     this.props.history.push(properties.BO_ROUTING.PLATES)
+    // }
 
     render() {
         return (
@@ -101,12 +99,14 @@ class SinglePlate extends Component {
                         <div className="bo-profile-form">
                             <div className="bo-mymenu-first-row">
                                 <div className="bo-mymenu-welcome">
-                                    <h2>{this.state.data.plate_name[0]}</h2>
+                                    <h2>{this.state.plate_show_title}</h2>
                                     <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
                                 </div>
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
                             </div>
+
                             <SinglePlateCard img={Piatto1} />
+
                             <div className="bo-profile-switch">
                                 <p>Visibilità
                                     <span>
@@ -117,11 +117,12 @@ class SinglePlate extends Component {
                                     </span>
                                 </p>
                             </div>
+                            
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
                                     placeholder="Nome piatto"
-                                    className={`bo-input-box ${!this.state.data.plate_name[1] ? 'alert' : ''}`}
+                                    className={`bo-input-box ${this.state.data.plate_name[1] ? 'alert' : ''}`}
                                     name="plate_name"
                                     value={this.state.data.plate_name[0]}
                                     disable={!this.state.editData}
@@ -130,33 +131,51 @@ class SinglePlate extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Prezzo € "
-                                    className={`bo-input-box ${!this.state.data.plate_price[1] ? 'alert' : ''}`}
+                                    placeholder="Prezzo €"
+                                    className={`bo-input-box ${this.state.data.plate_price[1] ? 'alert' : ''}`}
                                     name="plate_price"
                                     value={this.state.data.plate_price[0]}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
                                 />
                             </div>
-                            <Select
-                                data={this.categories}
-                                name="plate_category_id"
-                                selectID='categories'
-                                selectName='restaurant_category'
-                                className={`bo-input-box ${!this.state.data.plate_category_id[1] ? 'alert' : ''}`}
-                                value={this.state.data.plate_category_id[0]}
-                                disable={!this.state.editData}
-                                callback={this.handleCallbackInput}
-                            />
+
+                            <select
+                                id='categories'
+                                name='plate_category_id'
+                                className='bo-input-box'
+                                onChange={this.handleCallbackInput}
+                                //onFocus={this.handleCallBackFocus}
+                                //className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
+                                defaultValue=""
+                                disabled={!this.state.editData}
+                            >
+                                <option disabled value="">Categorie</option>
+
+                                {
+                                    this.state.list_categories.map((category, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={category.id}
+                                            >
+                                                {category.name}
+                                            </option>
+                                        )
+                                    })
+                                }
+
+                            </select>                                                                                  
 
                             <TextArea
                                 name="plate_description"
-                                className={`bo-input-box ${!this.state.data.plate_description[1] ? 'alert' : ''}`}
+                                className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
                                 id="description_plate"
                                 value={this.state.data.plate_description[0]}
-                                disable={!this.state.editData}
+                                disabled={!this.state.editData}
                                 callback={this.handleCallbackInput}
                             />
+
                             <div className="bo-plate-row-button">
                                 {
                                     this.state.editData &&

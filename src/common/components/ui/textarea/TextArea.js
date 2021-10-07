@@ -24,6 +24,7 @@ const TextArea = (props) => {
             onFocus={handleTextAreaOnFocus}
             placeholder={props.placeholder}
             value={props.value}
+            disabled={props.disabled}
         />                    
     )
 }

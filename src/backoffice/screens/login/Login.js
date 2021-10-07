@@ -34,7 +34,7 @@ class Login extends Component {
         this.password = e.target.value
     }
 
-    handelSubmit = () => {
+    handleSubmit = () => {
         let emailChecked = Utils.validateEmail(this.email);       
         let passwordChecked = Utils.validatePassword(this.password);        
 
