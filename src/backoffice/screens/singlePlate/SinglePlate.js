@@ -4,7 +4,7 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import 'antd/dist/antd.css';
 import { LeftOutlined } from '@ant-design/icons'
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import Button from "../../../common/components/ui/button/Button"
@@ -111,25 +111,23 @@ class SinglePlate extends Component {
             plate_show_title: correctCheck ? newData.plate_name[0] : this.state.plate_show_title
         })
 
-        if (correctCheck) {         
+        if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
                 plate_img: newData.plate_img[0],
                 plate_name: newData.plate_name[0],
                 plate_description: newData.plate_description[0],
-                plate_price:newData.plate_price[0],
-                plate_category_id:newData.plate_category_id[0]
+                plate_price: newData.plate_price[0],
+                plate_category_id: newData.plate_category_id[0]
             }
 
-            console.log(modifiedPlate)
-            
             const newList = this.storageData.plate_list.map((el) => {
-                if(el.id === this.props.location.state.plateId) {
+                if (el.id === this.props.location.state.plateId) {
                     el = {
                         ...el,
                         ...modifiedPlate
                     }
-                }                
+                }
                 return el;
             })
             this.storageData.plate_list = newList;
@@ -156,12 +154,12 @@ class SinglePlate extends Component {
         }).name;
 
         // Redirect to right category page LOL
-        this.props.history.push(properties.BO_ROUTING.PLATES,{
+        this.props.history.push(properties.BO_ROUTING.PLATES, {
             titlePage: categoryName.toUpperCase(),
             category_id: this.state.data.plate_category_id,
             elementDeleted: true
         })
-            
+
     }
 
     render() {
@@ -174,14 +172,24 @@ class SinglePlate extends Component {
                             <div className="bo-mymenu-first-row">
                                 <div className="bo-mymenu-welcome">
                                     <h2>{this.state.plate_show_title}</h2>
-                                    <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
+                                    {
+                                        this.state.editData &&
+                                        <>
+                                            <span className="bo-icon-edit"><DeleteOutlined onClick={this.handleDelete} /></span>
+                                            <span className="bo-icon-edit"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                        </>
+                                    }
+                                    {
+                                        this.state.editData === false &&
+                                        <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
+                                    }
                                 </div>
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
                             </div>
 
-                            <SinglePlateCard 
-                                img={this.state.data.plate_img[0]} 
-                                callback={this.handleCallbackInput} 
+                            <SinglePlateCard
+                                img={this.state.data.plate_img[0]}
+                                callback={this.handleCallbackInput}
                                 name={'plate_img'}
                             />
 
@@ -253,25 +261,6 @@ class SinglePlate extends Component {
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
                             />
-
-                            <div className="bo-plate-row-button">
-                                {
-                                    this.state.editData &&
-                                    <>
-                                        <Button
-                                            className="bo-btn-save"
-                                            text="Salva"
-                                            callback={this.handleSubmit}
-                                        />
-                                        <Button
-                                            className="bo-btn-delete"
-                                            text="Elimina"
-                                            callback={this.handleDelete}
-                                        />
-                                    </>
-                                }
-
-                            </div>
                         </div>
                     </div>
                 </LayoutBackOffice>

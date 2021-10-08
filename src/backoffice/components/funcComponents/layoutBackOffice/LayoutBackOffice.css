@@ -28,6 +28,7 @@
     padding: 60px;
     height: 100%;
     overflow: auto;
+    background-color: #fff;
 }
 
 .backoffice-menu-container {

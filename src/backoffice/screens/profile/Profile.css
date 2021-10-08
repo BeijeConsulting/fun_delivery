@@ -1,3 +1,25 @@
+/* Styles for Input, select and textarea disabled */
+input[disabled],
+select[disabled],
+textarea[disabled] {
+    background-color: #ebebeb;
+    border: 0;
+}
+
+
+.bo-input-box{
+    color: rgb(110, 110, 110);
+    border: 2px solid #ebebeb;
+    outline: none;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}  
+
 .bo-profile-welcome h2{
     margin: 0;
 }
@@ -8,9 +30,12 @@
 }
 
 .bo-icon-edit{
-    font-size: 18px;
-    margin-left: 10px;
+    margin: 0 20px;
     cursor: pointer;
+}
+.bo-icon-edit svg{
+    font-size: 30px;
+    color: #F24464d9;
 }
 
 .bo-profile-first-row, .bo-profile-second-row {
@@ -75,7 +100,6 @@ select[name="discount"]{
     width: 100%;
     margin-bottom: 20px;
     padding: 15px;
-    border: 0;
     border-radius: 5px;
     font-size: 16px;
 }

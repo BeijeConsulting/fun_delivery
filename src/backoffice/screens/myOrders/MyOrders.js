@@ -21,72 +21,50 @@ class MyOrders extends Component {
         //Order simulated from backend
         this.all_orders = [
             {
-                order_id: 1,
-                customer_name: "Marco Brambilla",
-                customer_address: "Una via a Milano",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                    },
-                    {
-                        nameFood: "Napoli",
-                    },
-                    {
-                        nameFood: "Coca cola",
-                    }
-                ],
-                status: "confirmed"
-            },
-            {
                 order_id: 0,
                 customer_name: "Lorenzo Chiesa",
                 customer_address: "Una via a Milano",
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
                 status: "confirmed"
             },
             {
-                order_id: 4,
+                order_id: 1,
                 customer_name: "Marco Brambilla",
                 customer_address: "Una via a Milano",
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
-                status: "preparing"
-            },
-            {
-                order_id: 3,
-                customer_name: "Simone Micalizzi",
-                customer_address: "Una via a Milano",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                    },
-                    {
-                        nameFood: "Napoli",
-                    },
-                    {
-                        nameFood: "Coca cola",
-                    }
-                ],
-                status: "delivering"
+                status: "confirmed"
             },
             {
                 order_id: 2,
@@ -95,15 +73,67 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 1
                     }
                 ],
                 status: "completed"
+            },
+            {
+                order_id: 3,
+                customer_name: "Simone Micalizzi",
+                customer_address: "Una via a Milano",
+                ordered: [
+                    {
+                        nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
+                    },
+                    {
+                        nameFood: "Napoli",
+                        price: 10,
+                        quantity: 2
+                    },
+                    {
+                        nameFood: "Coca cola",
+                        price: 2,
+                        quantity: 5
+                    }
+                ],
+                status: "delivering"
+            },
+            {
+                order_id: 4,
+                customer_name: "Marco Brambilla",
+                customer_address: "Una via a Milano",
+                ordered: [
+                    {
+                        nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
+                    },
+                    {
+                        nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
+                    },
+                    {
+                        nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
+                    }
+                ],
+                status: "preparing"
             },
         ]
 
