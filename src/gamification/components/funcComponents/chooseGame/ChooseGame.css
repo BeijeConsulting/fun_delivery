@@ -1,0 +1,40 @@
+.gm-choosegame-container{
+    text-align: center;
+}
+
+.gm-choosegame-container-p{
+    font-size: 1.2em;
+}
+
+.gm-choosegame-container-game{
+    margin-top:5vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.gm-choosegame-img{
+    display: flex;
+    width: 200px;
+    height: 200px;
+}
+
+@media screen and (max-width: 767px){
+
+    .gm-choosegame-container-p{
+        font-size: 1em;
+    }
+
+    .gm-choosegame-container-game{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gm-choosegame-img{
+        margin-bottom: 2vh;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+

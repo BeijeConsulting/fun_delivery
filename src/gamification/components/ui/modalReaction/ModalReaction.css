@@ -1,5 +1,54 @@
-.gm-reaction-container{
+.gm-reaction-container {
     display: flex;
     flex-direction: column;
     padding: 0% 6%;
+    position: relative;
 }
+
+.gm-reaction-text {
+    text-align: center;
+}
+
+.gm-reaction-container-button {
+    display: flex;
+    flex-direction: column;
+}
+
+.gm-reaction-button {
+    margin: 5% 0%;
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    box-shadow: inset 4px 4px 15px 0px #fff;
+    z-index: 30;
+}
+.gm-reaction-button:hover {
+    background: pink;
+    color: #3f3d56;
+}
+
+/* .gm-cascade {
+    height: 1000px;
+    width: 100%;
+} */
+
+/* Css laptop */
+
+@media screen and (min-width: 1024px) {
+    .gm-reaction-container-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .gm-reaction-button {
+        margin: 5% 5%;
+        padding: 3%;
+    }
+}
+
+
+
+
+

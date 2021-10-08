@@ -27,7 +27,11 @@ import RestaurantOrders from './backoffice/screens/myOrders/MyOrders';
 import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder';
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
+
+
+// GAMIFICATION SCREENS
 import Quiz from "./gamification/screens/quiz/Quiz";
+import Memory from './gamification/screens/memory/Memory'
 
 
 import properties from "./common/utils/properties";
@@ -37,6 +41,8 @@ const Routing = () => {
 
     return (
         <Router>
+            <Switch>
+                </Switch>
             <Navbar />
             <Switch>
                 {/* FRONTEND ROUTES */}
@@ -63,10 +69,11 @@ const Routing = () => {
                 <Route exact path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
                 <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder}/>                                
                 <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders}/>
-                <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>                               
+                <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>
 
                 {/* GAMIFICATION ROUTES */}
                 <Route path="/quiz" component={Quiz}/>
+                <Route path="/memory" component={Memory}/>
 
                 
             </Switch>
