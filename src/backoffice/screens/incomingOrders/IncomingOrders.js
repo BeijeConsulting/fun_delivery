@@ -2,6 +2,7 @@ import './IncomingOrders.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Button from '../../../common/components/ui/button/Button';
 import 'antd/dist/antd.css';
+import { withTranslation } from 'react-i18next';
 
 const IncomingOrders = (props) => {
 
@@ -15,7 +16,7 @@ const IncomingOrders = (props) => {
                     <div className="bo-io-first-row">
 
                         <div className="bo-io-home">
-                            <h2>Ordini in arrivo</h2>
+                            <h2>{t('backoffice.screens.incoming_orders.incoming_orders')}</h2>
                             {/* <span className="bo-icon-edit"><LeftOutlined />Indietro</span> */}
                         </div>
                     </div>
@@ -87,4 +88,4 @@ const IncomingOrders = (props) => {
 
 }
 
-export default IncomingOrders
+export default withTranslation()(IncomingOrders)
