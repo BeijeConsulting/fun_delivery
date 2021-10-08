@@ -169,8 +169,6 @@ class Memory extends Component {
         this.setState({
             audio: !this.state.audio
         })
-
-
     }
 
     
