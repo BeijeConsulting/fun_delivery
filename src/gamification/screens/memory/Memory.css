@@ -6,12 +6,10 @@
 
 .memory-page {
   background-color: #f24464;
-  /* border: 1px solid blue; */
   height: 100vh;
   width: 100vw;
   z-index: 1;
   position: absolute;
-  /* position: relative; */
 }
 
 .icons-container {
@@ -47,27 +45,7 @@
   display: block;
 }
 
-.gm-countdown-container {
-  border: 1px solid black;
-  width: 90%;
-  height: 100px;
-  margin: 0 auto;
-  margin-top: 50px;
-  border-radius: 5px;
-  overflow: hidden;
-  position: absolute;
-  top: -6%;
-  margin-bottom: 20px;
-}
 
-
-.gm-front-countdown {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border-radius: inherit;
-  animation: countdown 60s linear;
-}
 
 @keyframes countdown {
   from {
@@ -130,7 +108,7 @@
   z-index: 200;
   background-color: #f24464;
   bottom: 0px;
-  height: 80vh;
+  height: calc(100vh - 50px);
   width: 100%;
 }
 .gm-flex-container {
@@ -143,18 +121,18 @@
   animation-fill-mode: forwards;
   margin: 1.5%;
 }
-.card-container:nth-child(-n+5){
-    margin-top: 20px;
+.card-container:nth-child(-n+6){
+    margin-top: 20%;
 }
 
 .gm-title {
   font-size: 40px;
 }
 
-  .gm-headerTitleContainer{
-      height: 100px;
-      width: 100%;
-      border: 4px solid gold;
+.gm-headerTitleContainer{
+    height: 50px;
+    width: 100%;
+    position: relative;
   }
 
 @keyframes flip-scale-up-hor {
@@ -270,23 +248,94 @@
   }
 }
 
-/* @media screen and (max-device-width: 992px)
-and (orientation:landscape)
- {
-    .gm-game-container{
-        padding: 0% 0%;
-    }
-    .card{
-        width: 20vmin;
-        height: 25vmin;
-    }
-    .card-back{
-        width: 25vmin;
-        height: 25vmin;
-    }
+    .gm-rider-big-container{
+      width: 100%;
+      position: relative;
+      border: 3px solid orange;
+  }
+  .gm-rider-container{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 2%;
+    animation: rider 63s linear;
+    z-index: 100;
+    
+  }
+
+ .gm-flags-container{
+    position: absolute;
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .gm-countdown-container {
+  border: 1px solid black;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0%;
+}
 
 
-  } */
+.gm-front-countdown {
+  width: 100%;
+  height: 10px;
+  background-color: white;
+  border-radius: inherit;
+  animation: countdown 60s linear;
+}
+
+
+.gm-moving-street {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='Road' version='1' viewBox='0 0 65 67'%3E %3Crect width='65' height='67' fill='%23272727' stroke='%23272727' stroke-width='2'/%3E %3Cline x1='17' x2='48' y1='34' y2='34' fill='none' stroke='%23939393' stroke-width='2'/%3E %3Cline x2='65' y1='4' y2='4' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3Cline x2='65' y1='63' y2='63' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3C/svg%3E");
+  background-repeat: repeat-x;
+  content: "";
+  display: block;
+  height: 23px;
+  width: 1000000%;
+  z-index: 6;
+  position: relative;
+  animation: road-animation 180s infinite linear;
+}
+@keyframes road-animation {
+  0% {
+    background-position: -10000px 0;
+  }
+  100% {
+    background-position:  0 0 ;
+  }
+}
+@keyframes rider-animation {
+  0% {
+    transform: scaleX(-1) translateX(-100vw);
+  }
+  100% {
+    transform: scaleX(-1) translateX(100vw);
+  }
+}
+@keyframes rider{
+    from {
+        right: 0%;
+    }
+    to{
+        right: 100%;
+        display: none;
+    }
+}
+.gm-rider{
+    width: 100%;
+}
 
 @media screen and (min-width: 768px) {
   .gm-game-container {
@@ -324,7 +373,19 @@ and (orientation:landscape)
     margin: 1.5%;
   }
 }
+/* IPAD PRO : */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+      .gm-rider-container{
+    position: absolute;
+    top: 5%;
+    
+  }
 
+
+}
 @media screen and (min-width: 1024px) {
   .gm-game-container {
     max-width: 70%;
@@ -333,34 +394,13 @@ and (orientation:landscape)
     position: relative;
     overflow: hidden;
   }
-  .gm-rider-big-container{
-      width: 100%;
-      position: relative;
-      /* height: 80px; */
-  }
-  .gm-rider-container{
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    right: 0;
-    top: -25px;
-    /* border: 2px solid red; */
-    /* z-index: 50000; */
-    animation: rider 63s linear;
-}
 
-@keyframes rider{
-    from {
-        right: 0%;
-    }
-    to{
-        right: 100%;
-        display: none;
-    }
-}
-.Rider{
-    width: 100%;
-}
+  .gm-rider-container{
+    position: absolute;
+    top: 2%;
+  }
+
+
 
   .gm-countdown-container {
     border: 1px solid black;
@@ -377,12 +417,10 @@ and (orientation:landscape)
   .card {
     width: 18vmin;
     height: 20vmin;
-    /* DEBUG*/
   }
   .card-back {
     width: 18vmin;
     height: 20vmin;
-    /* DEBUG*/
   }
   .info-message {
     color: #f24464;
@@ -404,11 +442,10 @@ and (orientation:landscape)
   }
 
   .gm-headerTitleContainer{
-      height: 100px;
-      width: 100%;
-      border: 4px solid gold;
+    height: 50px;
+    width: 100%;
   }
-  .card-container:nth-child(-n+7){
+  .card-container:nth-child(-n+8){
     margin-top: 30px;
 }
 
@@ -429,3 +466,32 @@ and (orientation:landscape)
     height: 19vmin;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
