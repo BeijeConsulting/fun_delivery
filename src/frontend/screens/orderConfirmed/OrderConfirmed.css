@@ -1,0 +1,58 @@
+
+.title-order-confirmed{
+    text-align: center; 
+    color: #3F3D56;
+    font-weight: bold;
+    margin-top:20px;
+}
+
+.btn-order-confirmed{
+    background-color:#F14464 ;
+    padding: 10px 10px;
+    border-radius: 25px;
+    transition: .5s;
+    color :white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+    
+}
+.btn-order-confirmed:hover{
+    background-color: #F67A90;
+}
+
+.btn-confirmed-class{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+
+.container-gif{
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    
+}
+
+.ant-steps-vertical{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+    .ant-steps-vertical{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+  }
