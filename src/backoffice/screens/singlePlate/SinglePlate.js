@@ -151,12 +151,16 @@ class SinglePlate extends Component {
         localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
 
         // Find plate category name
-        // let categoryName = this.state.list_categories.find(el => {
-        //     return el.id == this.state.data.plate_category_id[0]
-        // }).name;
+        let categoryName = this.state.list_categories.find(el => {
+            return el.id == this.state.data.plate_category_id[0]
+        }).name;
 
         // Redirect to right category page LOL
-        this.props.history.push(properties.BO_ROUTING.PLATES)
+        this.props.history.push(properties.BO_ROUTING.PLATES,{
+            titlePage: categoryName.toUpperCase(),
+            category_id: this.state.data.plate_category_id,
+            elementDeleted: true
+        })
             
     }
 

@@ -4,13 +4,13 @@ import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import Button from "../../../common/components/ui/button/Button";
 import "./SingleOrder.css"
 class RestaurantSingleOrder extends Component {
-    constructor(props) {
-        super(props)
+    // constructor(props) {
+    //     super(props)
 
-        // this.state = {
-        //     current_order : this.props.location.state.order
-        // }
-    }
+    // this.state = {
+    //     current_order : this.props.location.state.order
+    // }
+    // }
 
     //Mapping the food ordered by the customer
     componentDidMount() {
@@ -66,9 +66,9 @@ class RestaurantSingleOrder extends Component {
                             </div>
 
                         </div>
-                        <Button className="bo-btn single-order" value="next" text="NEXT"/>
-                        <Button className="bo-btn single-order" value="approve" text="Approva"/>
-                        <Button className="bo-btn single-order" value="dontapprove" text="Non approvare"/> 
+                        <Button className="bo-btn single-order" value="next" text="NEXT" />
+                        <Button className="bo-btn single-order" value="approve" text="Approva" />
+                        <Button className="bo-btn single-order" value="dontapprove" text="Non approvare" />
                     </div>
                 </LayoutBackOffice>
             </>

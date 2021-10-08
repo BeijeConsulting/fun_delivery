@@ -1,11 +1,11 @@
 import { Component } from "react";
 import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-/* import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons'; */
 import 'antd/dist/antd.css';
-import {HourglassOutlined} from '@ant-design/icons';
-import SingleSponsor from "./singleSponsor/SingleSponsor";
- class Profile extends Component {
+// import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons';
+// import {HourglassOutlined} from '@ant-design/icons';
+// import SingleSponsor from "./singleSponsor/SingleSponsor";
+class Profile extends Component {
 
     render() {
         return (
@@ -69,6 +69,6 @@ import SingleSponsor from "./singleSponsor/SingleSponsor";
             </>
         )
     }
-} 
+}
 
 export default Profile

@@ -16,7 +16,10 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         my_orders:{
             your_orders: "Your orders",
-            number_of_order: "Order #" 
+            number_of_order: "Order #",
+            status: "Status",
+            order: "Order",
+            address: "Address"
         }
     },
 
@@ -47,12 +50,15 @@ export const TRANSLATIONS_BACKOFFICE = {
             italy: "Italy",
             england: "England"
         },
+
         order_status: {
             all: "All",
             completed: "🟢 Completed",
             delivering: "🟡 Delivering",
             preparing: "🟠 Preparing",
-            confirmed: "🔵 Confirmed"
+            confirmed: "🔵 Confirmed",
+            rejected: "🔴 Rejected",
+            error: "Error"
         }
     }
 }
