@@ -241,7 +241,6 @@ class Quiz extends Component {
                     <div className='gm-quiz-container-question'>
                         {/* <p className='gm-question'>{this.state.singleObjSt.question}</p> */}
                         <p className='gm-question'>{this.state.singleObjSt.question}</p>
-
                     </div>
 
                     <div className="gm-quiz-container-answer">
