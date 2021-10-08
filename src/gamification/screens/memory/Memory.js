@@ -169,12 +169,9 @@ class Memory extends Component {
         this.setState({
             audio: !this.state.audio
         })
-
-
     }
 
-
-
+    
     render() {
         const { t } = this.props
 
