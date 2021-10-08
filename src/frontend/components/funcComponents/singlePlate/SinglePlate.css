@@ -1,0 +1,61 @@
+.shippingMenu {
+   font-weight: 300;
+   font-size: 0.9em;
+}
+
+.buttonAddOrder {
+   background-color: var(--primary-strawberry);
+   color: white;
+   font-weight: 300;
+   position: relative;
+   z-index: 2;
+   font-size: 80%;
+   margin-top: 0px;
+   padding: 2%;
+   
+   
+}
+.pricePlate {
+   font-weight: bold;
+   font-size: 130%;
+}
+.rowButton {
+   display: flex;
+   align-items: center;
+   width: 100%;
+   justify-content: space-between;
+   margin-bottom: 5%;
+} 
+.imageSinglePlate{
+   width: 90%;
+   height: 100%;
+    border-radius: 5px;
+    max-width: 100%;
+    float: right;
+    object-fit: cover;
+    overflow: hidden;
+}
+.wrapperPlate {
+   display: flex;
+   width: 100%;
+   flex-direction: row;
+   padding: 0%;
+   border: 1px solid black;
+}
+.titlePlate {
+    font-weight: 500;
+    max-width: 100px;
+    margin-top: 10px;
+    min-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.wrapPlate {
+   display: flex;
+   width: 50%;
+   margin-left: 5%;
+   height: 100%;
+   flex-direction: column;
+   justify-content: space-between;
+}

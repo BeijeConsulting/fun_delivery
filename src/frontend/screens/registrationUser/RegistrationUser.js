@@ -22,14 +22,14 @@ class RegistrationUser extends React.Component {
                 phone: "",
                 password: "",
                 confpsw: "",
-                beijeCoin: 10,
+                beijeCoin: 999,
                 experience: 0,
                 avatar: {
                     userAvatars: [0],
                     selectedAvatar: 0,
                 },
                 badge: {
-                    userBadges: [0],
+                    userBadges: [0,1,6],
                     selectedBadge: 0,
                 },
                 mission: [],
@@ -77,7 +77,7 @@ class RegistrationUser extends React.Component {
             errormsg: error
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(this.state))
+        localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
 
     }
 
