@@ -2,7 +2,6 @@
 .bo-sponsor-home h2{
     margin: 0;
 }
-
 .gr-sponsor-home{
     display: flex;
     align-items: baseline;
@@ -53,23 +52,80 @@
     width: 150px;
     margin: 10px;
 }
+.bo-sponsor-container{
+    width: 100%;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    flex-direction: column;
+
+}
 
 .gm-containersponsor{
     height: 90%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    position: relative;
 }
 
 .gm-singlecontainer{
     width:80%;
-    box-shadow: 0px 3px 5px rgb(0, 0, 0, 0.8);
+    box-shadow: 0px 3px 5px rgb(0, 0, 0, 0.6);
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
     text-align: center;
     max-width: 700px;
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 2;
 }
+.pseudo{
+    content: "";
+    height: 50px;
+    width: 50px;
+    border: 5px solid var(--primary-strawberry);
+    border-radius: 15%;
+    position: absolute;
+    z-index: 1;
+}
+.pseudo-1{
+    left: 0px;
+    bottom: -5px;
+    height: 120px;
+    width: 120px;
+    animation-name: pseudo-1;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    border:10px solid var(--primary-strawberry);
+}
+.pseudo-2{
+    right: -5px;
+    top:-25px;
+    height: 75px;
+    width: 75px;
+    animation-name: pseudo-2;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+
+}
+
+@keyframes pseudo-2 {
+    0%{transform: rotate(0deg);top:-25px}
+    50%{transform: rotate(720deg);top:520px}
+    100%{transform: rotate(0deg);top:-25px}
+}
+@keyframes pseudo-1 {
+    0%{transform: rotate(0deg)}
+    100%{transform: rotate(360deg)}
+}
+
 
 .gm-classNameBtn{
     color: #f0f2f5;
@@ -78,11 +134,142 @@
     padding: 1%;
 }
 .gm-sponsor-coin{
-    height: 40px;
+    height: 30px;
 }
 .duration-wrapper{
     display:flex;
     justify-content: center;
+    font-size:20px;
+}
+.hourglass{
+    transform: translateY(3px);
+}
+.glass-1{
+    color:teal;
+}
+
+.glass-2{
+    color:goldenrod;
+}
+.glass-3{
+    color:var(--primary-strawberry);
+}
+
+
+@media screen and (max-width: 414px) {
+    .pseudo{
+        content: "";
+        height: 50px;
+        width: 50px;
+        border: 7px solid var(--primary-strawberry);
+        border-radius: 15%;
+        position: absolute;
+        z-index: 1;
+    }
+    .pseudo-1{
+        left: 0px;
+        bottom: -5px;
+        height: 100px;
+        width: 100px;
+    }
+    .pseudo-2{
+        right: 5px;
+        top:-25px;
+        height: 75px;
+        width: 75px;
+        animation-name: pseudo-1;
+        animation-duration: 20s;
+    }
+}
+@media screen and (max-width: 768px) and (min-width: 415px){
+    .pseudo-1{
+        left: 35px;
+    }
+    .pseudo-2{
+        right: 40px;
+    }
+}
+
+@media screen and (min-width: 769px){
+    .pseudo-1{
+        left: 140px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 110px;
+    }
+}@media screen and (min-width: 1024px){
+    .pseudo-1{
+        left: 0px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 0px;
+    }
+}
+
+@media screen and (min-width: 1070px){
+    .pseudo-1{
+        left: 0px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 20px;
+    }
+}
+@media screen and (min-width: 1200px){
+    .pseudo-1{
+        left: 20px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 30px;
+    }
+}
+@media screen and (min-width: 1400px){
+    .pseudo-1{
+        left: 60px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 80px;
+    }
+}
+@media screen and (min-width: 1500px){
+    .pseudo-1{
+        left: 190px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 140px;
+    }
+}
+@media screen and (min-width: 1700px){
+    .pseudo-1{
+        left: 190px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 220px;
+    }
+}
+@media screen and (min-width: 1800px){
+    .pseudo-1{
+        left: 260px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 270px;
+    }
+}
+@media screen and (min-width: 1920px){
+    .pseudo-1{
+        left: 320px;
+        bottom: -40px;
+    }
+    .pseudo-2{
+        right: 320px;
+    }
 }
 @media screen and (max-width: 960px) {
     .gr-sponsor-first-row {

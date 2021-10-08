@@ -4,6 +4,8 @@ import { Component } from 'react';
 import properties from '../../../utilities/properties.js'
 import { get } from 'lodash'
 
+import buyAvatarBadge from "../../../assets/sounds/buyAvatarBadge.mp3"
+
 import coin from '../../../../common/assets/BeijeCoin.png'
 
 import Button from '../../../../common/components/ui/button/Button.js'
@@ -77,6 +79,9 @@ class Avatar extends Component {
       this.userPath.beijeCoin = this.difference
       this.userPath.avatar.userAvatars.push(this.state.avatarDetail)
       this.userPath.avatar.selectedAvatar = this.state.avatarDetail
+      let audio = new Audio(buyAvatarBadge)
+      audio.volume = 1
+      audio.play()
     }
 
     this.setState({

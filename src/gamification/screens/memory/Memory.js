@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
 
-/* import musicMemory from "../../assets/sounds/musicMemory.mp3" */
+import musicMemory from "../../assets/sounds/musicMemory.mp3"
 import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
 import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
 import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
@@ -26,6 +26,12 @@ class Memory extends Component {
         super(props)
 
         let storage = JSON.parse(localStorage.getItem('userInfo'))
+        this.audioWin = new Audio(win)
+        this.audioSeeCardMemory = new Audio(seeCardMemory);
+        this.audioRightCardsMemory = new Audio(rightCardsMemory);
+        this.audioWrongCardsMemory = new Audio(wrongCardsMemory);
+        this.audioLose = new Audio(lose)
+
 
         this.state = {
             storage: storage === null ? [] : storage,
@@ -33,7 +39,8 @@ class Memory extends Component {
             memoryCardsPair: properties.memoryCardsPair,
             winModal: false,
             loseModal: false,
-            beijeCoin: storage.userInfo.beijeCoin,
+            beijeCoin: storage.beijeCoin,
+            audio: true
         }
     }
 
@@ -45,10 +52,8 @@ class Memory extends Component {
     }
 
     componentDidMount = () => {
-/*         let audio = new Audio(musicMemory);
-        audio.volume = 1;
-        audio.play(); */
-        
+
+
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
     }
@@ -63,17 +68,16 @@ class Memory extends Component {
                 winModal: true
             })
             //vinto
-
-                let audio = new Audio(win)
-                audio.volume = 1
-                audio.play()
+            if (this.state.audio) {
+                this.audioWin.play()
+            } 
             this.addCoins()
         }
 
     }
 
     addCoins = () => {
-        let beijeCoin = this.state.storage.userInfo.beijeCoin
+        let beijeCoin = this.state.storage.beijeCoin
         beijeCoin = beijeCoin + 5
 
         let tempObj = this.state.storage
@@ -95,11 +99,14 @@ class Memory extends Component {
 
         // SET ACTIVE TRUE ON SELECTED ELEMENT
         let newMemoryCardsPair = this.state.memoryCardsPair
+        if (newMemoryCardsPair[key].active === false) {
+            //qui suono carta che si gira
+            if (this.state.audio) {
+                this.audioSeeCardMemory.play();
+            }
+        }
         newMemoryCardsPair[key].active = true
-        //qui suono carta che si gira
-        let audio = new Audio(seeCardMemory);
-        audio.volume = 1;
-        audio.play();
+
 
 
         // ADD SELECTED ELEMENT TO A NEW ARRAY
@@ -118,15 +125,15 @@ class Memory extends Component {
                     )
                     newMemoryCardsPair = cardsRemove
                     // qui suono due carte uguali
-                    let audio = new Audio(rightCardsMemory);
-                    audio.volume = 1;
-                    audio.play();
+                    if (this.state.audio) {
+                        this.audioRightCardsMemory.play();
+                    }
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
                     //qui suono due carte diverse
-                    let audio = new Audio(wrongCardsMemory);
-                    audio.volume = 1;
-                    audio.play();
+                    if (this.state.audio) {
+                        this.audioWrongCardsMemory.play();
+                    }
                 }
 
                 // FILTERED RESET WAITING NEW COMPARE
@@ -146,15 +153,24 @@ class Memory extends Component {
                 loseModal: true
             })
             //perso
-            let audio = new Audio(lose)
-            audio.volume = 1
-            audio.play()
+            if (this.state.audio) {
+                this.audioLose.play()
+            }
+
         }, 60000)
 
     }
 
     handleClickButton = (e) => {
         i18n.changeLanguage(e.target.value);
+    }
+
+    callbackAudioButton = () => {
+        this.setState({
+            audio: !this.state.audio
+        })
+
+
     }
 
 
@@ -170,29 +186,30 @@ class Memory extends Component {
                         <HeaderGamePage
 
                             infoMessage={t('gamification.screens.memory.infoGame')}
-
-
+                            state={this.state.audio}
+                            callbackAudioButton={this.callbackAudioButton}
                             iconContainerCss='gm-header-icon-container gm-game-header-page'
                         />
-                        <div className='gm-flags-container'>
+                        {/* <div className='gm-flags-container'>
 
                             <button
                                 onClick={this.handleClickButton}
-                                style={{ width: '40px', height: '40px',
-                                
-                            }}
-                                value="it" 
-                                >
+                                style={{
+                                    width: '40px', height: '40px',
+
+                                }}
+                                value="it"
+                            >
                                 it
                             </button>
                             <button
                                 onClick={this.handleClickButton}
                                 style={{ width: '40px', height: '40px' }}
-                                value="en" 
-                                >
+                                value="en"
+                            >
                                 en
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="gm-flex-container">
@@ -216,7 +233,6 @@ class Memory extends Component {
                             })}
                         </div>
                     </div>
-
                 </div>
                 {
                     this.state.winModal &&

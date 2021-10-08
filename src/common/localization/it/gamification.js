@@ -4,7 +4,7 @@ export const TRANSLATIONS_GAMIFICATION = {
             infoGame: 'Trova 2 coppie uguali'
         },
         quiz:  {
-            quizArray :[
+            quizArray: [
                 {
                     question: "Da dove deriva la poke?",
                     options: ["Italia", "Francia", "Giappone", "Hawaii"],
