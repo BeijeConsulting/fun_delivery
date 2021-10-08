@@ -51,7 +51,9 @@ export const TRANSLATIONS_BACKOFFICE = {
             completed: "🟢 Completato",
             delivering: "🟡 In consegna",
             preparing: "🟠 In preparazione",
-            confirmed: "🔵 Confermato"
+            confirmed: "🔵 Confermato",
+            rejected: "🔴 Rifiutato",
+            error: "Errore"
         }
 
     }

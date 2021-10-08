@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { withTranslation } from 'react-i18next';
-import { orderBy as _orderBy, cloneDeep as _cloneDeep } from "lodash";
+import { cloneDeep as _cloneDeep } from "lodash";
 import constantsDictionary from '../../../common/utils/constantsDictionary';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import properties from "../../../common/utils/properties";
@@ -15,13 +15,11 @@ class MyOrders extends Component {
 
     constructor(props) {
         super(props);
-
         this.status = constantsDictionary.ORDER_STATUS
-
         //Order simulated from backend
         this.all_orders = [
             {
-                order_id: 1,
+                order_id: 34221,
                 customer_name: "Marco Brambilla",
                 customer_address: "Una via a Milano",
                 ordered: [
@@ -38,9 +36,9 @@ class MyOrders extends Component {
                 status: "confirmed"
             },
             {
-                order_id: 0,
+                order_id: 34220,
                 customer_name: "Lorenzo Chiesa",
-                customer_address: "Una via a Milano",
+                customer_address: "Una via all'Elba",
                 ordered: [
                     {
                         nameFood: "Margherita",
@@ -55,9 +53,9 @@ class MyOrders extends Component {
                 status: "confirmed"
             },
             {
-                order_id: 4,
-                customer_name: "Marco Brambilla",
-                customer_address: "Una via a Milano",
+                order_id: 34224,
+                customer_name: "Simone Micalizzi",
+                customer_address: "Una via a Palermo",
                 ordered: [
                     {
                         nameFood: "Margherita",
@@ -69,12 +67,12 @@ class MyOrders extends Component {
                         nameFood: "Coca cola",
                     }
                 ],
-                status: "preparing"
+                status: "rejected"
             },
             {
-                order_id: 3,
-                customer_name: "Simone Micalizzi",
-                customer_address: "Una via a Milano",
+                order_id: 34223,
+                customer_name: "Enrico Paolazzi",
+                customer_address: "Una via a Ferrara",
                 ordered: [
                     {
                         nameFood: "Margherita",
@@ -89,9 +87,9 @@ class MyOrders extends Component {
                 status: "delivering"
             },
             {
-                order_id: 2,
-                customer_name: "Marco Brambilla",
-                customer_address: "Una via a Milano",
+                order_id: 34222,
+                customer_name: "Calogero Messina",
+                customer_address: "Una via a Caltanissetta",
                 ordered: [
                     {
                         nameFood: "Margherita",
@@ -106,7 +104,6 @@ class MyOrders extends Component {
                 status: "completed"
             },
         ]
-
         //Orders with modifed status to show emoji's instead of status
         this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
@@ -136,6 +133,10 @@ class MyOrders extends Component {
                     {
                         text: i18n.t('backoffice.useful_constants.order_status.confirmed'),
                         value: '🔵',
+                    },
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.rejected'),
+                        value: '🔴',
                     }
                 ],
                 key: 'status',
@@ -148,29 +149,27 @@ class MyOrders extends Component {
                 ellipsis: true,
             },
             {
-                title: 'Visualizza ordine',
+                title: '',
                 dataIndex: 'order_id',
                 key: 'action',
                 render: (order_id) => (
-                  <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)} />
+                    <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)}/>
                 ),
-
             },
-
         ];
     }
 
     componentDidMount() {
         this.mapObjectForEmojiStatus(this.all_ordersModifiedStatus)
-    //     this.orderByDescOrders(this.all_orders)
-    //     this.mapObjectForEmojiStatus(this.all_orders)
-    // }
+        //     this.orderByDescOrders(this.all_orders)
+        //     this.mapObjectForEmojiStatus(this.all_orders)
+        // }
 
-    // orderByDescOrders(orders) {
-    //     let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
-    //     this.setState({
-    //         orders: desc_orders
-    //     })
+        // orderByDescOrders(orders) {
+        //     let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
+        //     this.setState({
+        //         orders: desc_orders
+        //     })
     }
 
     mapObjectForEmojiStatus = (order) => {
@@ -194,7 +193,11 @@ class MyOrders extends Component {
             case "completed":
                 emojiToShow = "🔵"
                 break;
+            case "rejected":
+                emojiToShow = "🔴"
+                break;
             default:
+                emojiToShow = i18n.t('backoffice.useful_constants.order_status.error');
         }
         return emojiToShow
     }
@@ -232,7 +235,6 @@ class MyOrders extends Component {
     handleCallbackPageSingleOrder = (orderID) => () => {
         let foundOrder = {}
         foundOrder = this.all_orders.find((order) => order.order_id === orderID)
-        console.log("lo prende")
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
             order: foundOrder,
             titlePage: "#" + orderID,
@@ -254,13 +256,14 @@ class MyOrders extends Component {
                             </div>
                         </div>
                         <div className="bo-order-form">
-                            <Table 
-                            tableLayout={undefined} 
-                            pagination={false} 
-                            dataSource={this.all_ordersModifiedStatus} 
-                            columns={this.columns} 
-                            bordered 
-                            scroll={{ x: 450, y: 500 }} />
+                            <Table
+                                tableLayout={"unset"}
+                                pagination={false}
+                                dataSource={this.all_ordersModifiedStatus}
+                                columns={this.columns}
+                                size={'small'}
+                                bordered
+                                scroll={{ x: 450, y: 500 }} />
                         </div>
                     </div>
                 </LayoutBackOffice>

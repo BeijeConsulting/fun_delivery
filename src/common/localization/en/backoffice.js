@@ -52,7 +52,9 @@ export const TRANSLATIONS_BACKOFFICE = {
             completed: "🟢 Completed",
             delivering: "🟡 Delivering",
             preparing: "🟠 Preparing",
-            confirmed: "🔵 Confirmed"
+            confirmed: "🔵 Confirmed",
+            rejected: "🔴 Rejected",
+            error: "Error"
         }
     }
 }
