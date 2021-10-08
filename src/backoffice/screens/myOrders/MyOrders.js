@@ -110,7 +110,7 @@ class MyOrders extends Component {
             {
                 title: i18n.t('backoffice.screens.my_orders.order'),
                 dataIndex: 'order_id',
-                key: 'order_id',
+                key: '1',
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => a.order_id - b.order_id,
             },
@@ -139,21 +139,21 @@ class MyOrders extends Component {
                         value: '🔴',
                     }
                 ],
-                key: 'status',
+                key: '2',
                 onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
                 title: i18n.t('backoffice.screens.my_orders.address'),
                 dataIndex: 'customer_address',
-                key: 'customer_address',
+                key: '3',
                 ellipsis: true,
             },
             {
                 title: '',
                 dataIndex: 'order_id',
-                key: 'action',
+                key: '4',
                 render: (order_id) => (
-                    <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)}/>
+                    <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)} />
                 ),
             },
         ];
@@ -165,7 +165,9 @@ class MyOrders extends Component {
 
     mapObjectForEmojiStatus = (order) => {
         order.map((item) => {
-            item.status = this.handleEmojiStatus(item.status)
+            return (
+                item.status = this.handleEmojiStatus(item.status)
+            )
         })
     }
 
@@ -228,6 +230,7 @@ class MyOrders extends Component {
                         </div>
                         <div className="bo-order-form">
                             <Table
+                                rowKey={record => record.uid}
                                 tableLayout={"unset"}
                                 pagination={false}
                                 dataSource={this.all_ordersModifiedStatus}

@@ -20,6 +20,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             status: "Status",
             order: "Order",
             address: "Address"
+        },
+        incoming_orders:{
+            title: "Incoming orders",
+            ordered_text: "placed an order",
         }
     },
 
