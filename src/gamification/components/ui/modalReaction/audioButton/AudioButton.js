@@ -14,9 +14,9 @@ const AudioButton = (props) => {
     return(
         <div onClick={handleClick}>
             {props.state ? 
-                <FontAwesomeIcon icon={faVolumeUp} />
+                <FontAwesomeIcon icon={faVolumeUp} style={{ fontSize: '25px' }}/>
                  : 
-                 <FontAwesomeIcon icon={faVolumeMute} />
+                 <FontAwesomeIcon icon={faVolumeMute} style={{ fontSize: '25px' }}/>
             }
         </div>
     )

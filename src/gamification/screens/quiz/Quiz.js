@@ -43,7 +43,7 @@ class Quiz extends Component {
             iconButton: '',
             choiceDone: false,
             showLoader: false,
-            beijeCoin: storage.userInfo.beijeCoin,
+            beijeCoin: storage.beijeCoin,
             translate: false
         }
     }
@@ -188,7 +188,7 @@ class Quiz extends Component {
     }
 
     addCoins = () => {
-        let beijeCoin = this.state.storage.userInfo.beijeCoin
+        let beijeCoin = this.state.storage.beijeCoin
         beijeCoin = beijeCoin + 5
 
         let tempObj = this.state.storage

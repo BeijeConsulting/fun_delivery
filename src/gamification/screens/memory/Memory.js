@@ -190,7 +190,7 @@ class Memory extends Component {
                             callbackAudioButton={this.callbackAudioButton}
                             iconContainerCss='gm-header-icon-container gm-game-header-page'
                         />
-                        <div className='gm-flags-container'>
+                        {/* <div className='gm-flags-container'>
 
                             <button
                                 onClick={this.handleClickButton}
@@ -209,7 +209,7 @@ class Memory extends Component {
                             >
                                 en
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="gm-flex-container">
