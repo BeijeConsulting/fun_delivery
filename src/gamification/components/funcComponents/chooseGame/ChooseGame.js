@@ -12,15 +12,11 @@ const ChooseGame = (props) => {
     //     props.history.push("/memory")
     // }
     return (
-        <div className="gm-choosegame-container">
-            {/* {t('gamification.components.chooseGame.title')} */}
-            <h1 className="gm-choose-title">Gioca con noi</h1>
-
 
             <div className="gm-choosegame-container">
                 {/* {t('gamification.components.chooseGame.title')} */}
                 <h1>
-                    {t('gamification.components.chooseGame.subtitle')}
+                    {t('gamification.components.chooseGame.title')}
                 </h1>
                 {/* {t('gamification.components.chooseGame.subtitle')} */}
                 <p className="gm-choosegame-container-p">
@@ -35,7 +31,6 @@ const ChooseGame = (props) => {
                     </Link>
                 </div>
             </div>
-        </div>
     )
 
 }
