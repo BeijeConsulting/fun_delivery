@@ -11,7 +11,7 @@ import properties from "../../../common/utils/properties";
 import AddPlate from '../../assets/images/plus.png'
 
 class Plates extends Component {
-    
+
     constructor(props) {
         super(props)
         this.pageTitle = get(this.props, 'location.state.titlePage', false);
@@ -27,7 +27,12 @@ class Plates extends Component {
 
     componentDidMount = () => {
 
-        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;        
+        // If plate was deleted, redirect to my menu page
+        if (this.props.location.state.elementDeleted === true) {
+            this.props.history.push(properties.BO_ROUTING.MY_MENU)
+        }        
+
+        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;
 
         let categoryPlates = allPlates.filter((plate, index) => {
             return plate.plate_category_id === this.restaurant_category;
@@ -46,7 +51,7 @@ class Plates extends Component {
         this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
     }
 
-    handleCallbackSinglePlates = (plate_id,plate_name) => () => {
+    handleCallbackSinglePlates = (plate_id, plate_name) => () => {
         this.props.history.push(properties.BO_ROUTING.SINGLE_PLATE, {
             plateId: plate_id,
             plateName: plate_name
@@ -92,7 +97,7 @@ class Plates extends Component {
                                         </div>
                                     )
                                 })
-                            }                            
+                            }
 
                         </div>
                     </div>

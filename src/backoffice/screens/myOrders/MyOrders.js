@@ -237,8 +237,6 @@ class MyOrders extends Component {
                                 scroll={{ x: 450, y: 500 }} />
                         </div>
                     </div>
-                    <button value="it" onClick={this.handleClickButton}>it</button>
-                    <button value="en" onClick={this.handleClickButton}>en</button>
                 </LayoutBackOffice>
             </>
         )
