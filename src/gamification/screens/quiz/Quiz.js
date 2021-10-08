@@ -16,48 +16,16 @@ import ModalReaction from "../../components/ui/modalReaction/ModalReaction"
 import MoneyCascade from "../../components/classComponents/moneycascade/MoneyCascade"
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
+import i18n from "../../../common/localization/i18n"
+import { withTranslation } from "react-i18next"
+
 class Quiz extends Component {
 
     constructor(props) {
         super(props)
 
-        this.quiz = [
-            {
-                question: "Da dove deriva la poke?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Hawaii",
-            },
-            {
-                question: "Da dove deriva la pizza?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Italia",
-
-            },
-            {
-                question: "Da dove deriva il sushi?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Giappone",
-
-            }, {
-                question: "Da dove deriva la carbonara?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Italia",
-
-            },
-            {
-                question: "Da dove deriva lo champagne?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Francia",
-
-            },
-            {
-                question: "Da dove deriva il ramen?",
-                options: ["Italia", "Francia", "Giappone", "Hawaii"],
-                answer: "Giappone",
-
-            },
-
-        ]
+        this.quiz = i18n.t('gamification.screens.quiz', { returnObjects: true });
+        console.log('i AM QUIZ PROVA' ,this.quiz)
         let storage = JSON.parse(localStorage.getItem('userInfo'))
 
         this.loading = true
@@ -78,8 +46,12 @@ class Quiz extends Component {
             beijeCoin: storage.userInfo.beijeCoin
         }
     }
-
+    
     componentDidMount() {
+        console.log('SINGLE OBJjjjjjjjj', this.singleObj)
+        console.log('quiz' , this.quiz)
+        console.log('quizData', this.quizProva)
+
         let audio = new Audio(musicQuiz);
         audio.volume = 1;
         audio.play();
@@ -226,17 +198,29 @@ class Quiz extends Component {
 
     }
 
+
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
     render() {
+        const { t } = this.props;
         return (
             <div className='gm-game-page-container' >
-
+                
                 <HeaderGamePage
                     infoMessage='Rispondi correttamente alle domande'
                     iconContainerCss='gm-header-icon-container gm-game-header-page'
                 />
 
-                <div className='gm-quiz-container'>
+                
 
+                <div className='gm-quiz-container'>
+                    <button onClick={this.handleClickButton} style={{ width: '100px', height: '40px' }} value="it" >
+                        it
+                    </button>
+                    <button onClick={this.handleClickButton} style={{ width: '100px', height: '40px' }} value="en" >
+                        en
+                    </button>
 
                     <div className='gm-counter-questions'>
 
@@ -291,4 +275,4 @@ class Quiz extends Component {
 }
 
 
-export default Quiz
+export default withTranslation()(Quiz);

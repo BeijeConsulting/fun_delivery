@@ -9,8 +9,6 @@ import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
 import win from "../../assets/sounds/win.mp3"
 import lose from "../../assets/sounds/lose.wav"
 
-import Title from '../../components/funcComponents/title/Title.js'
-import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
 import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
@@ -19,6 +17,10 @@ import Tear from './../../assets/images/tear.svg';
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
 import Rider from './../../assets/images/memoryImg/rider.svg'
+import i18n from '../../../common/localization/i18n';
+import { withTranslation } from 'react-i18next';
+
+
 class Memory extends Component {
     constructor(props) {
         super(props)
@@ -31,7 +33,7 @@ class Memory extends Component {
             memoryCardsPair: properties.memoryCardsPair,
             winModal: false,
             loseModal: false,
-            beijeCoin: storage.userInfo.beijeCoin
+            beijeCoin: storage.userInfo.beijeCoin,
         }
     }
 
@@ -87,7 +89,6 @@ class Memory extends Component {
 
     }
 
-    // ONCLICK SET STATE OF CARD OBJ TRUE AND CHECK IF 2 CARDS SELECTED ARE EQUALS OF NOT, IF EQUALS REMOVE CARDS FROM ARRAY, ELSE RESET THE STATE TO FALSE
 
     handleClickMemory = (key) => () => {
 
@@ -152,40 +153,56 @@ class Memory extends Component {
 
     }
 
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
 
 
 
     render() {
+        const { t } = this.props
+
         return (
             <>
                 <div className='memory-page'>
-                    <div className="gm-headerTitleContainer" style={{ height: '80px', border: '3px solid gold' }}>
+                    <div className="gm-headerTitleContainer">
 
                         <HeaderGamePage
 
-                            infoMessage='Trova la coppia di carte uguale'
+                            infoMessage={t('gamification.screens.memory.infoGame')}
+
+
                             iconContainerCss='gm-header-icon-container gm-game-header-page'
                         />
+                        <div className='gm-flags-container'>
+
+                            <button
+                                onClick={this.handleClickButton}
+                                style={{ width: '40px', height: '40px',
+                                
+                            }}
+                                value="it" 
+                                >
+                                it
+                            </button>
+                            <button
+                                onClick={this.handleClickButton}
+                                style={{ width: '40px', height: '40px' }}
+                                value="en" 
+                                >
+                                en
+                            </button>
+                        </div>
                     </div>
-                    {/* <Title
-                        className={"gm-title"}
-                        label={'Memory'}
-                        color={'white'}
-                        fontWeight={'bold'}
-                    /> */}
 
                     <div className="gm-flex-container">
                         <div className='gm-game-container'>
-                            <div className="gm-rider-big-container">
-
-                                <div className='gm-countdown-container'>
-                                    <div className='gm-front-countdown'></div>
-                                </div>
-                                <div className="gm-rider-container">
-                                    <img className="Rider" src={Rider} alt="rider"></img>
-                                </div>
+                            <div className="gm-rider-container">
+                                <img className="gm-rider" src={Rider} alt="rider"></img>
                             </div>
+                            <div className="gm-moving-street">
 
+                            </div>
                             {this.state.memoryCardsPair.map((card, key) => {
                                 return (
                                     <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
@@ -218,4 +235,4 @@ class Memory extends Component {
     }
 }
 
-export default Memory;
+export default withTranslation()(Memory);
