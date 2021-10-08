@@ -3,45 +3,49 @@ export const TRANSLATIONS_GAMIFICATION = {
         memory: {
             infoGame: 'Find two equal pairs'
         },
-        quiz:  [
-                    {
-                        question: "Da dove deriva la poke?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "Hawaii",
-                    },
-                    {
-                        question: "Da dove deriva la pizza?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "Italy",
+        quiz: {
+            quizArray: [
+                {
+                    question: "Where does the poke come from??",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "Hawaii",
+                },
+                {
+                    question: "Where does pizza come from?",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "Italy",
 
-                    },
-                    {
-                        question: "Da dove deriva il sushi?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "Japan",
+                },
+                {
+                    question: "Where does sushi come from?",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "Japan",
 
-                    }, {
-                        question: "Da dove deriva la carbonara?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "Italy",
+                }, {
+                    question: "Where does carbonara come from?",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "Italy",
 
-                    },
-                    {
-                        question: "Da dove deriva lo champagne?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "France",
+                },
+                {
+                    question: "Where does champagne come from?",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "France",
 
-                    },
-                    {
-                        question: "Da dove deriva il ramen?",
-                        options: ["Italy", "France", "Japan", "Hawaii"],
-                        answer: "Japan",
+                },
+                {
+                    question: "Where does ramen come from?",
+                    options: ["Italy", "France", "Japan", "Hawaii"],
+                    answer: "Japan",
 
-                    },
+                },
 
-                ]
-            
-        
+            ],
+            infoGame: 'Answer the questions correctly'
+
+        }
+
+
     },
     components: {
         chooseGame: {

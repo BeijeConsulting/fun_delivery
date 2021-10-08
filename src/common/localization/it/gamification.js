@@ -3,7 +3,8 @@ export const TRANSLATIONS_GAMIFICATION = {
         memory: {
             infoGame: 'Trova 2 coppie uguali'
         },
-        quiz:  [
+        quiz:  {
+            quizArray: [
                 {
                     question: "Da dove deriva la poke?",
                     options: ["Italia", "Francia", "Giappone", "Hawaii"],
@@ -39,7 +40,10 @@ export const TRANSLATIONS_GAMIFICATION = {
 
                 },
 
-            ]
+            ],
+            infoGame: 'Rispondi correttamente alle domande'
+        }
+
         
     },
     components: {
