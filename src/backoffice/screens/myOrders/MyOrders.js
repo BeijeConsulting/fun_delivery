@@ -115,7 +115,7 @@ class MyOrders extends Component {
                 sorter: (a, b) => a.order_id - b.order_id,
             },
             {
-                title: 'Stato',
+                title: i18n.t('backoffice.screens.order_status.completed'),
                 dataIndex: 'status',
                 filters: [
                     {
@@ -161,15 +161,6 @@ class MyOrders extends Component {
 
     componentDidMount() {
         this.mapObjectForEmojiStatus(this.all_ordersModifiedStatus)
-        //     this.orderByDescOrders(this.all_orders)
-        //     this.mapObjectForEmojiStatus(this.all_orders)
-        // }
-
-        // orderByDescOrders(orders) {
-        //     let desc_orders = _orderBy(orders, ['order_id'], ['desc'])
-        //     this.setState({
-        //         orders: desc_orders
-        //     })
     }
 
     mapObjectForEmojiStatus = (order) => {
@@ -202,28 +193,6 @@ class MyOrders extends Component {
         return emojiToShow
     }
 
-    // handleImageStatus = (status) => {
-    //     let imageToShow = ""
-    //     switch (status) {
-    //         case "confirmed":
-    //             imageToShow = confirmed
-    //             break;
-    //         case "delivering":
-    //             imageToShow = delivering
-    //             break;
-    //         case "preparing":
-    //             imageToShow = preparing
-    //             break;
-    //         case "completed":
-    //             imageToShow = completed
-    //             break;
-    //         default:
-
-    //     }
-    //     return imageToShow
-    // }
-
-
     handleSelect = (e) => {
         let filtered_orders = []
         filtered_orders = e.target.value === "all" ? this.all_orders : this.all_orders.filter((item) => item.status === e.target.value)
@@ -242,7 +211,9 @@ class MyOrders extends Component {
         })
     }
 
-
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
 
     render() {
         const { t } = this.props
@@ -266,6 +237,8 @@ class MyOrders extends Component {
                                 scroll={{ x: 450, y: 500 }} />
                         </div>
                     </div>
+                    <button value="it" onClick={this.handleClickButton}>it</button>
+                    <button value="en" onClick={this.handleClickButton}>en</button>
                 </LayoutBackOffice>
             </>
         )

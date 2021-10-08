@@ -15,7 +15,10 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         my_orders:{
             your_orders: "I tuoi ordini",
-            number_of_order: "Ordine #" 
+            number_of_order: "Ordine #",
+            status: "Stato",
+            order: "Ordine",
+            address: "Indirizzo"
         }
     },
 
