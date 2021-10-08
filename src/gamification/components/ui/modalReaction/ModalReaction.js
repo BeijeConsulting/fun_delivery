@@ -1,12 +1,13 @@
 import './ModalReaction.css'
 
 import Button from '../../../../common/components/ui/button/Button'
-
+import { withTranslation } from 'react-i18next'
 const ModalReaction = (props) => {
 
     const handleCallback = () => {
         props.callback()
     }
+    const {t} = props;
     return (
         <div className='gm-reaction-container'>
                 {/* <div className="gm-cascade" > */}
@@ -17,15 +18,15 @@ const ModalReaction = (props) => {
                 <Button
                     className='gm-reaction-button'
                     callback={handleCallback}
-                    text={'Gioca di nuovo'} />
+                    text={t('gamification.components.modalreaction.playagain')} />
                 <Button
                     className='gm-reaction-button'
                     callback={handleCallback}
-                    text={'Cambia gioco'} />
+                    text={t('gamification.components.modalreaction.changegame')} />
                 <Button
                     className='gm-reaction-button'
                     callback={handleCallback}
-                    text={'Vedi stato ordinazione'} />
+                    text={t('gamification.components.modalreaction.mapOrder')} />
             </div>
                     {/* </div> */}
         </div>
@@ -36,4 +37,4 @@ ModalReaction.defaultProps = {
     textModal: 'Fantastico! Hai vinto 5 beije coins'
 }
 
-export default ModalReaction
+export default withTranslation()(ModalReaction)

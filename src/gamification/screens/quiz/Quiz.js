@@ -25,7 +25,6 @@ class Quiz extends Component {
         super(props)
 
         this.quiz = i18n.t('gamification.screens.quiz.quizArray', { returnObjects: true });
-        console.log('SINGLE OBJ: ' ,this.quiz)
         let storage = JSON.parse(localStorage.getItem('userInfo'))
 
         this.loading = true
@@ -49,21 +48,10 @@ class Quiz extends Component {
     }
     
     componentDidMount() {
-        // console.log('SINGLE OBJjjjjjjjj', this.singleObj)
-        // console.log('quiz' , this.quiz)
-        // console.log('quizData', this.quizProva)
         let audio = new Audio(musicQuiz);
         audio.volume = 1;
         audio.play();
-        // document.addEventListener('click', this.handleClickButton);
-        // console.log('sono componentDidMount')
-        // console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
         document.addEventListener('load', this.setTimeout);
-        
-    }
-    componentDidUpdate(prevProps, prevState){
-        console.log('STATO PRECEDENTE DI SINGLE OBJ: ', prevState.singleObjSt)
-        this.prova = prevState.singleObjSt;
     }
 
     getRndQuestion(arr) {
@@ -127,7 +115,6 @@ class Quiz extends Component {
                 audio.play()
             }
         }
-
         return <Button
             className={buttonStyle}
             key={index}
@@ -181,8 +168,8 @@ class Quiz extends Component {
         return (
             <GeneralModal
                 contentModal={this.state.counterWins >= 2 ?
-                    <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />
-                    : <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
+                    <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal={i18n.t('gamification.components.quiz.ModalReactionWin')} />
+                    : <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal={i18n.t('gamification.components.quiz.ModalReactionLose')} />}
             />
         )
     }
@@ -205,13 +192,6 @@ class Quiz extends Component {
     }
 
 
-    handleClickButton = (e) => {
-        i18n.changeLanguage(e.target.value);
-        this.setState({
-            singleObjSt: this.prova,
-            translate: !this.state.translate
-        })
-    }
     render() {
         const { t } = this.props;
         return (
@@ -225,13 +205,6 @@ class Quiz extends Component {
                 
 
                 <div className='gm-quiz-container'>
-                    <button onClick={this.state.translate === true && this.handleClickButton} style={{ width: '100px', height: '40px' }} value="it" >
-                        it
-                    </button>
-                    <button onClick={this.state.translate === false && this.handleClickButton} style={{ width: '100px', height: '40px' }} value="en" >
-                        en
-                    </button>
-
                     <div className='gm-counter-questions'>
 
                         {this.state.countQuestion}/3
@@ -239,7 +212,6 @@ class Quiz extends Component {
                     </div>
 
                     <div className='gm-quiz-container-question'>
-                        {/* <p className='gm-question'>{this.state.singleObjSt.question}</p> */}
                         <p className='gm-question'>{this.state.singleObjSt.question}</p>
                     </div>
 
@@ -260,13 +232,12 @@ class Quiz extends Component {
                     <div className="gm-avanti-container">
                         {
                             this.state.choiceDone && this.state.countQuestion < 3 &&
-                            // <div className='gm-quiz-container-footer'>
                             <div>
 
                                 <Button
                                     className='gm-goOn-button'
                                     callback={this.goToNext}
-                                    text={'Avanti'} />
+                                    text={t('gamification.components.quiz.goNext')} />
                             </div>
 
                         }

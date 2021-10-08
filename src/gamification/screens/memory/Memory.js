@@ -173,8 +173,7 @@ class Memory extends Component {
 
     }
 
-
-
+    
     render() {
         const { t } = this.props
 
