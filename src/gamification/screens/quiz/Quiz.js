@@ -174,7 +174,9 @@ class Quiz extends Component {
         }
     }
 
-
+    redirect = () => {
+        this.props.history.goBack()
+    }
 
 
     resultModal = () => {
@@ -190,8 +192,8 @@ class Quiz extends Component {
         return (
             <GeneralModal
                 contentModal={this.state.counterWins >= 2 ?
-                    <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal={i18n.t('gamification.components.quiz.ModalReactionWin')} />
-                    : <ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal={i18n.t('gamification.components.quiz.ModalReactionLose')} />}
+                    <ModalReaction callback={this.redirect} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal={i18n.t('gamification.components.quiz.ModalReactionWin')} />
+                    : <ModalReaction callback={this.redirect} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal={i18n.t('gamification.components.quiz.ModalReactionLose')} />}
             />
         )
     }
@@ -214,7 +216,7 @@ class Quiz extends Component {
     }
 
 
-    
+
 
     callbackAudioButton = () => {
         this.setState({
