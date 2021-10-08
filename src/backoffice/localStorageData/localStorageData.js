@@ -101,7 +101,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 15,
             plate_category_id: 1,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 2,
@@ -110,7 +110,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 12,
             plate_category_id: 1,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 3,
@@ -119,7 +119,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 32.3,
             plate_category_id: 2,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 4,
@@ -128,7 +128,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 10,
             plate_category_id: 3,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 5,
@@ -137,7 +137,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 6,
             plate_category_id: 4,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 6,
@@ -146,7 +146,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 5,
             plate_category_id: 5,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 7,
@@ -155,7 +155,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 7,
             plate_category_id: 6,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 8,
@@ -164,7 +164,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 8,
             plate_category_id: 7,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 9,
@@ -173,7 +173,7 @@ const localStorageData = {
             plate_description: 'Il Poke più buono',
             plate_price: 9,
             plate_category_id: 8,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 10,
@@ -182,7 +182,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 17,
             plate_category_id: 9,
-            plate_visibility: 1
+            plate_visibility: true
         },
         {
             id: 11,
@@ -191,7 +191,7 @@ const localStorageData = {
             plate_description: 'Il piatto più buono',
             plate_price: 0,
             plate_category_id: 10,
-            plate_visibility: 1
+            plate_visibility: true
         }
     ]
 };

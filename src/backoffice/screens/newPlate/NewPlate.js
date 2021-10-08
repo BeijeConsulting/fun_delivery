@@ -53,13 +53,13 @@ class NewPlate extends Component {
     }
 
     handleCallbackInput = (e) => {
-        if(e.target.name === 'plate_category_id') {
+        if (e.target.name === 'plate_category_id') {
             this.new_plate[e.target.name] = parseInt(e.target.value);
         } else {
             this.new_plate[e.target.name] = e.target.value
         }
     }
-    
+
     handleSwitchCallback = (e) => {
         this.new_plate.plate_visibility = e
     }
@@ -74,7 +74,7 @@ class NewPlate extends Component {
     }
 
     handleSubmit = () => {
-        
+
         this.setState(
 
             () => ({
@@ -89,15 +89,15 @@ class NewPlate extends Component {
             () => {
                 let savingReady = true;
 
-                for(let key in this.state.warning) {
-                    if(this.state.warning[key] === true){
+                for (let key in this.state.warning) {
+                    if (this.state.warning[key] === true) {
                         savingReady = false
                         return savingReady
                     }
                 }
 
-                if(savingReady === true) {
-                    let localStorageData = JSON.parse(localStorage.getItem('localStorageData'));                    
+                if (savingReady === true) {
+                    let localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
 
                     localStorageData.plate_list.push({
                         ...this.new_plate,
@@ -109,15 +109,15 @@ class NewPlate extends Component {
 
                     // Find category name
                     let categoryName = this.state.list_categories.find((category, index) => {
-                        return category.id == this.new_plate.plate_category_id;
-                    }).name;                    
+                        return category.id === this.new_plate.plate_category_id;
+                    }).name;
 
                     this.props.history.push(properties.BO_ROUTING.PLATES, {
                         category_id: parseInt(this.new_plate.plate_category_id),
                         titlePage: categoryName.toUpperCase()
                     })
                 }
-            
+
             }
         )
     }
@@ -147,12 +147,13 @@ class NewPlate extends Component {
 
                         <div className="bo-new-plate-switch">
                             <p>
-                                Visibility 
+                                Visibility
                                 <span>
                                     <SwitchProfile
-                                        handleSwitchCallback = {this.handleSwitchCallback}
-                                    /> 
-                                 </span>
+                                        handleSwitchCallback={this.handleSwitchCallback}
+                                        defaultChecked={true}
+                                    />
+                                </span>
                             </p>
                         </div>
 
@@ -179,7 +180,6 @@ class NewPlate extends Component {
                         <select
                             id='categories'
                             name='plate_category_id'
-                            className='bo-input-box'
                             onChange={this.handleCallbackInput}
                             onFocus={this.handleCallBackFocus}
                             className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
@@ -208,7 +208,7 @@ class NewPlate extends Component {
                             id="description_plate"
                             placeholder="Descrizione piatto"
                             callback={this.handleCallbackInput}
-                            callbackOnFocus={this.handleCallBackFocus}                         
+                            callbackOnFocus={this.handleCallBackFocus}
                         />
 
                         <div className="bo-plate-row-button">

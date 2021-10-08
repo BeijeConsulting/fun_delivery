@@ -12,6 +12,13 @@ export const TRANSLATIONS_BACKOFFICE = {
             title: "Registra il tuo ristorante",
             your_data: "I tuoi dati",
             your_restaurant: "Il tuo ristorante",
+        },
+        my_orders:{
+            your_orders: "I tuoi ordini",
+            number_of_order: "Ordine #",
+            status: "Stato",
+            order: "Ordine",
+            address: "Indirizzo"
         }
     },
 
@@ -36,11 +43,20 @@ export const TRANSLATIONS_BACKOFFICE = {
             italian: 'Italiano',
             hamburger: 'Hamburger',
             other: 'Altro'
-        }, 
+        },
         countries: {
             titleComponent: "Paese",
             italy: "Italia",
             england: "Inghilterra"
+        },
+        order_status: {
+            all: "Tutti",
+            completed: "🟢 Completato",
+            delivering: "🟡 In consegna",
+            preparing: "🟠 In preparazione",
+            confirmed: "🔵 Confermato",
+            rejected: "🔴 Rifiutato",
+            error: "Errore"
         }
 
     }
