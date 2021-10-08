@@ -17,7 +17,10 @@ i18n
  .use(LanguageDetector)
  .use(initReactI18next)
  .init({
-   resources: resources
+   resources: resources,
+   fallbackLng: {
+     default: ['en']
+   }
  });
  
 // i18n.changeLanguage("it"); //dev'essere il context
