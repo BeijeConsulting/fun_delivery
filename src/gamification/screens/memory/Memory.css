@@ -1,297 +1,496 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .memory-page {
-    background-color: #f24464;
-    /* border: 1px solid blue; */
-    height: 100vh;
-    width: 100vw;
-    z-index: 1;
-    position: absolute;
+  background-color: #f24464;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  position: absolute;
 }
 
 .icons-container {
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    padding: 7%;
-    color: #f3f3f3;
-    /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 7%;
+  color: #f3f3f3;
 }
 
 .info-message {
-    color: #f24464;
-    text-shadow: 1px 1px 2px #f24464;
-    background-color: #f3f3f3ec;
-    padding: 5px;
-    width: 180px;
-    height: 44px;
-    margin-left: 8px;
-    margin-top: -8px;
-    display: none;
-    position:absolute;
-    left:30px;
-    top: 0px
+  color: #f24464;
+  text-shadow: 1px 1px 2px #f24464;
+  background-color: #f3f3f3ec;
+  padding: 5px;
+  width: 180px;
+  height: 44px;
+  margin-left: 8px;
+  margin-top: -8px;
+  display: none;
+  position: absolute;
+  left: 30px;
+  top: 0px;
 }
 
 .info-icon {
-    display: flex;
-    position:relative;
-    font-size: 25px;
+  display: flex;
+  position: relative;
+  font-size: 25px;
 }
 
 .info-icon:hover > .info-message {
-    display: block;
+  display: block;
 }
 
-.gm-countdown-container {
+
+
+@keyframes countdown {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+
+.card {
+  width: 19vmin;
+  height: 31vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../assets/images/memoryImg/logo_beije.svg") no-repeat
+    center;
+  background-size: 150%;
+  background-position-x: 37%;
+  background-position-y: 65%;
+  background-color: #f3f3f3;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
+}
+.card-back {
+  width: 19vmin;
+  height: 31vmin;
+  position: absolute;
+  top: 0px;
+  z-index: 300;
+  border-radius: 5px;
+  box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
+  background-color: #f3f3f3;
+}
+
+.active {
+  animation: flip-scale-up-hor 0.5s linear both;
+}
+.active-back {
+  animation: card-back-rotation 0.5s linear both;
+}
+
+.wrong-front {
+  animation: blur-front 0.5s linear both;
+}
+.wrong-back {
+  animation: blur-back 0.5s linear both;
+}
+
+.gm-game-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10% 3% 20%;
+  position: relative;
+  z-index: 200;
+  background-color: #f24464;
+  bottom: 0px;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+.gm-flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-container {
+  position: relative;
+  animation-fill-mode: forwards;
+  margin: 1.5%;
+}
+.card-container:nth-child(-n+6){
+    margin-top: 20%;
+}
+
+.gm-title {
+  font-size: 40px;
+}
+
+.gm-headerTitleContainer{
+    height: 50px;
+    width: 100%;
+    position: relative;
+  }
+
+@keyframes flip-scale-up-hor {
+  0% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+  49% {
+    transform: scale(1.2) rotateY(-88deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes card-back-rotation {
+  0% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+  49% {
+    transform: scale(1.2) rotateY(-92deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes blur-front {
+  0% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 0;
+  }
+  51% {
+    transform: scale(1.2) rotateY(-88deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes blur-back {
+  0% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 1;
+  }
+  51% {
+    transform: scale(1.2) rotateY(-92deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes disappear {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    transform: rotate(90deg) scale(1.05);
+  }
+  20% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  30% {
+    transform: rotate(270deg) scale(1);
+  }
+  40% {
+    transform: rotate(360deg) scale(0.9);
+  }
+  50% {
+    transform: rotate(450deg) scale(0.8);
+  }
+  60% {
+    transform: rotate(540deg) scale(0.7);
+  }
+  70% {
+    transform: rotate(630deg) scale(0.6);
+  }
+  80% {
+    transform: rotate(720deg) scale(0.4);
+  }
+  90% {
+    transform: rotate(810deg) scale(0.2);
+  }
+  100% {
+    transform: rotate(900deg) scale(0);
+    opacity: 0;
+  }
+}
+
+    .gm-rider-big-container{
+      width: 100%;
+      position: relative;
+  }
+  .gm-rider-container{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 2%;
+    animation: rider 63s linear;
+    z-index: 100;
+    
+  }
+
+ .gm-flags-container{
+    position: absolute;
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .gm-countdown-container {
+  border: 1px solid black;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0%;
+}
+
+
+.gm-front-countdown {
+  width: 100%;
+  height: 10px;
+  background-color: white;
+  border-radius: inherit;
+  animation: countdown 60s linear;
+}
+
+
+.gm-moving-street {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='Road' version='1' viewBox='0 0 65 67'%3E %3Crect width='65' height='67' fill='%23272727' stroke='%23272727' stroke-width='2'/%3E %3Cline x1='17' x2='48' y1='34' y2='34' fill='none' stroke='%23939393' stroke-width='2'/%3E %3Cline x2='65' y1='4' y2='4' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3Cline x2='65' y1='63' y2='63' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3C/svg%3E");
+  background-repeat: repeat-x;
+  content: "";
+  display: block;
+  height: 23px;
+  width: 1000000%;
+  z-index: 6;
+  position: relative;
+  animation: road-animation 180s infinite linear;
+}
+@keyframes road-animation {
+  0% {
+    background-position: -10000px 0;
+  }
+  100% {
+    background-position:  0 0 ;
+  }
+}
+@keyframes rider-animation {
+  0% {
+    transform: scaleX(-1) translateX(-100vw);
+  }
+  100% {
+    transform: scaleX(-1) translateX(100vw);
+  }
+}
+@keyframes rider{
+    from {
+        right: 0%;
+    }
+    to{
+        right: 100%;
+        display: none;
+    }
+}
+.gm-rider{
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .gm-game-container {
+    padding: 7% 3%;
+  }
+  .card {
+    width: 17vmin;
+    height: 25vmin;
+  }
+  .card-back {
+    width: 17vmin;
+    height: 25vmin;
+  }
+  .gm-title {
+    font-size: 50px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .gm-game-container {
+    padding: 5% 3%;
+  }
+  .card {
+    width: 20vmin;
+    height: 22vmin;
+  }
+  .card-back {
+    width: 20vmin;
+    height: 22vmin;
+  }
+
+  .card-container {
+    position: relative;
+    animation-fill-mode: forwards;
+    margin: 1.5%;
+  }
+}
+/* IPAD PRO : */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+      .gm-rider-container{
+    position: absolute;
+    top: 5%;
+    
+  }
+
+
+}
+@media screen and (min-width: 1024px) {
+  .gm-game-container {
+    max-width: 70%;
+    height: 65%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gm-rider-container{
+    position: absolute;
+    top: 2%;
+  }
+
+
+
+  .gm-countdown-container {
     border: 1px solid black;
     width: 90%;
     height: 10px;
     margin: 0 auto;
-    margin-top: 50px;
     border-radius: 5px;
     overflow: hidden;
-}
-
-.gm-front-countdown {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    border-radius: inherit;
-    /* animation-name: countdown;
-    animation-duration: 60s; */
-    animation: countdown 60s linear;
-}
-
-@keyframes countdown {
-    from {
-        width: 100%;
-    }
-    to {
-        width: 0%;
-    }
-}
-
-
-
-
-/* .body{
-    pointer-events: none !important;
-} */
-
-.card {
-    width: 19vmin;
-    height: 31vmin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url("../../assets/images/memoryImg/logo_beije.svg") no-repeat center;
-    background-size: 150%;
-    background-position-x: 37%;
-    background-position-y: 65%;
-    background-color: #f3f3f3;
-    position: relative;
-    border-radius: 5px;
-    box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
-}
-.card-back{
-    width: 19vmin;
-    height: 31vmin;
-    position:absolute;
-    top: 0px;
-    z-index: 300;
-    border-radius: 5px;
-    box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
-    background-color: #f3f3f3;
-}
-
-.active {
-    /* transform: rotateY(180deg); */
-    animation: flip-scale-up-hor .5s linear both;
-}
-.active-back{
-    animation: card-back-rotation .5s linear both;
-}
-
-.wrong-front{
-    animation: blur-front .5s linear both;
-}
-.wrong-back{
-    animation: blur-back .5s linear both;
-}
-
-.game-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 10% 3% 20%;
     position: absolute;
-    z-index: 200;
-    background-color: #f24464;
-    bottom: 0px;
-    height: 80vh;
-    width: 100%;
-}
-.flex-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card-container{
-    position:relative;
-    animation-fill-mode: forwards;
-    margin: 1.5%;
-}
-
-.gm-title{
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .card {
+    width: 18vmin;
+    height: 20vmin;
+  }
+  .card-back {
+    width: 18vmin;
+    height: 20vmin;
+  }
+  .info-message {
+    color: #f24464;
     font-size: 40px;
-    /* border: 1px solid black; */
+    text-shadow: 1px 1px 2px #f24464;
+    background-color: #f3f3f3ec;
+    padding: 10px;
+    width: 500px;
+    height: 80px;
+    display: none;
+    left: 50px;
+    top: 0px;
+  }
+  .info-icon {
+    font-size: 50px;
+  }
+  .gm-title {
+    font-size: 80px;
+  }
+
+  .gm-headerTitleContainer{
+    height: 50px;
+    width: 100%;
+  }
+  .card-container:nth-child(-n+8){
+    margin-top: 30px;
 }
 
-  @keyframes flip-scale-up-hor {
-    0% {transform: scale(1) rotateY(0); opacity: 1;}
-    49% {transform: scale(1.2) rotateY(-88deg); opacity: 1;}
-    50% {transform: scale(1.2) rotateY(-90deg); opacity: 0;}
-    100% {transform: scale(1) rotateY(-180deg); opacity: 0;}
-  }
-
-  @keyframes card-back-rotation {
-    0% {transform: scale(1) rotateY(-180deg); opacity: 0;}
-    49% {transform: scale(1.2) rotateY(-92deg); opacity: 0;}
-    50% {transform: scale(1.2) rotateY(-90deg); opacity: 1;}
-    100% {transform: scale(1) rotateY(0); opacity: 1;}
-  }
-
-  @keyframes blur-front {
-      0% {transform: scale(1) rotateY(-180deg); opacity: 0;}
-      50% {transform: scale(1.2) rotateY(-90deg); opacity: 0;}
-      51% {transform: scale(1.2) rotateY(-88deg); opacity: 1;}
-      100% {transform: scale(1) rotateY(0); opacity: 1;}
-  }
-
-  @keyframes blur-back {
-      0% {transform: scale(1) rotateY(0); opacity: 1;}
-      50% {transform: scale(1.2) rotateY(-90deg); opacity: 1;}
-      51% {transform: scale(1.2) rotateY(-92deg); opacity: 0;}
-      100% {transform: scale(1) rotateY(-180deg); opacity: 0;}
-  }
 
 
-@keyframes disappear {
-    0%{transform: rotate(0deg) scale(1);}
-    10%{transform: rotate(90deg)scale(1.05);}
-    20%{transform: rotate(180deg)scale(1.1);}
-    30%{transform: rotate(270deg)scale(1);}
-    40%{transform: rotate(360deg) scale(0.9);}
-    50%{transform: rotate(450deg) scale(0.8);}
-    60%{transform: rotate(540deg) scale(0.7);}
-    70%{transform: rotate(630deg) scale(0.6);}
-    80%{transform: rotate(720deg) scale(0.4);}
-    90%{transform: rotate(810deg) scale(0.2);}
-    100%{transform: rotate(900deg) scale(0); opacity: 0;}
 }
 
-/* @media screen and (max-device-width: 992px)
-and (orientation:landscape)
- {
-    .game-container{
-        padding: 0% 0%;
-    }
-    .card{
-        width: 20vmin;
-        height: 25vmin;
-    }
-    .card-back{
-        width: 25vmin;
-        height: 25vmin;
-    }
-
-
-  } */
-
-@media screen and (min-width: 768px) {
-    .game-container{
-        padding: 7% 3%;
-    }
-    .card{
-        width: 17vmin;
-        height: 25vmin;
-    }
-    .card-back{
-        width: 17vmin;
-        height: 25vmin;
-    }
-    .gm-title{
-        font-size: 50px;
-    }
+@media screen and (min-width: 1920px) {
+  .gm-game-container {
+    padding: 5% 25%;
   }
-
-  @media screen and (min-width: 992px) {
-    .game-container{
-        padding: 5% 3%;
-    }
-    .card{
-        width: 20vmin;
-        height: 22vmin;
-    }
-    .card-back{
-        width: 20vmin;
-        height: 22vmin;
-    }
-
+  .card {
+    width: 18vmin;
+    height: 19vmin;
   }
-
-  @media screen and (min-width: 1024px) {
-    .game-container{
-        padding: 5% 8% 20%;
-    }
-    .card{
-        width: 18vmin;
-        height: 20vmin;          
-    }
-    .card-back{
-        width: 18vmin;
-        height: 20vmin;
-    }
-    .info-message {
-        color: #f24464;
-        font-size: 40px;
-        text-shadow: 1px 1px 2px #f24464;
-        background-color: #f3f3f3ec;
-        padding: 10px;
-        width: 500px;
-        height: 80px;
-        display: none;
-        left:50px;
-        top: 0px
-    }
-    .info-icon {
-        font-size: 50px;
-    }
-    .gm-title{
-        font-size: 80px;
-    }
-
+  .card-back {
+    width: 18vmin;
+    height: 19vmin;
   }
+}
 
-  @media screen and (min-width: 1920px) {
-    .game-container{
-        padding: 5% 25%;
-    }
-    .card{
-        width: 18vmin;
-        height: 19vmin;
-    }
-    .card-back{
-        width: 18vmin;
-        height: 19vmin;
-    }
 
-  }
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

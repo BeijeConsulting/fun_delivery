@@ -24,6 +24,7 @@
     border: 3px solid rgb(37, 37, 37);
     position: relative;
     background-color: rgb(255, 177, 32);
+    cursor: pointer;
 }
 .frontend-nav-user-icon img {
     width: 100%;
@@ -85,4 +86,16 @@
 
 .frontend-inner-i-txt{
     color: white;
+}
+
+.progress-bar-exp-container{
+    width: 200px;
+    height: 7px;
+    background-color: #f3f3f3;
+    border: 1px solid black;
+}
+.progress-bar-exp{
+    height: 100%;
+    background-color: #F24464;
+    border-right: 1px solid black;
 }

@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 // import Coin from './../../assets/images/coin.svg'
 import WheelComponentCustom from '../../WheelComponentCustom'
 
+import wheelSound from "../../../assets/sounds/wheelSound.mp3"
+import tryAgainWheel from "../../../assets/sounds/tryAgainWheel.mp3"
 
 import { useState } from 'react'
 
 
-
-
-
 const Wheel = (props) => {
     let user = JSON.parse(localStorage.getItem('userInfo'))
+    let audio = new Audio(wheelSound)
 
     console.log(user)
     useEffect(()=>{
@@ -55,31 +55,36 @@ const Wheel = (props) => {
         '#F2CB05',
     ]
     const onFinished = (winner) => {
+        console.log(user)
         if (winner !== 'TRY AGAIN') {
             if(winner === '10 🥮'){
-                user.userInfo.beijeCoin = user.userInfo.beijeCoin + 10
+                user.beijeCoin = user.beijeCoin + 10
             }
             if(winner === '100 EXP'){
-                user.userInfo.experience = user.userInfo.experience + 100
+                user.experience = user.experience + 100
             }
             if(winner === '5€ SALES'){
-                user.userInfo.discount = true
+                user.discount = true
             }
             if(winner === 'FREE 🛵'){
-                user.userInfo.freeDelivery = true
+                user.freeDelivery = true
             }
             
-            state.awards.push({
-                id: state.id++,
-                single_award: winner
-            })
+            // state.awards.push({
+            //     id: state.id++,
+            //     single_award: winner
+            // })
             state.isOnlyOnce = true
             
             localStorage.setItem('userInfo', JSON.stringify(user))
             
             localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
-
+        }else{
+            let audioTryAgain = new Audio(tryAgainWheel)
+            audioTryAgain.volume = 0.4
+            audioTryAgain.play()
         }
+
         setState(
             {
                 ...state,
@@ -87,18 +92,22 @@ const Wheel = (props) => {
                 premio: winner
             }
         )
-        localStorage.setItem('awards', JSON.stringify(state.awards))
+        // localStorage.setItem('awards', JSON.stringify(state.awards))
+        audio.pause()
     }
-    const clickWheel =()=>{
+
+    const handleClick = () => {
+        audio.volume = 0.4
+        audio.play()
     }
+
 
 
     return (
 
-        <div style={{margin: "0 auto"}}>
+        <div style={{margin: "0 auto"}} onClick={handleClick}>
             
             <WheelComponentCustom
-                onClick={clickWheel}
                 segments={segments}
                 segColors={segColors}
                 onFinished={(winner) => onFinished(winner)}

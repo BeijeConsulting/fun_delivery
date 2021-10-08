@@ -5,6 +5,9 @@
     width: 100vw;
     height: 100vh;
     background-color: #f2446438;
+    backdrop-filter: blur(2px);
+    position: relative;
+    z-index: 3;
 }
 
 .avatar-container {
@@ -230,6 +233,7 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    z-index: 100;
 }
 
 .badge-icon img {
@@ -240,7 +244,7 @@
 }
 
 .badges-not-owned {
-    filter:brightness(25%)
+    filter:brightness(25%);
 }
 
 .badge-page-container {
@@ -265,6 +269,10 @@
 .badge-shelf img{
     height: 100%;
     width: 115%;
+}
+
+.badge-selected{
+ filter: drop-shadow(3px 3px 4px green)
 }
 
 @media screen and (max-width: 320px) {

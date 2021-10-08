@@ -26,7 +26,7 @@ const UserHome = (props) => {
     const [state, setState] = useState({
         wheelModal: false,
         wheelAvailable: true,
-        avatarDisplay: false
+        avatarDisplay: false,
     })
 
     let newWheelAvaileble
@@ -35,6 +35,8 @@ const UserHome = (props) => {
     let difference = newDate - oldDate
     let compare = difference > 86400000 ? true : false
     let timer = 86400000 - difference
+
+    let userPath = JSON.parse(localStorage.getItem('userInfo'))
 
     console.log(difference, "dentro ad un quadrato")
     const msToTime = (milliseconds) => {
@@ -165,14 +167,7 @@ const UserHome = (props) => {
                 {/* ----- NAVBAR ----- */}
                 <UserNavbar
                     /* from API */
-                    userAvatar={apple}
-                    userBadge={badge}
-                    userName={'Nome Cognome'}
-                    userLvl={0}
-                    userExp={0}
-                    userCoins={0}
                     callback={callbackSwitcher}
-                    coin={coin}
                 />
 
                 {/* ----- MAIN ----- */}
