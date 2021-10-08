@@ -2,13 +2,6 @@ import { Component } from "react";
 import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
-<<<<<<< HEAD
-// import { EditOutlined, EditFilled, DollarCircleOutlined  } from '@ant-design/icons';
-// import {HourglassOutlined} from '@ant-design/icons';
-// import SingleSponsor from "./singleSponsor/SingleSponsor";
-class Profile extends Component {
-
-=======
 import coin from '../../../common/assets/BeijeCoin.png'
 import {HourglassOutlined} from '@ant-design/icons';
 import SingleSponsor from "./singleSponsor/SingleSponsor";
@@ -28,7 +21,6 @@ class Profile extends Component {
         })
         localStorage.setItem('selectedSponsor', JSON.stringify(choice))
     }
->>>>>>> features/gamification/develop_gamification
     render() {
         return (
             <>
