@@ -16,7 +16,7 @@ import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
-import Rider from './../../assets/images/memoryImg/rider.svg'
+import Rider from './../../assets/images/memoryImg/rider.png'
 import i18n from '../../../common/localization/i18n';
 import { withTranslation } from 'react-i18next';
 
@@ -70,7 +70,7 @@ class Memory extends Component {
             //vinto
             if (this.state.audio) {
                 this.audioWin.play()
-            } 
+            }
             this.addCoins()
         }
 
@@ -157,7 +157,7 @@ class Memory extends Component {
                 this.audioLose.play()
             }
 
-        }, 60000)
+        }, 6000000)
 
     }
 
@@ -217,20 +217,23 @@ class Memory extends Component {
                             <div className="gm-rider-container">
                                 <img className="gm-rider" src={Rider} alt="rider"></img>
                             </div>
-                            <div className="gm-moving-street">
-
+                            <div className='gm-moving-street-container'>
+                                <div className="gm-moving-street"></div>
                             </div>
-                            {this.state.memoryCardsPair.map((card, key) => {
-                                return (
-                                    <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
-                                        <div
-                                            key={key}
-                                            className={card.active ? 'card active' : "card wrong-front"} >
+                            <div className='gm-memory-card-container'>
+                                {this.state.memoryCardsPair.map((card, key) => {
+                                    return (
+                                        <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
+                                            <div
+                                                key={key}
+                                                className={card.active ? 'card active' : "card wrong-front"} >
+                                            </div>
+                                            <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
                                         </div>
-                                        <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
+
                         </div>
                     </div>
                 </div>
