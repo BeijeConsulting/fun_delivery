@@ -3,50 +3,67 @@ export const TRANSLATIONS_GAMIFICATION = {
         memory: {
             infoGame: 'Find two equal pairs'
         },
-        quiz:  [
+        quiz:  {
+            quizArray :[
                     {
-                        question: "Da dove deriva la poke?",
+                    question: "Where the poke comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "Hawaii",
                     },
                     {
-                        question: "Da dove deriva la pizza?",
+                        question: "Where pizza comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "Italy",
 
                     },
                     {
-                        question: "Da dove deriva il sushi?",
+                        question: "Where sushi comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "Japan",
 
                     }, {
-                        question: "Da dove deriva la carbonara?",
+                        question: "Where carbonara comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "Italy",
 
                     },
                     {
-                        question: "Da dove deriva lo champagne?",
+                        question: "Where champagne comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "France",
 
                     },
                     {
-                        question: "Da dove deriva il ramen?",
+                        question: "Where ramen comes from?",
                         options: ["Italy", "France", "Japan", "Hawaii"],
                         answer: "Japan",
 
                     },
 
-                ]
+                ],
+                infoGame: 'Choose a correct answer',
+            }
             
-        
-    },
-    components: {
-        chooseGame: {
-            title: 'Play with us',
-            subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
-        }
+            
+        },
+        components: {
+            chooseGame: {
+                title: 'Play with us',
+                subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
+            },
+            memory: {
+                buttonText: 'Go Next',
+                textModalWrong: 'I am sorry you lose',
+                textModalWin: 'Congratulations, you win'
+
+
+            },
+            modalreaction: {
+                buttonPlayAgain: 'Play again',
+                mapStateOrdination: 'Map your status order',
+                changeGame: 'Change game'
+
+
+            }
     }
 }

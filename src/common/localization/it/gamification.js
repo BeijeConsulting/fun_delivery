@@ -3,7 +3,8 @@ export const TRANSLATIONS_GAMIFICATION = {
         memory: {
             infoGame: 'Trova 2 coppie uguali'
         },
-        quiz:  [
+        quiz:  {
+            quizArray :[
                 {
                     question: "Da dove deriva la poke?",
                     options: ["Italia", "Francia", "Giappone", "Hawaii"],
@@ -39,13 +40,27 @@ export const TRANSLATIONS_GAMIFICATION = {
 
                 },
 
-            ]
+            ],
+        infoGame: 'Scegli la risposta corretta'
+        }
         
     },
     components: {
         chooseGame: {
             title: 'Gioca con noi',
             subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
+        },
+        memory:{
+            buttonText: 'Avanti',
+            textModalWrong: 'Mi dispiace, ma hai perso',
+            textModalWin: 'Congratulazioni, hai vinto'
+
+        },
+        modalreaction: {
+            buttonPlayAgain: 'Gioca di nuovo',
+            mapStateOrdination: 'Vedi stato ordinazione',
+            changeGame: 'Cambia gioco'
+
         }
     }
 }
