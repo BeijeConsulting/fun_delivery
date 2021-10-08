@@ -13,10 +13,8 @@ const HeaderGamePage = (props) => {
             <div className={props.infoIconCss}><InfoCircleOutlined style={{ fontSize: '25px' }} />
                 <div className='gm-info-message' style={{ width: '160px', fontSize: '12px' }}>{props.infoMessage}</div>
             </div >
-            <div>
                 <AudioButton callback={callbackAudio} state={props.state} />
                 <HistoryOutlined style={{ fontSize: '25px' }} />
-            </div>
         </div >
     )
 }
