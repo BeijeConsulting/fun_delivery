@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
 
-/* import musicMemory from "../../assets/sounds/musicMemory.mp3" */
-import Title from '../../components/funcComponents/title/Title.js'
-import { HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import musicMemory from "../../assets/sounds/musicMemory.mp3"
+import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
+import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
+import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
+import win from "../../assets/sounds/win.mp3"
+import lose from "../../assets/sounds/lose.wav"
+
 import GeneralModal from '../../components/funcComponents/generalModal/GeneralModal';
 import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
@@ -13,11 +17,21 @@ import Tear from './../../assets/images/tear.svg';
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
 import Rider from './../../assets/images/memoryImg/rider.svg'
+import i18n from '../../../common/localization/i18n';
+import { withTranslation } from 'react-i18next';
+
+
 class Memory extends Component {
     constructor(props) {
         super(props)
 
         let storage = JSON.parse(localStorage.getItem('userInfo'))
+        this.audioWin = new Audio(win)
+        this.audioSeeCardMemory = new Audio(seeCardMemory);
+        this.audioRightCardsMemory = new Audio(rightCardsMemory);
+        this.audioWrongCardsMemory = new Audio(wrongCardsMemory);
+        this.audioLose = new Audio(lose)
+
 
         this.state = {
             storage: storage === null ? [] : storage,
@@ -25,7 +39,8 @@ class Memory extends Component {
             memoryCardsPair: properties.memoryCardsPair,
             winModal: false,
             loseModal: false,
-            beijeCoin: storage.userInfo.beijeCoin
+            beijeCoin: storage.beijeCoin,
+            audio: true
         }
     }
 
@@ -37,9 +52,8 @@ class Memory extends Component {
     }
 
     componentDidMount = () => {
-/*         let audio = new Audio(musicMemory);
-        audio.volume = 1;
-        audio.play(); */
+
+
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
     }
@@ -53,13 +67,17 @@ class Memory extends Component {
             this.setState({
                 winModal: true
             })
+            //vinto
+            if (this.state.audio) {
+                this.audioWin.play()
+            } 
             this.addCoins()
         }
 
     }
 
     addCoins = () => {
-        let beijeCoin = this.state.storage.userInfo.beijeCoin
+        let beijeCoin = this.state.storage.beijeCoin
         beijeCoin = beijeCoin + 5
 
         let tempObj = this.state.storage
@@ -75,14 +93,20 @@ class Memory extends Component {
 
     }
 
-    // ONCLICK SET STATE OF CARD OBJ TRUE AND CHECK IF 2 CARDS SELECTED ARE EQUALS OF NOT, IF EQUALS REMOVE CARDS FROM ARRAY, ELSE RESET THE STATE TO FALSE
 
     handleClickMemory = (key) => () => {
 
 
         // SET ACTIVE TRUE ON SELECTED ELEMENT
         let newMemoryCardsPair = this.state.memoryCardsPair
+        if (newMemoryCardsPair[key].active === false) {
+            //qui suono carta che si gira
+            if (this.state.audio) {
+                this.audioSeeCardMemory.play();
+            }
+        }
         newMemoryCardsPair[key].active = true
+
 
 
         // ADD SELECTED ELEMENT TO A NEW ARRAY
@@ -100,8 +124,16 @@ class Memory extends Component {
                         el.name === filteredCard[0].name ? el.visible = false : el
                     )
                     newMemoryCardsPair = cardsRemove
+                    // qui suono due carte uguali
+                    if (this.state.audio) {
+                        this.audioRightCardsMemory.play();
+                    }
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
+                    //qui suono due carte diverse
+                    if (this.state.audio) {
+                        this.audioWrongCardsMemory.play();
+                    }
                 }
 
                 // FILTERED RESET WAITING NEW COMPARE
@@ -120,43 +152,74 @@ class Memory extends Component {
             this.setState({
                 loseModal: true
             })
+            //perso
+            if (this.state.audio) {
+                this.audioLose.play()
+            }
+
         }, 60000)
+
+    }
+
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
+    callbackAudioButton = () => {
+        this.setState({
+            audio: !this.state.audio
+        })
+
+
     }
 
 
 
-
     render() {
+        const { t } = this.props
+
         return (
             <>
                 <div className='memory-page'>
-                    <div className="gm-headerTitleContainer" style={{ height: '80px', border: '3px solid gold' }}>
+                    <div className="gm-headerTitleContainer">
 
                         <HeaderGamePage
 
-                            infoMessage='Trova la coppia di carte uguale'
+                            infoMessage={t('gamification.screens.memory.infoGame')}
+                            state={this.state.audio}
+                            callbackAudioButton={this.callbackAudioButton}
                             iconContainerCss='gm-header-icon-container gm-game-header-page'
                         />
+                        <div className='gm-flags-container'>
+
+                            <button
+                                onClick={this.handleClickButton}
+                                style={{
+                                    width: '40px', height: '40px',
+
+                                }}
+                                value="it"
+                            >
+                                it
+                            </button>
+                            <button
+                                onClick={this.handleClickButton}
+                                style={{ width: '40px', height: '40px' }}
+                                value="en"
+                            >
+                                en
+                            </button>
+                        </div>
                     </div>
-                    {/* <Title
-                        className={"gm-title"}
-                        label={'Memory'}
-                        color={'white'}
-                        fontWeight={'bold'}
-                    /> */}
 
                     <div className="gm-flex-container">
                         <div className='gm-game-container'>
-                            <div className="gm-rider-big-container">
-
-                                <div className='gm-countdown-container'>
-                                    <div className='gm-front-countdown'></div>
-                                </div>
-                                <div className="gm-rider-container">
-                                    <img className="Rider" src={Rider} alt="rider"></img>
-                                </div>
+                            <div className="gm-rider-container">
+                                <img className="gm-rider" src={Rider} alt="rider"></img>
                             </div>
+                            <div className="gm-moving-street">
 
+                            </div>
                             {this.state.memoryCardsPair.map((card, key) => {
                                 return (
                                     <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
@@ -170,7 +233,6 @@ class Memory extends Component {
                             })}
                         </div>
                     </div>
-
                 </div>
                 {
                     this.state.winModal &&
@@ -189,4 +251,4 @@ class Memory extends Component {
     }
 }
 
-export default Memory;
+export default withTranslation()(Memory);

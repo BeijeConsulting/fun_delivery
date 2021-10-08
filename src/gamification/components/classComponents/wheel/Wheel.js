@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 // import Coin from './../../assets/images/coin.svg'
 import WheelComponentCustom from '../../WheelComponentCustom'
 
+import wheelSound from "../../../assets/sounds/wheelSound.mp3"
+import tryAgainWheel from "../../../assets/sounds/tryAgainWheel.mp3"
 
 import { useState } from 'react'
 
 
-
-
-
 const Wheel = (props) => {
     let user = JSON.parse(localStorage.getItem('userInfo'))
+    let audio = new Audio(wheelSound)
 
     console.log(user)
     useEffect(()=>{
@@ -79,8 +79,12 @@ const Wheel = (props) => {
             localStorage.setItem('userInfo', JSON.stringify(user))
             
             localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
-
+        }else{
+            let audioTryAgain = new Audio(tryAgainWheel)
+            audioTryAgain.volume = 0.4
+            audioTryAgain.play()
         }
+
         setState(
             {
                 ...state,
@@ -89,17 +93,21 @@ const Wheel = (props) => {
             }
         )
         // localStorage.setItem('awards', JSON.stringify(state.awards))
+        audio.pause()
     }
-    const clickWheel =()=>{
+
+    const handleClick = () => {
+        audio.volume = 0.4
+        audio.play()
     }
+
 
 
     return (
 
-        <div style={{margin: "0 auto"}}>
+        <div style={{margin: "0 auto"}} onClick={handleClick}>
             
             <WheelComponentCustom
-                onClick={clickWheel}
                 segments={segments}
                 segColors={segColors}
                 onFinished={(winner) => onFinished(winner)}
