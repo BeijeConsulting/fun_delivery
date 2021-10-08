@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
 
-/* import musicMemory from "../../assets/sounds/musicMemory.mp3" */
+import musicMemory from "../../assets/sounds/musicMemory.mp3"
 import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
 import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
 import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
@@ -157,7 +157,7 @@ class Memory extends Component {
 
     render() {
         return (
-            <>
+            <> 
                 <div className='memory-page'>
                     <div className="gm-headerTitleContainer" style={{ height: '80px', border: '3px solid gold' }}>
 
