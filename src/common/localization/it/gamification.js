@@ -50,6 +50,17 @@ export const TRANSLATIONS_GAMIFICATION = {
         chooseGame: {
             title: 'Gioca con noi',
             subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
+        },
+        quiz:{
+            goNext: 'Avanti',
+            ModalReactionWin: 'Congratulazioni, hai vinto',
+            ModalReactionLose: "Mi dispiace, hai perso",
+
+        },
+        modalreaction: {
+            playagain: 'Gioca con noi',
+            changegame: 'Cambia gioco',
+            mapOrder: 'Vedi stato ordinazione'
         }
     }
 }
