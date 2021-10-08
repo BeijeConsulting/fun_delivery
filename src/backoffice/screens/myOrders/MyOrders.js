@@ -108,14 +108,14 @@ class MyOrders extends Component {
         this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
             {
-                title: 'Ordine',
+                title: i18n.t('backoffice.screens.my_orders.order'),
                 dataIndex: 'order_id',
                 key: 'order_id',
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => a.order_id - b.order_id,
             },
             {
-                title: i18n.t('backoffice.screens.order_status.completed'),
+                title: i18n.t('backoffice.screens.my_orders.status'),
                 dataIndex: 'status',
                 filters: [
                     {
@@ -143,7 +143,7 @@ class MyOrders extends Component {
                 onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
-                title: 'Indirizzo',
+                title: i18n.t('backoffice.screens.my_orders.address'),
                 dataIndex: 'customer_address',
                 key: 'customer_address',
                 ellipsis: true,
