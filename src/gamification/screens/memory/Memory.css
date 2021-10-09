@@ -128,7 +128,7 @@
 }
 .card-container {
   position: relative;
-  /* animation-fill-mode: forwards; */
+  animation-fill-mode: forwards;
   /* margin: 1.5%; */
 }
 /* .card-container:nth-child(-n+6){
@@ -266,7 +266,7 @@
     height: 50px;
     width: 50px;
     position: absolute;
-    right: 0;
+    right: 5%;
     top: 0;
     animation: rider 63s linear;
     z-index: 100;
@@ -306,12 +306,12 @@
 }
 
 .gm-moving-street-container {
-  width: 90vw;
+  width: 90%;
   position: absolute;
   left: 0;
   top: 30px;
   /* border: 1px solid white; */
-  margin: 0 5vw;
+  margin: 0 5%;
   overflow: hidden;
   height: 23px;
 }
@@ -320,10 +320,10 @@
   position: absolute;
   /* border: 1px solid yellow; */
   height: 31px;
-  width: 90vw;
+  width: 90%;
   top: 0;
   left: 0;
-  margin: 0 5vw;
+  margin: 0 5%;
   overflow: hidden;
 }
 
@@ -332,10 +332,10 @@
   justify-content: space-around;
   height: 100%;
   position: absolute;
-  animation: tree-moving 1.8s linear;
-  animation-iteration-count: 1000;
-  width: 120vw;
-  left: -30vw;
+  animation: tree-moving 7.8s infinite linear;
+  /* animation-iteration-count: 5; */
+  /* width: 120vw; */
+  left: -428px;
 }
 
 .gm-moving-street-tree img {
@@ -345,7 +345,7 @@
 
 @keyframes tree-moving {
   0% {
-    left: -30vw;
+    left: -428px;
   }
   100% {
     left: 0;
@@ -383,10 +383,10 @@
 }
 @keyframes rider{
     from {
-        right: 0%;
+        right: 5%;
     }
     to{
-        right: 100%;
+        right: 95%;
         display: none;
     }
 }

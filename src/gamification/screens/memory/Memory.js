@@ -14,7 +14,7 @@ import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
-import tree from '../../assets/images/memoryImg/tree.png'
+import treeSheet from '../../assets/images/memoryImg/tree-sheet.png'
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
 import Rider from './../../assets/images/memoryImg/rider.png'
@@ -219,7 +219,7 @@ class Memory extends Component {
                                 <img className="gm-rider" src={Rider} alt="rider"></img>
                             </div>
                             <div className='gm-moving-street-tree-container'>
-                                <div className='gm-moving-street-tree'><img src={tree} alt={'tree'} /><img src={tree} alt={'tree'} /><img src={tree} alt={'tree'} /><img src={tree} alt={'tree'} /></div>
+                                <div className='gm-moving-street-tree'><img src={treeSheet} alt={'three-sheet'} /></div>
                             </div>
                             <div className='gm-moving-street-container'>
                                 <div className="gm-moving-street"></div>
