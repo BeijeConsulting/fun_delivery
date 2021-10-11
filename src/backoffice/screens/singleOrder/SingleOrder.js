@@ -8,8 +8,8 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox';
 import TextArea from '../../../common/components/ui/textarea/TextArea';
 
 class RestaurantSingleOrder extends Component {
-     constructor(props) {
-         super(props)
+    constructor(props) {
+        super(props)
 
         // this.state = {
         //     current_order : this.props.location.state.order
@@ -68,30 +68,33 @@ class RestaurantSingleOrder extends Component {
                     }
 
                     <div className="bo-profile-form">
+
+                        <div>
+                            <InputBox
+                                className="bo-input-box"
+                                name="customer_address"
+                                disable={true}
+                                type="text"
+                                // value={this.props.location.state.order.customer_address}
+                                value="Data: 11/10/2021 14:25"
+                            />
+                        </div>
                         <div className="bo-profile-flex-inputs">
                             <InputBox
                                 className="bo-input-box"
                                 name="customer_name"
                                 disable={true}
-                                value={this.props.location.state.order.customer_name}
+                                value={`Cliente: ${this.props.location.state.order.customer_name}`}
                             />
 
                             <InputBox
                                 className="bo-input-box"
                                 name="customer_address"
                                 disable={true}
-                                value={this.props.location.state.order.customer_address}
+                                value={`Indirizzo: ${this.props.location.state.order.customer_address}`}
                             />
                         </div>
 
-                        <div>
-                            <TextArea
-                                className="bo-input-box"
-                                name="customer_address"
-                                disable={true}
-                                value={this.props.location.state.order.customer_address}
-                            />
-                        </div>
 
                         <h2> Cibo ordinato:</h2>
 

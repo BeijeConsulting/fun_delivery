@@ -43,8 +43,8 @@ class LoginUser extends React.Component {
 
         } else if (this.state.email && this.state.password) {
             if (storageUserInfo) {
-                if (storageUserInfo.userInfo.email === this.state.email &&
-                    storageUserInfo.userInfo.password === this.state.password) {
+                if (storageUserInfo.email === this.state.email &&
+                    storageUserInfo.password === this.state.password) {
                     alert('Signed in!')
                     this.props.history.push('/userHome');
                 }

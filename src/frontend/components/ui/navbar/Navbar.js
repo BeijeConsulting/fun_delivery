@@ -57,9 +57,9 @@ const Navbar = (props) => {
         <>
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
-                pathArray[1] !== 'restaurant' && pathArray[1] !== 'userHome' && pathArray[1] !== 'quiz' &&
+                pathArray[1] !== 'restaurant' && pathArray[1] !== 'quiz' && pathArray[1] !== "memory" &&
                 
-                <nav className="navbar">
+                <nav className="navbar nav-custom">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
                     <div className='box-desktop'>
                         <div className='left-nav-side'>

@@ -1,4 +1,4 @@
-.gm-icons-container {
+.gm-header-icons-container {
     display: flex;
     justify-content: space-between;
     height: 50px;
@@ -19,5 +19,6 @@
     display: flex;
 }
 .gm-info-icon:hover > .gm-info-message {
-    display: block;
+    display: flex;
+    align-items: center;
 }
