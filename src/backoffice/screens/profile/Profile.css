@@ -21,6 +21,8 @@ textarea[disabled] {
 }  
 
 .bo-profile-welcome h2{
+    font-size: 28px;
+    font-weight: bold;
     margin: 0;
 }
 

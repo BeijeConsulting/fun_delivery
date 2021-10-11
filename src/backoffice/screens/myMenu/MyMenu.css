@@ -20,6 +20,9 @@
     align-items: center;
     justify-content: space-between;
 }
+.bo-mymenu-first-row.align-left{
+    flex-direction: row;
+}
 
 .bo-mymenu-form{
     display: flex;

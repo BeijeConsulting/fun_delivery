@@ -40,8 +40,7 @@ class MyMenu extends Component {
                 >
                     <div className="bo-profile-container">
 
-                        <div className="bo-mymenu-first-row">
-
+                        <div className="bo-mymenu-first-row align-left">
                             <div className="bo-mymenu-welcome">
                                 <h2>Il tuo menù</h2>
                             </div>

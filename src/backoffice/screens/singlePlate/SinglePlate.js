@@ -184,7 +184,7 @@ class SinglePlate extends Component {
                                         <span className="bo-icon-edit" title="Modifica Piatto"><EditFilled onClick={this.handleEdit} /></span>
                                     }
                                 </div>
-                                <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
+                                <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
                             </div>
 
                             <SinglePlateCard
@@ -194,8 +194,8 @@ class SinglePlate extends Component {
                             />
 
                             <div className="bo-profile-switch">
-                                <p>Visibilità
-                                    <span>
+                                <p style={{fontSize: '16px'}}>Visibilità
+                                    <span style={{paddingLeft:'10px'}}>
                                         <SwitchProfile
                                             handleSwitchCallback={this.handleVisibility}
                                             value={this.state.plate_visibility}
