@@ -8,15 +8,9 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox';
 import TextArea from '../../../common/components/ui/textarea/TextArea';
 
 class RestaurantSingleOrder extends Component {
-    // constructor(props) {
-    //     super(props)
+     constructor(props) {
+         super(props)
 
-<<<<<<< HEAD
-    // this.state = {
-    //     current_order : this.props.location.state.order
-    // }
-    // }
-=======
         // this.state = {
         //     current_order : this.props.location.state.order
         // }
@@ -25,7 +19,6 @@ class RestaurantSingleOrder extends Component {
             showTimeline: false
         }
     }
->>>>>>> features/back_office/single_order
 
     //Mapping the food ordered by the customer
     componentDidMount() {
@@ -99,11 +92,6 @@ class RestaurantSingleOrder extends Component {
                                 value={this.props.location.state.order.customer_address}
                             />
                         </div>
-<<<<<<< HEAD
-                        <Button className="bo-btn single-order" value="next" text="NEXT" />
-                        <Button className="bo-btn single-order" value="approve" text="Approva" />
-                        <Button className="bo-btn single-order" value="dontapprove" text="Non approvare" />
-=======
 
                         <h2> Cibo ordinato:</h2>
 
@@ -125,7 +113,6 @@ class RestaurantSingleOrder extends Component {
                             <div style={{ padding: '10px' }}>TOTALE: 14.5 €</div>
                         </div>
 
->>>>>>> features/back_office/single_order
                     </div>
 
                 </div>
