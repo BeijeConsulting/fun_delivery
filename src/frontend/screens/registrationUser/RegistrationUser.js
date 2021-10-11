@@ -7,11 +7,6 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from '../../../common/assets/delivery.png'
 import './RegistrationUser.css'
 
-//import gm-modal
-import GeneralModal from '../../../gamification/components/funcComponents/generalModal/GeneralModal'
-import ModalCongratulation from '../../../gamification/components/ui/modalCongratulation/ModalCongratulation'
-import Fireworks from '../../../gamification/components/funcComponents/fireworks/Fireworks'
-
 //utils
 import utils from "../../../common/utils/utils";
 
@@ -20,7 +15,7 @@ class RegistrationUser extends React.Component {
         super(props);
 
         this.state = {
-            userInfo: {
+            userInfo : {
                 userName: "",
                 surname: "",
                 email: "",
@@ -34,7 +29,7 @@ class RegistrationUser extends React.Component {
 
     handleInputChange = (e) => {
         this.setState({
-            userInfo: {
+            userInfo : {
                 ...this.state.userInfo,
                 [e.target.name]: e.target.value
             }
@@ -62,6 +57,7 @@ class RegistrationUser extends React.Component {
             error = 'password does not match'
         } else {
             error = 'Registration made'
+            this.props.history.push('/userHome')
         }
 
         this.setState({
@@ -70,10 +66,6 @@ class RegistrationUser extends React.Component {
 
         localStorage.setItem('userInfo', JSON.stringify(this.state))
 
-    }
-
-    handleClickCloseModal = () => {
-        this.props.history.push('/userHome')
     }
 
     render() {
@@ -147,12 +139,6 @@ class RegistrationUser extends React.Component {
                         callback={this.handleSignUp}
                         className={"frontend-primary-btn"}
                     />
-
-                    {
-                        this.state.errormsg === 'Registration made' &&
-                        <GeneralModal callbackClose={this.handleClickCloseModal} contentModal={<ModalCongratulation cascadeMoney={<Fireworks />} />} />
-                    }
-                    
                 </div>
 
                 <img className='frontend-img' src={delivery} alt='delivery guy' />
