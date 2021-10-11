@@ -6,7 +6,6 @@ const GeneralModal = (props) => {
         props.callbackClose()
     }
 
-
     return (
         <div className="gm-modal-container">
 
