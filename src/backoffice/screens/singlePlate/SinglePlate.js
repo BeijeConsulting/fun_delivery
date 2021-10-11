@@ -76,6 +76,18 @@ class SinglePlate extends Component {
         });
     }
 
+    handleCallBackFocus = (e)=>{
+        let field = this.state.data[e.target.name];
+        field[1] = false;
+
+        this.setState({
+            data: {
+                ...this.state.data,
+                [e.target.name]: field
+            }
+        })
+    }
+
     handleVisibility = (e) => {
         this.setState(
             () => ({
@@ -175,7 +187,7 @@ class SinglePlate extends Component {
                                     {
                                         this.state.editData &&
                                         <>                                           
-                                            <span className="bo-icon-edit" title="Salva Piatto"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                            <span className="bo-icon-edit" title="Salva Piatto" style={{marginLeft: '20px'}}><SaveOutlined onClick={this.handleSubmit} /></span>
                                             <span className="bo-icon-edit delete" title="Elimina Piatto"><DeleteOutlined onClick={this.handleDelete} /></span>
                                         </>
                                     }
@@ -191,6 +203,8 @@ class SinglePlate extends Component {
                                 img={this.state.data.plate_img[0]}
                                 callback={this.handleCallbackInput}
                                 name={'plate_img'}
+                                newCss = ''
+                                disable = {!this.state.editData}
                             />
 
                             <div className="bo-profile-switch">
@@ -213,6 +227,7 @@ class SinglePlate extends Component {
                                     value={this.state.data.plate_name[0]}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                                 <InputBox
@@ -223,16 +238,16 @@ class SinglePlate extends Component {
                                     value={this.state.data.plate_price[0]}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </div>
 
                             <select
                                 id='categories'
                                 name='plate_category_id'
-                                className='bo-input-box'
                                 onChange={this.handleCallbackInput}
-                                //onFocus={this.handleCallBackFocus}
-                                //className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}                                
+                                onFocus={this.handleCallBackFocus}
+                                className={`bo-input-box ${this.state.data.plate_category_id[1] ? 'alert' : ''}`}                                
                                 value={this.state.data.plate_category_id[0]}
                                 disabled={!this.state.editData}
                             >
@@ -260,6 +275,7 @@ class SinglePlate extends Component {
                                 value={this.state.data.plate_description[0]}
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
+                                callbackOnFocus={this.handleCallBackFocus}
                             />
                         </div>
                     </div>
