@@ -176,7 +176,9 @@ class MyOrders extends Component {
                 title: i18n.t('backoffice.screens.my_orders.address'),
                 dataIndex: 'customer_address',
                 key: '3',
-                ellipsis: true,
+                ellipsis: {
+                    showTitle: false
+                },
                 render: customer_address => (
                     <Tooltip placement="topLeft" color={"#f24364"} title={customer_address}>
                         {customer_address}
