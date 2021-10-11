@@ -50,7 +50,7 @@ export default function Timeline() {
             </Steps>
             <div className="steps-action">
                 {current < steps.length - 1 && (<Button type="primary" onClick={() => next()}>Next</Button>)}
-                {current === steps.length - 1 && (<Button type="primary" onClick={() => message.success('Ordine completato!')}>Done</Button>)}
+                {current === steps.length - 1 && (<Button type="primary" onClick={() => message.success('Ordine completato!')}>Fatto</Button>)}
             </div>
         </div>
 

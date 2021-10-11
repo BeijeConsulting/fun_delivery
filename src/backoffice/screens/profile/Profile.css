@@ -35,6 +35,9 @@ textarea[disabled] {
 }
 .bo-icon-edit svg{
     font-size: 30px;
+    color: #3F3D56;
+}
+.bo-icon-edit.delete svg {
     color: #F24464d9;
 }
 

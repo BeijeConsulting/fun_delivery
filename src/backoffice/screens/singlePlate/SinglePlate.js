@@ -174,14 +174,14 @@ class SinglePlate extends Component {
                                     <h2>{this.state.plate_show_title}</h2>
                                     {
                                         this.state.editData &&
-                                        <>
-                                            <span className="bo-icon-edit"><DeleteOutlined onClick={this.handleDelete} /></span>
-                                            <span className="bo-icon-edit"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                        <>                                           
+                                            <span className="bo-icon-edit" title="Salva Piatto"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                            <span className="bo-icon-edit delete" title="Elimina Piatto"><DeleteOutlined onClick={this.handleDelete} /></span>
                                         </>
                                     }
                                     {
                                         this.state.editData === false &&
-                                        <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
+                                        <span className="bo-icon-edit" title="Modifica Piatto"><EditFilled onClick={this.handleEdit} /></span>
                                     }
                                 </div>
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
