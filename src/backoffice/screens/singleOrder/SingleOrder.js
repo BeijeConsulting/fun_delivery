@@ -16,13 +16,15 @@ class RestaurantSingleOrder extends Component {
         // }
 
         this.state = {
-            showTimeline: false
+            showTimeline: false,
+            total_price: 0
         }
     }
 
     //Mapping the food ordered by the customer
     componentDidMount() {
         console.log(this.props.location.state);
+        this.totalPriceOrder()
     }
 
     handleCallbackGoBack = () => {
@@ -31,6 +33,14 @@ class RestaurantSingleOrder extends Component {
 
     handleShowTimeline = () => {
         this.setState({ showTimeline: true })
+    }
+
+    totalPriceOrder = () => {
+        let sum=0
+        this.props.location.state.order.ordered.map(item => sum += item.price)
+        this.setState({ 
+                total_price : sum 
+            })
     }
 
     render() {
@@ -113,7 +123,7 @@ class RestaurantSingleOrder extends Component {
                                     </ul>
                                 )
                             })}
-                            <div style={{ padding: '10px' }}>TOTALE: 14.5 €</div>
+                            <div style={{ padding: '10px' }}>TOTALE: €{this.state.total_price}</div>
                         </div>
 
                     </div>
