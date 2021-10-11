@@ -1,9 +1,6 @@
 import "./GeneralModal.css"
 
 const GeneralModal = (props) => {
-    const onClickCloseWindow = () => {
-        props.callbackClose()
-    }
 
     return (
         <div className="gm-modal-container">
