@@ -19,6 +19,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             status: "Stato",
             order: "Ordine",
             address: "Indirizzo"
+        },
+        incoming_orders:{
+            title: "Ordini in arrivo",
+            ordered_text: "ha effettuato un ordine",
         }
     },
 
