@@ -16,25 +16,26 @@ import utils from '../../../common/utils/utils'
 class Profile extends Component {
     constructor(props) {
         super(props)
-
+        this.storageData = JSON.parse(localStorage.getItem('localStorageData')).profile;
         this.state = {
             data: {
-                firstName: [undefined, false],
-                lastName: [undefined, false],
-                email: [undefined, false],
-                restaurant_name: [undefined, false],
-                street: [undefined, false],
-                city: [undefined, false],
-                cap: [undefined, false],
-                country: [undefined, false],
-                VAT: [undefined, false],
-                phone_number: [undefined, false],
-                restaurant_category: [undefined, false],
-                description: [undefined, false],
-                discount: [undefined, false]
+                firstName: [this.storageData.name, false],
+                lastName: [this.storageData.last_name, false],
+                email: [this.storageData.email, false],
+                restaurant_name: [this.storageData.restaurant_name, false],
+                street: [this.storageData.address.street, false],
+                city: [this.storageData.address.city, false],
+                cap: [this.storageData.address.cap, false],
+                country: [this.storageData.address.cap, false],
+                VAT: [this.storageData.VAT, false],
+                phone_number: [this.storageData.phone_number, false],
+                restaurant_category: [this.storageData.restaurant_category_id, false],
+                description: [this.storageData.restaurant_description, false],
+                discount: [this.storageData.restaurant_discount, false]
             },
             editData: false
         }
+        console.log("stato: ", this.state.data)
     }
 
     handleCallbackInput = (e) => {
@@ -68,6 +69,8 @@ class Profile extends Component {
             data: newData,
             editData: correctCheck ? false : true
         })
+        localStorage.setItem('data', JSON.stringify(newData));
+        
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
@@ -111,6 +114,7 @@ class Profile extends Component {
                                     name="firstName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.firstName[0]}
                                 />
 
                                 <InputBox
@@ -120,6 +124,7 @@ class Profile extends Component {
                                     name="lastName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.lastName[0]}
                                 />
 
                             </div>
@@ -130,6 +135,7 @@ class Profile extends Component {
                                 name="email"
                                 callback={this.handleCallbackInput}
                                 disable={!this.state.editData}
+                                value={this.state.data.email[0]}
                             />
 
                         </div>
@@ -145,6 +151,8 @@ class Profile extends Component {
                                     name="restaurant_name"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.restaurant_name[0]}
+
                                 />
 
                                 <InputBox
@@ -154,6 +162,7 @@ class Profile extends Component {
                                     name="phone_number"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.phone_number[0]}
                                 />
 
                             </div>
@@ -166,6 +175,8 @@ class Profile extends Component {
                                     name="street"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.street[0]}
+
                                 />
 
                                 <InputBox
@@ -175,6 +186,8 @@ class Profile extends Component {
                                     name="cap"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.cap[0]}
+
                                 />
 
                             </div>
@@ -187,6 +200,8 @@ class Profile extends Component {
                                     className={`bo-input-box ${this.state.data.country[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
+                                    value={this.state.data.country[0]}
+
                                 />
 
                                 <InputBox
@@ -196,6 +211,8 @@ class Profile extends Component {
                                     name="city"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.city[0]}
+
                                 />
 
                             </div>
@@ -208,6 +225,8 @@ class Profile extends Component {
                                     name="VAT"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.VAT[0]}
+
                                 />
 
                                 <Select
@@ -226,6 +245,8 @@ class Profile extends Component {
                                     className={`bo-input-box ${this.state.data.restaurant_category[1] ? 'alert' : ''}`}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
+                                    value={this.state.data.restaurant_category[0]}
+
                                 />
 
                             </div>
@@ -237,6 +258,8 @@ class Profile extends Component {
                                 className={`bo-input-box ${this.state.data.discount[1] ? 'alert' : ''}`}
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
+                                value={this.state.data.discount[0]}
+
                             />
 
                             <TextArea
@@ -246,6 +269,8 @@ class Profile extends Component {
                                 value="test prova ciao"
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
+                                value={this.state.data.description[0]}
+
                             />
                         </div>
                     </div>

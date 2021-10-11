@@ -9,7 +9,8 @@ import Messicano from '../assets/images/messicano.jpg'
 import Poke from '../assets/images/poke.jpg'
 import Sushi from '../assets/images/sushi.png'
 import Altro from '../assets/images/altro.jpg'
-import Carbonara from'../assets/images/carbonara.jpg'
+import Carbonara from '../assets/images/carbonara.jpg'
+// import Profile from '../screens/profile/Profile'
 const localStorageData = {
     restaurant_categories: [
         {
@@ -18,27 +19,27 @@ const localStorageData = {
         },
         {
             id: 2,
-            name: 'Pokè' 
+            name: 'Pokè'
         },
         {
             id: 3,
-            name: 'Sushi' 
+            name: 'Sushi'
         },
         {
             id: 4,
-            name: 'Messicano' 
+            name: 'Messicano'
         },
         {
             id: 5,
-            name: 'Italiano' 
+            name: 'Italiano'
         },
         {
             id: 6,
-            name: 'Hamburger' 
+            name: 'Hamburger'
         },
         {
             id: 7,
-            name: 'Altro' 
+            name: 'Altro'
         }
     ],
     plate_categories: [
@@ -47,50 +48,50 @@ const localStorageData = {
             name: 'Primi',
             img_path: Primi
         },
-        {           
+        {
             id: 2,
             name: 'Secondi',
-            img_path: Secondi           
+            img_path: Secondi
         },
         {
             id: 3,
             name: 'Contorni',
-            img_path: Contorni 
+            img_path: Contorni
         },
         {
             id: 4,
             name: 'Dessert',
-            img_path: Dessert 
+            img_path: Dessert
         },
         {
             id: 5,
             name: 'Panini',
-            img_path: Panini 
+            img_path: Panini
         },
         {
             id: 6,
             name: 'Pizze',
-            img_path: Pizze 
+            img_path: Pizze
         },
         {
             id: 7,
             name: 'Messicani',
-            img_path: Messicano 
+            img_path: Messicano
         },
         {
             id: 8,
             name: 'Pokè',
-            img_path: Poke 
+            img_path: Poke
         },
         {
             id: 9,
             name: 'Sushi',
-            img_path: Sushi 
+            img_path: Sushi
         },
         {
             id: 10,
             name: 'Altro',
-            img_path: Altro 
+            img_path: Altro
         }
     ],
     plate_list: [
@@ -193,7 +194,27 @@ const localStorageData = {
             plate_category_id: 10,
             plate_visibility: true
         }
-    ]
+    ],
+    profile: {
+        name: "Nome_Ristoratore",
+        last_name: "Cognome_Ristoratore",
+        email: "mail@mail.com",
+        restaurant_name: "Bangladesh food",
+        address: {
+            street: "via ssadad",
+            city: "città",
+            cap: "57031",
+            country: "IT"
+        },
+        VAT: "3578923578325782",
+        phone_number: "23487248923",
+        restaurant_category_id: 1,
+        restaurant_logo: "una immagine di default",
+        restaurant_description: "description",
+        restaurant_discount: 0.5,
+        restaurant_free_shipping: 0
+    }
+
 };
 
 export default localStorageData;

@@ -111,25 +111,25 @@ class SinglePlate extends Component {
             plate_show_title: correctCheck ? newData.plate_name[0] : this.state.plate_show_title
         })
 
-        if (correctCheck) {         
+        if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
                 plate_img: newData.plate_img[0],
                 plate_name: newData.plate_name[0],
                 plate_description: newData.plate_description[0],
-                plate_price:newData.plate_price[0],
-                plate_category_id:newData.plate_category_id[0]
+                plate_price: newData.plate_price[0],
+                plate_category_id: newData.plate_category_id[0]
             }
 
             console.log(modifiedPlate)
-            
+
             const newList = this.storageData.plate_list.map((el) => {
-                if(el.id === this.props.location.state.plateId) {
+                if (el.id === this.props.location.state.plateId) {
                     el = {
                         ...el,
                         ...modifiedPlate
                     }
-                }                
+                }
                 return el;
             })
             this.storageData.plate_list = newList;
@@ -152,16 +152,16 @@ class SinglePlate extends Component {
 
         // Find plate category name
         let categoryName = this.state.list_categories.find(el => {
-            return el.id == this.state.data.plate_category_id[0]
+            return el.id === this.state.data.plate_category_id[0]
         }).name;
 
         // Redirect to right category page LOL
-        this.props.history.push(properties.BO_ROUTING.PLATES,{
+        this.props.history.push(properties.BO_ROUTING.PLATES, {
             titlePage: categoryName.toUpperCase(),
             category_id: this.state.data.plate_category_id,
             elementDeleted: true
         })
-            
+
     }
 
     render() {
@@ -179,9 +179,9 @@ class SinglePlate extends Component {
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
                             </div>
 
-                            <SinglePlateCard 
-                                img={this.state.data.plate_img[0]} 
-                                callback={this.handleCallbackInput} 
+                            <SinglePlateCard
+                                img={this.state.data.plate_img[0]}
+                                callback={this.handleCallbackInput}
                                 name={'plate_img'}
                             />
 

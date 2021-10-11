@@ -5,11 +5,9 @@ import Button from "../../../common/components/ui/button/Button";
 
 
 class RecapOrder extends React.Component {
-    constructor(props) {
-        super(props)
-
-
-    }
+    // constructor(props) {
+    //     super(props)
+    // }
     render() {
         return (
             <div>
@@ -18,7 +16,7 @@ class RecapOrder extends React.Component {
                     text="Grazie per averci scelto!"
                     className='order-title-style'
                 />
-               
+
                 <div className="container-list">
 
 
