@@ -53,7 +53,6 @@
   }
   to{
       right: 90%;
-      display: none;
   }
 }
 
@@ -123,6 +122,14 @@
   100% {
     background-position:  0 0 ;
   }
+}
+
+.gm-countdown-memory{
+  position: absolute;
+  top: 69px;
+  letter-spacing: 1px;
+  color: #f3f3f3;
+  font-size: 16px;
 }
 
 .gm-memory-card-container {
@@ -306,45 +313,19 @@
     height: calc(100vh - 90px);
     overflow: scroll;
   }
+  .gm-game-container::-webkit-scrollbar {
+    display: none;
+  }
   .gm-headerTitleContainer{
     width: 94%;
     margin: 10px auto 0 auto;
   }
   .gm-memory-card-container {
     position: absolute;
-    top: 40px;
+    top: 70px;
     min-height: 450px;
   }
   .card-container {
     max-height: 200px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

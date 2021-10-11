@@ -40,7 +40,8 @@ class Memory extends Component {
             winModal: false,
             loseModal: false,
             beijeCoin: storage.beijeCoin,
-            audio: true
+            audio: true,
+            countSec: 60
         }
     }
 
@@ -54,6 +55,7 @@ class Memory extends Component {
     componentDidMount = () => {
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
+        this.timer = setInterval(this.showCountdown, 1000)
     }
 
     endgame = (value) => {
@@ -145,6 +147,14 @@ class Memory extends Component {
         }, 60000)
     }
 
+    showCountdown = () => {
+        if (this.state.countSec !== 0) {
+            this.setState({
+                countSec: this.state.countSec - 1
+            })
+        }
+    }
+
     handleClickButton = (e) => {
         i18n.changeLanguage(e.target.value);
     }
@@ -184,6 +194,20 @@ class Memory extends Component {
 
                             <div className='gm-moving-street-container'>
                                 <div className="gm-moving-street"></div>
+                            </div>
+                            <div className='gm-countdown-memory'>
+                                {
+                                    this.state.countSec === 60 &&
+                                    <p>01:00</p>
+                                }
+                                {
+                                    this.state.countSec < 60 && this.state.countSec >= 10 &&
+                                    <p>00:{this.state.countSec}</p>
+                                }
+                                {
+                                    this.state.countSec < 10 &&
+                                    <p>00:0{this.state.countSec}</p>
+                                }
                             </div>
 
                             <div className='gm-memory-card-container'>
