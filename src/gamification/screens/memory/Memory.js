@@ -43,11 +43,8 @@ class Memory extends Component {
             loseModal: false,
             beijeCoin: storage.beijeCoin,
             audio: true,
-<<<<<<< HEAD
             chooseGame: false,
-=======
             countSec: 60
->>>>>>> cd588273f9ba1b95f1b7d14412c5f165b35b38ea
         }
     }
 
@@ -64,6 +61,7 @@ class Memory extends Component {
         this.timer = setInterval(this.showCountdown, 1000)
     }
 
+
     endgame = (value) => {
         let tempArray = value
         let newTempArray = tempArray.filter((item) => {
@@ -77,7 +75,10 @@ class Memory extends Component {
                 this.audioWin.play()
             }
             this.addCoins()
+            clearInterval(this.timer)
         }
+
+
     }
 
     addCoins = () => {
@@ -171,20 +172,13 @@ class Memory extends Component {
         })
     }
 
-<<<<<<< HEAD
     chooseGameCallback = () => {
         this.setState({
             chooseGame: true,
         })
     }
 
-    redirect = () => {
-        return(
-            <Link to="/orderConfirmed"/>
-        )
-    }
-=======
->>>>>>> cd588273f9ba1b95f1b7d14412c5f165b35b38ea
+
     render() {
         const { t } = this.props
 
@@ -263,7 +257,7 @@ class Memory extends Component {
                     <GeneralModal
                         contentModal={<ChooseGame />} />
                 }
-            </>
+              </>
         )
     }
 }

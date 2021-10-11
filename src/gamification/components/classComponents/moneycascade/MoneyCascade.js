@@ -32,7 +32,6 @@ class MoneyCascade extends Component {
     render() {
         return (
             <div 
-            style={{pointerEvent:"none"}}
             className='gm-snowmoney_container'>
                 {this.snow()}
             </div>

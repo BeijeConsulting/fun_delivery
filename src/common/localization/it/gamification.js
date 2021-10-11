@@ -60,6 +60,14 @@ export const TRANSLATIONS_GAMIFICATION = {
             playagain: 'Rigioca',
             changegame: 'Cambia gioco',
             mapOrder: 'Vedi stato ordinazione'
-        }
+        },
+        quiz:{
+            goNext: 'Avanti',
+            ModalReactionWin: 'Congratulazioni, hai vinto',
+            ModalReactionLose: "Mi dispiace, hai perso",
+
+        },
+
+
     }
 }
