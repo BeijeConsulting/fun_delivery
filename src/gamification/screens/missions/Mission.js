@@ -92,75 +92,54 @@ class Mission extends Component {
         this.controllCheck()
     }
 
-    // openModal = () => {
-    //     this.setState({
-    //         modalMission: !this.state.modalMission
-    //     })
-    // }
+    printMissions = (e, i) => {
 
-    // openModalAvatar = () => {
-    //     this.setState({
-    //         modalAvatar: !this.state.modalAvatar
-    //     })
-    // }
+        if (e.check === false) {
+
+            return <div key={i} className="MissionMenuContainer">
+                <ul className="MissionMenu">
+                    <li className={e.level === 2 ? 'MissionSingle sepia' : 'MissionSingle'} key={i} style={{ background: e.level === 2 ? 'rgba(153, 147, 147, 0.534)' : '' }} >
+
+                        <div className="MissionSingleTitle">
+                            <h2>{e.title}</h2>
+                            <p>{e.description}</p>
+
+                        </div>
+
+                        <div className="MissionAward">
+                            <span className="MissionSub">
+                                <span>
+                                    EXP:
+                                </span>
+                                {e.exp}
+                            </span>
+                            <span className="MissionSub">
+                                <span>
+                                    BeijeCoin:
+
+                                </span>
+                                +{e.beijeCoin}
+                                <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        }
+    }
 
 
     render() {
         return (
             <div className="MissionContainer">
-                {/* <button onClick={this.openModal} >
-                    MODALE
-
-                </button> */}
-
+                <h1>Le mie missioni</h1>
                 {this.state.arr.length > 0 &&
-                    this.state.arr.map((e, i) => {
-
-                        if (e.check === false) {
-
-                            return <div key={i} className="MissionMenuContainer">
-                                <ul className="MissionMenu">
-                                    <li className={e.level === 2 ? 'MissionSingle sepia' : 'MissionSingle'} key={i} style={{ background: e.level === 2 ? 'rgba(153, 147, 147, 0.534)' : '' }} >
-
-                                        <div className="MissionSingleTitle">
-                                            <h2>{e.title}</h2>
-                                            <p>{e.description}</p>
-
-                                        </div>
-
-                                        <div className="MissionAward">
-                                            <span className="MissionSub">
-                                                <span>
-                                                    EXP:
-                                                </span>
-                                                {e.exp}/1000
-                                            </span>
-                                            <span className="MissionSub">
-                                                <span>
-                                                    BeijeCoin:
-
-                                                </span>
-                                                +{e.beijeCoin}
-                                                <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
-                                            </span>
-                                        </div>
-
-
-                                    </li>
-                                </ul>
-                            </div>
-
-
-                        }
-
-                    })
+                    this.state.arr.map(this.printMissions)
                 }
                 {
                     this.state.arr.length === 0 &&
                     <h2>Non ci sono piu Missioni</h2>
                 }
-
-
             </div>
         )
     }
