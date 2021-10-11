@@ -5,9 +5,9 @@ import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from "../../../common/assets/delivery.png"
 import "./LoginUser.css"
 import { Link } from "react-router-dom";
-import utils from "../../../common/utils/utils";
+// import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 
 

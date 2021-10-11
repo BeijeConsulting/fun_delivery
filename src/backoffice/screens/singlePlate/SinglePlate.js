@@ -150,7 +150,7 @@ class SinglePlate extends Component {
 
         // Find plate category name
         let categoryName = this.state.list_categories.find(el => {
-            return el.id == this.state.data.plate_category_id[0]
+            return el.id === this.state.data.plate_category_id[0]
         }).name;
 
         // Redirect to right category page LOL
