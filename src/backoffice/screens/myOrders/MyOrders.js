@@ -8,7 +8,7 @@ import i18n from "../../../common/localization/i18n";
 import './MyOrders.css';
 import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 
 
 class MyOrders extends Component {
@@ -147,9 +147,14 @@ class MyOrders extends Component {
                 dataIndex: 'customer_address',
                 key: '3',
                 ellipsis: true,
+                render: customer_address => (
+                    <Tooltip placement="topLeft" color={"#f24364"} title={customer_address}>
+                        {customer_address}
+                    </Tooltip>
+                ),
             },
             {
-                title: '',
+                title: 'Visualizza',
                 dataIndex: 'order_id',
                 key: '4',
                 render: (order_id) => (
@@ -230,8 +235,7 @@ class MyOrders extends Component {
                         </div>
                         <div className="bo-order-form">
                             <Table
-                                rowKey={record => record.uid}
-                                tableLayout={"unset"}
+                                rowKey={record => record.order_id}
                                 pagination={false}
                                 dataSource={this.all_ordersModifiedStatus}
                                 columns={this.columns}
