@@ -6,6 +6,8 @@ import Button from "../../../common/components/ui/button/Button";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from '../../../common/assets/delivery.png'
 import './RegistrationUser.css'
+import i18n from "../../../common/localization/i18n";
+import { withTranslation } from 'react-i18next';
 
 //utils
 import utils from "../../../common/utils/utils";
@@ -44,19 +46,19 @@ class RegistrationUser extends React.Component {
         let error = this.state.errormsg
 
         if (utils.validateName(this.state.userInfo.userName) === false) {
-            error = 'invald name'
+            error=i18n.t('frontend.components.error_registration.userName')
         } else if (utils.validateName(this.state.userInfo.surname) === false) {
-            error = 'invalid surname'
+            error=i18n.t('frontend.components.error_registration.surname')
         } else if (utils.validateEmail(this.state.userInfo.email) === false) {
-            error = 'invalid email'
-        } /* else if (utils.validatePhone(this.state.userInfo.phone) === false) {
-            error = 'invalid phone' 
-        }*/ else if (utils.validatePassword(this.state.userInfo.password) === false) {
-            error = 'invalid password'
+            error=i18n.t('frontend.components.error_registration.email')
+        } else if (utils.validatePhone(this.state.userInfo.phone) === false) {
+            error=i18n.t('frontend.components.error_registration.phone')
+        } else if (utils.validatePassword(this.state.userInfo.password) === false) {
+            error=i18n.t('frontend.components.error_registration.password')
         } else if (this.state.userInfo.confpsw !== this.state.userInfo.password) {
-            error = 'password does not match'
+            error=i18n.t('frontend.components.error_registration.confirm_password')
         } else {
-            error = 'Registration made'
+            error=i18n.t('frontend.components.error_registration.registration_accept')
             this.props.history.push('/userHome')
         }
 
@@ -68,21 +70,28 @@ class RegistrationUser extends React.Component {
 
     }
 
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
     render() {
+
+        const { t } = this.props
+
         return (
 
             <div className="frontend-outer-container fe-registration">
                 <div className="frontend-inner-container">
                     <HtmlTag
                         tag="h1"
-                        text="Register"
+                        text={t('frontend.screens.registrationUser.title')}
                         className='frontend-h1'
                     />
                     <h3 style={{
                         color: "#F24464"
                     }}>{this.state.errormsg}</h3>
                     <InputBox
-                        placeholder={"Nome"}
+                        placeholder={t('frontend.components.register_placeholder.userName')}
                         name={"userName"}
                         type={"text"}
                         value={this.state.userName}
@@ -90,7 +99,7 @@ class RegistrationUser extends React.Component {
                         className={"frontend-input"}
                     />
                     <InputBox
-                        placeholder={"Cognome"}
+                        placeholder={t('frontend.components.register_placeholder.surname')}
                         name={"surname"}
                         type={"text"}
                         value={this.state.surname}
@@ -99,7 +108,7 @@ class RegistrationUser extends React.Component {
                     />
 
                     <InputBox
-                        placeholder={"Email"}
+                        placeholder={t('frontend.components.register_placeholder.email')}
                         name={"email"}
                         type={"email"}
                         value={this.state.email}
@@ -108,7 +117,7 @@ class RegistrationUser extends React.Component {
                     />
 
                     <InputBox
-                        placeholder={"Numero di Telefono"}
+                        placeholder={t('frontend.components.register_placeholder.phone')}
                         name={"phone"}
                         type={"tel"}
                         value={this.state.phone}
@@ -117,7 +126,7 @@ class RegistrationUser extends React.Component {
                     />
 
                     <InputBox
-                        placeholder={"Password"}
+                        placeholder={t('frontend.components.register_placeholder.password')}
                         name={"password"}
                         type={"password"}
                         value={this.state.password}
@@ -126,7 +135,7 @@ class RegistrationUser extends React.Component {
                     />
 
                     <InputBox
-                        placeholder={"Confirm password"}
+                        placeholder={t('frontend.components.register_placeholder.confpsw')}
                         name={"confpsw"}
                         type={"password"}
                         value={this.state.confpsw}
@@ -135,11 +144,14 @@ class RegistrationUser extends React.Component {
                     />
                     {/* validazione dati e invio dei dati */}
                     <Button
-                        text={"SIGN UP"}
+                        text={t('frontend.components.button.register')}
                         callback={this.handleSignUp}
                         className={"frontend-primary-btn"}
                     />
                 </div>
+
+                <button value="it" onClick={this.handleClickButton}>it</button>
+                    <button value="en" onClick={this.handleClickButton}>en</button>
 
                 <img className='frontend-img' src={delivery} alt='delivery guy' />
             </div>
@@ -147,4 +159,4 @@ class RegistrationUser extends React.Component {
     }
 }
 
-export default RegistrationUser;
+export default withTranslation()(RegistrationUser);
