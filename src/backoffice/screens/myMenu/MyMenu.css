@@ -16,6 +16,7 @@
 
 .bo-mymenu-first-row {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
 }
@@ -36,8 +37,7 @@
 
 @media screen and (max-width: 766px) {
     .bo-mymenu-first-row {
-        flex-direction: column-reverse;
-        align-items: center;
+        flex-direction: column;
     }
 
     .bo-mymenu-form {
