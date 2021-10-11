@@ -41,9 +41,8 @@ export const TRANSLATIONS_GAMIFICATION = {
                 },
 
             ],
-            infoGame: 'Rispondi correttamente alle domande'
+        infoGame: 'Scegli la risposta corretta'
         }
-
         
     },
     components: {
@@ -51,10 +50,10 @@ export const TRANSLATIONS_GAMIFICATION = {
             title: 'Gioca con noi',
             subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
         },
-        quiz:{
-            goNext: 'Avanti',
-            ModalReactionWin: 'Congratulazioni, hai vinto',
-            ModalReactionLose: "Mi dispiace, hai perso",
+        memory:{
+            buttonText: 'Avanti',
+            textModalWrong: 'Mi dispiace, ma hai perso',
+            textModalWin: 'Congratulazioni, hai vinto'
 
         },
         modalreaction: {

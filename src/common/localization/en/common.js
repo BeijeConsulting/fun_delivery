@@ -11,6 +11,9 @@ export const TRANSLATIONS_COMMON = {
             city: "City",
             zip: "ZIP",
             number: "Telephone",
+        },
+        button: {
+            show: "Show"
         }
     }
 }

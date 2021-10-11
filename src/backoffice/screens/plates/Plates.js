@@ -28,7 +28,9 @@ class Plates extends Component {
     componentDidMount = () => {
 
         // If plate was deleted, redirect to my menu page
-        if (this.props.location.state.elementDeleted === true) {
+        const elementDeleted = get(this.props, 'location.state.elementDeleted', false);
+
+        if (elementDeleted === true) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
         }        
 

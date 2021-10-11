@@ -3,7 +3,7 @@ import './Memory.css'
 import properties from '../../utilities/properties'
 import { Link } from 'react-router-dom'
 
-import musicMemory from "../../assets/sounds/musicMemory.mp3"
+// import musicMemory from "../../assets/sounds/musicMemory.mp3"
 import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
 import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
 import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
@@ -15,9 +15,10 @@ import ModalReaction from '../../components/ui/modalReaction/ModalReaction';
 import MoneyCascade from '../../components/classComponents/moneycascade/MoneyCascade';
 import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
+import treeSheet from '../../assets/images/memoryImg/tree-sheet.png'
 import HeaderGamePage from '../../components/funcComponents/headerGamePage/HeaderGamePage';
 import './../quiz/Quiz.css'
-import Rider from './../../assets/images/memoryImg/rider.svg'
+import Rider from './../../assets/images/memoryImg/rider.png'
 import i18n from '../../../common/localization/i18n';
 import { withTranslation } from 'react-i18next';
 import ChooseGame from '../../components/funcComponents/chooseGame/ChooseGame'
@@ -34,7 +35,6 @@ class Memory extends Component {
         this.audioWrongCardsMemory = new Audio(wrongCardsMemory);
         this.audioLose = new Audio(lose)
 
-
         this.state = {
             storage: storage === null ? [] : storage,
             shuffle: false,
@@ -43,7 +43,11 @@ class Memory extends Component {
             loseModal: false,
             beijeCoin: storage.beijeCoin,
             audio: true,
+<<<<<<< HEAD
             chooseGame: false,
+=======
+            countSec: 60
+>>>>>>> cd588273f9ba1b95f1b7d14412c5f165b35b38ea
         }
     }
 
@@ -55,10 +59,9 @@ class Memory extends Component {
     }
 
     componentDidMount = () => {
-
-
         this.shuffle(this.state.memoryCardsPair)
         this.countdown()
+        this.timer = setInterval(this.showCountdown, 1000)
     }
 
     endgame = (value) => {
@@ -70,13 +73,11 @@ class Memory extends Component {
             this.setState({
                 winModal: true
             })
-            //vinto
             if (this.state.audio) {
                 this.audioWin.play()
             }
             this.addCoins()
         }
-
     }
 
     addCoins = () => {
@@ -93,24 +94,17 @@ class Memory extends Component {
         this.setState({
             storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
         })
-
     }
 
-
     handleClickMemory = (key) => () => {
-
-
         // SET ACTIVE TRUE ON SELECTED ELEMENT
         let newMemoryCardsPair = this.state.memoryCardsPair
         if (newMemoryCardsPair[key].active === false) {
-            //qui suono carta che si gira
             if (this.state.audio) {
                 this.audioSeeCardMemory.play();
             }
         }
         newMemoryCardsPair[key].active = true
-
-
 
         // ADD SELECTED ELEMENT TO A NEW ARRAY
         let filteredCard = newMemoryCardsPair.filter(card => card.active === true)
@@ -127,13 +121,11 @@ class Memory extends Component {
                         el.name === filteredCard[0].name ? el.visible = false : el
                     )
                     newMemoryCardsPair = cardsRemove
-                    // qui suono due carte uguali
                     if (this.state.audio) {
                         this.audioRightCardsMemory.play();
                     }
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
-                    //qui suono due carte diverse
                     if (this.state.audio) {
                         this.audioWrongCardsMemory.play();
                     }
@@ -155,13 +147,18 @@ class Memory extends Component {
             this.setState({
                 loseModal: true
             })
-            //perso
             if (this.state.audio) {
                 this.audioLose.play()
             }
-
         }, 60000)
+    }
 
+    showCountdown = () => {
+        if (this.state.countSec !== 0) {
+            this.setState({
+                countSec: this.state.countSec - 1
+            })
+        }
     }
 
     handleClickButton = (e) => {
@@ -174,6 +171,7 @@ class Memory extends Component {
         })
     }
 
+<<<<<<< HEAD
     chooseGameCallback = () => {
         this.setState({
             chooseGame: true,
@@ -185,62 +183,66 @@ class Memory extends Component {
             <Link to="/orderConfirmed"/>
         )
     }
+=======
+>>>>>>> cd588273f9ba1b95f1b7d14412c5f165b35b38ea
     render() {
         const { t } = this.props
 
         return (
             <>
                 <div className='memory-page'>
+
                     <div className="gm-headerTitleContainer">
-
                         <HeaderGamePage
-
                             infoMessage={t('gamification.screens.memory.infoGame')}
                             state={this.state.audio}
                             callbackAudioButton={this.callbackAudioButton}
                             iconContainerCss='gm-header-icon-container gm-game-header-page'
                         />
-                        {/* <div className='gm-flags-container'>
-
-                            <button
-                                onClick={this.handleClickButton}
-                                style={{
-                                    width: '40px', height: '40px',
-
-                                }}
-                                value="it"
-                            >
-                                it
-                            </button>
-                            <button
-                                onClick={this.handleClickButton}
-                                style={{ width: '40px', height: '40px' }}
-                                value="en"
-                            >
-                                en
-                            </button>
-                        </div> */}
                     </div>
 
                     <div className="gm-flex-container">
                         <div className='gm-game-container'>
+
                             <div className="gm-rider-container">
                                 <img className="gm-rider" src={Rider} alt="rider"></img>
                             </div>
-                            <div className="gm-moving-street">
 
+                            <div className='gm-moving-street-tree-container'>
+                                <div className='gm-moving-street-tree'><img src={treeSheet} alt={'three-sheet'} /></div>
                             </div>
-                            {this.state.memoryCardsPair.map((card, key) => {
-                                return (
-                                    <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
-                                        <div
-                                            key={key}
-                                            className={card.active ? 'card active' : "card wrong-front"} >
+
+                            <div className='gm-moving-street-container'>
+                                <div className="gm-moving-street"></div>
+                            </div>
+                            <div className='gm-countdown-memory'>
+                                {
+                                    this.state.countSec === 60 &&
+                                    <p>01:00</p>
+                                }
+                                {
+                                    this.state.countSec < 60 && this.state.countSec >= 10 &&
+                                    <p>00:{this.state.countSec}</p>
+                                }
+                                {
+                                    this.state.countSec < 10 &&
+                                    <p>00:0{this.state.countSec}</p>
+                                }
+                            </div>
+
+                            <div className='gm-memory-card-container'>
+                                {this.state.memoryCardsPair.map((card, key) => {
+                                    return (
+                                        <div style={card.visible ? { opacity: '1' } : { animationName: "disappear", animationDuration: "1s" }} className="card-container" key={key}>
+                                            <div
+                                                key={key}
+                                                className={card.active ? 'card active' : "card wrong-front"} >
+                                            </div>
+                                            <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
                                         </div>
-                                        <div style={{ backgroundImage: `url(${card.name})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "100%" }} className={card.active ? 'card-back active-back' : 'card-back wrong-back'} onClick={this.handleClickMemory(key)}></div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>

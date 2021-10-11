@@ -8,7 +8,7 @@ import i18n from "../../../common/localization/i18n";
 import './MyOrders.css';
 import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 
 
 class MyOrders extends Component {
@@ -25,12 +25,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
                 status: "confirmed"
@@ -42,12 +48,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
                 status: "confirmed"
@@ -59,12 +71,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 1
                     }
                 ],
                 status: "rejected"
@@ -76,12 +94,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 10,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2,
+                        quantity: 5
                     }
                 ],
                 status: "delivering"
@@ -93,15 +117,21 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
-                status: "completed"
+                status: "preparing"
             },
         ]
         //Orders with modifed status to show emoji's instead of status
@@ -110,7 +140,7 @@ class MyOrders extends Component {
             {
                 title: i18n.t('backoffice.screens.my_orders.order'),
                 dataIndex: 'order_id',
-                key: 'order_id',
+                key: '1',
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => a.order_id - b.order_id,
             },
@@ -139,21 +169,28 @@ class MyOrders extends Component {
                         value: '🔴',
                     }
                 ],
-                key: 'status',
+                key: '2',
                 onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
                 title: i18n.t('backoffice.screens.my_orders.address'),
                 dataIndex: 'customer_address',
-                key: 'customer_address',
-                ellipsis: true,
+                key: '3',
+                ellipsis: {
+                    showTitle: false
+                },
+                render: customer_address => (
+                    <Tooltip placement="topLeft" color={"#f24364"} title={customer_address}>
+                        {customer_address}
+                    </Tooltip>
+                ),
             },
             {
-                title: '',
+                title: 'Visualizza',
                 dataIndex: 'order_id',
-                key: 'action',
+                key: '4',
                 render: (order_id) => (
-                    <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)}/>
+                    <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)} />
                 ),
             },
         ];
@@ -165,7 +202,9 @@ class MyOrders extends Component {
 
     mapObjectForEmojiStatus = (order) => {
         order.map((item) => {
-            item.status = this.handleEmojiStatus(item.status)
+            return (
+                item.status = this.handleEmojiStatus(item.status)
+            )
         })
     }
 
@@ -228,7 +267,7 @@ class MyOrders extends Component {
                         </div>
                         <div className="bo-order-form">
                             <Table
-                                tableLayout={"unset"}
+                                rowKey={record => record.order_id}
                                 pagination={false}
                                 dataSource={this.all_ordersModifiedStatus}
                                 columns={this.columns}

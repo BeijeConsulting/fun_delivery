@@ -3,48 +3,65 @@ export const TRANSLATIONS_GAMIFICATION = {
         memory: {
             infoGame: 'Find two equal pairs'
         },
-        quiz: {
-            quizArray: [
-                {
-                    question: "Where does the poke come from??",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "Hawaii",
-                },
-                {
-                    question: "Where does pizza come from?",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "Italy",
+        quiz:  {
+            quizArray :[
+                    {
+                    question: "Where the poke comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "Hawaii",
+                    },
+                    {
+                        question: "Where pizza comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "Italy",
 
-                },
-                {
-                    question: "Where does sushi come from?",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "Japan",
+                    },
+                    {
+                        question: "Where sushi comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "Japan",
 
-                }, {
-                    question: "Where does carbonara come from?",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "Italy",
+                    }, {
+                        question: "Where carbonara comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "Italy",
 
-                },
-                {
-                    question: "Where does champagne come from?",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "France",
+                    },
+                    {
+                        question: "Where champagne comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "France",
 
-                },
-                {
-                    question: "Where does ramen come from?",
-                    options: ["Italy", "France", "Japan", "Hawaii"],
-                    answer: "Japan",
+                    },
+                    {
+                        question: "Where ramen comes from?",
+                        options: ["Italy", "France", "Japan", "Hawaii"],
+                        answer: "Japan",
 
-                },
+                    },
 
-            ],
-            infoGame: 'Answer the questions correctly'
+                ],
+                infoGame: 'Choose a correct answer',
+            }
+            
+            
+        },
+        components: {
+            chooseGame: {
+                title: 'Play with us',
+                subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
+            },
+            memory: {
+                buttonText: 'Go Next',
+                textModalWrong: 'I am sorry you lose',
+                textModalWin: 'Congratulations, you win'
 
-        }
 
+            },
+            modalreaction: {
+                buttonPlayAgain: 'Play again',
+                mapStateOrdination: 'Map your status order',
+                changeGame: 'Change game'
 
     },
     components: {
