@@ -5,6 +5,7 @@ import rightQuiz from "../../assets/sounds/rightQuiz.mp3"
 import wrongQuiz from "../../assets/sounds/wrongQuiz.mp3"
 import win from "../../assets/sounds/win.mp3"
 import lose from "../../assets/sounds/lose.wav"
+import { Link } from "react-router-dom"
 
 
 import './Quiz.css'
@@ -18,6 +19,7 @@ import Coin from "./../../assets/images/beijeCoin.png";
 import Tear from './../../assets/images/tear.svg';
 import i18n from "../../../common/localization/i18n"
 import { withTranslation } from "react-i18next"
+import ChooseGame from "../../components/funcComponents/chooseGame/ChooseGame"
 
 class Quiz extends Component {
 
@@ -49,7 +51,8 @@ class Quiz extends Component {
             showLoader: false,
             beijeCoin: storage.beijeCoin,
             translate: false,
-            audio: true
+            audio: true,
+            chooseGame: false,
         }
     }
 
@@ -175,9 +178,16 @@ class Quiz extends Component {
     }
 
     redirect = () => {
-        this.props.history.goBack()
+        return(
+            <Link to="/orderConfirmed"/>
+            )
     }
 
+    chooseGameCallback = () => {
+        this.setState({
+            chooseGame: true,
+        })
+    }
 
     resultModal = () => {
         if (this.state.counterWins >= 2) {
@@ -192,8 +202,8 @@ class Quiz extends Component {
         return (
             <GeneralModal
                 contentModal={this.state.counterWins >= 2 ?
-                    <ModalReaction callback={this.redirect} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal={i18n.t('gamification.components.quiz.ModalReactionWin')} />
-                    : <ModalReaction callback={this.redirect} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal={i18n.t('gamification.components.quiz.ModalReactionLose')} />}
+                    <ModalReaction callback={this.redirect} chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal={i18n.t('gamification.components.quiz.ModalReactionWin')} />
+                    : <ModalReaction callback={this.redirect} chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal={i18n.t('gamification.components.quiz.ModalReactionLose')} />}
             />
         )
     }
@@ -281,6 +291,11 @@ class Quiz extends Component {
                 {
                     this.state.showLoader &&
                     this.resultModal()
+                }
+                {
+                    this.state.chooseGame &&
+                    <GeneralModal
+                    contentModal={<ChooseGame />} />
                 }
 
             </div >

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
+import { Link } from 'react-router-dom'
 
 import musicMemory from "../../assets/sounds/musicMemory.mp3"
 import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
@@ -19,6 +20,7 @@ import './../quiz/Quiz.css'
 import Rider from './../../assets/images/memoryImg/rider.svg'
 import i18n from '../../../common/localization/i18n';
 import { withTranslation } from 'react-i18next';
+import ChooseGame from '../../components/funcComponents/chooseGame/ChooseGame'
 
 
 class Memory extends Component {
@@ -40,7 +42,8 @@ class Memory extends Component {
             winModal: false,
             loseModal: false,
             beijeCoin: storage.beijeCoin,
-            audio: true
+            audio: true,
+            chooseGame: false,
         }
     }
 
@@ -70,7 +73,7 @@ class Memory extends Component {
             //vinto
             if (this.state.audio) {
                 this.audioWin.play()
-            } 
+            }
             this.addCoins()
         }
 
@@ -82,9 +85,9 @@ class Memory extends Component {
 
         let tempObj = this.state.storage
 
-        for (let key in tempObj.userInfo) {
+        for (let key in tempObj) {
             if (key === 'beijeCoin') {
-                tempObj.userInfo[key] = beijeCoin;
+                tempObj[key] = beijeCoin;
             }
         }
         this.setState({
@@ -171,7 +174,17 @@ class Memory extends Component {
         })
     }
 
-    
+    chooseGameCallback = () => {
+        this.setState({
+            chooseGame: true,
+        })
+    }
+
+    redirect = () => {
+        return(
+            <Link to="/orderConfirmed"/>
+        )
+    }
     render() {
         const { t } = this.props
 
@@ -234,14 +247,19 @@ class Memory extends Component {
                 {
                     this.state.winModal &&
                     <GeneralModal
-                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />}
+                        contentModal={<ModalReaction chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />}
                     />
                 }
                 {
                     this.state.loseModal && this.state.winModal === false &&
                     <GeneralModal
-                        contentModal={<ModalReaction cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
+                        contentModal={<ModalReaction chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
                     />
+                }
+                {
+                    this.state.chooseGame &&
+                    <GeneralModal
+                        contentModal={<ChooseGame />} />
                 }
             </>
         )

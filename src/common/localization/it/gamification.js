@@ -58,7 +58,7 @@ export const TRANSLATIONS_GAMIFICATION = {
 
         },
         modalreaction: {
-            playagain: 'Gioca con noi',
+            playagain: 'Rigioca',
             changegame: 'Cambia gioco',
             mapOrder: 'Vedi stato ordinazione'
         }

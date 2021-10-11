@@ -58,7 +58,7 @@ export const TRANSLATIONS_GAMIFICATION = {
             ModalReactionLose: "I'm sorry, you lose",
         },
         modalreaction: {
-            playagain: 'Play with us',
+            playagain: 'Play again',
             changegame: 'Change game',
             mapOrder: 'Map your status order'
         }
