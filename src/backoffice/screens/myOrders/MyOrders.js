@@ -25,12 +25,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
                 status: "confirmed"
@@ -42,12 +48,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
                 status: "confirmed"
@@ -59,12 +71,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 1
                     }
                 ],
                 status: "rejected"
@@ -76,12 +94,18 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 10,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2,
+                        quantity: 5
                     }
                 ],
                 status: "delivering"
@@ -93,15 +117,21 @@ class MyOrders extends Component {
                 ordered: [
                     {
                         nameFood: "Margherita",
+                        price: 6,
+                        quantity: 1
                     },
                     {
                         nameFood: "Napoli",
+                        price: 6,
+                        quantity: 2
                     },
                     {
                         nameFood: "Coca cola",
+                        price: 2.5,
+                        quantity: 2
                     }
                 ],
-                status: "completed"
+                status: "preparing"
             },
         ]
         //Orders with modifed status to show emoji's instead of status
