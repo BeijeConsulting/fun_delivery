@@ -3,71 +3,119 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditFilled } from '@ant-design/icons';
+import { EditFilled, SaveOutlined } from '@ant-design/icons';
 import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
-import Button from "../../../common/components/ui/button/Button";
 import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
-
+import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
 // const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
-
+        this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
         this.state = {
             data: {
-                firstName: [undefined, false],
-                lastName: [undefined, false],
-                email: [undefined, false],
-                restaurant_name: [undefined, false],
-                street: [undefined, false],
-                city: [undefined, false],
-                cap: [undefined, false],
-                country: [undefined, false],
-                VAT: [undefined, false],
-                phone_number: [undefined, false],
-                restaurant_category: [undefined, false],
-                description: [undefined, false],
-                discount: [undefined, false]
+                firstName: ['', false],
+                lastName: ['', false],
+                email: ['', false],
+                restaurant_name: ['', false],
+                street: ['', false],
+                city: ['', false],
+                cap: ['', false],
+                country_id: ['', false],
+                VAT: ['', false],
+                phone_number: ['', false],
+                restaurant_category_id: ['', false],
+                description: ['', false],
+                discount: ['', false],
+                profile_img: ['', false]
             },
+            list_categories: [],
+            list_countries: [],
             editData: false
         }
+        console.log("stato: ", this.state.data)
+    }
+
+    componentDidMount() {
+        let restaurant_categories = this.storageData.restaurant_categories;
+
+        // Init list_countries
+        let countries = [
+            {
+                country_name: 'Italy',
+                country_id: 1
+            },
+            {
+                country_name: 'England',
+                country_id: 2
+            }
+        ];
+
+        this.setState({
+            list_categories: restaurant_categories,
+            list_countries: countries
+        })
     }
 
     handleCallbackInput = (e) => {
+        let data = {};
+        if (e.target.name === 'country_id' || e.target.name === 'restaurant_category_id') {
+            data[e.target.name] = [parseInt(e.target.value), false];
+        } else {
+            data[e.target.name] = [e.target.value, false];
+        }
+
         this.setState(prevState => ({
             data: {
                 ...prevState.data,
-                [`${e.target.name}`]: [e.target.value, false]
+                ...data
             },
             editData: true
         }))
     }
 
+    handleCallBackFocus = (e) => {
+        let field = this.state.data[e.target.name];
+        field[1] = false;
+
+        this.setState({
+            data: {
+                ...this.state.data,
+                [e.target.name]: field
+            }
+        })
+    }
+
     handleSubmit = () => {
         let newData = {
-            firstName: [this.state.data.firstName[0], !utils.validateName(this.state.data.firstName[0]) || this.state.data.firstName[0] === undefined],
-            lastName: [this.state.data.lastName[0], !utils.validateName(this.state.data.lastName[0]) || this.state.data.lastName[0] === undefined],
+            firstName: [this.state.data.firstName[0], this.state.data.firstName[0].length <= 4],
+            lastName: [this.state.data.lastName[0], this.state.data.lastName[0].length <= 4],
             email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[0])],
-            restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0] === undefined ? true : this.state.data.restaurant_name[0].length >= 4 ? false : true],
+            restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0].length <= 4],
             street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[0])],
-            city: [this.state.data.city[0], !utils.validateCity(this.state.data.city[0]) || this.state.data.city[0] === undefined],
+            city: [this.state.data.city[0], !utils.validateCity(this.state.data.city[0])],
             cap: [this.state.data.cap[0], !utils.validateCap(this.state.data.cap[0])],
-            country: [this.state.data.country[0], this.state.data.country[0] === undefined],
+            country_id: [this.state.data.country_id[0], this.state.data.country_id[0] !== '' ? false : true],
             VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[0])],
             phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
-            restaurant_category: [this.state.data.restaurant_category[0], this.state.data.restaurant_category[0] === undefined],
-            discount: [this.state.data.discount[0], this.state.data.discount[0] === undefined],
-            description: [this.state.data.description[0], false]
+            restaurant_category_id: [this.state.data.restaurant_category_id[0], this.state.data.restaurant_category_id[0] !== '' ? false : true],
+            discount: [this.state.data.discount[0], !this.state.data.discount[0]],
+            description: [this.state.data.description[0], this.state.data.description[0].length <= 4]
         }
         let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true))
         this.setState({
             data: newData,
             editData: correctCheck ? false : true
         })
+
+        // New data for backend
+        if (correctCheck) {
+            console.log(newData);
+        }
     }
 
     handleEdit = () => { this.setState({ editData: true }) }
@@ -80,12 +128,28 @@ class Profile extends Component {
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
                                 <h2>Benvenuto, Admin</h2>
-                                <span className="bo-icon-edit"><EditFilled onClick={this.handleEdit} /></span>
+
+                                {
+                                    !this.state.editData &&
+                                    <span className="bo-icon-edit" title="Modifica dati profilo"><EditFilled onClick={this.handleEdit} /></span>
+                                }
+
+                                {
+                                    this.state.editData &&
+                                    <span className="bo-icon-edit" title="Salva dati profilo"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                }
+
                                 {/* <span className="bo-icon-edit"><DollarCircleOutlined /> Beije Coin </span> */}
+
                             </div>
-                            <div className="bo-profile-img">
-                                <img src={LogoBeije} alt="" />
-                            </div>
+                            {/* <img src={LogoBeije} alt="" /> */}
+                            <SinglePlateCard
+                                img={LogoBeije}
+                                callback={this.handleCallbackInput}
+                                name={'profile_img'}
+                                disable={!this.state.editData}
+                                newCss='logo'
+                            />
                         </div>
                         <div className="bo-profile-form">
                             <div className="bo-profile-second-row">
@@ -94,15 +158,6 @@ class Profile extends Component {
                                     <p>Free Shipping <span><SwitchProfile /> </span></p>
                                 </div>
                             </div>
-                            {
-                                this.state.editData &&
-                                <Button
-                                    text='SALVA'
-                                    className='bo-btn'
-                                    callback={this.handleSubmit}
-                                />
-                            }
-
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
@@ -111,6 +166,7 @@ class Profile extends Component {
                                     name="firstName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                                 <InputBox
@@ -120,6 +176,7 @@ class Profile extends Component {
                                     name="lastName"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                             </div>
@@ -130,6 +187,7 @@ class Profile extends Component {
                                 name="email"
                                 callback={this.handleCallbackInput}
                                 disable={!this.state.editData}
+                                callbackOnFocus={this.handleCallBackFocus}
                             />
 
                         </div>
@@ -145,6 +203,7 @@ class Profile extends Component {
                                     name="restaurant_name"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                                 <InputBox
@@ -154,6 +213,7 @@ class Profile extends Component {
                                     name="phone_number"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                             </div>
@@ -166,6 +226,7 @@ class Profile extends Component {
                                     name="street"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                                 <InputBox
@@ -175,19 +236,37 @@ class Profile extends Component {
                                     name="cap"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                             </div>
                             <div className="bo-profile-flex-inputs">
 
-                                <Select
-                                    selectID="country"
-                                    selectName="country"
-                                    data={['Stato', 'Italy', 'England']}
-                                    className={`bo-input-box ${this.state.data.country[1] ? 'alert' : ''}`}
-                                    disable={!this.state.editData}
-                                    callback={this.handleCallbackInput}
-                                />
+                                <select
+                                    id='country'
+                                    name='country_id'
+                                    className={`bo-input-box ${this.state.data.country_id[1] ? 'alert' : ''}`}
+                                    onChange={this.handleCallbackInput}
+                                    onFocus={this.handleCallBackFocus}
+                                    value={this.state.data.country_id[0]}
+                                    disabled={!this.state.editData}
+                                >
+                                    <option disabled value="">Stato</option>
+
+                                    {
+                                        this.state.list_countries.map((category, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={category.country_id}
+                                                >
+                                                    {category.country_name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+
+                                </select>
 
                                 <InputBox
                                     type="text"
@@ -196,6 +275,7 @@ class Profile extends Component {
                                     name="city"
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                 />
 
                             </div>
@@ -206,28 +286,38 @@ class Profile extends Component {
                                     placeholder="P.IVA"
                                     className={`bo-input-box ${this.state.data.VAT[1] ? 'alert' : ''}`}
                                     name="VAT"
+                                    callbackOnFocus={this.handleCallBackFocus}
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
+                                    value={this.state.data.VAT[0]}
+
                                 />
 
-                                <Select
-                                    selectID="category"
-                                    selectName="restaurant_category"
-                                    data={[
-                                        'Categoria',
-                                        'Pizza',
-                                        'Pokè',
-                                        'Sushi',
-                                        'Messicano',
-                                        'Italiano',
-                                        'Hamburger',
-                                        'Altro'
-                                    ]}
-                                    className={`bo-input-box ${this.state.data.restaurant_category[1] ? 'alert' : ''}`}
-                                    disable={!this.state.editData}
-                                    callback={this.handleCallbackInput}
-                                />
+                                <select
+                                    id='category'
+                                    name='restaurant_category_id'
+                                    onChange={this.handleCallbackInput}
+                                    onFocus={this.handleCallBackFocus}
+                                    className={`bo-input-box ${this.state.data.restaurant_category_id[1] ? 'alert' : ''}`}
+                                    value={this.state.data.restaurant_category_id[0]}
+                                    disabled={!this.state.editData}
+                                >
+                                    <option disabled value="">Categorie</option>
 
+                                    {
+                                        this.state.list_categories.map((category, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+
+                                </select>
                             </div>
 
                             <Select
@@ -237,15 +327,17 @@ class Profile extends Component {
                                 className={`bo-input-box ${this.state.data.discount[1] ? 'alert' : ''}`}
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
+                                callbackOnFocus={this.handleCallBackFocus}
                             />
 
                             <TextArea
                                 name="description"
                                 className={`bo-input-box ${this.state.data.description[1] ? 'alert' : ''}`}
                                 id="description"
-                                value="test prova ciao"
+                                placeholder="Descrizione ristorante"
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
+                                callbackOnFocus={this.handleCallBackFocus}
                             />
                         </div>
                     </div>

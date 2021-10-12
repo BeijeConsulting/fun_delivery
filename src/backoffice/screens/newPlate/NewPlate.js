@@ -2,7 +2,7 @@ import { Component } from "react";
 import './NewPlate.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
-import { LeftOutlined } from '@ant-design/icons'
+import { LeftOutlined, SaveOutlined } from '@ant-design/icons'
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import Button from "../../../common/components/ui/button/Button";
@@ -36,7 +36,7 @@ class NewPlate extends Component {
                 plate_category_id: false,
                 plate_description: false,
             },
-            list_categories: []
+            list_categories: [],
         }
     }
 
@@ -133,9 +133,10 @@ class NewPlate extends Component {
 
                             <div className="bo-mymenu-welcome">
                                 <h2>Crea il tuo piatto</h2>
+                                <span className="bo-icon-edit" title="Salva Piatto"><SaveOutlined onClick={this.handleSubmit} /></span>
                             </div>
 
-                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
+                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
                         </div>
 
                         <SinglePlateCard
@@ -146,9 +147,9 @@ class NewPlate extends Component {
                         />
 
                         <div className="bo-new-plate-switch">
-                            <p>
-                                Visibility
-                                <span>
+                            <p style={{fontSize: '16px'}}>
+                                Visibilità
+                                <span style={{paddingLeft:'10px'}}>
                                     <SwitchProfile
                                         handleSwitchCallback={this.handleSwitchCallback}
                                         defaultChecked={true}
@@ -210,14 +211,6 @@ class NewPlate extends Component {
                             callback={this.handleCallbackInput}
                             callbackOnFocus={this.handleCallBackFocus}
                         />
-
-                        <div className="bo-plate-row-button">
-                            <Button
-                                className="bo-btn-save"
-                                text="Salva"
-                                callback={this.handleSubmit}
-                            />
-                        </div>
                     </div>
                 </div>
             </LayoutBackOffice>

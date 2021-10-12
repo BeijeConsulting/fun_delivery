@@ -63,30 +63,85 @@ const properties = {
 
 
     avatar_list: [
-        {image: apple, cost: 0},
-        {image: banana, cost: 10},
-        {image: cherries, cost: 20},
-        {image: icecream, cost: 30},
-        {image: lemon, cost: 100},
-        {image: pear, cost: 30},
-        {image: pineapple, cost: 100},
-        {image: strawberry, cost: 100},
-        {image: watermelon, cost: 100}
+        { image: apple, cost: 0 },
+        { image: banana, cost: 10 },
+        { image: cherries, cost: 20 },
+        { image: icecream, cost: 30 },
+        { image: lemon, cost: 100 },
+        { image: pear, cost: 30 },
+        { image: pineapple, cost: 100 },
+        { image: strawberry, cost: 100 },
+        { image: watermelon, cost: 100 }
     ],
 
     badge_list: [
-        {image: signedUp},
-        {image: capitan20},
-        {image: firstOrder},
-        {image: firstOrder2},
-        {image: greedy},
-        {image: king},
-        {image: mexican},
-        {image: mostPopular},
-        {image: pizzaKing},
-        {image: playTogether},
-        {image: spendthrift},
-        {image: topClient}
+        { image: signedUp },
+        { image: capitan20 },
+        { image: firstOrder },
+        { image: firstOrder2 },
+        { image: greedy },
+        { image: king },
+        { image: mexican },
+        { image: mostPopular },
+        { image: pizzaKing },
+        { image: playTogether },
+        { image: spendthrift },
+        { image: topClient }
+    ],
+
+    missions: [
+        {
+            title: 'Iscriviti!',
+            description: `Effettua l'iscrizione a Beije Delivery!`,
+            exp: 100,
+            claim: false,
+            beijeCoin: 7,
+        },
+        {
+            title: 'Mangia con noi',
+            description: 'Effettua il primo ordine',
+            exp: 200,
+            claim: null,
+            beijeCoin: 5,
+        },
+        {
+            title: 'Special One',
+            description: 'Effettua almeno un ordine dalla special week',
+            exp: 300,
+            claim: null,
+            beijeCoin: 7,
+        },
+        {
+            title: 'Giochiamo insieme',
+            description: 'Fai una partita ad un minigame',
+            exp: 100,
+            claim: null,
+            beijeCoin: 3,
+
+        },
+        {
+            title: 'Spendaccione',
+            description: 'Compra almeno un avatar premium',
+            exp: 200,
+            claim: null,
+            beijeCoin: 5,
+
+        },
+        {
+            title: 'Capitano 20',
+            description: 'Spendi almeno 20 euro per un ordine',
+            exp: 300,
+            claim: null,
+            beijeCoin: 10,
+        },
+        {
+            title: 'King',
+            description: 'Ordina da tre categorie diverse',
+            exp: 500,
+            claim: null,
+            beijeCoin: 15,
+
+        }
     ]
 }
 

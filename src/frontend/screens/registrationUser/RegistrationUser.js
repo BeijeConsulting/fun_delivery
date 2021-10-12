@@ -10,6 +10,7 @@ import './RegistrationUser.css'
 //import gm-modal
 import GeneralModal from '../../../gamification/components/funcComponents/generalModal/GeneralModal'
 import ModalCongratulation from '../../../gamification/components/ui/modalCongratulation/ModalCongratulation'
+import HeaderModalX from "../../../gamification/components/funcComponents/headerModalX/HeaderModalX"
 import Fireworks from '../../../gamification/components/funcComponents/fireworks/Fireworks'
 
 //utils
@@ -27,7 +28,7 @@ class RegistrationUser extends React.Component {
                 phone: "",
                 password: "",
                 confpsw: "",
-                beijeCoin: 999,
+                beijeCoin: 0,
                 experience: 0,
                 avatar: {
                     userAvatars: [0],
@@ -37,7 +38,7 @@ class RegistrationUser extends React.Component {
                     userBadges: [0,1,6],
                     selectedBadge: 0,
                 },
-                mission: [],
+                mission: [0],
                 freeDelivery: false,
                 discount: false
             },
@@ -163,7 +164,7 @@ class RegistrationUser extends React.Component {
 
                     {
                         this.state.errormsg === 'Registration made' &&
-                        <GeneralModal callbackClose={this.handleClickCloseModal} contentModal={<ModalCongratulation cascadeMoney={<Fireworks />} />} />
+                        <GeneralModal headerModal={<HeaderModalX callback={this.handleClickCloseModal}/>}  contentModal={<ModalCongratulation cascadeMoney={<Fireworks />} />} />
                     }
                     
                 </div>

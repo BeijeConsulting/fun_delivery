@@ -17,10 +17,8 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
-
         this.email = ''
         this.password = ''
-
         this.state = {
             warning: false
         }
@@ -29,26 +27,21 @@ class Login extends Component {
     handleInputEmail = (e) => {
         this.email = e.target.value
     }
-
     handleInputPassword = (e) => {
         this.password = e.target.value
     }
-
     handleSubmit = () => {
-        let emailChecked = Utils.validateEmail(this.email);       
-        let passwordChecked = Utils.validatePassword(this.password);        
-
+        let emailChecked = Utils.validateEmail(this.email);
+        let passwordChecked = Utils.validatePassword(this.password);
         let error = this.state.warning
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
-
             // SAVE DATA on localStorage
             let storageExists = localStorage.getItem('localStorageData');
-            if(!storageExists) {
+            if (!storageExists) {
                 localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
             }
-                        
             error = false
             this.props.history.push(properties.BO_ROUTING.PROFILE, {
                 validation: true
@@ -65,7 +58,7 @@ class Login extends Component {
 
     render() {
         const { t } = this.props
-        
+
         return (
             <div className="bo-login">
                 <Navbar

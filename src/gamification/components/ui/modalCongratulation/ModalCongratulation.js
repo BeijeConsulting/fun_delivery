@@ -5,9 +5,7 @@ const ModalCongratulation = (props) => {
 
     return (
         <div className='gm-reaction-container'>
-                {/* <div className="gm-cascade" > */}
-                    {props.cascadeMoney}
-
+                {props.cascadeMoney}
             <p className='gm-reaction-text'>{props.textModal}</p>
 
         </div>

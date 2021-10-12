@@ -47,11 +47,11 @@
     align-items: center;
     
 }
-.nav-custom{
+/* .nav-custom{
     position: fixed;
     top: 0px;
     left: 0px;
-}
+} */
 .gm-order-confirmed{
     overflow: hidden;
     display: flex;

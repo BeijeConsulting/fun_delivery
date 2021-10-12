@@ -1,5 +1,9 @@
 export const TRANSLATIONS_BACKOFFICE = {
     screens: {
+        common_screens: {
+            order: "Ordine",
+            address: "Indirizzo"
+        },
         login: {
             partner: "Vuoi diventare un nostro partner?",
             title: "Accedi al tuo ristorante",
@@ -13,18 +17,27 @@ export const TRANSLATIONS_BACKOFFICE = {
             your_data: "I tuoi dati",
             your_restaurant: "Il tuo ristorante",
         },
-        my_orders:{
+        my_orders: {
             your_orders: "I tuoi ordini",
             number_of_order: "Ordine #",
             status: "Stato",
-            order: "Ordine",
-            address: "Indirizzo"
         },
-        incoming_orders:{
+        incoming_orders: {
             title: "Ordini in arrivo",
             ordered_text: "ha effettuato un ordine",
+        },
+        single_order: {
+            ordered_food: "Cibo ordinato",
+            customer_name: "Nome cliente",
+            date: "Data",
+            price: "Prezzo",
+            quantity: "Quantità",
+            total: "TOTALE",
+            approve: "Approva",
+            dont_approve: "Non approvare"
         }
     },
+
 
     components: {
         button: {
@@ -34,6 +47,20 @@ export const TRANSLATIONS_BACKOFFICE = {
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
+        },
+        timeline: {
+            title: {
+                approved: "Approvato",
+                preparing: "In preparazione",
+                delivering: "In consegna",
+                delivered: "Consegnato",
+            },
+            confirm_to_continue: "Sei sicuro di continuare?",
+            next_step: "Prossimo step",
+            cancel: "Annulla",
+            next: "Prossimo",
+            done: "Completato",
+            success_message: "Ordine completato"
         }
     },
 
@@ -58,7 +85,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             completed: "🟢 Completato",
             delivering: "🟡 In consegna",
             preparing: "🟠 In preparazione",
-            confirmed: "🔵 Confermato",
+            pending: "🔵 Da approvare",
             rejected: "🔴 Rifiutato",
             error: "Errore"
         }

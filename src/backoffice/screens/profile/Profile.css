@@ -6,6 +6,13 @@ textarea[disabled] {
     border: 0;
 }
 
+input[disabled]::placeholder,
+select[disabled],
+textarea[disabled]::placeholder {
+    color: rgb(110, 110, 110);
+    opacity: 1;
+}
+
 
 .bo-input-box{
     color: rgb(110, 110, 110);
@@ -18,9 +25,15 @@ textarea[disabled] {
     padding: 15px;
     border-radius: 5px;
     font-size: 16px;
-}  
+} 
+
+/* .bo-input-box::placeholder {
+    color: rgb(110, 110, 110);
+} */
 
 .bo-profile-welcome h2{
+    font-size: 28px;
+    font-weight: bold;
     margin: 0;
 }
 
@@ -48,7 +61,7 @@ textarea[disabled] {
 }
 
 .bo-profile-form{
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .bo-profile-form .bo-input-box{
