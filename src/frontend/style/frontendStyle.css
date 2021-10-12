@@ -72,7 +72,7 @@
 
 .frontend-h1{
     color: var(--primary-dark);
-    font-size: 40px;
+    font-size: 35px;
     margin-bottom: 1rem;
 }
 
@@ -88,7 +88,7 @@
 
 @media screen and (min-width: 768.1px) {
     .frontend-inner-container{
-        width: 250px;
+        width: 280px;
     }
 }
 @media screen and (max-width: 1024px) {
