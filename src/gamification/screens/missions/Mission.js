@@ -1,131 +1,98 @@
 import UserNavbar from "../../../frontend/components/ui/userNavbar/UserNavbar";
+import Button from "../../../common/components/ui/button/Button"
 import { Component } from "react";
 import './Mission.css'
 import Coin from '../../assets/images/beijeCoin.png'
 import { isElementOfType } from "react-dom/test-utils";
+import properties from "../../utilities/properties";
 
-const MISSIONS = [
-    {
-        title: 'Mangia con noi',
-        description: 'Effettua il primo ordine',
-        level: 1,
-        exp: 50,
-        beijeCoin: 5,
-        check: false,
-        id: 1
-    },
-    {
-        title: 'Special One',
-        description: 'Effettua almeno un ordine dalla special week',
-        level: 1,
-        exp: 70,
-        beijeCoin: 10,
-        check: false,
-        id: 2
-    },
-    {
-        title: 'Giochiamo insieme',
-        description: 'Fai una partita ad un minigame',
-        level: 1,
-        exp: 80,
-        beijeCoin: 15,
-        check: false,
-        id: 3
-
-    },
-    {
-        title: 'Spendaccione',
-        description: 'Compra almeno un avatar premium',
-        level: 2,
-        exp: 110,
-        beijeCoin: 35,
-        check: false,
-        id: 4
-
-    },
-    {
-        title: 'Capitano 20',
-        description: 'Spendi almeno 20 euro per un ordine',
-        level: 2,
-        exp: 150,
-        beijeCoin: 50,
-        check: false,
-        id: 5
-    },
-    {
-        title: 'King',
-        description: 'Ordina da tre categorie diverse',
-        level: 2,
-        exp: 300,
-        beijeCoin: 70,
-        check: false,
-        id: 6
-
-    }
-]
 
 class Mission extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            arr: MISSIONS,
-            modalMission: false,
-            modalAvatar: false
+        this.missions = properties.missions
+        this.storage = JSON.parse(localStorage.getItem('userInfo'))
 
+        this.state = {
+            arr: this.missions,
+            modalMission: false,
+            modalAvatar: false,
+            storage: this.storage === null ? [] : this.storage,
         }
+        console.log(this.state.storage)
     }
-    controllCheck = () => {
-        let arr = this.state.arr;
-        let count = 0
-        arr.map((element, key) => {
-            if (element.check === true) {
-                count = count + 1
-            }
+
+    // controllCheck = () => {
+    //     let arr = this.state.arr;
+    //     let count = 0
+    //     arr.map((element, key) => {
+    //         if (element.check === true) {
+    //             count = count + 1
+    //         }
+    //     })
+
+    //     if (count === this.state.arr.length) {
+    //         this.setState({ arr: [] })
+
+    //     }
+    // }
+    // componentDidMount() {
+    //     this.controllCheck()
+    // }
+
+    handleClaim = (e, i) => () => {
+        let newStorage = this.state.storage
+        let newArr = this.state.arr
+
+        newStorage.mission.push(i)
+        newStorage.experience += e.exp
+        newStorage.beijeCoin += e.beijeCoin
+        newArr[i].claim=true
+
+        this.setState({
+            storage: newStorage,
+            arr:newArr
         })
 
-        if (count === this.state.arr.length) {
-            this.setState({ arr: [] })
+        localStorage.setItem('userInfo', JSON.stringify(newStorage))
 
-        }
-    }
-    componentDidMount() {
-        this.controllCheck()
     }
 
     printMissions = (e, i) => {
 
-        if (e.check === false) {
+        return <div key={i} className="MissionMenuContainer">
+            <ul className="MissionMenu">
+                {/* <li className={e.level === 2 ? 'MissionSingle sepia' : 'MissionSingle'} key={i} style={{ background: e.level === 2 ? 'rgba(153, 147, 147, 0.534)' : '' }} > */}
 
-            return <div key={i} className="MissionMenuContainer">
-                <ul className="MissionMenu">
-                    <li className={e.level === 2 ? 'MissionSingle sepia' : 'MissionSingle'} key={i} style={{ background: e.level === 2 ? 'rgba(153, 147, 147, 0.534)' : '' }} >
-
-                        <div className="MissionSingleTitle">
-                            <h2>{e.title}</h2>
-                            <p>{e.description}</p>
-
-                        </div>
-
-                        <div className="MissionAward">
-                            <span className="MissionSub">
-                                <span>
-                                    EXP:
-                                </span>
-                                {e.exp}
+                <li
+                    style={this.state.storage.mission.includes(i) ? { backgroundColor: 'rgba(153, 147, 147, 0.534)' } : null}
+                    className='MissionSingle'>
+                    <div className="MissionSingleTitle">
+                        <h2>{e.title}</h2>
+                        <p>{e.description}</p>
+                        {this.missions[i].claim === false &&
+                            <Button style={{backgroundColor: "var(--primary-strawberry)", padding: "5px 10px"}} text="Riscuoti!"
+                                callback={this.handleClaim(e, i)}
+                            />}
+                    </div>
+                    <div className="MissionAward">
+                        <span className="MissionSub">
+                            <span>
+                                EXP:
                             </span>
-                            <span className="MissionSub">
-                                <span>
-                                    BeijeCoin:
-
-                                </span>
-                                +{e.beijeCoin}
-                                <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
+                            {e.exp}
+                        </span>
+                        <span className="MissionSub">
+                            <span>
+                                BeijeCoin:
                             </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        }
+                            {e.beijeCoin}
+                            <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
     }
 
 
@@ -134,7 +101,7 @@ class Mission extends Component {
             <div className="MissionContainer">
                 <h1>Le mie missioni</h1>
                 {this.state.arr.length > 0 &&
-                    this.state.arr.map(this.printMissions)
+                    this.state.arr.map(this.printMissions).sort((a,b)=> a.claim > b.claim ? -1 : 1)
                 }
                 {
                     this.state.arr.length === 0 &&
