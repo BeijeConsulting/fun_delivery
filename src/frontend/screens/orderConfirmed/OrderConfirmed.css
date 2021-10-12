@@ -1,0 +1,94 @@
+
+.title-order-confirmed{
+    text-align: center; 
+    color: #3F3D56;
+    font-weight: bold;
+    margin-top:20px;
+}
+
+.btn-order-confirmed{
+    background-color:#F14464 ;
+    padding: 10px 10px;
+    border-radius: 25px;
+    transition: .5s;
+    color :white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+    
+}
+.btn-order-confirmed:hover{
+    background-color: #F67A90;
+}
+
+.btn-confirmed-class{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container-gif{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+}
+.gif-style{
+    width: 100%;
+}
+
+
+.ant-steps-vertical{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.nav-custom{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+.gm-order-confirmed{
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 90px;
+}
+@media (min-width: 768px) {
+    .container-gif{
+        width: 60%;
+        box-shadow: 18px -16px 30px -1px rgba(0,0,0,0.68);
+    }
+    
+}
+@media (min-width: 1400px) {
+    .container-gif{
+        width: 35%;
+        
+    }
+    
+}
+@media (min-width: 1500px) {
+    .container-gif{
+        width: 25%;
+        
+    }
+    
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+    .ant-steps-vertical{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+  }

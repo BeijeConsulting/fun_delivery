@@ -1,0 +1,46 @@
+ .single-order{
+    background-color: var(--primary-strawberry);
+    color: #ffffff;
+    font-size: 20px;
+    width: 50%;
+}
+.bo-single-order .orders{
+    border-radius: 5px;
+    color: rgb(110, 110, 110);
+    border: 2px solid #ebebeb;
+    font-size:16px;
+    padding:15px;
+}
+.bo-single-order .bo-profile-form {
+    margin-top: 40px;
+}
+
+/* Approving Orders */
+.bo-single-order .btn-orders-container  {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.bo-single-order .btn-orders-container .bo-btn:first-child {
+    margin-right: 15px;
+}
+.bo-single-order .btn-orders-container .bo-btn:last-child {
+    margin-left: 15px;
+}
+
+.container-order{
+    padding: 15px;
+}
+
+.bo-btn.single-order {
+    margin-bottom: 0;
+}
+
+@media all and (max-width: 766px) {
+    .single-order{
+        font-size: 14px;
+    }
+    .bo-mymenu-first-row{
+        flex-direction: column-reverse ;
+    }
+}

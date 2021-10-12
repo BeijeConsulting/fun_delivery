@@ -3,7 +3,7 @@
 }
 
 .gm-choosegame-container-p{
-    font-size: 1.2em;
+    font-size: 0.6em !important;
 }
 
 .gm-choosegame-container-game{
@@ -11,7 +11,9 @@
     display: flex;
     justify-content: space-around;
 }
-
+.gm-choose-title{
+    font-size: 1.4em;
+}
 .gm-choosegame-img{
     display: flex;
     width: 200px;

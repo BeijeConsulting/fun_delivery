@@ -1,0 +1,15 @@
+.gm-reaction-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0% 6%;
+    position: relative;
+}
+
+.gm-reaction-text {
+    text-align: center;
+}
+
+
+
+
+

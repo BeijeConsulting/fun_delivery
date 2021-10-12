@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import './Registration.css'
+import { withTranslation } from 'react-i18next';
+import {map as _map} from "lodash";
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
@@ -7,8 +8,7 @@ import BannerBackground from '../../components/ui/bannerBackground/BannerBackgro
 import utils from '../../../common/utils/utils'
 import constantsDictionary from '../../../common/utils/constantsDictionary'
 import Select from '../../../common/components/ui/select/Select'
-import { withTranslation } from 'react-i18next';
-import {map as _map} from "lodash";
+import './Registration.css'
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
 

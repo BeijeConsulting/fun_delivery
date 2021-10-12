@@ -75,7 +75,8 @@
     font-size: 40px;
     margin-bottom: 1rem;
 }
-canvas{
+
+.gm-wheel-modal canvas{
     width: 30% !important;
     position:absolute;
     top: 50%;
@@ -91,7 +92,7 @@ canvas{
     }
 }
 @media screen and (max-width: 1024px) {
-    canvas{
+    .gm-wheel-modal canvas{
         width: 80% !important;
     }
 }
@@ -99,7 +100,7 @@ canvas{
     .frontend-inner-container{
         width: 50%;
     }
-    canvas{
+    .gm-wheel-modal canvas{
         width: 80% !important;
     }
 }
@@ -116,7 +117,7 @@ canvas{
     .frontend-primary-btn{
         margin-bottom: 3rem;
     }
-    canvas{
+    .gm-wheel-modal canvas{
         width: 100% !important;
     }
 }

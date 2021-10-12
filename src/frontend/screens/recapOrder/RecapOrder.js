@@ -18,7 +18,7 @@ class RecapOrder extends React.Component {
                     text="Grazie per averci scelto!"
                     className='order-title-style'
                 />
-               
+
                 <div className="container-list">
 
 

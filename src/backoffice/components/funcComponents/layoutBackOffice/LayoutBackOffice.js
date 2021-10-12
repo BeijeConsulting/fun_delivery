@@ -27,8 +27,8 @@ const LayoutBackOffice = (props) => {
                         style={{ backgroundColor: 'rgba(242, 68, 100, .9)' }}
                         breakpoint="lg"
                         collapsedWidth="0"
-                        onBreakpoint={broken => { console.log(broken) }}
-                        onCollapse={(collapsed, type) => { console.log(collapsed, type) }}
+                        onBreakpoint={broken => { /*console.log(broken)*/ }}
+                        onCollapse={(collapsed, type) => { /*console.log(collapsed, type)*/ }}
                     >
                         <div className="backoffice-menu-container">
                             <ul className="backoffice-menu">

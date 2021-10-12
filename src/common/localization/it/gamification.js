@@ -41,15 +41,33 @@ export const TRANSLATIONS_GAMIFICATION = {
                 },
 
             ],
-            infoGame: 'Rispondi correttamente alle domande'
+        infoGame: 'Scegli la risposta corretta'
         }
-
         
     },
     components: {
         chooseGame: {
             title: 'Gioca con noi',
             subtitle: 'Gioca con noi in attesa del tuo ordine e guadagna i beijecoins per comprare dei nuovi avatar'
-        }
+        },
+        memory:{
+            buttonText: 'Avanti',
+            textModalWrong: 'Mi dispiace, ma hai perso',
+            textModalWin: 'Congratulazioni, hai vinto'
+
+        },
+        modalreaction: {
+            playagain: 'Rigioca',
+            changegame: 'Cambia gioco',
+            mapOrder: 'Vedi stato ordinazione'
+        },
+        quiz:{
+            goNext: 'Avanti',
+            ModalReactionWin: 'Congratulazioni, hai vinto',
+            ModalReactionLose: "Mi dispiace, hai perso",
+
+        },
+
+
     }
 }

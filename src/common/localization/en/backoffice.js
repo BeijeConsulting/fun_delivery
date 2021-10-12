@@ -13,6 +13,17 @@ export const TRANSLATIONS_BACKOFFICE = {
             title: "Register your restaurant",
             your_data: "Your data",
             your_restaurant: "Your restaurant",
+        },
+        my_orders:{
+            your_orders: "Your orders",
+            number_of_order: "Order #",
+            status: "Status",
+            order: "Order",
+            address: "Address"
+        },
+        incoming_orders:{
+            title: "Incoming orders",
+            ordered_text: "placed an order",
         }
     },
 
@@ -42,6 +53,16 @@ export const TRANSLATIONS_BACKOFFICE = {
             titleComponent: "Country",
             italy: "Italy",
             england: "England"
+        },
+
+        order_status: {
+            all: "All",
+            completed: "🟢 Completed",
+            delivering: "🟡 Delivering",
+            preparing: "🟠 Preparing",
+            confirmed: "🔵 Confirmed",
+            rejected: "🔴 Rejected",
+            error: "Error"
         }
     }
 }

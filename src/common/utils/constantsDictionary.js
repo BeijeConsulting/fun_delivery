@@ -15,6 +15,13 @@ const constantsDictionary = {
         titleComponent: i18n.t('backoffice.useful_constants.countries.titleComponent'),
         italy: i18n.t('backoffice.useful_constants.countries.italy'),
         england: i18n.t('backoffice.useful_constants.countries.england')
+    },
+    ORDER_STATUS: {
+        all: i18n.t('backoffice.useful_constants.order_status.all'),
+        completed: i18n.t('backoffice.useful_constants.order_status.completed'),
+        delivering: i18n.t('backoffice.useful_constants.order_status.delivering'),
+        preparing: i18n.t('backoffice.useful_constants.order_status.preparing'),
+        confirmed: i18n.t('backoffice.useful_constants.order_status.confirmed'),
     }
 }
 

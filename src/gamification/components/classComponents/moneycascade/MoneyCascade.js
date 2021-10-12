@@ -31,7 +31,8 @@ class MoneyCascade extends Component {
 
     render() {
         return (
-            <div className='gm-snowmoney_container'>
+            <div 
+            className='gm-snowmoney_container'>
                 {this.snow()}
             </div>
         )

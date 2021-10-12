@@ -10,6 +10,7 @@ import UserHome from "./frontend/screens/userHome/UserHome";
 import Restaurants from "./frontend/screens/restaurants/Restaurants";
 import Navbar from "./frontend/components/ui/navbar/Navbar";
 import RecapOrder from "./frontend/screens/recapOrder/RecapOrder";
+import OrderConfirmed from "./frontend/screens/orderConfirmed/OrderConfirmed";
 
 import MenuRestaurant from "./frontend/screens/menuRestaurant/MenuRestaurant";
 
@@ -54,6 +55,7 @@ const Routing = () => {
                 <Route exact path="/userHome" component={UserHome} />
                 <Route path="/recapOrder" component={RecapOrder}/>
                 <Route path="/menuRestaurant" component={MenuRestaurant} />
+                <Route path="/orderConfirmed" component={OrderConfirmed} />
 
 
                 {/* BACKOFFICE ROUTES */}
@@ -65,7 +67,7 @@ const Routing = () => {
                 <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
                 <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate}/>
                 <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate}/>                
-                <Route path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
+                <Route exact path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
                 <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder}/>                                
                 <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders}/>
                 <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>

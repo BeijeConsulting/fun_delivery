@@ -11,8 +11,9 @@ const SwitchProfile = (props) => {
     return (
         <>
             <Switch 
-                defaultChecked
+                checked={props.value}      
                 onClick={handleSwitch} 
+                defaultChecked={props.defaultChecked}
             />
         </>
     )
