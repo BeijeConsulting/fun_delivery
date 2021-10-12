@@ -8,14 +8,15 @@
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
-    height: calc(100vh - 82px);
+    min-height: calc(100vh - 82px);
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    padding: 5rem 2rem 0 2rem
+    padding: 5rem 2rem 2rem 2rem
 }
 .landing-screen .landing-content{
     width: 50%;
+    position: relative;
 }
 
 .landing-screen .main-box{
@@ -47,11 +48,88 @@
     margin-bottom: 2rem;
 }
 
+
+
+/* IMGS */
+.fe-svg-landing{
+    position: absolute;
+}
+.fe-burger-svg{
+    width: 320px;
+    bottom: 0;
+    left: 0;
+}
+.fe-icecream-svg{
+    width: 70px;
+    top: 120px;
+    left: 350px;
+    transform: rotateZ(40deg);
+}
+.fe-barbecue-svg{
+    width: 250px;
+    right: 120px;
+    top: 120px;
+    transform: rotateZ(-40deg);
+}
+.fe-breakfast-svg{
+    width: 25%;
+    bottom: 0;
+    right: 0;
+}
+
+
 @media screen and (max-width: 768px){
     .landing-screen{
         align-items: center;
     }
     .landing-screen .landing-content{
         width: 100%;
+    }
+
+
+    .fe-burger-svg{
+        width: 35%;
+        bottom: 0;
+        left: 0;
+    }
+    .fe-icecream-svg{
+        width: 70px;
+        top: 120px;
+        left: 350px;
+        transform: rotateZ(40deg);
+    }
+    .fe-barbecue-svg{
+        width: 19%;
+        right: 120px;
+        top: 120px;
+        transform: rotateZ(-40deg);
+    }
+    .fe-breakfast-svg{
+        width: 25%;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 524px) {
+    .fe-icecream-svg{
+        display: none;
+    }
+}
+
+
+@media screen and (max-height: 600px){
+    .fe-burger-svg{
+        display: none;
+    }
+    .fe-breakfast-svg{
+        display: none;
+    }
+}
+
+
+@media screen and (width: 1024px){
+    .fe-burger-svg{
+        width: 370px;
     }
 }

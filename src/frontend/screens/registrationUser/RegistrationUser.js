@@ -57,6 +57,7 @@ class RegistrationUser extends React.Component {
 
     };
 
+
     //TEST TEMP
     //Levare alert e mettere i vari messaggi di errori e di login effettuato
     handleSignUp = () => {
