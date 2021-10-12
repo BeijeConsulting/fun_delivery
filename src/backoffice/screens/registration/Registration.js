@@ -97,12 +97,13 @@ class Registration extends Component {
                         sponsor: null,
                     };
 
-                    let localStorageRestaurantsData = localStorageRestaurants;                   
+                    let localStorageRestaurantsData = localStorageRestaurants;    
+                    console.log(localStorageRestaurants)               
 
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
                         ...gamificationData,
-                        id: localStorageRestaurantsData.restaurant_list.length                        
+                        id: localStorageRestaurantsData.restaurant_list.length + 1                   
                     });
 
                     localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurantsData));

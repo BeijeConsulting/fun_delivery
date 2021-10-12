@@ -46,3 +46,5 @@ const localStorageRestaurants = {
         }
     ]
 }
+
+export default localStorageRestaurants
