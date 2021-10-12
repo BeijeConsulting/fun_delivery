@@ -62,7 +62,7 @@ class MyOrders extends Component {
                         quantity: 2
                     }
                 ],
-                status: "confirmed"
+                status: "pending"
             },
             {
                 order_id: 34224,
@@ -138,7 +138,7 @@ class MyOrders extends Component {
         this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
             {
-                title: i18n.t('backoffice.screens.my_orders.order'),
+                title: i18n.t('backoffice.screens.common_screens.order'),
                 dataIndex: 'order_id',
                 key: '1',
                 defaultSortOrder: 'descend',
@@ -161,7 +161,7 @@ class MyOrders extends Component {
                         value: '🟠',
                     },
                     {
-                        text: i18n.t('backoffice.useful_constants.order_status.confirmed'),
+                        text: i18n.t('backoffice.useful_constants.order_status.pending'),
                         value: '🔵',
                     },
                     {
@@ -173,7 +173,7 @@ class MyOrders extends Component {
                 onFilter: (value, record) => record.status.indexOf(value) === 0,
             },
             {
-                title: i18n.t('backoffice.screens.my_orders.address'),
+                title: i18n.t('backoffice.screens.common_screens.address'),
                 dataIndex: 'customer_address',
                 key: '3',
                 ellipsis: {
@@ -220,7 +220,7 @@ class MyOrders extends Component {
             case "preparing":
                 emojiToShow = "🟠"
                 break;
-            case "completed":
+            case "pending":
                 emojiToShow = "🔵"
                 break;
             case "rejected":
@@ -244,8 +244,8 @@ class MyOrders extends Component {
         let foundOrder = {}
         foundOrder = this.all_orders.find((order) => order.order_id === orderID)
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
-            order: foundOrder,
-            titlePage: "#" + orderID,
+            // order: foundOrder,
+            // titlePage: "#" + orderID,
             order_id: orderID,
         })
     }
