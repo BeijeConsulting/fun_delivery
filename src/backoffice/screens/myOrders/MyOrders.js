@@ -259,13 +259,13 @@ class MyOrders extends Component {
         return (
             <>
                 <LayoutBackOffice pageTitle="MY ORDERS">
-                    <div className="bo-order-container">
-                        <div className="bo-order-first-row">
-                            <div className="bo-order-welcome">
+                    <div className="bo-profile-container">
+                        <div className="bo-mymenu-first-row align-left">
+                            <div className="bo-mymenu-welcome">
                                 <h2>{t('backoffice.screens.my_orders.your_orders')}</h2>
                             </div>
                         </div>
-                        <div className="bo-order-form">
+                        <div className="bo-mymenu-form">
                             <Table
                                 rowKey={record => record.order_id}
                                 pagination={false}

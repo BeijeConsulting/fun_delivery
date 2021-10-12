@@ -1,216 +1,130 @@
-import React from "react";
-import ReactDOM from "react-dom";
 
-import "./Wheel.css";
+import React from 'react'
+import { useEffect } from 'react'
+// import Coin from './../../assets/images/coin.svg'
+import WheelComponentCustom from '../../WheelComponentCustom'
+
+import wheelSound from "../../../assets/sounds/wheelSound.mp3"
+import tryAgainWheel from "../../../assets/sounds/tryAgainWheel.mp3"
+
+import { useState } from 'react'
 
 
+const Wheel = (props) => {
+    let user = JSON.parse(localStorage.getItem('userInfo'))
+    let audio = new Audio(wheelSound)
 
-class Wheel extends React.Component {
-    state = {
-        list: [
-            "OVO",
-            "10beijecoin",
-            "FREE DELIVERY",
-            "10PT EXP",
-            "OVO",
-            "UN SORRISO",
-            "FREE DELIVERY",
-            "10PT EXP",
-            "OVO",
-            'ciao'
-        ],
-        //*was 75
-        radius: 100, // PIXELS
-        rotate: 0, // DEGREES
-        easeOut: 0, // SECONDS
-        angle: 0, // RADIANS
-        top: null, // INDEX
-        offset: null, // RADIANS
-        net: null, // RADIANS
-        result: null, // INDEX
-        spinning: false
-    };
+    console.log(user)
+    useEffect(()=>{
+        const actualState = "(╯°□°)╯︵ ┻━┻"
+        const canvas = document.getElementById('canvas')
+        const ctx = canvas.getContext('2d')
+        const x = canvas.width/2
+        ctx.textAlign = 'center'
+        ctx.moveTo(x,0)
+    },[])
 
-    componentDidMount() {
-        // generate canvas wheel on load
-        this.renderWheel();
-    }
+    let storage = JSON.parse(localStorage.getItem('awards'))
+    const [state, setState] = useState({
+        awards: storage === null ? [] : storage,
+        premio: '',
+        id: 0,
+        isOnlyOnce: false
+    })
+    const segments = [
+        'TRY AGAIN',
+        '10 🥮',
+        '100 EXP',
+        '5€ SALES',
+        'FREE 🛵',
+        'NOTHING WON',
+        '10 🥮',
+        '100 EXP',
+        'FREE 🛵',
+    ]
 
-    renderWheel() {
-        // determine number/size of sectors that need to created
-        let numOptions = this.state.list.length;
-        let arcSize = (2 * Math.PI) / numOptions;
-        this.setState({
-            angle: arcSize
-        });
-
-        // get index of starting position of selector
-        this.topPosition(numOptions, arcSize);
-
-        // dynamically generate sectors from state list
-        let angle = 0;
-        for (let i = 0; i < numOptions; i++) {
-            let text = this.state.list[i];
-            this.renderSector(i + 1, text, angle, arcSize, this.getColor());
-            angle += arcSize;
-        }
-    }
-
-    topPosition = (num, angle) => {
-        // set starting index and angle offset based on list length
-        // works upto 9 options
-        let topSpot = null;
-        let degreesOff = null;
-        if (num === 9) {
-            topSpot = 7;
-            degreesOff = Math.PI / 2 - angle * 2;
-        } else if (num === 8) {
-            topSpot = 6;
-            degreesOff = 0;
-        } else if (num <= 7 && num > 4) {
-            topSpot = num - 1;
-            degreesOff = Math.PI / 2 - angle;
-        } else if (num === 4) {
-            topSpot = num - 1;
-            degreesOff = 0;
-        } else if (num <= 3) {
-            topSpot = num;
-            degreesOff = Math.PI / 2;
-        }
-
-        this.setState({
-            top: topSpot - 1,
-            offset: degreesOff
-        });
-    };
-
-    renderSector(index, text, start, arc, color) {
-        // create canvas arc for each list element
-        let canvas = document.getElementById("wheel");
-        let ctx = canvas.getContext("2d");
-        let x = canvas.width / 2;
-        let y = canvas.height / 2;
-        let radius = this.state.radius;
-        let startAngle = start;
-        let endAngle = start + arc;
-        let angle = index * arc;
-        let baseSize = radius * 3.33;
-        let textRadius = baseSize - 150;
-
-        ctx.beginPath();
-        ctx.arc(x, y, radius, startAngle, endAngle, false);
-        ctx.lineWidth = radius * 2;
-        ctx.strokeStyle = color;
-
-        ctx.font = "10px Arial";
-        ctx.fillStyle = "white";
-        ctx.stroke();
-
-        ctx.save();
-        ctx.translate(
-            baseSize + Math.cos(angle - arc / 2) * textRadius,
-            baseSize + Math.sin(angle - arc / 2) * textRadius
-        );
-        ctx.rotate(angle - arc / 2 + Math.PI / 2);
-        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
-        ctx.restore();
-    }
-
-    getColor() {
-        // randomly generate rbg values for wheel sectors
-        let r = Math.floor(Math.random() * 255);
-        let g = Math.floor(Math.random() * 255);
-        let b = Math.floor(Math.random() * 255);
-        return `rgba(${r},${g},${b},0.4)`;
-    }
-
-    spin = () => {
-        // set random spin degree and ease out time
-        // set state variables to initiate animation
-        let randomSpin = Math.floor(Math.random() * 900) + 500;
-        this.setState({
-            rotate: randomSpin,
-            easeOut: 2,
-            spinning: true
-        });
-
-        // calcalute result after wheel stops spinning
-        setTimeout(() => {
-            this.getResult(randomSpin);
-        }, 2000);
-    };
-
-    getResult = spin => {
-        // find net rotation and add to offset angle
-        // repeat substraction of inner angle amount from total distance traversed
-        // use count as an index to find value of result from state list
-        const { angle, top, offset, list } = this.state;
-        let netRotation = ((spin % 360) * Math.PI) / 180; // RADIANS
-        let travel = netRotation + offset;
-        let count = top + 1;
-        while (travel > 0) {
-            travel = travel - angle;
-            count--;
-        }
-        let result;
-        if (count >= 0) {
-            result = count;
-        } else {
-            result = list.length + count;
+    const segColors = [
+        '#F24464',
+        'rgba(201, 178, 178, 0.904)',
+        '#F2CB05',
+        '#F24464',
+        'rgba(201, 178, 178, 0.904)',
+        '#F2CB05',
+        '#F24464',
+        'rgba(201, 178, 178, 0.904)',
+        '#F2CB05',
+    ]
+    const onFinished = (winner) => {
+        console.log(user)
+        if (winner !== 'TRY AGAIN') {
+            if(winner === '10 🥮'){
+                user.beijeCoin = user.beijeCoin + 10
+            }
+            if(winner === '100 EXP'){
+                user.experience = user.experience + 100
+            }
+            if(winner === '5€ SALES'){
+                user.discount = true
+            }
+            if(winner === 'FREE 🛵'){
+                user.freeDelivery = true
+            }
+            
+            // state.awards.push({
+            //     id: state.id++,
+            //     single_award: winner
+            // })
+            state.isOnlyOnce = true
+            
+            localStorage.setItem('userInfo', JSON.stringify(user))
+            
+            localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
+        }else{
+            let audioTryAgain = new Audio(tryAgainWheel)
+            audioTryAgain.volume = 0.4
+            audioTryAgain.play()
         }
 
-        // set state variable to display result
-        this.setState({
-            net: netRotation,
-            result: result
-        });
-    };
-
-    reset = () => {
-        // reset wheel and result
-        this.setState({
-            rotate: 0,
-            easeOut: 0,
-            result: null,
-            spinning: false
-        });
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <h1>Spinning Prize Wheel React</h1>
-                <span id="selector">&#9660;</span>
-                <canvas
-                    //*width: 500 , height: 500
-                    id="wheel"
-                    width="660"
-                    height="660"
-                    style={{
-                        WebkitTransform: `rotate(${this.state.rotate}deg)`,
-                        WebkitTransition: `-webkit-transform ${this.state.easeOut
-                            }s ease-out`
-                    }}
-                />
-
-                {this.state.spinning ? (
-                    <button type="button" id="reset" onClick={this.reset}>
-                        reset
-                    </button>
-                ) : (
-                    <button type="button" id="spin" onClick={this.spin}>
-                        spin
-                    </button>
-                )}
-                <div class="display">
-                    <span id="readout">
-                        YOU WON:{"  "}
-                        <span id="result">{this.state.list[this.state.result]}</span>
-                    </span>
-                </div>
-            </div>
-        );
+        setState(
+            {
+                ...state,
+                awards: state.awards,
+                premio: winner
+            }
+        )
+        // localStorage.setItem('awards', JSON.stringify(state.awards))
+        audio.pause()
     }
+
+    const handleClick = () => {
+        audio.volume = 0.4
+        audio.play()
+    }
+
+
+
+    return (
+
+        <div style={{margin: "0 auto"}} onClick={handleClick}>
+            
+            <WheelComponentCustom
+                segments={segments}
+                segColors={segColors}
+                onFinished={(winner) => onFinished(winner)}
+                primaryColor='#f3f3f3'
+                contrastColor='#3F3D56'
+                buttonText='Spin'
+                isOnlyOnce={state.isOnlyOnce}
+                size={280}
+                upDuration={400}
+                downDuration={500}
+                maxSpeed={1000}
+            />
+
+        </div>
+
+
+    )
 }
 
 export default Wheel;

@@ -1,30 +1,54 @@
+
+.frontend-user-page {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.frontend-user-page-container {
+    position: relative;
+}
+.frontend-avatar {
+    position: absolute;
+    top: 0;
+}
 /* ----- NAVBAR ----- */
 .frontend-navbar-user-page{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
 }
 .frontend-nav-user-icon{
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 7px solid var(--primary-desaturated-strawberry);
+    border: 3px solid rgb(37, 37, 37);
     position: relative;
+    background-color: rgb(255, 177, 32);
+    cursor: pointer;
+}
+.frontend-nav-user-icon img {
+    width: 100%;
+    height: auto;
 }
 .frontend-nav-middle-user{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    letter-spacing: 1px;
+}
+.frontend-user-name {
+    font-size: 16px;
+    color: #F24464;
 }
 .frontend-inner-nav-user-icon{
-    background-color: rgb(194, 194, 194);
+    background-color: var(--primary-dark);
+    /* border: 2px solid rgb(37, 37, 37); */
     position: absolute;
     border-radius: 50%;
     bottom: -10px;
     right: -10px;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     z-index: 2;
 }
 .frontend-nav-right-user{
@@ -40,6 +64,10 @@
     width: 40px;
     border-radius: 50%;
     color: var(--primary-dark);
+}
+
+.frontend-nav-user-coin img {
+    width: 100%;
 }
 
 .frontend-inner-nav-user-info{
@@ -58,4 +86,16 @@
 
 .frontend-inner-i-txt{
     color: white;
+}
+
+.progress-bar-exp-container{
+    width: 200px;
+    height: 7px;
+    background-color: #f3f3f3;
+    border: 1px solid black;
+}
+.progress-bar-exp{
+    height: 100%;
+    background-color: #F24464;
+    border-right: 1px solid black;
 }

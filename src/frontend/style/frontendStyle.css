@@ -1,4 +1,4 @@
-/* VARIABLES */
+
 :root {
     --white: #ffffff;
     --primary-dark: #3F3D56;
@@ -6,10 +6,10 @@
 
     --primary-desaturated-dark: #666578;
     --primary-desaturated-strawberry: #f67a90;
-    
+
     --primary-yellow: #f2cb05;
 
-    --link-blue: #4e4ee7; 
+    --link-blue: #4e4ee7;
   }
 
 *{
@@ -17,7 +17,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins';
-} 
+}
 
 .frontend-outer-container{
     width: 100%;
@@ -65,27 +65,43 @@
 
 .frontend-img{
     width: 140px;
-    position:absolute; 
+    position:absolute;
     bottom: 0;
     left: 0;
 }
 
 .frontend-h1{
     color: var(--primary-dark);
-    font-size: 40px;
+    font-size: 35px;
     margin-bottom: 1rem;
 }
 
-
+.gm-wheel-modal canvas{
+    width: 30% !important;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 25px;
+    z-index: 9999;
+}
 
 @media screen and (min-width: 768.1px) {
     .frontend-inner-container{
-        width: 250px;
+        width: 280px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .gm-wheel-modal canvas{
+        width: 80% !important;
     }
 }
 @media screen and (max-width: 768px) {
     .frontend-inner-container{
         width: 50%;
+    }
+    .gm-wheel-modal canvas{
+        width: 80% !important;
     }
 }
 @media screen and (max-width: 425px) {
@@ -94,11 +110,14 @@
     }
     .frontend-img{
         width: 120px;
-        position:absolute; 
+        position:absolute;
         bottom: 0;
         left: 0;
     }
     .frontend-primary-btn{
         margin-bottom: 3rem;
+    }
+    .gm-wheel-modal canvas{
+        width: 100% !important;
     }
 }

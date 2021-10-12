@@ -22,7 +22,6 @@ const LayoutBackOffice = (props) => {
                 pageTitle={props.pageTitle}
             />
             <Layout>
-                <Layout>
 
                     <Sider
                         style={{ backgroundColor: 'rgba(242, 68, 100, .9)' }}
@@ -55,8 +54,6 @@ const LayoutBackOffice = (props) => {
                             {props.children}
                         </div>
                     </Content>
-
-                </Layout>
             </Layout>
         </div>
     )

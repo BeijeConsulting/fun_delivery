@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { withTranslation } from 'react-i18next';
-import {map as _map} from "lodash";
+import './Registration.css'
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
@@ -8,7 +7,8 @@ import BannerBackground from '../../components/ui/bannerBackground/BannerBackgro
 import utils from '../../../common/utils/utils'
 import constantsDictionary from '../../../common/utils/constantsDictionary'
 import Select from '../../../common/components/ui/select/Select'
-import './Registration.css'
+import { withTranslation } from 'react-i18next';
+import {map as _map} from "lodash";
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
 
@@ -91,6 +91,10 @@ class Registration extends Component {
                 if (responseReady === true) {
                     // Here the validation is good, the registration is allowed!
                     console.log('registered:', this.objData);
+                    // let gamification= {
+                    //     coins:300,
+                    //     sponsor:null,
+                    // }
                 }
             }
         )

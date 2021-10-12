@@ -1,0 +1,331 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.memory-page {
+  background-color: #f24464;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  position: absolute;
+}
+
+.gm-headerTitleContainer{
+  height: 50px;
+  width: 100%;
+  position: relative;
+}
+
+.gm-flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gm-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 200;
+  background-color: #f24464;
+  bottom: 0px;
+  height: calc(100vh - 50px);
+  width: 100%;
+  max-width: 800px;
+}
+
+.gm-rider-container{
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 5%;
+  top: 0;
+  animation: rider 63s linear;
+  z-index: 100;
+}
+
+@keyframes rider{
+  from {
+      right: 5%;
+  }
+  to{
+      right: 90%;
+  }
+}
+
+.gm-rider{
+  width: 100%;
+}
+
+.gm-moving-street-tree-container {
+  position: absolute;
+  height: 31px;
+  width: 90%;
+  top: 0;
+  left: 0;
+  margin: 0 5%;
+  overflow: hidden;
+}
+
+.gm-moving-street-tree {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  position: absolute;
+  animation: tree-moving 7.8s infinite linear;
+  left: -428px;
+}
+
+@keyframes tree-moving {
+  0% {
+    left: -428px;
+  }
+  100% {
+    left: 0;
+  }
+} 
+
+.gm-moving-street-tree img {
+  height: 100%;
+}
+
+.gm-moving-street-container {
+  width: 90%;
+  position: absolute;
+  left: 0;
+  top: 30px;
+  margin: 0 5%;
+  overflow: hidden;
+  height: 23px;
+}
+
+.gm-moving-street {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='Road' version='1' viewBox='0 0 65 67'%3E %3Crect width='65' height='67' fill='%23272727' stroke='%23272727' stroke-width='2'/%3E %3Cline x1='17' x2='48' y1='34' y2='34' fill='none' stroke='%23939393' stroke-width='2'/%3E %3Cline x2='65' y1='4' y2='4' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3Cline x2='65' y1='63' y2='63' fill='none' stroke='%23fff' stroke-width='1.5'/%3E %3C/svg%3E");
+  background-repeat: repeat-x;
+  content: "";
+  display: block;
+  height: 23px;
+  width: 1000000%;
+  z-index: 6;
+  top: 0;
+  position: absolute;
+  animation: road-animation 180s infinite linear;
+}
+
+@keyframes road-animation {
+  0% {
+    background-position: -10000px 0;
+  }
+  100% {
+    background-position:  0 0 ;
+  }
+}
+
+.gm-countdown-memory{
+  position: absolute;
+  top: 69px;
+  letter-spacing: 1px;
+  color: #f3f3f3;
+  font-size: 16px;
+}
+
+.gm-memory-card-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  width: 90%;
+  height: 60vh;
+  margin-top: 50px;
+  max-width: 500px;
+}
+
+.card-container {
+  position: relative;
+  animation-fill-mode: forwards;
+  width: 90%;
+  height: 90%;
+}
+
+@keyframes disappear {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    transform: rotate(90deg) scale(1.05);
+  }
+  20% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  30% {
+    transform: rotate(270deg) scale(1);
+  }
+  40% {
+    transform: rotate(360deg) scale(0.9);
+  }
+  50% {
+    transform: rotate(450deg) scale(0.8);
+  }
+  60% {
+    transform: rotate(540deg) scale(0.7);
+  }
+  70% {
+    transform: rotate(630deg) scale(0.6);
+  }
+  80% {
+    transform: rotate(720deg) scale(0.4);
+  }
+  90% {
+    transform: rotate(810deg) scale(0.2);
+  }
+  100% {
+    transform: rotate(900deg) scale(0);
+    opacity: 0;
+  }
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../assets/images/memoryImg/logo_beije.svg") no-repeat
+    center;
+  background-size: 150%;
+  background-position-x: 37%;
+  background-position-y: 65%;
+  background-color: #f3f3f3;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
+}
+
+.memory-page .active {
+  animation: flip-scale-up-hor 0.5s linear both;
+}
+
+@keyframes flip-scale-up-hor {
+  0% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+  49% {
+    transform: scale(1.2) rotateY(-88deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+}
+
+.wrong-front {
+  animation: blur-front 0.5s linear both;
+}
+
+@keyframes blur-front {
+  0% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 0;
+  }
+  51% {
+    transform: scale(1.2) rotateY(-88deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+}
+
+.card-back {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 0px;
+  z-index: 300;
+  border-radius: 5px;
+  box-shadow: 6px 7px 4px 2px rgba(0, 0, 0, 0.24);
+  background-color: #f3f3f3;
+}
+
+.active-back {
+  width: 100%;
+  height: 100%;
+  animation: card-back-rotation 0.5s linear both;
+}
+
+@keyframes card-back-rotation {
+  0% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+  49% {
+    transform: scale(1.2) rotateY(-92deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+    opacity: 1;
+  }
+}
+
+.wrong-back {
+  animation: blur-back 0.5s linear both;
+}
+
+@keyframes blur-back {
+  0% {
+    transform: scale(1.2) rotateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotateY(-90deg);
+    opacity: 1;
+  }
+  51% {
+    transform: scale(1.2) rotateY(-92deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateY(-180deg);
+    opacity: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .gm-game-container {
+    margin-top: 30px;
+    height: calc(100vh - 90px);
+    overflow: scroll;
+  }
+  .gm-game-container::-webkit-scrollbar {
+    display: none;
+  }
+  .gm-headerTitleContainer{
+    width: 94%;
+    margin: 10px auto 0 auto;
+  }
+  .gm-memory-card-container {
+    position: absolute;
+    top: 70px;
+    min-height: 450px;
+  }
+  .card-container {
+    max-height: 200px;
+  }
+}
