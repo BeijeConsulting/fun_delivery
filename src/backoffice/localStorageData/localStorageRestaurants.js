@@ -1,3 +1,4 @@
+import LogoBeije from '../assets/images/logo_beijeRosa.png';
 const localStorageRestaurants = {
     restaurant_list: [
         {
@@ -17,8 +18,8 @@ const localStorageRestaurants = {
             phone_number: 3336098765,
             restaurant_category_id: 4,
             description: 'La pizzeria che fa per te',
-            profile_img: '',
-            discount_id: '',
+            profile_img: LogoBeije,
+            discount_id: 1,
             coins: 300,
             restaurant_free_shipping: false,
             sponsor: null,
@@ -40,8 +41,8 @@ const localStorageRestaurants = {
             phone_number: 3338889510,
             restaurant_category_id: 2,
             description: 'La pizzeria più buona',
-            profile_img: '',
-            discount_id: '',
+            profile_img: LogoBeije,
+            discount_id: 1,
             coins: 300,
             restaurant_free_shipping: true,
             sponsor: null,
