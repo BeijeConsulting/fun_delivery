@@ -6,16 +6,73 @@ const SinglePlate = ( props ) =>
 {
 
     //HOOK
-    const [ isClick, setisClick ] = useState( false );
 
 
+    const [ state, setState ] = useState( {
+        order: null,
+        orders: [],
+        counter: 0,
+        cartCounter: 0
 
-
-    const view = () =>
+    } )
+localStorage.setItem( 'singlePlate', JSON.stringify( state.orders ) )
+    function addProduct ( e )
     {
-        setisClick( isClick ? false : true )
-        console.log( isClick )
+        
+        let orderBy = [ ...state.orders ]
+        orderBy.push(e.target.value)
+
+        setState( {
+            ...state,
+            order: orderBy,
+            counter: state.counter + 1,
+            cartCounter: state.counter + 1,
+            orders: orderBy
+        } )
+
+        let mapOrder = [state.order]
+        mapOrder.map((item, index) => {
+            console.log(item, index)
+        })
+        
+        // console.log( state.order )
+        console.log( orderBy + 'order', mapOrder )
     }
+    function removeProduct ( e )
+    {
+
+        let orderBy = [ ...state.orders ]
+        orderBy.pop()
+        if ( state.counter > 0 )
+        {
+            setState( {
+                ...state,
+                order : orderBy,
+                counter: state.counter - 1,
+                cartCounter: state.counter -1,
+                orders: orderBy
+            } )
+        }
+        localStorage.removeItem('singlePlate')
+
+
+        // console.log( state.order )
+        console.log( orderBy )
+    }
+
+    
+
+
+
+
+
+
+    
+
+    
+
+
+
 
 
 
@@ -27,10 +84,14 @@ const SinglePlate = ( props ) =>
             <header className='textPlate'>
                 <div className='wrapRatingPlate'>
                     <h4 className='titleSinRest'>{ props.plateName }</h4>
-                    <p className='descriptionPlate'>{props.descriptPlate}</p>
+                    <p className='descriptionPlate'>{ props.descriptPlate }</p>
                     <div className='rowButton'>
                         <div className='pricePlate'> { props.platePrice }</div>
-                        <button className='buttonAddOrder' onClick={ view }>Add to</button>
+                        <div className='orderSection'>
+                            <button className='buttonAddOrder' value={ props.plateName + ' ' + parseInt( props.platePrice ) + '€' } onClick={ addProduct } >+</button>
+                            <p className='counterOrder'>{ state.counter }</p>
+                            <button className='buttonRemoveOrder' onClick={ removeProduct } value={ props.plateName + ' ' + parseInt( props.platePrice ) + '€' }  >-</button>
+                        </div>
                     </div>
                 </div>
                 <picture>
@@ -39,9 +100,6 @@ const SinglePlate = ( props ) =>
                 </picture>
                 {/* Sarà una prop e ci va la valutazione*/ }
 
-                { isClick &&
-                    <p>Ciao</p>
-                }
 
 
             </header>
