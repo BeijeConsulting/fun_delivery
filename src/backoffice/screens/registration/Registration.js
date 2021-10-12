@@ -11,6 +11,7 @@ import { withTranslation } from 'react-i18next';
 import {map as _map} from "lodash";
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
+import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
 
 class Registration extends Component {
 
@@ -91,10 +92,20 @@ class Registration extends Component {
                 if (responseReady === true) {
                     // Here the validation is good, the registration is allowed!
                     console.log('registered:', this.objData);
-                    // let gamification= {
-                    //     coins:300,
-                    //     sponsor:null,
-                    // }
+                    let gamificationData = {
+                        coins: 300,
+                        sponsor: null,
+                    };
+
+                    let localStorageRestaurantsData = localStorageRestaurants;                   
+
+                    localStorageRestaurantsData.restaurant_list.push({
+                        ...this.objData,
+                        ...gamificationData,
+                        id: localStorageRestaurantsData.restaurant_list.length                        
+                    });
+
+                    localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurantsData));
                 }
             }
         )
