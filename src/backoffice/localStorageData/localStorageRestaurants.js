@@ -15,11 +15,12 @@ const localStorageRestaurants = {
             },
             VAT: 11111111111,
             phone_number: 3336098765,
-            restaurant_category_id: '',
+            restaurant_category_id: 4,
             description: 'La pizzeria che fa per te',
             profile_img: '',
             discount_id: '',
             coins: 300,
+            restaurant_free_shipping: false,
             sponsor: null,
         },
         {
@@ -37,11 +38,12 @@ const localStorageRestaurants = {
             },
             VAT: 86334519757,
             phone_number: 3338889510,
-            restaurant_category_id: '',
+            restaurant_category_id: 2,
             description: 'La pizzeria più buona',
             profile_img: '',
             discount_id: '',
             coins: 300,
+            restaurant_free_shipping: true,
             sponsor: null,
         }
     ]

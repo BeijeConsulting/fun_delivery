@@ -98,7 +98,6 @@ class Registration extends Component {
                     };
 
                     let localStorageRestaurantsData = localStorageRestaurants;    
-                    console.log(localStorageRestaurants)               
 
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
@@ -247,7 +246,7 @@ class Registration extends Component {
 
                             <div className="flex-inputs">
                                 <InputBox
-                                    type="number"
+                                    type="tel"
                                     className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
                                     placeholder={t('common.components.inputbox.number')}
                                     callback={this.handleCallbackInput}
