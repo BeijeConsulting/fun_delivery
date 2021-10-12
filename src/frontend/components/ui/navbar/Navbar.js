@@ -3,7 +3,7 @@ import logo from '../../../../common/assets/LogoSvgRosa.svg';
 import scream from '../../../../common/assets/sounds/scream.mp3'
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 
 const Navbar = (props) => {
@@ -12,9 +12,9 @@ const Navbar = (props) => {
     let location = useLocation();
     let history = useHistory();
     const pathArray = location.pathname.split('/');
-
     // HOOKS STATE
     const [state, setState] = useState({
+        
         isBurgerClicked: false,
         navOptionRightLeft: 'pickup',
         selectedDelivery: 'white-txt',
@@ -25,7 +25,7 @@ const Navbar = (props) => {
         textDecoration: 'none',
         color: 'white',
     }
-    
+
 
     const burgerEffects = () => {
         setState({
@@ -34,9 +34,9 @@ const Navbar = (props) => {
         });
     }
     const navOptionSlide = () => {
-        let audio = new Audio(scream)
+        /* let audio = new Audio(scream)
         audio.volume = 1
-        audio.play()
+        audio.play() */
         setState({
             navOptionRightLeft: state.navOptionRightLeft === 'pickup' ? 'delivery' : 'pickup',
             selectedDelivery: state.navOptionRightLeft === 'delivery' ? 'white-txt' : '',
@@ -53,12 +53,17 @@ const Navbar = (props) => {
         history.push(path)
     }
 
+    // TEMP
+    const showCart = () => {
+        return
+    }
+
     return (
         <>
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
                 pathArray[1] !== 'restaurant' && pathArray[1] !== 'userHome' && pathArray[1] !== 'quiz' &&
-                
+
                 <nav className="navbar">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
                     <div className='box-desktop'>
@@ -78,18 +83,37 @@ const Navbar = (props) => {
                             }
                         </div>
 
+                        {/* user NOT logged */}
+                        {
+                            !state.isLoggedIn &&
+                            <div className='right-nav-side'>
+                                <span className='right-btn login' style={styleObj} onClick={goToSelectedPage('/loginUser')}>
+                                    Login
+                                    {/* <Link style={styleObj} to="/loginUser">Accedi</Link> */}
+                                </span>
 
-                        <div className='right-nav-side'>
-                            <span className='right-btn login' style={styleObj} onClick={goToSelectedPage('/loginUser')}>
-                                Login
-                                {/* <Link style={styleObj} to="/loginUser">Accedi</Link> */}
-                            </span>
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/registrationUser')}>
+                                    Register
+                                    {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
+                                </span>
+                            </div>
+                        }
 
-                            <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/registrationUser')}>
-                                Register
-                                {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
-                            </span>
-                        </div>
+                        {/* user LOGGED */}
+                        {
+                            state.isLoggedIn &&
+                            <div className='right-nav-side'>
+                                <span className='right-btn login' style={styleObj} onClick={showCart}>
+                                    Cart
+                                    {/* <Link style={styleObj} to="/loginUser">Accedi</Link> */}
+                                </span>
+
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>
+                                    {state.userName}
+                                    {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
+                                </span>
+                            </div>
+                        }
                     </div>
 
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}
@@ -108,8 +132,8 @@ const Navbar = (props) => {
                         {/* DROP DOWN LINKBOX */}
                         <div className={`drop-down-link-box ${state.isBurgerClicked ? 'drop' : ''}`}>
                             <div className='link-container'>
-                                <span onClick={dropDownFunctionCall('/loginUser')}>Login</span>
-                                <span onClick={dropDownFunctionCall('/registrationUser')}>Register</span>
+                                <span style={{ cursor: 'pointer', fontSize: '20px' }} onClick={dropDownFunctionCall('/loginUser')}>Login</span>
+                                <span style={{ cursor: 'pointer', fontSize: '20px' }} onClick={dropDownFunctionCall('/registrationUser')}>Register</span>
                             </div>
 
                         </div>

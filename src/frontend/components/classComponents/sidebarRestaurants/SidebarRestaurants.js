@@ -24,7 +24,7 @@ class SidebarRestaurants extends React.Component {
 
     render() {
         return (
-            <aside className="sideNav" >
+            <aside className={this.props.className} >
                 <div className='rowLocal'>
                     <h2 className="titleSideNav">Tutti i locali</h2>
                     <Button className="orderFilterButton" text={"Pulisci filtri"} callback={this.handleChangeClearButton} />
