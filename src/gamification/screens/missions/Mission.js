@@ -10,8 +10,8 @@ import properties from "../../utilities/properties";
 class Mission extends Component {
     constructor(props) {
         super(props);
-        this.missions = properties.missions
         this.storage = JSON.parse(localStorage.getItem('userInfo'))
+        this.missions = properties.missions.map((el,i) => {if(this.storage.mission.includes(i)){el.claim = true}   return el})
 
         this.state = {
             arr: this.missions,
@@ -65,7 +65,7 @@ class Mission extends Component {
                 {/* <li className={e.level === 2 ? 'MissionSingle sepia' : 'MissionSingle'} key={i} style={{ background: e.level === 2 ? 'rgba(153, 147, 147, 0.534)' : '' }} > */}
 
                 <li
-                    style={this.state.storage.mission.includes(i) ? { backgroundColor: 'rgba(153, 147, 147, 0.534)' } : null}
+                    style={this.missions[i].claim!==null ? { backgroundColor: 'rgba(153, 147, 147, 0.534)' } : null}
                     className='MissionSingle'>
                     <div className="MissionSingleTitle">
                         <h2>{e.title}</h2>
