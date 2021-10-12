@@ -1,9 +1,7 @@
 import './Navbar.css';
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
 import scream from '../../../../common/assets/sounds/scream.mp3'
-
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 
 const Navbar = (props) => {
@@ -12,14 +10,19 @@ const Navbar = (props) => {
     let location = useLocation();
     let history = useHistory();
     const pathArray = location.pathname.split('/');
+   
+   
+
     // HOOKS STATE
     const [state, setState] = useState({
         
         isBurgerClicked: false,
         navOptionRightLeft: 'pickup',
         selectedDelivery: 'white-txt',
-        selectedPickup: '',
+        selectedPickup: ''
     })
+  
+  
 
     const styleObj = {
         textDecoration: 'none',
@@ -52,6 +55,8 @@ const Navbar = (props) => {
         burgerEffects();
         history.push(path)
     }
+    
+   
 
     // TEMP
     const showCart = () => {
@@ -59,12 +64,15 @@ const Navbar = (props) => {
     }
 
     return (
+        
         <>
+        
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
                 pathArray[1] !== 'restaurant' && pathArray[1] !== 'quiz' && pathArray[1] !== "memory" &&
                 
-                <nav className="navbar nav-custom">
+               
+                <nav className="navbar">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
                     <div className='box-desktop'>
                         <div className='left-nav-side'>
@@ -138,6 +146,7 @@ const Navbar = (props) => {
                     </div>
                 </nav>
             }
+           
         </>
     );
 
