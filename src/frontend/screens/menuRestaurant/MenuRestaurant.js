@@ -145,29 +145,7 @@ export default class MenuRestaurant extends React.Component {
     plateQuantity = (obj) => {
         let arrTemp = this.state.order
         console.log(obj.quantity);
-        /* if (!arrTemp.length) {
-            arrTemp.push(obj)
-            this.setState({
-                order : arrTemp
-            })
-            return
-        }
-        else{
-            for (const singlePlate of arrTemp) {
-                if(singlePlate.name != obj.name){
-                    arrTemp.push(singlePlate)
-                    this.setState({
-                        order : arrTemp
-                    })
-                    console.log(arrTemp)
-                    return
-                }
-                if ((singlePlate.name === obj.name) && 
-                         (singlePlate.quantity != obj.quantity)){
-                            console.log('ciao');
-                }
-            }
-        } */
+        
     }
 
     render() {
