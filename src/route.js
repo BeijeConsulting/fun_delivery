@@ -25,7 +25,7 @@ import RestaurantPlates from './backoffice/screens/plates/Plates';
 import RestaurantNewPlate from './backoffice/screens/newPlate/NewPlate';
 import RestaurantSinglePlate from './backoffice/screens/singlePlate/SinglePlate';
 import RestaurantOrders from './backoffice/screens/myOrders/MyOrders';
-import RestaurantSingleOrder from './backoffice/screens/singleOrder/RestaurantSingleOrder';
+import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder';
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 
