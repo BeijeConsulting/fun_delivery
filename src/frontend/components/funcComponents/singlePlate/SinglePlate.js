@@ -2,103 +2,53 @@ import "./SinglePlate.css";
 import { useState } from 'react'
 
 
-const SinglePlate = ( props ) =>
-{
+const SinglePlate = (props) => {
 
-    //HOOK
-
-
-    const [ state, setState ] = useState( {
-        order: null,
-        orders: [],
-        counter: 0,
-        cartCounter: 0
-
-    } )
-localStorage.setItem( 'singlePlate', JSON.stringify( state.orders ) )
-    function addProduct ( e )
-    {
-        
-        let orderBy = [ ...state.orders ]
-        orderBy.push(e.target.value)
-
-        setState( {
-            ...state,
-            order: orderBy,
-            counter: state.counter + 1,
-            cartCounter: state.counter + 1,
-            orders: orderBy
-        } )
-
-        let mapOrder = [state.order]
-        mapOrder.map((item, index) => {
-            console.log(item, index)
-        })
-        
-        // console.log( state.order )
-        console.log( orderBy + 'order', mapOrder )
-    }
-    function removeProduct ( e )
-    {
-
-        let orderBy = [ ...state.orders ]
-        orderBy.pop()
-        if ( state.counter > 0 )
+    const callbackHandler = (quantity) => {
+        let obj =
         {
-            setState( {
-                ...state,
-                order : orderBy,
-                counter: state.counter - 1,
-                cartCounter: state.counter -1,
-                orders: orderBy
-            } )
-        }
-        localStorage.removeItem('singlePlate')
+            'name': props.plateName,
+            'price': props.platePrice,
+            'quantity': quantity
+        }  
 
-
-        // console.log( state.order )
-        console.log( orderBy )
+        return props.callback(obj)
     }
 
-    
+    let quantity = 0;
 
+    const add = () => {
+        quantity ++;
+        callbackHandler(quantity)
+    }
 
-
-
-
-
-    
-
-    
-
-
-
-
-
-
-
+    const remove = () => {
+        if(quantity == 0) return 
+        quantity --;
+        callbackHandler(quantity)
+    }
 
 
     return (
-        <article className={ props.classNameWrapper }>
+        <article className={props.classNameWrapper}>
             <header className='textPlate'>
                 <div className='wrapRatingPlate'>
-                    <h4 className='titleSinRest'>{ props.plateName }</h4>
-                    <p className='descriptionPlate'>{ props.descriptPlate }</p>
+                    <h4 className='titleSinRest'>{props.plateName}</h4>
+                    <p className='descriptionPlate'>{props.descriptPlate}</p>
                     <div className='rowButton'>
-                        <div className='pricePlate'> { props.platePrice }</div>
+                        <div className='pricePlate'> {props.platePrice}</div>
                         <div className='orderSection'>
-                            <button className='buttonAddOrder' value={ props.plateName + ' ' + parseInt( props.platePrice ) + '€' } onClick={ addProduct } >+</button>
-                            <p className='counterOrder'>{ state.counter }</p>
-                            <button className='buttonRemoveOrder' onClick={ removeProduct } value={ props.plateName + ' ' + parseInt( props.platePrice ) + '€' }  >-</button>
+                            <button className='buttonAddOrder' value={props.plateName + ' ' + parseInt(props.platePrice) + '€'} onClick={add} >+</button>
+                            {/* <p className='counterOrder'>{counter}</p> */}
+                            {<button className='buttonRemoveOrder' onClick={remove} value={props.plateName + ' ' + parseInt(props.platePrice) + '€'}  >-</button>}
                         </div>
                     </div>
                 </div>
                 <picture>
-                    <source srcSet={ props.image } media={ props.media } />
-                    <img className={ props.classNameImage } src={ props.altImage } alt={ props.altText } />
+                    <source srcSet={props.image} media={props.media} />
+                    <img className={props.classNameImage} src={props.altImage} alt={props.altText} />
                 </picture>
-                {/* Sarà una prop e ci va la valutazione*/ }
+                {/* Sarà una prop e ci va la valutazione*/}
 
 
 
@@ -107,3 +57,40 @@ localStorage.setItem( 'singlePlate', JSON.stringify( state.orders ) )
     )
 }
 export default SinglePlate;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // let [orders, setOrders] = useState([]);
+    // let count = 0
+
+    // const addProduct = () => {
+
+    //     count = count + 1
+
+
+    //     let orderTemp = orders
+
+    //     orderTemp.push(
+    //         {
+    //             name: props.plateName,
+    //             price: props.platePrice,
+    //             quantity: count
+    //         }
+    //     )
+
+    //     setOrders(orderTemp)
+    //     localStorage.setItem('Order', JSON.stringify(orderTemp));
+    // }
