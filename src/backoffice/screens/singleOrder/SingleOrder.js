@@ -10,12 +10,17 @@ class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
         // this.orderList = JSON.parse(localStorage.getItem('localStorageData')).order_list.filter(item => item.order_id===this.props.location.state.order.order_id);
-        this.ordersLocalStorage = JSON.parse(localStorage.getItem('localStorageData'))
+        this.ordersLocalStorage = JSON.parse(
+            localStorage.getItem("localStorageData")
+        );
         // localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
-        this.foundOrder = this.ordersLocalStorage.order_list.find(item => item.order_id === this.props.location.state.order_id)
+        this.foundOrder = this.ordersLocalStorage.order_list.find(
+            (item) => item.order_id === this.props.location.state.order_id
+        );
         this.state = {
             order: this.foundOrder,
-            showTimeline: this.foundOrder.status !== "pending",
+            order_status: this.foundOrder.status,
+            showTimeline: this.foundOrder.status !== "pending", //da modificare, non deve spuntare se è rifiutato o se è in pending
             total_price: this.totalPriceOrder(),
         };
     }
@@ -30,8 +35,17 @@ class RestaurantSingleOrder extends Component {
         this.props.history.goBack();
     };
 
-    handleShowTimeline = () => {
-        this.setState({ showTimeline: true });
+    handleShowTimelineAccept = () => {
+        this.setState({
+            showTimeline: true,
+            order_status: "approved",
+        });
+    };
+
+    handleShowTimelineReject = () => {
+        this.setState({
+            order_status: "rejected",
+        });
     };
 
     totalPriceOrder = () => {
@@ -41,11 +55,10 @@ class RestaurantSingleOrder extends Component {
         return sum;
     };
 
-    handleStatusTimeline = (e) => {
-        console.log(e)
-    }
     //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
-    //
+    handleStatusTimeline = (e) => {
+        console.log(e);
+    };
 
     render() {
         const { t } = this.props;
@@ -55,32 +68,48 @@ class RestaurantSingleOrder extends Component {
                     <div className="bo-mymenu-first-row">
                         <div className="bo-mymenu-welcome">
                             <h2>
-                                {t("backoffice.screens.common_screens.order")}{" #"}
+                                {t("backoffice.screens.common_screens.order")}
+                                {" #"}
                                 {this.props.location.state.order_id}
                             </h2>
                         </div>
-                        <BackPageButton classProp={"bo-mymenu-welcome"} callback={this.handleCallbackGoBack} />
+                        <BackPageButton
+                            classProp={"bo-mymenu-welcome"}
+                            callback={this.handleCallbackGoBack}
+                        />
                     </div>
 
-                    {this.state.showTimeline && (
+                    {this.state.showTimeline && this.state.order_status !== "rejected" && (
                         <div>
-                            <Timeline callback={this.handleStatusTimeline}/>
+                            <Timeline
+                                callback={this.handleStatusTimeline}
+                                currentStep={this.state.order_status}
+                            />
                         </div>
                     )}
 
-                    {this.state.showTimeline !== true && (
+                    {!this.state.showTimeline && this.state.order_status !== "rejected" && (
                         <div className="btn-orders-container">
                             <Button
                                 className="bo-btn single-order"
                                 value="approve"
                                 text={t("backoffice.screens.single_order.approve")}
-                                callback={this.handleShowTimeline}
+                                callback={this.handleShowTimelineAccept}
                             />
                             <Button
                                 className="bo-btn single-order"
                                 value="dontapprove"
                                 text={t("backoffice.screens.single_order.dont_approve")}
+                                callback={this.handleShowTimelineReject}
                             />
+                        </div>
+                    )}
+
+                    {this.state.order_status === "rejected" && (
+                        <div className="bo-mymenu-welcome">
+                            <h2>
+                                {t("backoffice.screens.single_order.rejected_title")}
+                            </h2>
                         </div>
                     )}
 
@@ -92,9 +121,8 @@ class RestaurantSingleOrder extends Component {
                                 disable={true}
                                 type="text"
                                 // value={this.props.location.state.order.customer_address}
-                                value={`${t(
-                                    "backoffice.screens.single_order.date"
-                                )}: ${this.state.order.date}`}
+                                value={`${t("backoffice.screens.single_order.date")}: ${this.state.order.date
+                                    }`}
                             />
                         </div>
                         <div className="bo-profile-flex-inputs">

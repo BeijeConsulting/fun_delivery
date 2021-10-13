@@ -294,6 +294,29 @@ const localStorageData = {
       status: "completed",
     },
     {
+      order_id: 34229,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Lorenzo Chiesa",
+      customer_address: "Una via all'Elba",
+      ordered: [{
+          nameFood: "Margherita",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Napoli",
+          price: 6,
+          quantity: 2,
+        },
+        {
+          nameFood: "Coca cola",
+          price: 2.5,
+          quantity: 2,
+        },
+      ],
+      status: "pending",
+    },
+    {
       order_id: 34224,
       date: moment("2021-10-11T21:35:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Simone Micalizzi",

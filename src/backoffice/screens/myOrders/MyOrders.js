@@ -34,7 +34,7 @@ class MyOrders extends Component {
                 filters: [
                     {
                         text: i18n.t('backoffice.useful_constants.order_status.approved'),
-                        value: '�',
+                        value: '🟣',
                     },
                     {
                         text: i18n.t('backoffice.useful_constants.order_status.completed'),

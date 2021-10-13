@@ -34,7 +34,8 @@ export const TRANSLATIONS_BACKOFFICE = {
             quantity: "Quantità",
             total: "TOTALE",
             approve: "Approva",
-            dont_approve: "Non approvare"
+            dont_approve: "Non approvare",
+            rejected_title: "Ordine rifiutato"
         }
     },
 

@@ -28,18 +28,18 @@ const steps = [
 
 
 export default function Timeline(props) {
-    const [current, setCurrent] = React.useState(0);
+    const foundStatus = steps.findIndex(item => item.content === props.currentStep)
+    const [current, setCurrent] = React.useState(foundStatus);
     const { confirm } = Modal;
 
-    // let index = steps.findIndex(x => x.content === props.currentStep);
-    // console.log(index)
+    // console.log(steps.findIndex(item => item.content === props.currentStep))
 
     const handleStatus = (value) => {
         return props.callback(value)
     }
 
     const next = () => {
-
+    //currentStep è la prop dello step corrente
         confirm({
             title: i18n.t("backoffice.components.timeline.confirm_to_continue"),
             content: `${i18n.t("backoffice.components.timeline.next_step")}: ${steps[current + 1].title}`,
