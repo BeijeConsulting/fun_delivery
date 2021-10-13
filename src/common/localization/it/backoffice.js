@@ -83,6 +83,7 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         order_status: {
             all: "Tutti",
+            approved: "🟣 Approvato",
             completed: "🟢 Completato",
             delivering: "🟡 In consegna",
             preparing: "🟠 In preparazione",

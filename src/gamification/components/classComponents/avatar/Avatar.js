@@ -1,3 +1,4 @@
+import React from 'react';
 import './Avatar.css';
 import { CloseOutlined } from '@ant-design/icons';
 import { Component } from 'react';

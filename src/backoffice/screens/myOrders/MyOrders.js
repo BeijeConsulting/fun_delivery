@@ -33,6 +33,10 @@ class MyOrders extends Component {
                 dataIndex: 'status',
                 filters: [
                     {
+                        text: i18n.t('backoffice.useful_constants.order_status.approved'),
+                        value: '�',
+                    },
+                    {
                         text: i18n.t('backoffice.useful_constants.order_status.completed'),
                         value: '🟢',
                     },
@@ -95,7 +99,10 @@ class MyOrders extends Component {
     handleEmojiStatus = (status) => {
         let emojiToShow = ""
         switch (status) {
-            case "confirmed":
+            case "approved":
+                emojiToShow = "🟣"
+                break;
+            case "completed":
                 emojiToShow = "🟢"
                 break;
             case "delivering":

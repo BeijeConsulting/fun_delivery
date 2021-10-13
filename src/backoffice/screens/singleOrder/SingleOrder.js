@@ -11,6 +11,7 @@ class RestaurantSingleOrder extends Component {
         super(props);
         // this.orderList = JSON.parse(localStorage.getItem('localStorageData')).order_list.filter(item => item.order_id===this.props.location.state.order.order_id);
         this.ordersLocalStorage = JSON.parse(localStorage.getItem('localStorageData'))
+        // localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
         this.foundOrder = this.ordersLocalStorage.order_list.find(item => item.order_id === this.props.location.state.order_id)
         this.state = {
             order: this.foundOrder,
@@ -40,6 +41,12 @@ class RestaurantSingleOrder extends Component {
         return sum;
     };
 
+    handleStatusTimeline = (e) => {
+        console.log(e)
+    }
+    //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
+    //
+
     render() {
         const { t } = this.props;
         return (
@@ -53,20 +60,11 @@ class RestaurantSingleOrder extends Component {
                             </h2>
                         </div>
                         <BackPageButton classProp={"bo-mymenu-welcome"} callback={this.handleCallbackGoBack} />
-                        {/* <div
-                            className="bo-mymenu-welcome"
-                            onClick={this.handleCallbackGoBack}
-                        >
-                            <h3>
-                                <LeftOutlined />
-                            </h3>
-                            <h3>{t("backoffice.screens.single_order.back")}</h3>
-                        </div> */}
                     </div>
 
                     {this.state.showTimeline && (
                         <div>
-                            <Timeline />
+                            <Timeline callback={this.handleStatusTimeline}/>
                         </div>
                     )}
 

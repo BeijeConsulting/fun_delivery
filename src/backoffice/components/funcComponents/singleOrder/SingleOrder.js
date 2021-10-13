@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '../../../../common/components/ui/button/Button';
 
 const SingleOrder = (props) => {
@@ -7,7 +8,7 @@ const SingleOrder = (props) => {
     }
     
     return (
-        <div className="bo-io-form">
+        <div className="bo-io-form"> 
             <h3 className="bo-io-h2">{props.user} {props.ordered_text}</h3>
             <div className="bo-btn-view">
                 <Button

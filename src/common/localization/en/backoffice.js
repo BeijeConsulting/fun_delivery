@@ -84,6 +84,7 @@ export const TRANSLATIONS_BACKOFFICE = {
 
         order_status: {
             all: "All",
+            approved: "🟣 Approved",
             completed: "🟢 Completed",
             delivering: "🟡 Delivering",
             preparing: "🟠 Preparing",

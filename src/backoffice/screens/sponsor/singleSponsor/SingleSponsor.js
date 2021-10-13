@@ -1,3 +1,4 @@
+import React from "react";
 import { HourglassOutlined } from '@ant-design/icons';
 import './SingleSponsor.css'
 
