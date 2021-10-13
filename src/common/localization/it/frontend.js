@@ -1,18 +1,75 @@
 export const TRANSLATIONS_FRONTEND = {
     screens: {
-        order_confirmed:{
+        order_confirmed: {
             title: 'Il tuo ordine sta arrivando!',
-            step_one:'In preparazione',
-            step_one_description:'Stiamo preparando il tuo ordine',
-            step_two:'Spedito',
-            step_two_description:'Il rider arriverà a breve',
-            step_three:'Consegnato',
-            step_three_description:"L'ordine è stato consegnato"
+            step_one: 'In preparazione',
+            step_one_description: 'Stiamo preparando il tuo ordine',
+            step_two: 'Spedito',
+            step_two_description: 'Il rider arriverà a breve',
+            step_three: 'Consegnato',
+            step_three_description: "L'ordine è stato consegnato"
         }
     },
     components: {
-        order_confirmed:{
-            button : 'Gioca con noi'
+        order_confirmed: {
+            button: 'Gioca con noi',
+            loginUser: {
+                title: "Accedi",
+                forgot_password: "Password dimenticata?",
+                register_now: "Registati ora",
+            },
+            registrationUser: {
+                title: "Registrati"
+            },
+            forgot_password: {
+                title: "Reimposta la tua password"
+            }
+
+        },
+        components: {
+
+            button: {
+                login: "ACCEDI",
+                register: "REGISTRATI",
+                forgot_psw: "MODIFICA"
+            },
+            login_placeholder: {
+                username: 'Nome o Email',
+                password: 'Password',
+            },
+            register_placeholder: {
+                userName: "Nome",
+                surname: "Cognome",
+                email: "Email",
+                phone: "Telefono",
+                password: "Password",
+                confpsw: "Conferma password",
+            },
+            forgot_placeholder: {
+                email: 'email',
+                password: 'password',
+                confpsw: 'conferma password',
+            },
+            error_login: {
+                email: 'Email non valida',
+                password: 'Password non valida',
+                email_password: 'Email e password non valide'
+            },
+            error_registration: {
+                userName: 'Nome non valido',
+                surname: 'Cognome non valido',
+                email: 'Email non valida',
+                phone: 'Numero non valido',
+                password: 'Password non valiida',
+                confirm_password: 'Password non corrispondono',
+                registration_accept: 'Registration effettuata',
+            },
+            error_forgot: {
+                email: 'Email non valida',
+                password: 'Password non valiida',
+                confirm_password: 'Password non corrispondono',
+                forgot_accept: "Password cambiata",
+            }
         }
     }
 }

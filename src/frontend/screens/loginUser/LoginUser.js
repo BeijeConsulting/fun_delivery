@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
 import { Helmet } from "react-helmet";
+import i18n from "../../../common/localization/i18n";
+import { withTranslation } from 'react-i18next';
 
 
 
@@ -33,13 +35,13 @@ class LoginUser extends React.Component {
 
         let error = ''
         if (!this.state.email) {
-            error = "Invalid Email"
+            error = i18n.t('frontend.components.error_login.email')
         } else if (!this.state.password) {
-            error = "Invalid password"
+            error = i18n.t('frontend.components.error_login.password')
         }
 
         if (!this.state.email && !this.state.password) {
-            error = "Invalid email and password "
+            error = i18n.t('frontend.components.error_login.email_password')
 
         } else if (this.state.email && this.state.password) {
             if (storageUserInfo) {
@@ -48,7 +50,7 @@ class LoginUser extends React.Component {
                     alert('Signed in!')
                     this.props.history.push('/userHome');
                 }
-            }else{
+            } else {
                 alert('Register First!')
                 this.props.history.push('/registratioUser');
             }
@@ -74,10 +76,13 @@ class LoginUser extends React.Component {
         })
     }
 
-
-
+    handleClickButton = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
 
     render() {
+
+        const { t } = this.props
 
         return (
             <>
@@ -94,7 +99,7 @@ class LoginUser extends React.Component {
 
                         <HtmlTag
                             tag="h1"
-                            text="Login"
+                            text={t('frontend.screens.loginUser.title')}
                             className='frontend-h1'
                         />
 
@@ -104,7 +109,7 @@ class LoginUser extends React.Component {
 
                         <InputBox
                             type='email'
-                            placeholder='Username or Email'
+                            placeholder={t('frontend.components.login_placeholder.username')}
                             name={'email'}
                             callback={this.onEmailChange}
                             value={this.state.email}
@@ -114,7 +119,7 @@ class LoginUser extends React.Component {
 
                         <InputBox
                             type={'password'}
-                            placeholder={'Password'}
+                            placeholder={t('frontend.components.login_placeholder.password')}
                             name={'password'}
                             callback={this.onPasswordChange}
                             value={this.state.password}
@@ -123,7 +128,7 @@ class LoginUser extends React.Component {
                         />
 
                         <Button
-                            text={'SIGN IN'}
+                            text={t('frontend.components.button.login')}
                             callback={this.validateClick}
                             className={'frontend-primary-btn'}
                         />
@@ -134,7 +139,7 @@ class LoginUser extends React.Component {
                     <Link to="/registrationUser" style={{ textDecoration: 'none' }}>
                         <HtmlTag
                             tag="span"
-                            text="Sign up"
+                            text={t('frontend.screens.loginUser.register_now')}
                             className='frontend-link'
                         />
                     </Link>
@@ -142,10 +147,13 @@ class LoginUser extends React.Component {
                     <Link to="/forgotPassword" style={{ textDecoration: 'none' }}>
                         <HtmlTag
                             tag="span"
-                            text="Forgot your password?"
+                            text={t('frontend.screens.loginUser.forgot_password')}
                             className='frontend-link'
                         />
                     </Link>
+
+                    <button value="it" onClick={this.handleClickButton}>it</button>
+                    <button value="en" onClick={this.handleClickButton}>en</button>
 
                     <img className='frontend-img' src={delivery} alt='delivery guy' />
                 </main>
@@ -155,4 +163,4 @@ class LoginUser extends React.Component {
 
 }
 
-export default LoginUser;
+export default withTranslation()(LoginUser);
