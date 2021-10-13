@@ -26,7 +26,11 @@ class Login extends Component {
     }
     componentDidMount = () => {
         // Salvo nel local Storage i Ristoranti
-        localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurants));
+        let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+        if (!foundRestaurant){
+            localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurants));
+        }
+
     }
 
     handleInputEmail = (e) => {
@@ -42,8 +46,8 @@ class Login extends Component {
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
-
-            let restaurant = localStorageRestaurants.restaurant_list.find(item => {
+            let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+            let restaurant = foundRestaurant.restaurant_list.find(item => {
                 return this.email === item.email
             })
 
