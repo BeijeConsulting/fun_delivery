@@ -135,7 +135,7 @@ const UserHome = (props) => {
 
     /* da generalizzare con il parametro path passato alla funzione */
     const goToUserMissionsPage = () => {
-        history.push('/userHome/userMissions');
+        history.push('/userHome/missions');
 
         /* WRITE HERE the foo to open the missions modale */
     }

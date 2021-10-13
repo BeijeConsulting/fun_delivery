@@ -2,6 +2,10 @@
 
 export const TRANSLATIONS_BACKOFFICE = {
     screens: {
+        common_screens: {
+            order: "Order",
+            address: "Address"
+        },
         login: {
             partner: "Want to become our partner?",
             title: "Log in to your restaurant",
@@ -14,16 +18,24 @@ export const TRANSLATIONS_BACKOFFICE = {
             your_data: "Your data",
             your_restaurant: "Your restaurant",
         },
-        my_orders:{
+        my_orders: {
             your_orders: "Your orders",
             number_of_order: "Order #",
             status: "Status",
-            order: "Order",
-            address: "Address"
         },
-        incoming_orders:{
+        incoming_orders: {
             title: "Incoming orders",
             ordered_text: "placed an order",
+        },
+        single_order: {
+            ordered_food: "Ordered food",
+            customer_name: "Customer name",
+            date: "Date",
+            price: "Price",
+            quantity: "Quantity",
+            total: "TOTAL",
+            approve: "Approve",
+            dont_approve: "Don't approve"
         }
     },
 
@@ -35,6 +47,20 @@ export const TRANSLATIONS_BACKOFFICE = {
         inputbox: {
             restaurant_name: "Restaurant name",
             vat: "VAT"
+        },
+        timeline: {
+            title: {
+                approved: "Approved",
+                preparing: "Preparing",
+                delivering: "Delivering",
+                delivered: "Delivered",
+            },
+            confirm_to_continue: "Are you sure?",
+            next_step: "Next step",
+            cancel: "Cancel",
+            next: "Next",
+            done: "Completed",
+            success_message: "Order completed"
         }
     },
 
@@ -60,7 +86,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             completed: "🟢 Completed",
             delivering: "🟡 Delivering",
             preparing: "🟠 Preparing",
-            confirmed: "🔵 Confirmed",
+            pending: "🔵 To be approved",
             rejected: "🔴 Rejected",
             error: "Error"
         }

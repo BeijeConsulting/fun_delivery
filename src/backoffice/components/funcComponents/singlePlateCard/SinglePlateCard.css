@@ -36,3 +36,22 @@
     width: 50%;
     object-fit: contain;
 }
+
+.bo-card-plate-container-img-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%; 
+    margin: 0;
+    cursor: pointer;
+    box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.18);
+}
+
+.bo-card-plate-container-img-logo img{
+    border-radius: 20px;
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}

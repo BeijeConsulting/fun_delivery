@@ -11,7 +11,7 @@ const SinglePlateCard = (props) => {
         >
 
             <div
-                className={`bo-card-plate-container-img-${props.newCss ? 'new-plate' : ''}`}
+                className={`bo-card-plate-container-img-${props.newCss}`}
                
             >
 
@@ -42,6 +42,7 @@ const SinglePlateCard = (props) => {
                     id="upload-img"
                     name = {props.name}
                     onChange={handleCallbackCard}
+                    disabled={props.disable}
                 />
 
             </div>
