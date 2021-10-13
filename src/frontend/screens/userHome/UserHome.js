@@ -2,11 +2,13 @@ import React, { useState } from "react";
 
 import '../userHome/UserHome.css'
 import luckySpin from '../../../common/assets/luckySpin.svg';
+import luckySpinMobile from '../../assets/images/luckySpinMobile.png'
 
 import Button from '../../../common/components/ui/button/Button'
-import UserNavbar from "../../components/ui/userNavbar/UserNavbar";
+// import UserNavbar from "../../components/ui/userNavbar/UserNavbar";
 
 import Wheel from '../../../gamification/components/classComponents/wheel/Wheel'
+import sortUpArrow from '../../assets/images/sortUpArrow.svg'
 
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
@@ -17,6 +19,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import apple from '../../../gamification/assets/images/avatar/avatar_apple.png'
 import badge from '../../../gamification/assets/images/badges/capitan20.png'
 import coin from '../../../common/assets/BeijeCoin.png'
+import pencil from '../../../frontend/assets/images/pencil.svg'
 
 import Avatar from '../../../gamification/components/classComponents/avatar/Avatar.js'
 
@@ -161,59 +164,81 @@ const UserHome = (props) => {
         })
     }
 
+    let percentageExp = 40;
+
     return (
-        <div className='frontend-user-page-container'>
-            <div className='frontend-user-page'>
-                {/* ----- NAVBAR ----- */}
-                <UserNavbar
-                    /* from API */
-                    callback={callbackSwitcher}
-                />
+        <div className='fe-user-page-container'>
 
-                {/* ----- MAIN ----- */}
-                <main className='frontend-main-user'>
-                    <ul>
-                        <li>
-                            <span style={{ cursor: 'pointer' }}>Le mie informazioni</span>
-                        </li>
+            {/* ----- MAIN ----- */}
+            <main className='fe-main-user'>
+                <div className='fe-user-first-section'>
+                    <div className='fe-user-header'>
+                        {/* User images */}
+                        <div className='fe-user-images-container'>
+                            <img className='fe-user-avatar' src={apple} alt="avatar" />
 
-                        <li>
-                            <span style={{ cursor: 'pointer' }}>I miei ordini</span>
-                        </li>
+                            <div className='fe-user-badge-container'>
+                                <img className='fe-user-badge' src={badge} alt="badge" />
+                            </div>
 
-                        <li>
-                            <span style={{ cursor: 'pointer' }} onClick={goToUserMissionsPage}>Le mie missioni</span>
-                        </li>
-                    </ul>
-
-                    <div className='fortune-wheel-container'>
-                        <img src={luckySpin} alt="fortunewheel" className='lucky-spin' />
+                            <div className='fe-user-icon-container'>
+                                <img className='fe-user-icon' src={pencil} alt="pencil" />
+                            </div>
+                        </div>
+                        {/* User name */}
+                        <div className='fe-user-name-container'>
+                            <span className='fe-user-name'>Fede Dimo</span>
+                        </div>
+                    </div>
+                    <div className='fe-user-coin-container'>
+                        <img className='fe-user-coin' src={coin} alt="coin" />
+                        <span className='fe-coin-number'>300 &nbsp;</span> <span>BeijeCoin</span>
+                    </div>
+                    <div className='fe-user-level-container'>
+                        <span>Level:
+                            <span className='fe-level-number'>&nbsp;1</span>
+                        </span>
+                        <div className='fe-progress-bar'>
+                            <div style={{ width: `${percentageExp}%` }} className="fe-progress-exp"></div>
+                        </div>
+                        <span>Experience
+                            <span className='fe-exp-number'>&nbsp;300</span>
+                        </span>
+                    </div>
+                    <div className='fe-user-wheel-container'>
+                        {
+                            //mostrare solo se c'è una vincita
+                            <span className='fe-wheel-text'>La tua vincita del giorno è:
+                                <br /><span className='fe-wheel-award'>Una spedizione gratuita</span>
+                            </span>
+                        }
+                        <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
                         <Button
-                            style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
+                            className={newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
+                            // style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
                             text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
                             callback={openWheelOfFortuneGame}
                         />
-
-
                     </div>
+                    <div className='fe-user-slide-menu'>
+                    <img className='fe-user-slide-arrow' src={sortUpArrow} alt="slide arrow" />
+                    </div>
+                </div>
+                <div className='fe-user-second-section'>
+                    <div className='fe-user-header-tabs'></div>
+                </div>
+            </main>
 
-                    <Button
-                        text='LOGOUT'
-                        className='frontend-user-logout-btn'
-                        callback={logoutUser}
-                    />
-                </main>
-
-                {state.wheelModal &&
+            {state.wheelModal &&
 
 
-                        <div className="gm-wheel-modal">
-                            <CloseOutlined onClick={wheelModalClick} />
-                            <Wheel />
-                        </div>
+                <div className="gm-wheel-modal">
+                    <CloseOutlined onClick={wheelModalClick} />
+                    <Wheel />
+                </div>
 
-                }
-            </div>
+            }
+
 
             {/* ---- AVATAR ----*/}
             {state.avatarDisplay &&
@@ -230,3 +255,82 @@ const UserHome = (props) => {
 }
 
 export default UserHome;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <main className='frontend-main-user'>
+//     <ul>
+//         <li>
+//             <span style={{ cursor: 'pointer' }}>Le mie informazioni</span>
+//         </li>
+
+//         <li>
+//             <span style={{ cursor: 'pointer' }}>I miei ordini</span>
+//         </li>
+
+//         <li>
+//             <span style={{ cursor: 'pointer' }} onClick={goToUserMissionsPage}>Le mie missioni</span>
+//         </li>
+//     </ul>
+
+//     <div className='fortune-wheel-container'>
+//         <img src={luckySpin} alt="fortunewheel" className='lucky-spin' />
+//         <Button
+//             style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
+//             text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
+//             callback={openWheelOfFortuneGame}
+//         />
+
+
+//     </div>
+
+//     <Button
+//         text='LOGOUT'
+//         className='frontend-user-logout-btn'
+//         callback={logoutUser}
+//     />
+// </main>

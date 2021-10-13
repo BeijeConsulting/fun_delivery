@@ -1,6 +1,258 @@
 /* ----- MAIN SECTION ----- */
 
-.frontend-main-user{
+.fe-user-page-container {
+    min-height: calc(100vh - 81px);
+    /* background-color: green; */
+    padding: 0 2rem;
+}
+
+.fe-main-user {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between;
+    min-height: calc(100vh - 81px);
+    background-color: blue;
+    padding: 2rem 0; */
+}
+
+.fe-user-first-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 81px);
+    background-color: blue;
+    padding: 2rem 0;
+}
+
+.fe-user-header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fe-user-images-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    position: relative;
+    background-color: #fff;
+    border: 4px solid var(--primary-strawberry)
+}
+
+.fe-user-avatar {
+    border-radius: 50%;
+    width: 75px;
+}
+
+.fe-user-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    top: 0;
+    right: -15px;
+    background-color: grey;
+}
+
+.fe-user-icon {
+    width: 15px;
+    color: #fff;
+}
+
+.fe-user-badge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    background-color: #fff;
+    /* border: 3px solid var(--primary-strawberry); */
+    /* box-shadow: 1px 1px 10px var(--primary-strawberry); */
+    box-shadow: 1px 1px 10px rgb(34, 33, 33);
+    border-radius: 50%;
+    bottom: -15px;
+    right: -15px;
+}
+
+.fe-user-badge {
+    border-radius: 50%;
+    width: 40px;
+}
+
+.fe-user-name {
+    font-size: 1.4rem;
+    color: var(--primary-dark)
+}
+
+.fe-user-coin-container {
+    display: flex;
+    align-items: center;
+    /* background-color: teal; */
+    color: var(--primary-dark)
+}
+
+.fe-user-coin {
+    height: 40px;
+    width: 40px;
+    /* background-color:chartreuse; */
+    border-radius: 50%;
+    margin-right: .8rem;
+}
+
+.fe-coin-number {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: var(--primary-strawberry)
+}
+
+.fe-user-level-container {
+    display: flex;
+    flex-direction: column;
+    /* background-color: tomato; */
+    color: var(--primary-dark);
+}
+
+.fe-level-number {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: var(--primary-strawberry)
+}
+
+.fe-progress-bar {
+    background-color: lightgray;
+    border-radius: 25px;
+    width: 100%;
+    height: 15px;
+    overflow: hidden;
+    margin: .5rem 0 .2rem 0;
+}
+
+.fe-progress-exp {
+    background-color: var(--primary-strawberry);
+    height: 100%;
+}
+
+.fe-exp-number {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: var(--primary-strawberry)
+}
+
+.fe-user-wheel-container {
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-dark);
+    align-items: center;
+}
+
+.fe-wheel-text {
+    align-self: flex-start;
+}
+
+.fe-wheel-award {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: var(--primary-strawberry);
+}
+
+.fe-user-wheel {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 12px 0 8px 0;
+}
+
+.fe-btn-wheel {
+    padding: 5px 0;
+    border-radius: 25px;
+    width: 100%;
+}
+
+.fe-btn-wheel-playable {
+    background-color: var(--primary-dark);
+    color: #fff;
+}
+
+.fe-btn-wheel-not-playable {
+    color: #fff;
+    background-color: gray
+}
+
+/* ----- MODAL WHEEL ----- */
+
+.gm-wheel-modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(63, 61, 86, 0.65);
+    backdrop-filter: blur(5px);
+    z-index: 5000;
+}
+
+@media screen and (min-width: 768.1px) {
+    .lucky-spin {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .lucky-spin {
+        width: 250px;
+    }
+    canvas {}
+}
+
+@media screen and (max-width: 428px) {
+    .lucky-spin {
+        width: 200px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .fe-main-user {
+      display: flex;
+      flex-direction: row;  
+    }
+    .fe-user-first-section {
+        width: 25%;
+        background-color: red;
+    }
+    .fe-user-header{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .fe-user-second-section {
+        width: 75%;
+        min-height: calc(100vh - 81px);
+        background-color: green;
+    }
+
+    .fe-user-header-tabs{
+        
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .fe-user-first-section {
+        width: 20%;
+    }
+    .fe-user-second-section {
+        width: 80%;
+    }
+}
+
+/* .frontend-main-user{
     height: calc(100vh - 112px);
     padding: 0 2rem;
     display: flex;
@@ -37,37 +289,4 @@
     font-size: 18px;
     border-radius: 0;
     padding: 10px 25px;
-}
-
-.gm-wheel-modal{
-    width: 100vw;
-    height: 100vh;
-    position:absolute;
-    top: 0px;
-    left: 0px;
-    background-color: rgba(63, 61, 86, 0.65);
-    backdrop-filter: blur(5px);
-    z-index: 5000;
-
-}
-
-
-
-@media screen and (min-width: 768.1px){
-    .lucky-spin{
-        width: 350px;
-    }
-}
-@media screen and (max-width: 768px){
-    .lucky-spin{
-        width: 250px;
-    }
-    canvas{
-
-    }
-}
-@media screen and (max-width: 428px){
-    .lucky-spin{
-        width: 200px;
-    }
-}
+} */
