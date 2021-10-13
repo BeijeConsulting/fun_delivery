@@ -59,9 +59,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             next_step: "Prossimo step",
             cancel: "Annulla",
             next: "Prossimo",
-            done: "Completato",
+            complete_order: "Completa",
             success_message: "Ordine completato"
-        }
+        },
+        back : "Indietro"
     },
 
     useful_constants: {

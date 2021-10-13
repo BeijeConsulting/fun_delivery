@@ -15,5 +15,8 @@ export const TRANSLATIONS_COMMON = {
         button: {
             show: "Mostra"
         }
+    },
+    formats: {
+        date: "DD-MM-YYYY hh:mm"
     }
 }

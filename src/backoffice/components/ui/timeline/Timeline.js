@@ -8,7 +8,6 @@ const { Step } = Steps;
 
 const steps = [
     {
-        // title: 'Approvato',
         title: i18n.t("backoffice.components.timeline.title.approved"),
         content: "First-content",
     },
@@ -30,12 +29,20 @@ export default function Timeline() {
     const [current, setCurrent] = React.useState(0);
     const { confirm } = Modal;
 
+    const confirmMessage = () => {
+        next()
+        message.success(
+            i18n.t("backoffice.components.timeline.success_message")
+        );
+    }
+
     const next = () => {
+
         confirm({
             title: i18n.t("backoffice.components.timeline.confirm_to_continue"),
             content: `${i18n.t(
                 "backoffice.components.timeline.next_step"
-            )}: nome_prossimo_step`,
+            )}: ${steps[current+1].title}`,
             cancelText: i18n.t("backoffice.components.timeline.cancel"),
             onOk() {
                 setCurrent(current + 1);
@@ -44,8 +51,8 @@ export default function Timeline() {
                 return;
             },
         });
+
     };
- // TODO far sparire il bottone dopo l'ordine completato
     return (
         <div className="time-line-default">
             <Steps current={current}>
@@ -54,21 +61,17 @@ export default function Timeline() {
                 ))}
             </Steps>
             <div className="steps-action">
-                {current < steps.length - 1 && (
-                    <Button type="primary" onClick={() => next()}>
+                {current < steps.length - 2 && (
+                    <Button type="primary" onClick={next}>
                         {i18n.t("backoffice.components.timeline.next")}
                     </Button>
                 )}
-                {current === steps.length - 1 && (
+                {current === steps.length - 2 && (
                     <Button
                         type="primary"
-                        onClick={() =>
-                            message.success(
-                                i18n.t("backoffice.components.timeline.success_message")
-                            )
-                        }
+                        onClick={confirmMessage()}
                     >
-                        {i18n.t("backoffice.components.timeline.done")}
+                        {i18n.t("backoffice.components.timeline.complete_order")}
                     </Button>
                 )}
             </div>

@@ -42,7 +42,7 @@ export const TRANSLATIONS_BACKOFFICE = {
     components: {
         button: {
             login: "LOG IN",
-            register: "REGISTER"
+            register: "REGISTER",
         },
         inputbox: {
             restaurant_name: "Restaurant name",
@@ -53,15 +53,16 @@ export const TRANSLATIONS_BACKOFFICE = {
                 approved: "Approved",
                 preparing: "Preparing",
                 delivering: "Delivering",
-                delivered: "Delivered",
+                delivered: "Delivered"
             },
             confirm_to_continue: "Are you sure?",
             next_step: "Next step",
             cancel: "Cancel",
             next: "Next",
-            done: "Completed",
+            complete_order: "Complete",
             success_message: "Order completed"
-        }
+        },
+        back : "Back"
     },
 
     useful_constants: {

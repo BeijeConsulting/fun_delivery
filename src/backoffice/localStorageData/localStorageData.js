@@ -10,6 +10,8 @@ import Poke from "../assets/images/poke.jpg";
 import Sushi from "../assets/images/sushi.png";
 import Altro from "../assets/images/altro.jpg";
 import Carbonara from "../assets/images/carbonara.jpg";
+import moment from "moment";
+import i18n from "../../common/localization/i18n";
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
   restaurant_categories: [
@@ -217,6 +219,7 @@ const localStorageData = {
   order_list: [
     {
       order_id: 34221,
+      date: moment("2021-10-12T19:47:00+0000").format(i18n.t('common.formats.date')),      
       customer_name: "Marco Brambilla",
       customer_address: "Una via a Milano",
       ordered: [
@@ -240,6 +243,7 @@ const localStorageData = {
     },
     {
       order_id: 34220,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),      
       customer_name: "Lorenzo Chiesa",
       customer_address: "Una via all'Elba",
       ordered: [
@@ -263,6 +267,7 @@ const localStorageData = {
     },
     {
       order_id: 34224,
+      date: moment("2021-10-11T21:35:00+0000").format(i18n.t('common.formats.date')),      
       customer_name: "Simone Micalizzi",
       customer_address: "Una via a Palermo",
       ordered: [
@@ -286,6 +291,7 @@ const localStorageData = {
     },
     {
       order_id: 34223,
+      date: moment("2021-10-10T20:05:00+0000").format(i18n.t('common.formats.date')),      
       customer_name: "Enrico Paolazzi",
       customer_address: "Una via a Ferrara",
       ordered: [
@@ -309,6 +315,7 @@ const localStorageData = {
     },
     {
       order_id: 34222,
+      date: moment("2021-10-18T21:00:00+0000").format(i18n.t('common.formats.date')),      
       customer_name: "Calogero Messina",
       customer_address: "Una via a Caltanissetta",
       ordered: [

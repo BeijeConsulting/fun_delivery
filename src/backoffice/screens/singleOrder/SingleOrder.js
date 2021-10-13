@@ -1,18 +1,17 @@
 import { Component } from "react";
-import { LeftOutlined } from "@ant-design/icons";
 import { withTranslation } from "react-i18next";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import Button from "../../../common/components/ui/button/Button";
 import Timeline from "../../components/ui/timeline/Timeline";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import "./SingleOrder.css";
-
+import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
 class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
         // this.orderList = JSON.parse(localStorage.getItem('localStorageData')).order_list.filter(item => item.order_id===this.props.location.state.order.order_id);
         this.ordersLocalStorage = JSON.parse(localStorage.getItem('localStorageData'))
-        this.foundOrder = this.ordersLocalStorage.order_list.find(item => item.order_id===this.props.location.state.order_id)
+        this.foundOrder = this.ordersLocalStorage.order_list.find(item => item.order_id === this.props.location.state.order_id)
         this.state = {
             order: this.foundOrder,
             showTimeline: this.foundOrder.status !== "pending",
@@ -37,7 +36,7 @@ class RestaurantSingleOrder extends Component {
     totalPriceOrder = () => {
         let sum = 0;
         // Far funzionare questa funzione
-        this.state.order.ordered.map((item) => (sum += item.price));
+        this.foundOrder.ordered.map((item) => (sum += item.price));
         return sum;
     };
 
@@ -53,15 +52,16 @@ class RestaurantSingleOrder extends Component {
                                 {this.props.location.state.order_id}
                             </h2>
                         </div>
-                        <div
+                        <BackPageButton classProp={"bo-mymenu-welcome"} callback={this.handleCallbackGoBack} />
+                        {/* <div
                             className="bo-mymenu-welcome"
                             onClick={this.handleCallbackGoBack}
                         >
                             <h3>
                                 <LeftOutlined />
                             </h3>
-                            <h3>indietro</h3>
-                        </div>
+                            <h3>{t("backoffice.screens.single_order.back")}</h3>
+                        </div> */}
                     </div>
 
                     {this.state.showTimeline && (
@@ -96,7 +96,7 @@ class RestaurantSingleOrder extends Component {
                                 // value={this.props.location.state.order.customer_address}
                                 value={`${t(
                                     "backoffice.screens.single_order.date"
-                                )}: 11/10/2021 14:25`}
+                                )}: ${this.state.order.date}`}
                             />
                         </div>
                         <div className="bo-profile-flex-inputs">
@@ -106,14 +106,14 @@ class RestaurantSingleOrder extends Component {
                                 disable={true}
                                 value={`${t(
                                     "backoffice.screens.single_order.customer_name"
-                                )}: ${this.props.location.state.order.customer_name}`}
+                                )}: ${this.state.order.customer_name}`}
                             />
 
                             <InputBox
                                 className="bo-input-box"
                                 name="customer_address"
                                 disable={true}
-                                value={`${t("backoffice.screens.common_screens.address")}: ${this.props.location.state.order.customer_address
+                                value={`${t("backoffice.screens.common_screens.address")}: ${this.state.order.customer_address
                                     }`}
                             />
                         </div>
@@ -121,7 +121,7 @@ class RestaurantSingleOrder extends Component {
                         <h2> {t("backoffice.screens.single_order.ordered_food")}:</h2>
 
                         <div className="list-group-item orders" name="foodOrdered">
-                            {this.props.location.state.order.ordered.map((item, index) => {
+                            {this.state.order.ordered.map((item, index) => {
                                 return (
                                     <ul
                                         key={index}
