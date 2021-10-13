@@ -13,7 +13,7 @@ import { map as _map } from "lodash";
 // import { message, Button as ButtonAnt } from 'antd';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
 import properties from '../../../common/utils/properties'
-
+import localStorageData from '../../localStorageData/localStorageData'
 class Registration extends Component {
 
     constructor(props) {
@@ -40,6 +40,10 @@ class Registration extends Component {
         // this.countries = _map(constantsDictionary.COUNTRIES)
         // this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
+        if(!this.localStorageData){
+            this.localStorageData = localStorageData
+            localStorage.setItem('localStorageData',JSON.stringify(localStorageData))
+        }
         this.state = {
             firstName: false,
             lastName: false,
@@ -56,7 +60,6 @@ class Registration extends Component {
             restaurant_category_id: false
         }
     }
-
     handleCallbackInput = (e) => {
         if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country_id') {
             this.objData.address[e.target.name] = e.target.value
@@ -201,16 +204,6 @@ class Registration extends Component {
                                     name='restaurant_name'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                {/* 
-                                    <Select
-                                        data={this.categories}
-                                        selectID='categories'
-                                        selectName='restaurant_category_id'
-                                        className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
-                                        callback={this.handleCallbackInput}
-                                        callbackOnFocus={this.handleCallBackFocus}
-                                    /> */}
-
 
                                 <select
                                     id='category'
@@ -218,7 +211,7 @@ class Registration extends Component {
                                     onChange={this.handleCallbackInput}
                                     onFocus={this.handleCallBackFocus}
                                     className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
-
+                                    default=""
                                 >
                                     <option disabled value="">Categorie</option>
 
@@ -266,20 +259,14 @@ class Registration extends Component {
                                     name='cap'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                {/* <Select
-                                    data={this.countries}
-                                    selectID='countries'
-                                    className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
-                                    callback={this.handleCallbackInput}
-                                    selectName='country_id'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                /> */}
+
                                 <select
                                     id='country_id'
                                     name='country_id'
                                     className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
                                     onChange={this.handleCallbackInput}
                                     onFocus={this.handleCallBackFocus}
+                                    defaultValue=""
                                 >
                                     <option disabled value="">Stato</option>
 

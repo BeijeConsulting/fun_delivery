@@ -11,6 +11,7 @@ import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
 import coin from '../../assets/images/coins.png'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
+import localStorageData from "../../localStorageData/localStorageData";
 // const format = 'HH:mm';
 
 class Profile extends Component {
@@ -37,7 +38,8 @@ class Profile extends Component {
                 description: ['', false],
                 discount_id: ['', false],
                 profile_img: ['', false],
-                coins: ['', false]
+                coins: ['', false],
+                restaurant_free_shipping:true
             },
             list_categories: [],
             discounts: [],
@@ -71,24 +73,13 @@ class Profile extends Component {
             description: [restaurant.description, false],
             discount_id: [restaurant.discount_id, false],
             profile_img: [restaurant.profile_img, false],
-            coins: [restaurant.coins, false]
+            coins: [restaurant.coins, false],
+            restaurant_free_shipping: restaurant.restaurant_free_shipping
         }
-
-        // Init list_countries
-        let countries = [
-            {
-                country_name: 'Italy',
-                country_id: 1
-            },
-            {
-                country_name: 'England',
-                country_id: 2
-            }
-        ];
 
         this.setState({
             list_categories: restaurant_categories,
-            list_countries: countries,
+            list_countries: localStorageData.countries,
             discounts: discounts,
             data: {
                 ...this.state.data,
@@ -114,8 +105,13 @@ class Profile extends Component {
         }))
     }
 
-    handleSwitchCallback = () => {
-        console.log('Switch')
+    handleSwitchCallback = (e) => {
+        this.setState({
+            data: {
+                ...this.state.data,
+                restaurant_free_shipping: e
+            }
+        })
     }
 
     handleCallBackFocus = (e) => {
@@ -166,7 +162,7 @@ class Profile extends Component {
     render() {
         return (
             <>
-                <LayoutBackOffice pageTitle="PROFILE">
+                <LayoutBackOffice pageTitle="PROFILE" handleLogout = {this}>
                     <div className="bo-profile-container">
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
@@ -199,13 +195,14 @@ class Profile extends Component {
                         </div>
                         <div className="bo-profile-form">
                             <div className="bo-profile-second-row">
-                                <h3>I tuoi dati</h3>
+                                <h2>I tuoi dati</h2>
                                 <div className="bo-profile-switch">
-                                    <p>
+                                    <p style={{fontSize:'16px'}}>
                                         Free Shipping
-                                        <span>
+                                        <span style={{paddingLeft:'10px'}}>
                                             <SwitchProfile
                                                 handleSwitchCallback={this.handleSwitchCallback}
+                                                value={this.state.data.restaurant_free_shipping}
                                             />
                                         </span></p>
                                 </div>
@@ -247,7 +244,7 @@ class Profile extends Component {
 
                         </div>
                         <div className="bo-profile-form">
-                            <h3>Il tuo ristorante</h3>
+                            <h2>Il tuo ristorante</h2>
 
                             <div className="bo-profile-flex-inputs">
 
