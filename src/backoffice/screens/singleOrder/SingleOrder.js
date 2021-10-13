@@ -60,6 +60,7 @@ class RestaurantSingleOrder extends Component {
         console.log(e);
     };
 
+    
     render() {
         const { t } = this.props;
         return (
