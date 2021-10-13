@@ -8,11 +8,12 @@ import utils from '../../../common/utils/utils'
 import constantsDictionary from '../../../common/utils/constantsDictionary'
 import Select from '../../../common/components/ui/select/Select'
 import { withTranslation } from 'react-i18next';
-import {map as _map} from "lodash";
+import { map as _map } from "lodash";
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
-
+import properties from '../../../common/utils/properties'
+import localStorageData from '../../localStorageData/localStorageData'
 class Registration extends Component {
 
     constructor(props) {
@@ -29,15 +30,20 @@ class Registration extends Component {
                 street: '',
                 city: '',
                 cap: null,
-                country: '',
+                country_id: '',
             },
             VAT: null,
             phone_number: null,
-            restaurant_category: '',
+            restaurant_category_id: '',
         }
 
-        this.countries = _map(constantsDictionary.COUNTRIES)
-        this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
+        // this.countries = _map(constantsDictionary.COUNTRIES)
+        // this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
+        this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
+        if(!this.localStorageData){
+            this.localStorageData = localStorageData
+            localStorage.setItem('localStorageData',JSON.stringify(localStorageData))
+        }
         this.state = {
             firstName: false,
             lastName: false,
@@ -48,15 +54,14 @@ class Registration extends Component {
             street: false,
             city: false,
             cap: false,
-            country: false,
+            country_id: false,
             VAT: false,
             phone_number: false,
-            restaurant_category: false
+            restaurant_category_id: false
         }
     }
-
     handleCallbackInput = (e) => {
-        if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country') {
+        if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country_id') {
             this.objData.address[e.target.name] = e.target.value
         } else {
             this.objData[e.target.name] = e.target.value
@@ -66,8 +71,8 @@ class Registration extends Component {
     handleSubmit = () => {
         this.setState(
             {
-                firstName: !utils.validateName(this.objData.firstName),
-                lastName: !utils.validateName(this.objData.lastName),
+                firstName: this.objData.firstName.length <= 4,
+                lastName: this.objData.lastName.length <= 4,
                 email: !utils.validateEmail(this.objData.email),
                 password: !utils.validatePassword(this.objData.password),
                 confirm_password: this.objData.password !== this.objData.confirm_password || this.objData.password.length <= 0,
@@ -75,10 +80,10 @@ class Registration extends Component {
                 street: !utils.validateAddress(this.objData.address.street),
                 city: !utils.validateCity(this.objData.address.city),
                 cap: !utils.validateCap(this.objData.address.cap),
-                country: (this.objData.address.country.length <= 0),
+                country_id: (this.objData.address.country_id.length <= 0),
                 VAT: !utils.validateVAT(this.objData.VAT),
                 phone_number: !utils.validatePhone(this.objData.phone_number),
-                restaurant_category: (this.objData.restaurant_category.length <= 0)
+                restaurant_category_id: (this.objData.restaurant_category_id.length <= 0)
             },
             () => {
                 let responseReady = true;
@@ -97,16 +102,19 @@ class Registration extends Component {
                         sponsor: null,
                     };
 
-                    let localStorageRestaurantsData = localStorageRestaurants;    
-                    console.log(localStorageRestaurants)               
+                    let localStorageRestaurantsData = localStorageRestaurants;
 
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
                         ...gamificationData,
-                        id: localStorageRestaurantsData.restaurant_list.length + 1                   
+                        id: localStorageRestaurantsData.restaurant_list.length + 1
                     });
 
                     localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurantsData));
+                    localStorage.setItem('activeRestaurantId', JSON.stringify(localStorageRestaurantsData.restaurant_list.length));
+                    this.props.history.push(properties.BO_ROUTING.PROFILE, {
+                        validation: true
+                    })
                 }
             }
         )
@@ -197,14 +205,30 @@ class Registration extends Component {
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
 
-                                <Select
-                                    data={this.categories}
-                                    selectID='categories'
-                                    selectName='restaurant_category'
-                                    className={`bo-input-box ${this.state.restaurant_category ? 'alert' : ''}`}
-                                    callback={this.handleCallbackInput}
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
+                                <select
+                                    id='category'
+                                    name='restaurant_category_id'
+                                    onChange={this.handleCallbackInput}
+                                    onFocus={this.handleCallBackFocus}
+                                    className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
+                                    default=""
+                                >
+                                    <option disabled value="">Categorie</option>
+
+                                    {
+                                        this.localStorageData.restaurant_categories.map((category, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+
+                                </select>
                             </div>
 
                             <div className="flex-inputs">
@@ -235,19 +259,36 @@ class Registration extends Component {
                                     name='cap'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                <Select
-                                    data={this.countries}
-                                    selectID='countries'
-                                    className={`bo-input-box ${this.state.country ? 'alert' : ''}`}
-                                    callback={this.handleCallbackInput}
-                                    selectName='country'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
+
+                                <select
+                                    id='country_id'
+                                    name='country_id'
+                                    className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
+                                    onChange={this.handleCallbackInput}
+                                    onFocus={this.handleCallBackFocus}
+                                    defaultValue=""
+                                >
+                                    <option disabled value="">Stato</option>
+
+                                    {
+                                        this.localStorageData.countries.map((category, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={category.country_id}
+                                                >
+                                                    {category.country_name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+
+                                </select>
                             </div>
 
                             <div className="flex-inputs">
                                 <InputBox
-                                    type="number"
+                                    type="tel"
                                     className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
                                     placeholder={t('common.components.inputbox.number')}
                                     callback={this.handleCallbackInput}

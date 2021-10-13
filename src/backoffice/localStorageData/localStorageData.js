@@ -94,7 +94,18 @@ const localStorageData = {
       img_path: Altro,
     },
   ],
-  plate_list: [{
+  countries:[
+    {
+      country_name: 'Italy',
+      country_id: 1
+    },
+    {
+      country_name: 'England',
+      country_id: 2
+    }
+  ],
+  plate_list: [
+    {
       id: 1,
       plate_img: Carbonara,
       plate_name: "Spaghetti alla carbonara",

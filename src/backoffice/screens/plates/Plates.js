@@ -74,7 +74,7 @@ class Plates extends Component {
                                 <h2>{this.pageTitle}</h2>
                             </div>
 
-                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>indietro</h3> </div>
+                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
                         </div>
 
                         <div className="bo-mymenu-form">

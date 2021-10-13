@@ -7,14 +7,18 @@ import Navbar from '../../ui/navbar/Navbar';
 import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutlined, DollarCircleOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
 import properties from '../../../../common/utils/properties';
-
+import { useHistory } from "react-router-dom";
 
 const { Content, Sider } = Layout;
 
 const LayoutBackOffice = (props) => {
 
     const pathname = useLocation().pathname;
-
+    let history = useHistory();
+    const handleLogout = () => {
+        localStorage.removeItem('activeRestaurantId');
+        history.push(properties.BO_ROUTING.LOGIN)
+    }
     return (
         <div className="backoffice-layout">
 
@@ -23,37 +27,38 @@ const LayoutBackOffice = (props) => {
             />
             <Layout>
 
-                    <Sider
-                        style={{ backgroundColor: 'rgba(242, 68, 100, .9)' }}
-                        breakpoint="lg"
-                        collapsedWidth="0"
-                        onBreakpoint={broken => { /*console.log(broken)*/ }}
-                        onCollapse={(collapsed, type) => { /*console.log(collapsed, type)*/ }}
-                    >
-                        <div className="backoffice-menu-container">
-                            <ul className="backoffice-menu">
-                                <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>Profilo</Link></li>
-                                <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
-                                <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>Ordini</Link></li>
-                                <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
-                                <li className={pathname === properties.BO_ROUTING.SPONSOR ? 'active' : ''}><Link to={properties.BO_ROUTING.SPONSOR}><span><DollarCircleOutlined /></span>Sponsor</Link></li>
-                            </ul>
+                <Sider
+                    style={{ backgroundColor: 'rgba(242, 68, 100, .9)' }}
+                    breakpoint="lg"
+                    collapsedWidth="0"
+                    onBreakpoint={broken => { /*console.log(broken)*/ }}
+                    onCollapse={(collapsed, type) => { /*console.log(collapsed, type)*/ }}
+                >
+                    <div className="backoffice-menu-container">
+                        <ul className="backoffice-menu">
+                            <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>Profilo</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>Ordini</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.SPONSOR ? 'active' : ''}><Link to={properties.BO_ROUTING.SPONSOR}><span><DollarCircleOutlined /></span>Sponsor</Link></li>
+                        </ul>
 
-                            <div className="bo-btn-logout">
-                                <Button
-                                    className="bo-btn"
-                                    text="Logout"
+                        <div className="bo-btn-logout">
+                            <Button
+                                className="bo-btn"
+                                text="Logout"
+                                callback={handleLogout}
 
-                                />
-                            </div>
+                            />
                         </div>
+                    </div>
 
-                    </Sider>
-                    <Content className="content-layout">
-                        <div className="content">
-                            {props.children}
-                        </div>
-                    </Content>
+                </Sider>
+                <Content className="content-layout">
+                    <div className="content">
+                        {props.children}
+                    </div>
+                </Content>
             </Layout>
         </div>
     )
