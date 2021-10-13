@@ -136,13 +136,13 @@ export default class MenuRestaurant extends React.Component
     }
 
 
-    view = () =>
-    {
-        this.setState( {
-            isClick: !this.state.isClick
-        } )
-        console.log( this.state.isClick )
-    }
+    // view = () =>
+    // {
+    //     this.setState( {
+    //         isClick: !this.state.isClick
+    //     } )
+    //     console.log( this.state.isClick )
+    // }
 
     clicked = ( e ) =>
     {
@@ -166,7 +166,7 @@ export default class MenuRestaurant extends React.Component
 
 
 
-                <div className='headerRestaurant'data-aos="zoom-in">
+                <div className='headerRestaurant'>
                     <div className='namePricePlate'>
                         <h2 className='nameRestPlate'>Nome Ristorante</h2>
                         <p className='priceRestPlate'>Costo 1.90€ • 30-40 min  • 4.5 </p>
@@ -178,12 +178,12 @@ export default class MenuRestaurant extends React.Component
             </div>
 
 
-            <div className='infoPlate'data-aos="zoom-in">
+            <div className='infoPlate'>
                 <p style={ { fontWeight: '600', fontSize: '25px' } }>Pizza 🍕</p>
                 <p style={ { marginTop: '-20px' } } >Via da Cacacas 22 Milano (MI)</p>
             </div>
             <h2 style={ { marginLeft: '1%', fontSize: '30px', zIndex: '5' } } data-aos="fade-right">Scegli il tuo piatto!</h2>
-            <div className='rowSidebar'data-aos="zoom-in">
+            <div className='rowSidebar'>
                 <button onClick={ this.scrollAntipasti } ref={ this.myRefAntipasti } className='voicePlate'> Antipasti </button>
                 <button className='voicePlate' onClick={ this.scrollPrimi } ref={ this.myRefPrimi }> Primi </button>
                 <button className='voicePlate' onClick={ this.scrollSecondi } ref={ this.myRefSecondi }> Secondi </button>
@@ -194,8 +194,8 @@ export default class MenuRestaurant extends React.Component
            
                 <div className='menuWrapper'>
                     <div className='trendRestaurants'>
-                        <h2 className='trendPlate' ref={ this.myRefAntipasti } data-aos="fade-right">Antipasti</h2>
-                        <div className="plateMenuContainer" data-aos="zoom-in">
+                        <h2 className='trendPlate' ref={ this.myRefAntipasti } data-aos="fade-up">Antipasti</h2>
+                        <div className="plateMenuContainer" data-aos="fade-up">
                             {/* mapping che dipende dal risultato della ricerca*/ }
                             {/* tendenza */ }
 
@@ -217,9 +217,9 @@ export default class MenuRestaurant extends React.Component
                         </div>
                     </div>
 
-                    <h2 className='trendPlate' ref={ this.myRefPrimi } data-aos="fade-right">Primi</h2>
+                    <h2 className='trendPlate' ref={ this.myRefPrimi } data-aos="fade-up">Primi</h2>
                     {/* tutti */ }
-                    <div className='plateMenuContainer'data-aos="zoom-in">
+                    <div className='plateMenuContainer'data-aos="fade-up">
                         { this.objectPlate.filter( ( item ) =>
                         {
                             return (
@@ -235,9 +235,9 @@ export default class MenuRestaurant extends React.Component
                     </div>
                 </div>
                 <div>
-                    <h2 className='trendPlate' ref={ this.myRefSecondi } data-aos="fade-right">Secondi</h2>
+                    <h2 className='trendPlate' ref={ this.myRefSecondi } data-aos="fade-up">Secondi</h2>
                     {/* tutti */ }
-                    <div className='plateMenuContainer'data-aos="zoom-in">
+                    <div className='plateMenuContainer'data-aos="fade-up">
                         { this.objectPlate.filter( ( item ) =>
                         {
                             return (
@@ -253,7 +253,7 @@ export default class MenuRestaurant extends React.Component
                     </div>
                 </div>
                 <div>
-                    <h2 className='trendPlate' ref={ this.myRefDolce } data-aos="fade-right">Dolci</h2>
+                    <h2 className='trendPlate' ref={ this.myRefDolce } data-aos="fade-up">Dolci</h2>
                     {/* tutti */ }
                     <div className='plateMenuContainer'data-aos="fade-up">
                         { this.objectPlate.filter( ( item ) =>
@@ -271,7 +271,7 @@ export default class MenuRestaurant extends React.Component
                     </div>
                 </div>
                 <div>
-                    <h2 className='trendPlate' ref={ this.myRefScelti } data-aos="fade-right">Scelte per te</h2>
+                    <h2 className='trendPlate' ref={ this.myRefScelti } data-aos="fade-up">Scelte per te</h2>
                     {/* tutti */ }
                     <div className='plateMenuContainer'data-aos="fade-up">
                         { this.state.objectPlate.map( ( item, key ) =>

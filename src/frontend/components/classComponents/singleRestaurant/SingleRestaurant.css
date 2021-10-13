@@ -16,6 +16,7 @@
 
 .titleRest {
     font-weight: 500;
+    margin-top: 3%;
     max-width: 280px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -23,6 +24,7 @@
 }
 .ratingRest{
     margin-right:5px;
+    margin-top: 3%;
 }
 
 .imageSingleRestaurant{
@@ -35,6 +37,7 @@
 .shippingRest {
     font-weight: 300;
     font-size: 0.9em;
+    margin-top: -2%;
 }
 @media only screen 
   and (min-device-width: 320px)

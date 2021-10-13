@@ -22,12 +22,19 @@ import { useRef } from "react"
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//AOS 
+import AOS from 'aos';
+
+//FONTAWESOME
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFilter } from "@fortawesome/free-solid-svg-icons"
+
 const Restaurants = (props) => {
 
     const ref = useRef(null);
 
     //GSAP
-    gsap.registerPlugin(ScrollTrigger);
+    // gsap.registerPlugin(ScrollTrigger);
 
     //DATA
     const objectRestaurantsForListReference = [
@@ -95,6 +102,12 @@ const Restaurants = (props) => {
         let orderedRestaurants = []
         orderedRestaurants = orderBy(state.objectRestaurantsForList, ['number_orders'], ['desc'])
         orderedRestaurants = orderedRestaurants.slice(0, 3)
+
+        // AOS
+        AOS.init({
+            duration : 1000
+          })
+        
         setState({
             ...state,
             objectRestaurantsForTrend: orderedRestaurants
@@ -102,35 +115,39 @@ const Restaurants = (props) => {
         
 
         /* gsap */
-        const element = ref.current;
-        const title = element.querySelector('.fe-title-main');
-        const sectionTrend = element.querySelector('.fe-trend-title')
-        const sectionNear = element.querySelector('.fe-near-title')
-        const restaurantsRowOne = element.querySelectorAll('.row-one .imageSingleRestaurant');
-        const restaurantsRowTwo = element.querySelectorAll('.row-two .imageSingleRestaurant');
+        // const element = ref.current;
+        // const title = element.querySelector('.fe-title-main');
+        // const sectionTrend = element.querySelector('.fe-trend-title')
+        // const sectionNear = element.querySelector('.fe-near-title')
+        // const restaurantsRowOne = element.querySelectorAll('.row-one .imageSingleRestaurant');
+        // const restaurantsRowTwo = element.querySelectorAll('.row-two .imageSingleRestaurant');
+       
 
 
         //scroll trigger rules
-        const tl = gsap.timeline({
-            scrollTrigger : {
-                trigger : sectionTrend,
-                //markers : true,
-                start : 'top 75%'
-            }
-        })
-        const tl2 = gsap.timeline({
-            scrollTrigger : {
-                trigger : sectionNear,
-                //markers : true,
-                start : 'top 75%'
-            }
-        })
+        // const tl = gsap.timeline({
+        //     scrollTrigger : {
+        //         trigger : sectionTrend,
+        //         //markers : true,
+        //         start : 'top 75%'
+        //     }
+        // })
+        // const tl2 = gsap.timeline({
+        //     scrollTrigger : {
+        //         trigger : sectionNear,
+        //         //markers : true,
+        //         start : 'top 75%'
+        //     }
+        // })
 
-        tl.from(restaurantsRowOne, {y: -50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back'})
-        tl2.from(restaurantsRowTwo, {y: -50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back'})
-
-        gsap.fromTo(title, { opacity: 0, scale: 0.2, y: -20, }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "none", })
-
+        // tl.from(restaurantsRowOne, {y: 50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back'})
+        // tl2.from(restaurantsRowTwo, {y: 50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back'})
+       
+        
+        // gsap.fromTo(title, { opacity: 0, scale: 0.2, y: -20, }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "none", })
+        // gsap.fromTo(sectionTrend, { opacity: 0, scale: 0.2, y: -20, }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "none", })
+        
+        
     }, []) //componentDidMount    
 
 
@@ -189,11 +206,11 @@ const Restaurants = (props) => {
         <main className="fe-main-screen-container" ref={ref}>
             <section className="fe-restaurants-section-one">
                 {/* JUMBO */}
-                <h1 className='fe-title-main'>Settimana del Sombrero</h1>
+                <h1 className='fe-title-main'data-aos="fade-right">Settimana del Sombrero</h1>
                 <div className='fe-restaurants-banner'></div>
                 {/* categorie */}
-                <h2 className='fe-categories-title'>Categorie</h2>
-                <div className='fe-categories-container'>
+                <h2 className='fe-categories-title' data-aos="fade-right">Categorie</h2>
+                <div className='fe-categories-container' data-aos="fade-up">
                     <IconCategories value={"hamburger"} icon={Burger} caption={"Hamburger"} callback={filterByRestaurants} />
                     <IconCategories value={"italian"} icon={Italian} caption={"Italian"} callback={filterByRestaurants} />
                     <IconCategories value={"mexican"} icon={Mexican} caption={"Mexican"} callback={filterByRestaurants} />
@@ -215,10 +232,10 @@ const Restaurants = (props) => {
                 />
                 <div className='fe-restaurants-wrapper'>
                     <button className='fe-btn-side-toggler' onClick={sideToggle}>Filter</button>
-
+                    
                     <div className='trendRestaurants'>
-                        <h2 className='fe-trend-title'>Ristoranti in tendenza</h2>
-                        <div className="fe-restaurants-container row-one">
+                        <h2 className='fe-trend-title'data-aos="fade-right">Ristoranti in tendenza</h2>
+                        <div className="fe-restaurants-container row-one"data-aos="fade-up">
                             {state.objectRestaurantsForTrend.map((item, key) => {
                                 return (
                                     <SingleRestaurant
@@ -237,9 +254,9 @@ const Restaurants = (props) => {
                     </div>
 
                     <div className='nearbyRestaurants'>
-                        <h2 className='fe-near-title'>Ristoranti in zona</h2>
+                        <h2 className='fe-near-title' data-aos="fade-right">Ristoranti in zona</h2>
                         {/* tutti */}
-                        <div className='fe-restaurants-container row-two'>
+                        <div className='fe-restaurants-container row-two'data-aos="fade-up">
                             {state.objectRestaurantsForList.map((item, key) => {
                                 return (
                                     <SingleRestaurant

@@ -7,11 +7,15 @@ import burger from '../../../common/assets/HAMBURGER.svg';
 /* import barbecue from '../../../common/assets/BARBECUE.svg'; */
 import iceCream from '../../../common/assets/IceCream.svg';
 import breakFast from '../../../common/assets/Breakfast.svg';
+import backgroundFood from '../../assets/images/background_food.png'
 /* import plateBreakfast from '../../../common/assets/PlateBreakfast.svg'; */
 
 
 //gsap
 import { gsap } from "gsap";
+
+//AOS 
+import AOS from 'aos';
 /* import { ScrollTrigger } from "gsap/ScrollTrigger"; */
 import { useState } from "react";
 import { useRef } from "react"
@@ -47,7 +51,12 @@ const Landing = (props) => {
         gsap.from(iceCreamSel, { y: -50, opacity: 0, duration: 1, scale: 0.2 })
         gsap.from(breakfastSel, { x: -50, opacity: 0, duration: 1, scale: 0.2 })
 
-    }, [])
+
+        //AOS INIT
+        AOS.init({
+                    duration : 1000
+                  })
+            }, [])
 
     const handleCallbackInputBox = (e) => {
         setState({
@@ -74,14 +83,20 @@ const Landing = (props) => {
 
     return (
         <div className='landing-screen' ref={ref} onMouseMove={mouseMoveFunction}>
-            <div className='landing-content'>
+        {/* <video src={Video}autoPlay="true"/> */}
+        <img className='foodBack' src={backgroundFood} data-aos="fade-up"/>
+            <div className='landing-content'data-aos="fade-up">
                 {/* NAV  */}
 
                 <HtmlTag
                     tag='h1'
                     className='main-title'
-                    text='Fame? Si mangia!'
-                />
+                    text='Fame? '
+                /><HtmlTag
+                tag='h1'
+                className='main-title'
+                text='Si mangia!'
+            />
 
                 <div className='main-box'>
                     <Input
@@ -98,20 +113,20 @@ const Landing = (props) => {
                         callback={handleCallbackInputBox}
                         className='landing-input'
                     />
-
                     <Button
                         text='Trova Ristoranti'
                         callback={handleCallbackBtn}
                         className='landing-btn'
                     />
                 </div>
-
+                
+                
                 {/* FOOTER */}
             </div>
-            <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} />
-            <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage}/>
-            {/* <img className='fe-barbecue-svg fe-svg-landing' src={barbecue} alt="" /> */}
-            <img className='fe-breakfast-svg fe-svg-landing' src={breakFast} alt="" />
+            {/* <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} /> */}
+            {/* <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage}/> */}
+            {/* <img className='fe-barbecue-svg fe-svg-landing' src={barbecue} alt="" />*/}
+            {/* { <img className='fe-breakfast-svg fe-svg-landing' src={breakFast} alt="" /> }  */}
         </div>
     );
 }

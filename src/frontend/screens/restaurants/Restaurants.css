@@ -9,20 +9,25 @@ html {
     margin-top: 2rem;
     font-size: 2.5rem;
 }
-.fe-restaurants-section-one{
+/* .fe-restaurants-section-one{
     min-height: calc(100vh - 83px);
-}
+} */
 
 .fe-restaurants-banner{
     border-radius: 10px;
     height: 300px;
     width: 100%;
-    margin: 2rem 0;
+    margin: 1rem 0;
     background-color: var(--primary-strawberry);
 }
 
 .fe-categories-title{
     font-size: 1.5rem;
+    text-align: left;
+}
+
+.nearbyRestaurants {
+    margin-right: -20px;
 }
 
 /* to add media to display in column */
@@ -32,6 +37,7 @@ html {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
 .fe-btn-goTo{
@@ -42,13 +48,21 @@ html {
     color: var(--white);
     padding: 10px 25px;
     border-radius: 25px;
-    margin-top: 4rem;
+    margin-top: 3rem;
     outline: none;
     border: none;
     cursor: pointer;
 }
 .icon{
     margin-bottom: 1rem;
+    background-color: transparent;
+    padding-bottom: 5px;
+    box-shadow: 1px 1px 10px rgb(225, 231, 231);
+}
+.icon:hover {
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+    box-shadow: 1px 1px 20px rgb(225, 231, 231);
 }
 
 
@@ -64,6 +78,7 @@ html {
 }
 .fe-near-title{
     font-size: 1.5rem;
+    text-align: left;
 }
 
 .fe-restaurants-wrapper{
@@ -120,6 +135,7 @@ html {
     .fe-categories-container{
         flex-wrap: wrap;
     }
+    
     .icon{
         width: calc(95% / 3);
     }
@@ -134,6 +150,7 @@ html {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+    
 }
 
 @media screen and (max-width: 768px){
@@ -143,6 +160,7 @@ html {
     .fe-trend-title{
         text-align: left;
     }
+    
     .fe-categories-container{
         flex-wrap: wrap;
     }
@@ -155,19 +173,26 @@ html {
     }
 }
 @media screen and (max-width: 624px) {
-    .icon{
-        width: calc(100% / 1);
-    }
+    
     .sideNav{
         transform: translateX(-350px);
         opacity: 0;
         background-color: white;
         transition: .3s;
     }
+    
     .sideNav-toggleOn{
         position: absolute;
         width: 100%;
         border: 2px solid var(--primary-strawberry);
         padding: 1rem
     }
+    .fe-img-wrapper{
+        margin-right: 0px;
+    }
+    .fe-title-main{
+        margin-top: 2rem;
+        font-size: 1.5rem;
+    }
+    
 }
