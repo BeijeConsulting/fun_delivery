@@ -11,7 +11,12 @@ export const TRANSLATIONS_BACKOFFICE = {
             register_now: "Registrati ora",
             error: "Email o password errati"
         },
-
+        forgot_password:{
+            title:"Password dimenticata?",
+            partner:"Sei già nostro partner?",
+            login:'Accedi ora.',
+            error: "Email o password errati!"
+        },
         registration: {
             title: "Registra il tuo ristorante",
             your_data: "I tuoi dati",
@@ -42,11 +47,13 @@ export const TRANSLATIONS_BACKOFFICE = {
     components: {
         button: {
             login: "ACCEDI",
-            register: "REGISTRATI"
+            register: "REGISTRATI",
+            
         },
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
+            confirm_password:"Conferma password"
         },
         timeline: {
             title: {
