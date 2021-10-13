@@ -94,6 +94,16 @@ const localStorageData = {
       img_path: Altro,
     },
   ],
+  countries:[
+    {
+      country_name: 'Italy',
+      country_id: 1
+    },
+    {
+      country_name: 'England',
+      country_id: 2
+    }
+  ],
   plate_list: [
     {
       id: 1,
