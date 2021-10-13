@@ -68,8 +68,8 @@ class Registration extends Component {
     handleSubmit = () => {
         this.setState(
             {
-                firstName: !utils.validateName(this.objData.firstName),
-                lastName: !utils.validateName(this.objData.lastName),
+                firstName: this.objData.firstName.length <= 4,
+                lastName: this.objData.lastName.length <= 4,
                 email: !utils.validateEmail(this.objData.email),
                 password: !utils.validatePassword(this.objData.password),
                 confirm_password: this.objData.password !== this.objData.confirm_password || this.objData.password.length <= 0,
@@ -218,7 +218,7 @@ class Registration extends Component {
                                     onChange={this.handleCallbackInput}
                                     onFocus={this.handleCallBackFocus}
                                     className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
-                                    
+
                                 >
                                     <option disabled value="">Categorie</option>
 
