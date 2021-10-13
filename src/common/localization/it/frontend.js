@@ -8,26 +8,27 @@ export const TRANSLATIONS_FRONTEND = {
             step_two_description: 'Il rider arriverà a breve',
             step_three: 'Consegnato',
             step_three_description: "L'ordine è stato consegnato"
+        },
+        loginUser: {
+            title: "Accedi",
+            forgot_password: "Password dimenticata?",
+            register_now: "Registati ora",
+        },
+        registrationUser: {
+            title: "Registrati"
+        },
+        forgot_password: {
+            title: "Reimposta la tua password"
         }
+
     },
+
     components: {
         order_confirmed: {
             button: 'Gioca con noi',
-            loginUser: {
-                title: "Accedi",
-                forgot_password: "Password dimenticata?",
-                register_now: "Registati ora",
-            },
-            registrationUser: {
-                title: "Registrati"
-            },
-            forgot_password: {
-                title: "Reimposta la tua password"
-            }
-
         },
-        components: {
 
+        login_page: {
             button: {
                 login: "ACCEDI",
                 register: "REGISTRATI",

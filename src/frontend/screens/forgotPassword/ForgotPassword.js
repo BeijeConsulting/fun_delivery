@@ -66,7 +66,7 @@ class ForgotPassword extends Component {
                         color: "#F24464"
                     }}>{this.state.errormsg}</h3>
                     <InputBox
-                        placeholder={t('frontend.components.forgot_placeholder.email')}
+                        placeholder={t('frontend.components.login_page.forgot_placeholder.email')}
                         name={"email"}
                         type={"email"}
                         value={this.state.email}
@@ -75,7 +75,7 @@ class ForgotPassword extends Component {
                     />
 
                     <InputBox
-                        placeholder={t('frontend.components.forgot_placeholder.password')}
+                        placeholder={t('frontend.components.login_page.forgot_placeholder.password')}
                         name={"password"}
                         type={"password"}
                         value={this.state.password}
@@ -84,7 +84,7 @@ class ForgotPassword extends Component {
                     />
 
                     <InputBox
-                        placeholder={t('frontend.components.forgot_placeholder.confpsw')}
+                        placeholder={t('frontend.components.login_page.forgot_placeholder.confpsw')}
                         name={"confpsw"}
                         type={"password"}
                         value={this.state.confpsw}
@@ -93,7 +93,7 @@ class ForgotPassword extends Component {
                     />
 
                     <Button
-                        text={t('frontend.components.button.forgot_psw')}
+                        text={t('frontend.components.login_page.button.forgot_psw')}
                         callback={this.handleSignUp}
                         className={"frontend-primary-btn"}
                     />

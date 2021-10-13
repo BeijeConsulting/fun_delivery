@@ -66,19 +66,19 @@ class RegistrationUser extends React.Component {
         let error = this.state.errormsg
 
         if (utils.validateName(this.state.userInfo.userName) === false) {
-            error = i18n.t('frontend.components.error_registration.userName')
+            error = i18n.t('frontend.components.login_page.error_registration.userName')
         } else if (utils.validateName(this.state.userInfo.surname) === false) {
-            error = i18n.t('frontend.components.error_registration.surname')
+            error = i18n.t('frontend.components.login_page.error_registration.surname')
         } else if (utils.validateEmail(this.state.userInfo.email) === false) {
-            error = i18n.t('frontend.components.error_registration.email')
+            error = i18n.t('frontend.components.login_page.error_registration.email')
         } else if (utils.validatePhone(this.state.userInfo.phone) === false) {
-            error = i18n.t('frontend.components.error_registration.phone')
+            error = i18n.t('frontend.components.login_page.error_registration.phone')
         } else if (utils.validatePassword(this.state.userInfo.password) === false) {
-            error = i18n.t('frontend.components.error_registration.password')
+            error = i18n.t('frontend.components.login_page.error_registration.password')
         } else if (this.state.userInfo.confpsw !== this.state.userInfo.password) {
-            error = i18n.t('frontend.components.error_registration.confirm_password')
+            error = i18n.t('frontend.components.login_page.error_registration.confirm_password')
         } else {
-            error = i18n.t('frontend.components.error_registration.registration_accept')
+            error = i18n.t('frontend.components.login_page.error_registration.registration_accept')
             this.props.history.push('/userHome')
         }
 
@@ -114,7 +114,7 @@ class RegistrationUser extends React.Component {
                             color: "#F24464"
                         }}>{this.state.errormsg}</h3>
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.userName')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.userName')}
                             name={"userName"}
                             type={"text"}
                             value={this.state.userName}
@@ -122,7 +122,7 @@ class RegistrationUser extends React.Component {
                             className={"frontend-input"}
                         />
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.surname')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.surname')}
                             name={"surname"}
                             type={"text"}
                             value={this.state.surname}
@@ -131,7 +131,7 @@ class RegistrationUser extends React.Component {
                         />
 
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.email')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.email')}
                             name={"email"}
                             type={"email"}
                             value={this.state.email}
@@ -140,7 +140,7 @@ class RegistrationUser extends React.Component {
                         />
 
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.phone')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.phone')}
                             name={"phone"}
                             type={"tel"}
                             value={this.state.phone}
@@ -149,7 +149,7 @@ class RegistrationUser extends React.Component {
                         />
 
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.password')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.password')}
                             name={"password"}
                             type={"password"}
                             value={this.state.password}
@@ -158,7 +158,7 @@ class RegistrationUser extends React.Component {
                         />
 
                         <InputBox
-                            placeholder={t('frontend.components.register_placeholder.confpsw')}
+                            placeholder={t('frontend.components.login_page.register_placeholder.confpsw')}
                             name={"confpsw"}
                             type={"password"}
                             value={this.state.confpsw}
@@ -167,7 +167,7 @@ class RegistrationUser extends React.Component {
                         />
                         {/* validazione dati e invio dei dati */}
                         <Button
-                            text={t('frontend.components.button.register')}
+                            text={t('frontend.components.login_page.button.register')}
                             callback={this.handleSignUp}
                             className={"frontend-primary-btn"}
                         />
