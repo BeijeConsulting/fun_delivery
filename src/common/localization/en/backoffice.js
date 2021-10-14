@@ -66,6 +66,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             categories: 'Category',
             discounts: 'Discounts',
             restaurant_description: 'Restaurant description'
+        },
+        plates:{
+            title:'Plates list',
+            new_plate:'New Plate'
         }
     },
 
@@ -79,6 +83,7 @@ export const TRANSLATIONS_BACKOFFICE = {
         button: {
             login: "LOG IN",
             register: "REGISTER",
+            logout:'Logout'
         },
         inputbox: {
             restaurant_name: "Restaurant name",
