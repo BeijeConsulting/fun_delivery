@@ -1,0 +1,71 @@
+.fe-footer-container{
+    background-color:#3F3D56;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+
+.fe-logoRosa-style{
+   width: 90px;
+   padding: 10px;
+   
+}
+
+.fe-social-h6{
+    color: #ffffff;
+    font-size: 13px;
+   
+}
+
+.fe-social-p{
+    font-size: 14px;
+    color:white;
+   
+}
+
+.fe-footer-icons{
+    color:#ffffff;
+    font-size: 30px;
+}
+
+  .fe-footer-right p{
+	
+	color: #ffffff;
+} 
+
+.fe-footer-container .fe-footer-btn{
+    margin-top: 1rem;
+    padding: 10px 15px;
+    color: white;
+    background-color: #F24464d9;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    
+}
+.fe-footer-container .fe-footer-btn:hover{
+    background-color: #F67A90;
+    color: white;
+}
+
+@media screen and (min-width: 768px){
+    .fe-footer-container{
+        width:100%; 
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .fe-social-p{
+        text-align: center;
+    }
+    .fe-footer-right p{
+	
+        margin: 15px 10px 0 0;   
+       color: #ffffff;
+   } 
+   
+   
+}
+
+
+
