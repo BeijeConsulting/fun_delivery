@@ -5,10 +5,10 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
-import constantsDictionary from '../../../common/utils/constantsDictionary'
-import Select from '../../../common/components/ui/select/Select'
+// import constantsDictionary from '../../../common/utils/constantsDictionary'
+// import Select from '../../../common/components/ui/select/Select'
 import { withTranslation } from 'react-i18next';
-import { map as _map } from "lodash";
+// import { map as _map } from "lodash";
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';

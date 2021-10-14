@@ -96,9 +96,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             next_step: "Prossimo step",
             cancel: "Annulla",
             next: "Prossimo",
-            done: "Completato",
+            complete_order: "Completa",
             success_message: "Ordine completato"
-        }
+        },
+        back : "Indietro"
     },
 
     useful_constants: {
@@ -119,6 +120,7 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         order_status: {
             all: "Tutti",
+            approved: "🟣 Approvato",
             completed: "🟢 Completato",
             delivering: "🟡 In consegna",
             preparing: "🟠 In preparazione",

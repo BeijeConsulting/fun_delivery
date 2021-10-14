@@ -1,3 +1,5 @@
+
+import React from 'react'
 import './HeaderModalX.css'
  import { CloseOutlined } from '@ant-design/icons' 
 

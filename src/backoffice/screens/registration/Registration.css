@@ -51,7 +51,7 @@
 }
 
 @media screen and (max-width: 980px) {
-    .bo-registration h1, h2{
+    .bo-registration h1, .bo-registration h2{
         text-align: center;
     }
     .bo-reg-form {

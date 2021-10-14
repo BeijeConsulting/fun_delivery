@@ -8,44 +8,58 @@ const { Step } = Steps;
 
 const steps = [
     {
-        // title: 'Approvato',
         title: i18n.t("backoffice.components.timeline.title.approved"),
-        content: "First-content",
+        content: "approved",
     },
     {
         title: i18n.t("backoffice.components.timeline.title.preparing"),
-        content: "Second-content",
+        content: "preparing",
     },
     {
         title: i18n.t("backoffice.components.timeline.title.delivering"),
-        content: "Third-content",
+        content: "delivering",
     },
     {
         title: i18n.t("backoffice.components.timeline.title.delivered"),
-        content: "Last-content",
+        content: "completed",
     },
 ];
 
-export default function Timeline() {
-    const [current, setCurrent] = React.useState(0);
+
+
+export default function Timeline(props) {
+    const foundStatus = steps.findIndex(item => item.content === props.currentStep)
+    const [current, setCurrent] = React.useState(foundStatus);
     const { confirm } = Modal;
 
+    // console.log(steps.findIndex(item => item.content === props.currentStep))
+
+    const handleStatus = (value) => {
+        return props.callback(value)
+    }
+
     const next = () => {
+    //currentStep è la prop dello step corrente
         confirm({
             title: i18n.t("backoffice.components.timeline.confirm_to_continue"),
-            content: `${i18n.t(
-                "backoffice.components.timeline.next_step"
-            )}: nome_prossimo_step`,
+            content: `${i18n.t("backoffice.components.timeline.next_step")}: ${steps[current + 1].title}`,
             cancelText: i18n.t("backoffice.components.timeline.cancel"),
             onOk() {
                 setCurrent(current + 1);
+                handleStatus(steps[current+1].content)
+                message
+                .loading('Salvataggio in corso..', 1)
+                .then(() => message.success('Salvataggio completato', 2.5))
+                //qui bisognerebbe salvare lo stato. Si può mettere una promise, così l'utente capisce che è in corso
+                //l'upload nel database dello stato aggiornato                
             },
             onCancel() {
                 return;
             },
         });
+
     };
- // TODO far sparire il bottone dopo l'ordine completato
+
     return (
         <div className="time-line-default">
             <Steps current={current}>
@@ -54,23 +68,12 @@ export default function Timeline() {
                 ))}
             </Steps>
             <div className="steps-action">
-                {current < steps.length - 1 && (
-                    <Button type="primary" onClick={() => next()}>
-                        {i18n.t("backoffice.components.timeline.next")}
+                {current <= steps.length - 2 && (
+                    <Button type="primary" onClick={next}>
+                        {current === steps.length - 2 ? i18n.t("backoffice.components.timeline.complete_order") : i18n.t("backoffice.components.timeline.next")}
                     </Button>
                 )}
-                {current === steps.length - 1 && (
-                    <Button
-                        type="primary"
-                        onClick={() =>
-                            message.success(
-                                i18n.t("backoffice.components.timeline.success_message")
-                            )
-                        }
-                    >
-                        {i18n.t("backoffice.components.timeline.done")}
-                    </Button>
-                )}
+                
             </div>
         </div>
     );

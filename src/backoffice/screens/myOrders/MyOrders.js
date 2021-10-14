@@ -16,124 +16,8 @@ class MyOrders extends Component {
     constructor(props) {
         super(props);
         this.status = constantsDictionary.ORDER_STATUS
-        //Order simulated from backend
-        this.all_orders = [
-            {
-                order_id: 34221,
-                customer_name: "Marco Brambilla",
-                customer_address: "Una via a Milano",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                        price: 6,
-                        quantity: 1
-                    },
-                    {
-                        nameFood: "Napoli",
-                        price: 6,
-                        quantity: 2
-                    },
-                    {
-                        nameFood: "Coca cola",
-                        price: 2.5,
-                        quantity: 2
-                    }
-                ],
-                status: "confirmed"
-            },
-            {
-                order_id: 34220,
-                customer_name: "Lorenzo Chiesa",
-                customer_address: "Una via all'Elba",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                        price: 6,
-                        quantity: 1
-                    },
-                    {
-                        nameFood: "Napoli",
-                        price: 6,
-                        quantity: 2
-                    },
-                    {
-                        nameFood: "Coca cola",
-                        price: 2.5,
-                        quantity: 2
-                    }
-                ],
-                status: "pending"
-            },
-            {
-                order_id: 34224,
-                customer_name: "Simone Micalizzi",
-                customer_address: "Una via a Palermo",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                        price: 6,
-                        quantity: 1
-                    },
-                    {
-                        nameFood: "Napoli",
-                        price: 6,
-                        quantity: 2
-                    },
-                    {
-                        nameFood: "Coca cola",
-                        price: 2.5,
-                        quantity: 1
-                    }
-                ],
-                status: "rejected"
-            },
-            {
-                order_id: 34223,
-                customer_name: "Enrico Paolazzi",
-                customer_address: "Una via a Ferrara",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                        price: 6,
-                        quantity: 1
-                    },
-                    {
-                        nameFood: "Napoli",
-                        price: 10,
-                        quantity: 2
-                    },
-                    {
-                        nameFood: "Coca cola",
-                        price: 2,
-                        quantity: 5
-                    }
-                ],
-                status: "delivering"
-            },
-            {
-                order_id: 34222,
-                customer_name: "Calogero Messina",
-                customer_address: "Una via a Caltanissetta",
-                ordered: [
-                    {
-                        nameFood: "Margherita",
-                        price: 6,
-                        quantity: 1
-                    },
-                    {
-                        nameFood: "Napoli",
-                        price: 6,
-                        quantity: 2
-                    },
-                    {
-                        nameFood: "Coca cola",
-                        price: 2.5,
-                        quantity: 2
-                    }
-                ],
-                status: "preparing"
-            },
-        ]
+        this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
+
         //Orders with modifed status to show emoji's instead of status
         this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
@@ -148,6 +32,10 @@ class MyOrders extends Component {
                 title: i18n.t('backoffice.screens.my_orders.status'),
                 dataIndex: 'status',
                 filters: [
+                    {
+                        text: i18n.t('backoffice.useful_constants.order_status.approved'),
+                        value: '🟣',
+                    },
                     {
                         text: i18n.t('backoffice.useful_constants.order_status.completed'),
                         value: '🟢',
@@ -211,7 +99,10 @@ class MyOrders extends Component {
     handleEmojiStatus = (status) => {
         let emojiToShow = ""
         switch (status) {
-            case "confirmed":
+            case "approved":
+                emojiToShow = "🟣"
+                break;
+            case "completed":
                 emojiToShow = "🟢"
                 break;
             case "delivering":
@@ -241,8 +132,8 @@ class MyOrders extends Component {
     }
 
     handleCallbackPageSingleOrder = (orderID) => () => {
-        let foundOrder = {}
-        foundOrder = this.all_orders.find((order) => order.order_id === orderID)
+        // let foundOrder = {}
+        // foundOrder = this.all_orders.find((order) => order.order_id === orderID)
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
             // order: foundOrder,
             // titlePage: "#" + orderID,

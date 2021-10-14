@@ -10,11 +10,11 @@ import Poke from "../assets/images/poke.jpg";
 import Sushi from "../assets/images/sushi.png";
 import Altro from "../assets/images/altro.jpg";
 import Carbonara from "../assets/images/carbonara.jpg";
+import moment from "moment";
 import i18n from "../../common/localization/i18n";
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
-  restaurant_categories: [
-    {
+  restaurant_categories: [{
       id: 1,
       name: "Pizza",
     },
@@ -43,8 +43,7 @@ const localStorageData = {
       name: "Altro",
     },
   ],
-  plate_categories: [
-    {
+  plate_categories: [{
       id: 1,
       name: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
       img_path: Primi,
@@ -225,13 +224,12 @@ const localStorageData = {
     restaurant_discount: 0.5,
     restaurant_free_shipping: 0,
   },
-  order_list: [
-    {
-      order_id: 34221,
-      customer_name: "Marco Brambilla",
-      customer_address: "Una via a Milano",
-      ordered: [
-        {
+  order_list: [{
+      order_id: 34225,
+      date: moment("2021-10-13T23:40:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Antonino Rossi",
+      customer_address: "Una via a Firenze",
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -247,14 +245,37 @@ const localStorageData = {
           quantity: 2,
         },
       ],
-      status: "confirmed",
+      status: "approved",
+    },
+    {
+      order_id: 34221,
+      date: moment("2021-10-12T19:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Marco Brambilla",
+      customer_address: "Una via a Milano",
+      ordered: [{
+          nameFood: "Margherita",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Napoli",
+          price: 6,
+          quantity: 2,
+        },
+        {
+          nameFood: "Coca cola",
+          price: 2.5,
+          quantity: 2,
+        },
+      ],
+      status: "completed",
     },
     {
       order_id: 34220,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Lorenzo Chiesa",
       customer_address: "Una via all'Elba",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -270,14 +291,37 @@ const localStorageData = {
           quantity: 2,
         },
       ],
-      status: "confirmed",
+      status: "completed",
+    },
+    {
+      order_id: 34229,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Lorenzo Chiesa",
+      customer_address: "Una via all'Elba",
+      ordered: [{
+          nameFood: "Margherita",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Napoli",
+          price: 6,
+          quantity: 2,
+        },
+        {
+          nameFood: "Coca cola",
+          price: 2.5,
+          quantity: 2,
+        },
+      ],
+      status: "pending",
     },
     {
       order_id: 34224,
+      date: moment("2021-10-11T21:35:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Simone Micalizzi",
       customer_address: "Una via a Palermo",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -297,10 +341,10 @@ const localStorageData = {
     },
     {
       order_id: 34223,
+      date: moment("2021-10-10T20:05:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Enrico Paolazzi",
       customer_address: "Una via a Ferrara",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -320,10 +364,10 @@ const localStorageData = {
     },
     {
       order_id: 34222,
+      date: moment("2021-10-18T21:00:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Calogero Messina",
       customer_address: "Una via a Caltanissetta",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
