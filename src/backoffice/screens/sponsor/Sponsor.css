@@ -139,8 +139,8 @@
     padding: 1%;
 }
 .gm-classNameBtnDisable{
-    display: none;
-    /* border: 5px solid salmon; */
+    /* display: none; */
+    border: 5px solid salmon;
 }
 .gm-sponsor-coin{
     height: 30px;

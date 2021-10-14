@@ -28,6 +28,19 @@ class Profile extends Component {
     }
 
 
+    componentDidMount() {
+        this.totalRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+        this.restaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
+        this.activeRestaurant = this.totalRestaurant.restaurant_list.find(el => {
+            return el.id === this.restaurantId
+        })
+
+
+        // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+        console.log('risto attivo : ', this.activeRestaurant)
+
+    }
+
     handleOnClick = (e) => () => {
         let choice = this.state.choice;
         choice = e;
@@ -39,33 +52,34 @@ class Profile extends Component {
                     let result = this.activeRestaurant.coins - choice.price;
                     console.log(result)
                     this.activeRestaurant.coins = result;
-                    console.log('ACTIVErESTUANT: ', this.activeRestaurant)
+                    console.log('activeRestaurant: ', this.activeRestaurant)
 
                     localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+                    //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
+                    element.sponsor = true;
+                    element = this.activeRestaurant;
+                    localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
+                    console.log(this.state.choice)
+                    console.log('EEEEEEEEE: ', e)
+                    let newChoice = e.durata + new Date().getTime();
+                    for (let key in e) {
+                        if (key === 'durata') {
+                            e[key] = newChoice;
+                        }
+                    }
+
+
+
+                    this.setState({
+                        choice: e,
+                        sponsorSelected: this.activeRestaurant
+                    })
+                    console.log('choice post set state ', choice)
+                    localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
                 }
                 else {
                     console.log('sei povero!')
                 }
-                //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
-                element.sponsor = true;
-                element = this.activeRestaurant;
-                localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
-                console.log(this.state.choice)
-                console.log('EEEEEEEEE: ', e)
-                let newChoice = e.durata
-                for (let key in e) {
-                    if (key === 'durata') {
-                        e[key] = newChoice;
-                    }
-                }
-
-
-                this.setState({
-                    choice: e,
-                    sponsorSelected: this.activeRestaurant
-                })
-                console.log('choice post set state ', choice)
-                localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
             }
         })
 
@@ -90,18 +104,7 @@ class Profile extends Component {
         return obj
     }
 
-    componentDidMount() {
-        this.totalRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-        this.restaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
-        this.activeRestaurant = this.totalRestaurant.restaurant_list.find(el => {
-            return el.id === this.restaurantId
-        })
 
-
-        // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-        console.log('risto attivo : ', this.activeRestaurant)
-
-    }
 
 
 
@@ -124,11 +127,10 @@ class Profile extends Component {
                             <div className={"pseudo pseudo-1"}></div>
                             <div className={"pseudo pseudo-2"}></div>
                             <div>
-                                COINS:
 
 
-                                <div>
-                                    <div>{this.state.sponsorSelected.coins}</div>
+                                <div style={{ marginBottom: '10px' }}>
+                                    <span>{this.state.sponsorSelected.coins}</span>
                                     <img style={{ width: '20px', height: '20px' }} src={coin} alt="beijecoin" />
                                 </div>
 
@@ -188,7 +190,7 @@ class Profile extends Component {
                                 {this.state.choice.durata !== null &&
                                     <div>
 
-                                        <CountDownDaysTimer time={this.msToTime(this.state.choice.durata)} />
+                                        <CountDownDaysTimer time={this.msToTime(this.state.choice.durata - new Date().getTime())} />
 
                                     </div>
 
