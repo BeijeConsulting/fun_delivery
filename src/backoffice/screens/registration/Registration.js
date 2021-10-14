@@ -38,9 +38,9 @@ class Registration extends Component {
         }
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
 
-        if(!this.localStorageData){
+        if (!this.localStorageData) {
             this.localStorageData = localStorageData
-            localStorage.setItem('localStorageData',JSON.stringify(localStorageData))
+            localStorage.setItem('localStorageData', JSON.stringify(localStorageData))
         }
         this.state = {
             firstName: false,
@@ -130,60 +130,62 @@ class Registration extends Component {
             <div className="bo-registration">
                 <Navbar pageTitle='SIGN UP' />
                 <BannerBackground />
+                <main>
+                    <div className="bo-reg-form">
+                        <h1>{t('backoffice.screens.registration.title')}</h1>
+                        <div className="bo-reg-row">
 
-                <div className="bo-reg-form">
-                    <h1>{t('backoffice.screens.registration.title')}</h1>
-                    <div className="bo-reg-row">
 
+                            {/* Form Left */}
+                            <div className="bo-left-form">
+                                <h2>{t('backoffice.screens.registration.your_data')}</h2>
+                                <div className="flex-inputs">
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.firstName ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.name')}
+                                        callback={this.handleCallbackInput}
+                                        name='firstName'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.lastName ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.last_name')}
+                                        callback={this.handleCallbackInput}
+                                        name='lastName'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                </div>
 
-                        {/* Form Left */}
-                        <div className="bo-left-form">
-                            <h2>{t('backoffice.screens.registration.your_data')}</h2>
-                            <div className="flex-inputs">
                                 <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.firstName ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.name')}
+                                    type="email"
+                                    className={`bo-input-box ${this.state.email ? 'alert' : ''}`}
+                                    placeholder="Email"
                                     callback={this.handleCallbackInput}
-                                    name='firstName'
+                                    name='email'
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.lastName ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.last_name')}
-                                    callback={this.handleCallbackInput}
-                                    name='lastName'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                            </div>
 
-                            <InputBox
-                                type="email"
-                                className={`bo-input-box ${this.state.email ? 'alert' : ''}`}
-                                placeholder="Email"
-                                callback={this.handleCallbackInput}
-                                name='email'
-                                callbackOnFocus={this.handleCallBackFocus}
-                            />
+                                <div className="flex-inputs">
+                                    <InputBox
+                                        type="password"
+                                        className={`bo-input-box ${this.state.password ? 'alert' : ''}`}
+                                        placeholder="Password"
+                                        callback={this.handleCallbackInput}
+                                        name='password'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                    <InputBox
+                                        type="password"
+                                        className={`bo-input-box ${this.state.confirm_password ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.confirm_password')}
+                                        callback={this.handleCallbackInput}
+                                        name='confirm_password'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                </div>
 
-                            <div className="flex-inputs">
-                                <InputBox
-                                    type="password"
-                                    className={`bo-input-box ${this.state.password ? 'alert' : ''}`}
-                                    placeholder="Password"
-                                    callback={this.handleCallbackInput}
-                                    name='password'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                                <InputBox
-                                    type="password"
-                                    className={`bo-input-box ${this.state.confirm_password ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.confirm_password')}
-                                    callback={this.handleCallbackInput}
-                                    name='confirm_password'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
                             </div>
 
                         </div>
@@ -308,9 +310,7 @@ class Registration extends Component {
                                 callback={this.handleSubmit} />
                         </div>
                     </div>
-
-                </div>
-
+                </main>
             </div>
         )
     }
