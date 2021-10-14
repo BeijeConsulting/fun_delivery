@@ -47,7 +47,7 @@ class MyMenu extends Component {
                             </div>
                         </div>
 
-                        <div className="bo-mymenu-form">
+                        <section className="bo-mymenu-form">
 
                             {
                                 this.state.categories.map((category, index) => {
@@ -63,7 +63,7 @@ class MyMenu extends Component {
                                 }) 
                             }
 
-                        </div>
+                        </section>
                     </div>
                 </LayoutBackOffice>
             </>

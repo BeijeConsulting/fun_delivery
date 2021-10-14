@@ -156,16 +156,20 @@ class MyOrders extends Component {
                                 <h2>{t('backoffice.screens.my_orders.your_orders')}</h2>
                             </div>
                         </div>
-                        <div className="bo-mymenu-form">
-                            <Table
-                                rowKey={record => record.order_id}
-                                pagination={false}
-                                dataSource={this.all_ordersModifiedStatus}
-                                columns={this.columns}
-                                size={'small'}
-                                bordered
-                                scroll={{ x: 450, y: 500 }} />
-                        </div>
+
+                        <section>
+                            <div className="bo-mymenu-form">
+                                <Table
+                                    rowKey={record => record.order_id}
+                                    pagination={false}
+                                    dataSource={this.all_ordersModifiedStatus}
+                                    columns={this.columns}
+                                    size={'small'}
+                                    bordered
+                                    scroll={{ x: 450, y: 500 }} />
+                            </div>
+                        </section>
+
                     </div>
                 </LayoutBackOffice>
             </>

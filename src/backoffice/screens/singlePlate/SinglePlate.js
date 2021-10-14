@@ -76,7 +76,7 @@ class SinglePlate extends Component {
         });
     }
 
-    handleCallBackFocus = (e)=>{
+    handleCallBackFocus = (e) => {
         let field = this.state.data[e.target.name];
         field[1] = false;
 
@@ -186,8 +186,8 @@ class SinglePlate extends Component {
                                     <h2>{this.state.plate_show_title}</h2>
                                     {
                                         this.state.editData &&
-                                        <>                                           
-                                            <span className="bo-icon-edit" title="Salva Piatto" style={{marginLeft: '20px'}}><SaveOutlined onClick={this.handleSubmit} /></span>
+                                        <>
+                                            <span className="bo-icon-edit" title="Salva Piatto" style={{ marginLeft: '20px' }}><SaveOutlined onClick={this.handleSubmit} /></span>
                                             <span className="bo-icon-edit delete" title="Elimina Piatto"><DeleteOutlined onClick={this.handleDelete} /></span>
                                         </>
                                     }
@@ -199,84 +199,86 @@ class SinglePlate extends Component {
                                 <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
                             </div>
 
-                            <SinglePlateCard
-                                img={this.state.data.plate_img[0]}
-                                callback={this.handleCallbackInput}
-                                name={'plate_img'}
-                                newCss = ''
-                                disable = {!this.state.editData}
-                            />
+                            <section>
+                                <SinglePlateCard
+                                    img={this.state.data.plate_img[0]}
+                                    callback={this.handleCallbackInput}
+                                    name={'plate_img'}
+                                    newCss=''
+                                    disable={!this.state.editData}
+                                />
 
-                            <div className="bo-profile-switch">
-                                <p style={{fontSize: '16px'}}>Visibilità
-                                    <span style={{paddingLeft:'10px'}}>
-                                        <SwitchProfile
-                                            handleSwitchCallback={this.handleVisibility}
-                                            value={this.state.plate_visibility}
-                                        />
-                                    </span>
-                                </p>
-                            </div>
+                                <div className="bo-profile-switch">
+                                    <p style={{ fontSize: '16px' }}>Visibilità
+                                        <span style={{ paddingLeft: '10px' }}>
+                                            <SwitchProfile
+                                                handleSwitchCallback={this.handleVisibility}
+                                                value={this.state.plate_visibility}
+                                            />
+                                        </span>
+                                    </p>
+                                </div>
 
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    placeholder="Nome piatto"
-                                    className={`bo-input-box ${this.state.data.plate_name[1] ? 'alert' : ''}`}
-                                    name="plate_name"
-                                    value={this.state.data.plate_name[0]}
+                                <div className="bo-profile-flex-inputs">
+                                    <InputBox
+                                        type="text"
+                                        placeholder="Nome piatto"
+                                        className={`bo-input-box ${this.state.data.plate_name[1] ? 'alert' : ''}`}
+                                        name="plate_name"
+                                        value={this.state.data.plate_name[0]}
+                                        disable={!this.state.editData}
+                                        callback={this.handleCallbackInput}
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+
+                                    <InputBox
+                                        type="text"
+                                        placeholder="Prezzo €"
+                                        className={`bo-input-box ${this.state.data.plate_price[1] ? 'alert' : ''}`}
+                                        name="plate_price"
+                                        value={this.state.data.plate_price[0]}
+                                        disable={!this.state.editData}
+                                        callback={this.handleCallbackInput}
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                </div>
+
+                                <select
+                                    id='categories'
+                                    name='plate_category_id'
+                                    onChange={this.handleCallbackInput}
+                                    onFocus={this.handleCallBackFocus}
+                                    className={`bo-input-box ${this.state.data.plate_category_id[1] ? 'alert' : ''}`}
+                                    value={this.state.data.plate_category_id[0]}
+                                    disabled={!this.state.editData}
+                                >
+                                    <option disabled value="">Categorie</option>
+
+                                    {
+                                        this.state.list_categories.map((category, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+
+                                </select>
+
+                                <TextArea
+                                    name="plate_description"
+                                    className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
+                                    id="description_plate"
+                                    value={this.state.data.plate_description[0]}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
-
-                                <InputBox
-                                    type="text"
-                                    placeholder="Prezzo €"
-                                    className={`bo-input-box ${this.state.data.plate_price[1] ? 'alert' : ''}`}
-                                    name="plate_price"
-                                    value={this.state.data.plate_price[0]}
-                                    disable={!this.state.editData}
-                                    callback={this.handleCallbackInput}
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                            </div>
-
-                            <select
-                                id='categories'
-                                name='plate_category_id'
-                                onChange={this.handleCallbackInput}
-                                onFocus={this.handleCallBackFocus}
-                                className={`bo-input-box ${this.state.data.plate_category_id[1] ? 'alert' : ''}`}                                
-                                value={this.state.data.plate_category_id[0]}
-                                disabled={!this.state.editData}
-                            >
-                                <option disabled value="">Categorie</option>
-
-                                {
-                                    this.state.list_categories.map((category, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={category.id}
-                                            >
-                                                {category.name}
-                                            </option>
-                                        )
-                                    })
-                                }
-
-                            </select>
-
-                            <TextArea
-                                name="plate_description"
-                                className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
-                                id="description_plate"
-                                value={this.state.data.plate_description[0]}
-                                disable={!this.state.editData}
-                                callback={this.handleCallbackInput}
-                                callbackOnFocus={this.handleCallBackFocus}
-                            />
+                            </section>
                         </div>
                     </div>
                 </LayoutBackOffice>

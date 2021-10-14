@@ -196,7 +196,8 @@ class Profile extends Component {
                                 newCss='logo'
                             />
                         </div>
-                        <div className="bo-profile-form">
+
+                        <section className="bo-profile-form">
                             <div className="bo-profile-second-row">
                                 <h2>{t('backoffice.screens.profile.your_data')}</h2>
                                 <div className="bo-profile-switch">
@@ -245,8 +246,8 @@ class Profile extends Component {
                                 value={this.state.data.email[0]}
                             />
 
-                        </div>
-                        <div className="bo-profile-form">
+                        </section>
+                        <section className="bo-profile-form">
                             <h2>{t('backoffice.screens.profile.your_restaurant')}</h2>
 
                             <div className="bo-profile-flex-inputs">
@@ -417,7 +418,7 @@ class Profile extends Component {
                                 callbackOnFocus={this.handleCallBackFocus}
                                 value={this.state.data.description[0]}
                             />
-                        </div>
+                        </section>
                     </div>
                 </LayoutBackOffice>
             </>

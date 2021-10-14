@@ -121,17 +121,20 @@ class IncomingOrders extends Component {
                             </div>
                         </div>
 
-                        {/* mapping ordini ricevuti */}
-                        {this.all_orders.map((item, index) => {
-                            return (
-                                <SingleOrder 
-                                    key={index} 
-                                    user={item.customer_name}
-                                    ordered_text={t('backoffice.screens.incoming_orders.ordered_text')} 
-                                    button_text={t('common.components.button.show')} 
-                                    callbackRedirect={this.handleCallbackPageSingleOrder(item.order_id)} />
-                            )
-                        })}
+                        <section>
+                            {/* mapping ordini ricevuti */}
+                            {this.all_orders.map((item, index) => {
+                                return (
+                                    <SingleOrder
+                                        key={index}
+                                        user={item.customer_name}
+                                        ordered_text={t('backoffice.screens.incoming_orders.ordered_text')}
+                                        button_text={t('common.components.button.show')}
+                                        callbackRedirect={this.handleCallbackPageSingleOrder(item.order_id)} />
+                                )
+                            })}
+                        </section>
+
                     </div>
                 </LayoutBackOffice>
             </>
