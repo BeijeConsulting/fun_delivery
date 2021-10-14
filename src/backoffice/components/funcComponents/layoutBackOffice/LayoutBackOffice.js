@@ -8,7 +8,7 @@ import { UserOutlined, ShoppingOutlined, ExclamationCircleOutlined, AppstoreOutl
 import { useLocation } from 'react-router-dom';
 import properties from '../../../../common/utils/properties';
 import { useHistory } from "react-router-dom";
-
+import { withTranslation } from 'react-i18next';
 const { Content, Sider } = Layout;
 
 const LayoutBackOffice = (props) => {
@@ -19,7 +19,9 @@ const LayoutBackOffice = (props) => {
         localStorage.removeItem('activeRestaurantId');
         history.push(properties.BO_ROUTING.LOGIN)
     }
+    const { t } = props
     return (
+        
         <div className="backoffice-layout">
 
             <Navbar
@@ -36,10 +38,10 @@ const LayoutBackOffice = (props) => {
                 >
                     <div className="backoffice-menu-container">
                         <ul className="backoffice-menu">
-                            <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>Profilo</Link></li>
-                            <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>Il tuo Menu</Link></li>
-                            <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>Ordini</Link></li>
-                            <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>In arrivo</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>{t('backoffice.components.sidebar.profile')}</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>{t('backoffice.components.sidebar.my_menu')}</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>{t('backoffice.components.sidebar.my_orders')}</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>{t('backoffice.components.sidebar.incoming_orders')}</Link></li>
                             <li className={pathname === properties.BO_ROUTING.SPONSOR ? 'active' : ''}><Link to={properties.BO_ROUTING.SPONSOR}><span><DollarCircleOutlined /></span>Sponsor</Link></li>
                         </ul>
 
@@ -64,4 +66,4 @@ const LayoutBackOffice = (props) => {
     )
 }
 
-export default LayoutBackOffice;
+export default withTranslation()(LayoutBackOffice);

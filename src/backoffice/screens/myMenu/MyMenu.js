@@ -4,7 +4,7 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
 import properties from "../../../common/utils/properties";
-
+import { withTranslation } from 'react-i18next';
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +33,7 @@ class MyMenu extends Component {
 
 
     render() {
+        const { t } = this.props
         return (
             <>
                 <LayoutBackOffice
@@ -42,7 +43,7 @@ class MyMenu extends Component {
 
                         <div className="bo-mymenu-first-row align-left">
                             <div className="bo-mymenu-welcome">
-                                <h2>Il tuo menù</h2>
+                                <h2>{t('backoffice.screens.my_menu.title')}</h2>
                             </div>
                         </div>
 
@@ -70,4 +71,4 @@ class MyMenu extends Component {
     }
 }
 
-export default MyMenu;
+export default withTranslation()(MyMenu);

@@ -10,6 +10,7 @@ import Poke from "../assets/images/poke.jpg";
 import Sushi from "../assets/images/sushi.png";
 import Altro from "../assets/images/altro.jpg";
 import Carbonara from "../assets/images/carbonara.jpg";
+import i18n from "../../common/localization/i18n";
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
   restaurant_categories: [
@@ -45,17 +46,17 @@ const localStorageData = {
   plate_categories: [
     {
       id: 1,
-      name: "Primi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
       img_path: Primi,
     },
     {
       id: 2,
-      name: "Secondi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.second_course'),
       img_path: Secondi,
     },
     {
       id: 3,
-      name: "Contorni",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sidedish'),
       img_path: Contorni,
     },
     {
@@ -65,7 +66,7 @@ const localStorageData = {
     },
     {
       id: 5,
-      name: "Panini",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sandwich'),
       img_path: Panini,
     },
     {
@@ -75,7 +76,7 @@ const localStorageData = {
     },
     {
       id: 7,
-      name: "Messicani",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.mexican'),
       img_path: Messicano,
     },
     {
@@ -90,7 +91,7 @@ const localStorageData = {
     },
     {
       id: 10,
-      name: "Altro",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.other'),
       img_path: Altro,
     },
   ],

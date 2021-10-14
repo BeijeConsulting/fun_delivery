@@ -40,11 +40,41 @@ export const TRANSLATIONS_BACKOFFICE = {
             total: "TOTALE",
             approve: "Approva",
             dont_approve: "Non approvare"
+        },
+        my_menu:{
+            title:"Il tuo Menù",
+        },
+        profile: {
+            profile: 'PROFILO',
+            welcome: 'Benvenuto',
+            edit_data: 'Modifica dati profilo',
+            save_data: 'Salva dati profilo',
+            your_data: 'I tuoi dati',
+            free_shipping: 'Spedizione gratuita',
+            first_name: 'Nome',
+            last_name: 'Cognome',
+            your_restaurant: 'Il tuo ristorante',
+            restaurant_name: 'Nome ristorante',
+            telephone: 'Telefono',
+            address: 'Indirizzo',
+            cap: 'CAP',
+            state: 'Stato',
+            city: 'Città',
+            vat: 'P.IVA',
+            categories: 'Categoria',
+            discounts: 'Sconti',
+            restaurant_description: 'Descrizione ristorante'             
         }
     },
 
 
     components: {
+        sidebar:{
+            profile:'Profilo',
+            my_menu: 'Menu',
+            my_orders: 'Ordini',
+            incoming_orders: 'In arrivo'
+        },
         button: {
             login: "ACCEDI",
             register: "REGISTRATI",
@@ -95,6 +125,14 @@ export const TRANSLATIONS_BACKOFFICE = {
             pending: "🔵 Da approvare",
             rejected: "🔴 Rifiutato",
             error: "Errore"
+        },
+        my_menu_categories:{
+            first_course: 'Primi',
+            second_course: 'Secondi',
+            sidedish: 'Cotorni',
+            sandwich:'Panini',
+            mexican:'Messicano',
+            other:'Altro'
         }
 
     }
