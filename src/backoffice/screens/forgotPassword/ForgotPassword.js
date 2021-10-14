@@ -7,7 +7,7 @@ import Button from '../../../common/components/ui/button/Button'
 import { Link } from 'react-router-dom'
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties'
-import i18n from "../../../common/localization/i18n";
+// import i18n from "../../../common/localization/i18n";
 import { withTranslation } from 'react-i18next';
 class ForgotPassword extends Component {
 

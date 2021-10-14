@@ -4,12 +4,12 @@ import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import { EditFilled, SaveOutlined, DollarCircleOutlined } from '@ant-design/icons';
-import Select from "../../../common/components/ui/select/Select";
+// import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
-import coin from '../../assets/images/coins.png'
+// import coin from '../../assets/images/coins.png'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
 import localStorageData from "../../localStorageData/localStorageData";
 // const format = 'HH:mm';

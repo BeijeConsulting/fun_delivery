@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import { LeftOutlined, SaveOutlined } from '@ant-design/icons'
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
-import Button from "../../../common/components/ui/button/Button";
+// import Button from "../../../common/components/ui/button/Button";
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard';
 import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';

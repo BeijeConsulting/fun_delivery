@@ -9,18 +9,14 @@ import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
 class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
-        // this.orderList = JSON.parse(localStorage.getItem('localStorageData')).order_list.filter(item => item.order_id===this.props.location.state.order.order_id);
-        this.ordersLocalStorage = JSON.parse(
-            localStorage.getItem("localStorageData")
-        );
-        // localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
+        this.ordersLocalStorage = JSON.parse(localStorage.getItem("localStorageData")); //Necessario per ricavare l'ordine singolo
         this.foundOrder = this.ordersLocalStorage.order_list.find(
             (item) => item.order_id === this.props.location.state.order_id
         );
         this.state = {
             order: this.foundOrder,
-            order_status: this.foundOrder.status,
-            showTimeline: this.foundOrder.status !== "pending", //da modificare, non deve spuntare se è rifiutato o se è in pending
+            order_status: this.foundOrder.status, //necessario per la timeline
+            showTimeline: this.foundOrder.status !== "pending",
             total_price: this.totalPriceOrder(),
         };
     }
@@ -28,7 +24,6 @@ class RestaurantSingleOrder extends Component {
     //Mapping the food ordered by the customer
     componentDidMount() {
         this.totalPriceOrder();
-        console.log(this.props.location.state);
     }
 
     handleCallbackGoBack = () => {
@@ -50,17 +45,19 @@ class RestaurantSingleOrder extends Component {
 
     totalPriceOrder = () => {
         let sum = 0;
-        // Far funzionare questa funzione
         this.foundOrder.ordered.map((item) => (sum += item.price));
         return sum;
     };
 
     //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
     handleStatusTimeline = (e) => {
-        console.log(e);
+        this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status=e;  
+        localStorage.setItem("localStorageData", JSON.stringify(this.ordersLocalStorage));
+        this.setState({
+            order_status: e,
+        });
     };
 
-    
     render() {
         const { t } = this.props;
         return (
@@ -108,9 +105,7 @@ class RestaurantSingleOrder extends Component {
 
                     {this.state.order_status === "rejected" && (
                         <div className="bo-mymenu-welcome">
-                            <h2>
-                                {t("backoffice.screens.single_order.rejected_title")}
-                            </h2>
+                            <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
                         </div>
                     )}
 
