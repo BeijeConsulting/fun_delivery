@@ -3,13 +3,22 @@ import { FacebookFilled, InstagramFilled, LinkedinFilled, TwitterSquareFilled } 
 import Button from '../../../../common/components/ui/button/Button';
 import logo_beijeRosa from '../../../../common/assets/logo_beijeRosa.png'
 import HtmlTag from "../htmlTag/HtmlTag";
+import properties from "../../../../common/utils/properties";
+import { useHistory } from "react-router";
 
 
 
-const Footer = () => {
+const Footer = (props) => {
 
+    let history = useHistory();
 
+    const goToPageRegistration = () => {
+        history.push(properties.BO_ROUTING.REGISTRATION)
+    }
 
+    const goToPageLogin = () => {
+        history.push(properties.BO_ROUTING.LOGIN)
+    }
 
     return (
         <footer>
@@ -17,9 +26,9 @@ const Footer = () => {
 
                 <div class="fe-footer-logo">
 
-                     <img className="fe-logoRosa-style" src={logo_beijeRosa} /> 
-                
-                    
+                    <img className="fe-logoRosa-style" src={logo_beijeRosa} />
+
+
                 </div>
 
 
@@ -42,16 +51,19 @@ const Footer = () => {
                 <div class="fe-footer-right">
 
                     <p>Diventa partner di Beije Delivery</p>
+
                     <Button
                         text='Registrati'
-                        // callback={}
+                        callback={goToPageRegistration}
                         className='fe-footer-btn'
                     />
 
+
                     <p>Sei già un nostro partner?</p>
+
                     <Button
                         text='Accedi'
-                        // callback={}
+                         callback={goToPageLogin}
                         className='fe-footer-btn'
                     />
 
