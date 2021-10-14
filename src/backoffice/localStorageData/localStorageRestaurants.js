@@ -50,6 +50,11 @@ const localStorageRestaurants = {
     ],
     discounts: [
         {
+            id: 0,
+            dicount_value: 0,
+            label: 'Nessuno sconto'
+        },
+        {
             id: 1,
             dicount_value: 0.1,
             label: '10%'
