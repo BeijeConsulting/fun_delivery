@@ -135,7 +135,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             sidedish: 'Side dish',
             sandwich:'Sandwich',
             mexican:'Mexican',
-            other:'Another'
+            other:'Other'
         }
     }
 }
