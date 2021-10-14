@@ -41,6 +41,15 @@ export const TRANSLATIONS_BACKOFFICE = {
             approve: "Approva",
             dont_approve: "Non approvare",
             rejected_title: "Ordine rifiutato"
+        },
+        single_plate:{
+            save_plate: "Salva Piatto",
+            delete_plate: "Elimina Piatto",
+            edit_plate: "Modifica Piatto",
+            visibility: "Visibilità"
+        },
+        new_plate:{
+            create_plate: "Crea il tuo piatto",
         }
     },
 
@@ -54,7 +63,9 @@ export const TRANSLATIONS_BACKOFFICE = {
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
-            confirm_password:"Conferma password"
+            confirm_password:"Conferma password",
+            name_plate: "Nome del piatto",
+            price: "Prezzo €"
         },
         timeline: {
             title: {

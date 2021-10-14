@@ -26,10 +26,6 @@ class RestaurantSingleOrder extends Component {
         this.totalPriceOrder();
     }
 
-    handleCallbackGoBack = () => {
-        this.props.history.goBack();
-    };
-
     handleShowTimelineAccept = () => {
         this.setState({
             showTimeline: true,
@@ -73,7 +69,7 @@ class RestaurantSingleOrder extends Component {
                         </div>
                         <BackPageButton
                             classProp={"bo-mymenu-welcome"}
-                            callback={this.handleCallbackGoBack}
+                            historyProp={this.props.history}
                         />
                     </div>
 
