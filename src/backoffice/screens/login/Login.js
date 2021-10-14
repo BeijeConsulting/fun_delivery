@@ -88,6 +88,7 @@ class Login extends Component {
                 <Navbar
                     pageTitle='Login'
                 />
+                <main>
                 <BannerBackground />
                 <h1>{t('backoffice.screens.login.title')}</h1>
                 {
@@ -118,6 +119,7 @@ class Login extends Component {
                     </div>
                     <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>{t('backoffice.screens.login.register_now')}</b></Link>
                 </div>
+                </main>
                 <br />
                 <button value="it" onClick={this.handleClickButton}>it</button>
                 <button value="en" onClick={this.handleClickButton}>en</button>
