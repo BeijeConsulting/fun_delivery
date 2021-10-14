@@ -101,14 +101,14 @@ const properties = {
             title: 'Mangia con noi',
             description: 'Effettua il primo ordine',
             exp: 200,
-            claim: null,
+            claim: false,
             beijeCoin: 5,
         },
         {
             title: 'Special One',
             description: 'Effettua almeno un ordine dalla special week',
             exp: 300,
-            claim: null,
+            claim: false,
             beijeCoin: 7,
         },
         {
