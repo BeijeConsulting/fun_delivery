@@ -40,6 +40,8 @@ class Registration extends Component {
         // this.countries = _map(constantsDictionary.COUNTRIES)
         // this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
+        this.localStorageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'))
+
         if(!this.localStorageData){
             this.localStorageData = localStorageData
             localStorage.setItem('localStorageData',JSON.stringify(localStorageData))
@@ -102,7 +104,7 @@ class Registration extends Component {
                         sponsor: null,
                     };
 
-                    let localStorageRestaurantsData = localStorageRestaurants;
+                    let localStorageRestaurantsData = this.localStorageRestaurants.restaurant_list;
 
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
