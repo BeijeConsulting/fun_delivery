@@ -117,7 +117,6 @@ const properties = {
             exp: 100,
             claim: null,
             beijeCoin: 3,
-
         },
         {
             title: 'Spendaccione',
@@ -125,7 +124,6 @@ const properties = {
             exp: 200,
             claim: null,
             beijeCoin: 5,
-
         },
         {
             title: 'Capitano 20',
@@ -140,7 +138,6 @@ const properties = {
             exp: 500,
             claim: null,
             beijeCoin: 15,
-
         }
     ]
 }

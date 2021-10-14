@@ -45,7 +45,7 @@ class Mission extends Component {
         let newArr = this.state.arr
 
         newStorage.mission.push(i)
-        newStorage.experience += e.exp
+        newStorage.experience = newStorage.experience >= 15000 ? newStorage.experience : newStorage.experience += e.exp
         newStorage.beijeCoin += e.beijeCoin
         newArr[i].claim = true
 

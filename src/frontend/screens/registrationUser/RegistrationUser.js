@@ -40,6 +40,7 @@ class RegistrationUser extends React.Component {
                 },
                 mission: [0],
                 freeDelivery: false,
+                freeDeliveryModal: false,
                 discount: false
             },
             errormsg: ''

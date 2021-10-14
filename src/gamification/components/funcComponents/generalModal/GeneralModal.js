@@ -9,7 +9,7 @@ const GeneralModal = (props) => {
                 <div className='gm-modal-header'>
                     {props.headerModal}
                 </div>
-                <div className="gm-modal-body">
+                <div className={`${props.contentClass} gm-modal-body`}>
                     {props.contentModal}
                 </div>
             </div>
