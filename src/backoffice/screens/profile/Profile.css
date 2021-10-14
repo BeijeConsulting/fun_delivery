@@ -39,17 +39,33 @@ textarea[disabled]::placeholder {
 
 .bo-profile-welcome{
     display: flex;
-    align-items: baseline;
+    align-items:baseline;
 }
 
 .bo-icon-edit{
-    margin: 0 20px;
+    padding-left: 20px;
     cursor: pointer;
 }
 .bo-icon-edit svg{
     font-size: 30px;
     color: #3F3D56;
 }
+
+.bo-coins-container {
+    cursor: default;
+    display: flex;
+    align-items: center;
+}
+.bo-coin{
+    padding-left: 5px;
+    height: 30px;
+    font-size: 20px;
+}
+.bo-coins-container > .bo-icon-edit svg{
+    cursor: default;
+    color: goldenrod;
+}
+
 .bo-icon-edit.delete svg {
     color: #F24464d9;
 }

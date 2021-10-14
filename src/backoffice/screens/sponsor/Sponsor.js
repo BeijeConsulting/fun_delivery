@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import './Sponsor.css';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';

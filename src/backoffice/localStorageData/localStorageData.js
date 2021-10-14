@@ -10,10 +10,11 @@ import Poke from "../assets/images/poke.jpg";
 import Sushi from "../assets/images/sushi.png";
 import Altro from "../assets/images/altro.jpg";
 import Carbonara from "../assets/images/carbonara.jpg";
+import moment from "moment";
+import i18n from "../../common/localization/i18n";
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
-  restaurant_categories: [
-    {
+  restaurant_categories: [{
       id: 1,
       name: "Pizza",
     },
@@ -42,20 +43,19 @@ const localStorageData = {
       name: "Altro",
     },
   ],
-  plate_categories: [
-    {
+  plate_categories: [{
       id: 1,
-      name: "Primi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
       img_path: Primi,
     },
     {
       id: 2,
-      name: "Secondi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.second_course'),
       img_path: Secondi,
     },
     {
       id: 3,
-      name: "Contorni",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sidedish'),
       img_path: Contorni,
     },
     {
@@ -65,7 +65,7 @@ const localStorageData = {
     },
     {
       id: 5,
-      name: "Panini",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sandwich'),
       img_path: Panini,
     },
     {
@@ -75,7 +75,7 @@ const localStorageData = {
     },
     {
       id: 7,
-      name: "Messicani",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.mexican'),
       img_path: Messicano,
     },
     {
@@ -90,9 +90,19 @@ const localStorageData = {
     },
     {
       id: 10,
-      name: "Altro",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.other'),
       img_path: Altro,
     },
+  ],
+  countries:[
+    {
+      country_name: 'Italy',
+      country_id: 1
+    },
+    {
+      country_name: 'England',
+      country_id: 2
+    }
   ],
   plate_list: [
     {
@@ -103,6 +113,7 @@ const localStorageData = {
       plate_price: 15,
       plate_category_id: 1,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 2,
@@ -112,6 +123,7 @@ const localStorageData = {
       plate_price: 12,
       plate_category_id: 1,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 3,
@@ -121,6 +133,7 @@ const localStorageData = {
       plate_price: 32.3,
       plate_category_id: 2,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 4,
@@ -130,6 +143,7 @@ const localStorageData = {
       plate_price: 10,
       plate_category_id: 3,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 5,
@@ -139,6 +153,7 @@ const localStorageData = {
       plate_price: 6,
       plate_category_id: 4,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 6,
@@ -148,6 +163,7 @@ const localStorageData = {
       plate_price: 5,
       plate_category_id: 5,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 7,
@@ -157,6 +173,7 @@ const localStorageData = {
       plate_price: 7,
       plate_category_id: 6,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 8,
@@ -166,6 +183,7 @@ const localStorageData = {
       plate_price: 8,
       plate_category_id: 7,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 9,
@@ -175,6 +193,7 @@ const localStorageData = {
       plate_price: 9,
       plate_category_id: 8,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 10,
@@ -184,6 +203,7 @@ const localStorageData = {
       plate_price: 17,
       plate_category_id: 9,
       plate_visibility: true,
+      quantity:0,
     },
     {
       id: 11,
@@ -193,6 +213,7 @@ const localStorageData = {
       plate_price: 0,
       plate_category_id: 10,
       plate_visibility: true,
+      quantity:0,
     },
   ],
   profile: {
@@ -214,13 +235,12 @@ const localStorageData = {
     restaurant_discount: 0.5,
     restaurant_free_shipping: 0,
   },
-  order_list: [
-    {
-      order_id: 34221,
-      customer_name: "Marco Brambilla",
-      customer_address: "Una via a Milano",
-      ordered: [
-        {
+  order_list: [{
+      order_id: 34225,
+      date: moment("2021-10-13T23:40:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Antonino Rossi",
+      customer_address: "Una via a Firenze",
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -236,14 +256,37 @@ const localStorageData = {
           quantity: 2,
         },
       ],
-      status: "confirmed",
+      status: "approved",
+    },
+    {
+      order_id: 34221,
+      date: moment("2021-10-12T19:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Marco Brambilla",
+      customer_address: "Una via a Milano",
+      ordered: [{
+          nameFood: "Margherita",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Napoli",
+          price: 6,
+          quantity: 2,
+        },
+        {
+          nameFood: "Coca cola",
+          price: 2.5,
+          quantity: 2,
+        },
+      ],
+      status: "completed",
     },
     {
       order_id: 34220,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Lorenzo Chiesa",
       customer_address: "Una via all'Elba",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -259,14 +302,37 @@ const localStorageData = {
           quantity: 2,
         },
       ],
-      status: "confirmed",
+      status: "completed",
+    },
+    {
+      order_id: 34229,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Lorenzo Chiesa",
+      customer_address: "Una via all'Elba",
+      ordered: [{
+          nameFood: "Margherita",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Napoli",
+          price: 6,
+          quantity: 2,
+        },
+        {
+          nameFood: "Coca cola",
+          price: 2.5,
+          quantity: 2,
+        },
+      ],
+      status: "pending",
     },
     {
       order_id: 34224,
+      date: moment("2021-10-11T21:35:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Simone Micalizzi",
       customer_address: "Una via a Palermo",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -286,10 +352,10 @@ const localStorageData = {
     },
     {
       order_id: 34223,
+      date: moment("2021-10-10T20:05:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Enrico Paolazzi",
       customer_address: "Una via a Ferrara",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,
@@ -309,10 +375,10 @@ const localStorageData = {
     },
     {
       order_id: 34222,
+      date: moment("2021-10-18T21:00:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Calogero Messina",
       customer_address: "Una via a Caltanissetta",
-      ordered: [
-        {
+      ordered: [{
           nameFood: "Margherita",
           price: 6,
           quantity: 1,

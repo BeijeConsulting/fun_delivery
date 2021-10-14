@@ -59,7 +59,7 @@ class Login extends Component {
 
                 // SAVE DATA on localStorage
                 let storageExists = localStorage.getItem('localStorageData');
-                if (!storageExists) {
+                if (!!storageExists || !storageExists) {
                     localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
                 }
 

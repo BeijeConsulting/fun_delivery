@@ -11,7 +11,12 @@ export const TRANSLATIONS_BACKOFFICE = {
             register_now: "Registrati ora",
             error: "Email o password errati"
         },
-
+        forgot_password:{
+            title:"Password dimenticata?",
+            partner:"Sei già nostro partner?",
+            login:'Accedi ora.',
+            error: "Email o password errati!"
+        },
         registration: {
             title: "Registra il tuo ristorante",
             your_data: "I tuoi dati",
@@ -34,19 +39,69 @@ export const TRANSLATIONS_BACKOFFICE = {
             quantity: "Quantità",
             total: "TOTALE",
             approve: "Approva",
+            dont_approve: "Non approvare",
+            rejected_title: "Ordine rifiutato"
+        },
+        single_plate:{
+            save_plate: "Salva Piatto",
+            delete_plate: "Elimina Piatto",
+            edit_plate: "Modifica Piatto",
+            visibility: "Visibilità"
+        },
+        new_plate:{
+            create_plate: "Crea il tuo piatto",
             dont_approve: "Non approvare"
+        },
+        my_menu:{
+            title:"Il tuo Menù",
+        },
+        profile: {
+            profile: 'PROFILO',
+            welcome: 'Benvenuto',
+            edit_data: 'Modifica dati profilo',
+            save_data: 'Salva dati profilo',
+            your_data: 'I tuoi dati',
+            free_shipping: 'Spedizione gratuita',
+            first_name: 'Nome',
+            last_name: 'Cognome',
+            your_restaurant: 'Il tuo ristorante',
+            restaurant_name: 'Nome ristorante',
+            telephone: 'Telefono',
+            address: 'Indirizzo',
+            cap: 'CAP',
+            state: 'Stato',
+            city: 'Città',
+            vat: 'P.IVA',
+            categories: 'Categoria',
+            discounts: 'Sconti',
+            restaurant_description: 'Descrizione ristorante'             
+        },
+        plates:{
+            title:'Lista Piatti',
+            new_plate:'Nuovo Piatto'
         }
     },
 
 
     components: {
+        sidebar:{
+            profile:'Profilo',
+            my_menu: 'Menu',
+            my_orders: 'Ordini',
+            incoming_orders: 'In arrivo'
+        },
         button: {
             login: "ACCEDI",
-            register: "REGISTRATI"
+            register: "REGISTRATI",
+            logout:'Esci'
+            
         },
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
+            confirm_password:"Conferma password",
+            name_plate: "Nome del piatto",
+            price: "Prezzo €"
         },
         timeline: {
             title: {
@@ -59,9 +114,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             next_step: "Prossimo step",
             cancel: "Annulla",
             next: "Prossimo",
-            done: "Completato",
+            complete_order: "Completa",
             success_message: "Ordine completato"
-        }
+        },
+        back : "Indietro"
     },
 
     useful_constants: {
@@ -82,12 +138,21 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         order_status: {
             all: "Tutti",
+            approved: "🟣 Approvato",
             completed: "🟢 Completato",
             delivering: "🟡 In consegna",
             preparing: "🟠 In preparazione",
             pending: "🔵 Da approvare",
             rejected: "🔴 Rifiutato",
             error: "Errore"
+        },
+        my_menu_categories:{
+            first_course: 'Primi',
+            second_course: 'Secondi',
+            sidedish: 'Cotorni',
+            sandwich:'Panini',
+            mexican:'Messicano',
+            other:'Altro'
         }
 
     }

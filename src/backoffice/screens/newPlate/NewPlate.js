@@ -1,24 +1,25 @@
 import { Component } from "react";
-import './NewPlate.css';
-import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import 'antd/dist/antd.css';
+import { withTranslation } from "react-i18next";
 import { LeftOutlined, SaveOutlined } from '@ant-design/icons'
+import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
-import Button from "../../../common/components/ui/button/Button";
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard';
 import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';
+import i18n from "../../../common/localization/i18n";
+// import Button from "../../../common/components/ui/button/Button";
+
+import 'antd/dist/antd.css';
+import './NewPlate.css';
 
 // Default Image for new plates
 import defaultImage from '../../assets/images/altro.jpg';
 import properties from "../../../common/utils/properties";
 
 class NewPlate extends Component {
-
     constructor(props) {
         super(props)
-
         this.new_plate = {
             plate_img: '',
             plate_name: '',
@@ -27,7 +28,6 @@ class NewPlate extends Component {
             plate_category_id: null,
             plate_visibility: true,
         }
-
         this.state = {
             warning: {
                 plate_img: false,
@@ -123,6 +123,7 @@ class NewPlate extends Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <LayoutBackOffice
                 pageTitle='Nuovo Piatto'
@@ -132,85 +133,87 @@ class NewPlate extends Component {
                         <div className="bo-mymenu-first-row">
 
                             <div className="bo-mymenu-welcome">
-                                <h2>Crea il tuo piatto</h2>
+                                <h2>{t('backoffice.screens.new_plate.create_plate')}</h2>
                                 <span className="bo-icon-edit" title="Salva Piatto"><SaveOutlined onClick={this.handleSubmit} /></span>
                             </div>
 
-                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
+                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t("backoffice.components.back")}</h3> </div>
                         </div>
 
-                        <SinglePlateCard
-                            name='plate_img'
-                            img={upload_white}
-                            newCss='new-plate'
-                            callback={this.handleCallbackInput}
-                        />
+                        <section>
+                            <SinglePlateCard
+                                name='plate_img'
+                                img={upload_white}
+                                newCss='new-plate'
+                                callback={this.handleCallbackInput}
+                            />
 
-                        <div className="bo-new-plate-switch">
-                            <p style={{fontSize: '16px'}}>
-                                Visibilità
-                                <span style={{paddingLeft:'10px'}}>
-                                    <SwitchProfile
-                                        handleSwitchCallback={this.handleSwitchCallback}
-                                        defaultChecked={true}
-                                    />
-                                </span>
-                            </p>
-                        </div>
+                            <div className="bo-new-plate-switch">
+                                <p style={{ fontSize: '16px' }}>
+                                    Visibilità
+                                    <span style={{ paddingLeft: '10px' }}>
+                                        <SwitchProfile
+                                            handleSwitchCallback={this.handleSwitchCallback}
+                                            defaultChecked={true}
+                                        />
+                                    </span>
+                                </p>
+                            </div>
 
-                        <div className="bo-profile-flex-inputs">
-                            <InputBox
-                                type="text"
-                                placeholder="Nome piatto"
-                                className={`bo-input-box ${this.state.warning.plate_name ? 'alert' : ''}`}
-                                name="plate_name"
+                            <div className="bo-profile-flex-inputs">
+                                <InputBox
+                                    type="text"
+                                    placeholder="Nome piatto"
+                                    className={`bo-input-box ${this.state.warning.plate_name ? 'alert' : ''}`}
+                                    name="plate_name"
+                                    callback={this.handleCallbackInput}
+                                    callbackOnFocus={this.handleCallBackFocus}
+                                />
+
+                                <InputBox
+                                    type="text"
+                                    placeholder="Prezzo € "
+                                    className={`bo-input-box ${this.state.warning.plate_price ? 'alert' : ''}`}
+                                    name="plate_price"
+                                    callback={this.handleCallbackInput}
+                                    callbackOnFocus={this.handleCallBackFocus}
+                                />
+                            </div>
+
+                            <select
+                                id='categories'
+                                name='plate_category_id'
+                                onChange={this.handleCallbackInput}
+                                onFocus={this.handleCallBackFocus}
+                                className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
+                                defaultValue=""
+                            >
+                                <option disabled value="">Categorie</option>
+
+                                {
+                                    this.state.list_categories.map((category, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={category.id}
+                                            >
+                                                {category.name}
+                                            </option>
+                                        )
+                                    })
+                                }
+
+                            </select>
+
+                            <TextArea
+                                name="plate_description"
+                                className={`bo-input-box ${this.state.warning.plate_description ? 'alert' : ''}`}
+                                id="description_plate"
+                                placeholder="Descrizione piatto"
                                 callback={this.handleCallbackInput}
                                 callbackOnFocus={this.handleCallBackFocus}
                             />
-
-                            <InputBox
-                                type="text"
-                                placeholder="Prezzo € "
-                                className={`bo-input-box ${this.state.warning.plate_price ? 'alert' : ''}`}
-                                name="plate_price"
-                                callback={this.handleCallbackInput}
-                                callbackOnFocus={this.handleCallBackFocus}
-                            />
-                        </div>
-
-                        <select
-                            id='categories'
-                            name='plate_category_id'
-                            onChange={this.handleCallbackInput}
-                            onFocus={this.handleCallBackFocus}
-                            className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
-                            defaultValue=""
-                        >
-                            <option disabled value="">Categorie</option>
-
-                            {
-                                this.state.list_categories.map((category, index) => {
-                                    return (
-                                        <option
-                                            key={index}
-                                            value={category.id}
-                                        >
-                                            {category.name}
-                                        </option>
-                                    )
-                                })
-                            }
-
-                        </select>
-
-                        <TextArea
-                            name="plate_description"
-                            className={`bo-input-box ${this.state.warning.plate_description ? 'alert' : ''}`}
-                            id="description_plate"
-                            placeholder="Descrizione piatto"
-                            callback={this.handleCallbackInput}
-                            callbackOnFocus={this.handleCallBackFocus}
-                        />
+                        </section>
                     </div>
                 </div>
             </LayoutBackOffice>
@@ -219,4 +222,4 @@ class NewPlate extends Component {
     }
 }
 
-export default NewPlate
+export default withTranslation()(NewPlate)

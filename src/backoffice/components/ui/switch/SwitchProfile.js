@@ -5,14 +5,14 @@ import { Switch } from 'antd';
 const SwitchProfile = (props) => {
 
     const handleSwitch = (e) => {
-       props.handleSwitchCallback(e)
+        props.handleSwitchCallback(e)
     }
 
     return (
         <>
-            <Switch 
-                checked={props.value}      
-                onClick={handleSwitch} 
+            <Switch
+                checked={props.value}
+                onClick={handleSwitch}
                 defaultChecked={props.defaultChecked}
             />
         </>

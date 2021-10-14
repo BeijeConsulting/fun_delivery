@@ -11,13 +11,6 @@
     margin: 10px;
 }
 
-.bo-icon-edit{
-    font-size: 18px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-
 .bo-io-first-row{
     display: flex;
     align-items: center;

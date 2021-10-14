@@ -47,6 +47,28 @@ const localStorageRestaurants = {
             restaurant_free_shipping: true,
             sponsor: null,
         }
+    ],
+    discounts: [
+        {
+            id: 0,
+            dicount_value: 0,
+            label: 'Nessuno sconto'
+        },
+        {
+            id: 1,
+            dicount_value: 0.1,
+            label: '10%'
+        },
+        {
+            id: 2,
+            dicount_value: 0.2,
+            label: '20%'
+        },
+        {
+            id: 3,
+            dicount_value: 0.3,
+            label: '30%'
+        }       
     ]
 }
 
