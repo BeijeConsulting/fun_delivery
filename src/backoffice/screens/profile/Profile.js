@@ -4,14 +4,14 @@ import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import { EditFilled, SaveOutlined, DollarCircleOutlined } from '@ant-design/icons';
-// import Select from "../../../common/components/ui/select/Select";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
-// import coin from '../../assets/images/coins.png'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
 import localStorageData from "../../localStorageData/localStorageData";
+import { withTranslation } from 'react-i18next';
+
 // const format = 'HH:mm';
 
 class Profile extends Component {
@@ -160,22 +160,25 @@ class Profile extends Component {
     handleEdit = () => { this.setState({ editData: true }) }
 
     render() {
+
+        const { t } = this.props;
+
         return (
             <>
-                <LayoutBackOffice pageTitle="PROFILE" handleLogout = {this}>
+                <LayoutBackOffice pageTitle={t('backoffice.screens.profile.profile')} handleLogout = {this}>
                     <div className="bo-profile-container">
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
-                                <h2>Benvenuto, {this.state.data.firstName}</h2>
+                                <h2>{t('backoffice.screens.profile.welcome')}, {this.state.data.firstName}</h2>
 
                                 {
                                     !this.state.editData &&
-                                    <span className="bo-icon-edit" title="Modifica dati profilo"><EditFilled onClick={this.handleEdit} /></span>
+                                    <span className="bo-icon-edit" title={t('backoffice.screens.profile.edit_data')}><EditFilled onClick={this.handleEdit} /></span>
                                 }
 
                                 {
                                     this.state.editData &&
-                                    <span className="bo-icon-edit" title="Salva dati profilo"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                    <span className="bo-icon-edit" title={t('backoffice.screens.profile.save_data')}><SaveOutlined onClick={this.handleSubmit} /></span>
                                 }
 
                                 <div className="bo-coins-container">
@@ -195,10 +198,10 @@ class Profile extends Component {
                         </div>
                         <div className="bo-profile-form">
                             <div className="bo-profile-second-row">
-                                <h2>I tuoi dati</h2>
+                                <h2>{t('backoffice.screens.profile.your_data')}</h2>
                                 <div className="bo-profile-switch">
                                     <p style={{fontSize:'16px'}}>
-                                        Free Shipping
+                                        {t('backoffice.screens.profile.free_shipping')}
                                         <span style={{paddingLeft:'10px'}}>
                                             <SwitchProfile
                                                 handleSwitchCallback={this.handleSwitchCallback}
@@ -210,7 +213,7 @@ class Profile extends Component {
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
-                                    placeholder="Nome"
+                                    placeholder={t('backoffice.screens.profile.first_name')}
                                     className={`bo-input-box ${this.state.data.firstName[1] ? 'alert' : ''}`}
                                     name="firstName"
                                     callback={this.handleCallbackInput}
@@ -221,7 +224,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Cognome"
+                                    placeholder={t('backoffice.screens.profile.last_name')}
                                     className={`bo-input-box ${this.state.data.lastName[1] ? 'alert' : ''}`}
                                     name="lastName"
                                     callback={this.handleCallbackInput}
@@ -244,13 +247,13 @@ class Profile extends Component {
 
                         </div>
                         <div className="bo-profile-form">
-                            <h2>Il tuo ristorante</h2>
+                            <h2>{t('backoffice.screens.profile.your_restaurant')}</h2>
 
                             <div className="bo-profile-flex-inputs">
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Nome ristorante"
+                                    placeholder={t('backoffice.screens.profile.restaurant_name')}
                                     className={`bo-input-box ${this.state.data.restaurant_name[1] ? 'alert' : ''}`}
                                     name="restaurant_name"
                                     callback={this.handleCallbackInput}
@@ -261,7 +264,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="tel"
-                                    placeholder="Telefono"
+                                    placeholder={t('backoffice.screens.profile.telephone')}
                                     className={`bo-input-box ${this.state.data.phone_number[1] ? 'alert' : ''}`}
                                     name="phone_number"
                                     callback={this.handleCallbackInput}
@@ -275,7 +278,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Via"
+                                    placeholder={t('backoffice.screens.profile.address')}
                                     className={`bo-input-box ${this.state.data.street[1] ? 'alert' : ''}`}
                                     name="street"
                                     callback={this.handleCallbackInput}
@@ -286,7 +289,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="CAP"
+                                    placeholder={t('backoffice.screens.profile.cap')}
                                     className={`bo-input-box ${this.state.data.cap[1] ? 'alert' : ''}`}
                                     name="cap"
                                     callback={this.handleCallbackInput}
@@ -307,7 +310,7 @@ class Profile extends Component {
                                     value={this.state.data.country_id[0]}
                                     disabled={!this.state.editData}
                                 >
-                                    <option disabled value="">Stato</option>
+                                    <option disabled value="">{t('backoffice.screens.profile.state')}</option>
 
                                     {
                                         this.state.list_countries.map((category, index) => {
@@ -326,7 +329,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Città"
+                                    placeholder={t('backoffice.screens.profile.city')}
                                     className={`bo-input-box ${this.state.data.city[1] ? 'alert' : ''}`}
                                     name="city"
                                     callback={this.handleCallbackInput}
@@ -340,7 +343,7 @@ class Profile extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="P.IVA"
+                                    placeholder={t('backoffice.screens.profile.vat')}
                                     className={`bo-input-box ${this.state.data.VAT[1] ? 'alert' : ''}`}
                                     name="VAT"
                                     callbackOnFocus={this.handleCallBackFocus}
@@ -359,7 +362,7 @@ class Profile extends Component {
                                     value={this.state.data.restaurant_category_id[0]}
                                     disabled={!this.state.editData}
                                 >
-                                    <option disabled value="">Categorie</option>
+                                    <option disabled value="">{t('backoffice.screens.profile.categories')}</option>
 
                                     {
                                         this.state.list_categories.map((category, index) => {
@@ -386,7 +389,7 @@ class Profile extends Component {
                                 value={this.state.data.discount_id[0]}
                                 disabled={!this.state.editData}
                             >
-                                <option disabled value="">Discounts</option>
+                                <option disabled value="">{t('backoffice.screens.profile.discounts')}</option>
 
                                 {
                                     this.state.discounts.map((discount, index) => {
@@ -408,7 +411,7 @@ class Profile extends Component {
                                 name="description"
                                 className={`bo-input-box ${this.state.data.description[1] ? 'alert' : ''}`}
                                 id="description"
-                                placeholder="Descrizione ristorante"
+                                placeholder={t('backoffice.screens.profile.restaurant_description')}
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
                                 callbackOnFocus={this.handleCallBackFocus}
@@ -422,4 +425,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+export default withTranslation()(Profile)

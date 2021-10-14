@@ -45,17 +45,17 @@ const localStorageData = {
   ],
   plate_categories: [{
       id: 1,
-      name: "Primi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
       img_path: Primi,
     },
     {
       id: 2,
-      name: "Secondi",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.second_course'),
       img_path: Secondi,
     },
     {
       id: 3,
-      name: "Contorni",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sidedish'),
       img_path: Contorni,
     },
     {
@@ -65,7 +65,7 @@ const localStorageData = {
     },
     {
       id: 5,
-      name: "Panini",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.sandwich'),
       img_path: Panini,
     },
     {
@@ -75,7 +75,7 @@ const localStorageData = {
     },
     {
       id: 7,
-      name: "Messicani",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.mexican'),
       img_path: Messicano,
     },
     {
@@ -90,7 +90,7 @@ const localStorageData = {
     },
     {
       id: 10,
-      name: "Altro",
+      name: i18n.t('backoffice.useful_constants.my_menu_categories.other'),
       img_path: Altro,
     },
   ],

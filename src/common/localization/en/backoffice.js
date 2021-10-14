@@ -52,13 +52,49 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         new_plate:{
             create_plate: "Create your plate",
+            dont_approve: "Don't approve"
+        },
+        my_menu:{
+            title:"My Menu",
+        },
+        profile: {
+            profile: 'PROFILE',
+            welcome: 'Welcome',
+            edit_data: 'Edit profile data',
+            save_data: 'Save profile data',
+            your_data: 'Your data',
+            free_shipping: 'Free shipping',
+            first_name: 'First name',
+            last_name: 'Last name',
+            your_restaurant: 'Your restaurant',
+            restaurant_name: 'Restaurant name',
+            telephone: 'Telephone number',
+            address: 'Address',
+            cap: 'Postal code',
+            state: 'State',
+            city: 'City',
+            vat: 'VAT',
+            categories: 'Category',
+            discounts: 'Discounts',
+            restaurant_description: 'Restaurant description'
+        },
+        plates:{
+            title:'Plates list',
+            new_plate:'New Plate'
         }
     },
 
     components: {
+        sidebar:{
+            profile:'Profile',
+            my_menu: 'My Menu',
+            my_orders: 'My Orders',
+            incoming_orders: 'Incoming'
+        },
         button: {
             login: "LOG IN",
             register: "REGISTER",
+            logout:'Logout'
         },
         inputbox: {
             restaurant_name: "Restaurant name",
@@ -110,6 +146,14 @@ export const TRANSLATIONS_BACKOFFICE = {
             pending: "🔵 To be approved",
             rejected: "🔴 Rejected",
             error: "Error"
+        },
+        my_menu_categories:{
+            first_course: 'First course',
+            second_course: 'Second course',
+            sidedish: 'Side dish',
+            sandwich:'Sandwich',
+            mexican:'Mexican',
+            other:'Other'
         }
     }
 }
