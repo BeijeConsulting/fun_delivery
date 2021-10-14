@@ -36,13 +36,7 @@ class Registration extends Component {
             phone_number: null,
             restaurant_category_id: '',
         }
-        console.log(_map(constantsDictionary.COUNTRIES)[0])
-        // this.countries = _map(constantsDictionary.COUNTRIES)
-        // this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
-        
-        //Da aggiungere caso se il localstorage è undefined o non riesce a mappare le cose
-        // this.localStorageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'))
 
         if(!this.localStorageData){
             this.localStorageData = localStorageData
@@ -217,7 +211,7 @@ class Registration extends Component {
                                     className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
                                     default=""
                                 >
-                                    <option disabled value="">Categorie</option>
+                                    <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
                                     {
                                         this.localStorageData.restaurant_categories.map((category, index) => {
@@ -272,7 +266,7 @@ class Registration extends Component {
                                     onFocus={this.handleCallBackFocus}
                                     defaultValue=""
                                 >
-                                    <option disabled value="">{t('backoffice.useful_constants.')}</option>
+                                    <option disabled value="">{t('backoffice.useful_constants.countries.titleComponent')}</option>
 
                                     {
                                         this.localStorageData.countries.map((category, index) => {

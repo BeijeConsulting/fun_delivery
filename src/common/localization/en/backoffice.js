@@ -26,6 +26,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             your_restaurant: "Your restaurant",
         },
         my_orders: {
+            title: "My orders",
             your_orders: "Your orders",
             number_of_order: "Order #",
             status: "Status",
@@ -47,14 +48,17 @@ export const TRANSLATIONS_BACKOFFICE = {
             rejected_title: "Order rejected"
         },
         single_plate:{
+            title: "Plate",
             save_plate: "Save Plate",
             delete_plate: "Delete Plate",
             edit_plate: "Edit Plate",
             visibility: "Visibility"
         },
         new_plate:{
+            title: "New plate",
             create_plate: "Create your plate",
-            dont_approve: "Don't approve"
+            dont_approve: "Don't approve",
+            description: "Plate description"
         },
         my_menu:{
             title:"My Menu",

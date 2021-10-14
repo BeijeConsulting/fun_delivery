@@ -13,52 +13,51 @@ import Carbonara from "../assets/images/carbonara.jpg";
 import moment from "moment";
 import i18n from "../../common/localization/i18n";
 import constantsDictionary from '../../common/utils/constantsDictionary'
-import { map as _map } from "lodash";
 
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
   restaurant_categories: [{
       id: 1,
-      name: "Pizza",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.pizza,
     },
     {
       id: 2,
-      name: "Pokè",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.poke,
     },
     {
       id: 3,
-      name: "Sushi",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.sushi,
     },
     {
       id: 4,
-      name: "Messicano",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.mexican,
     },
     {
       id: 5,
-      name: "Italiano",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.italian,
     },
     {
       id: 6,
-      name: "Hamburger",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.hamburger,
     },
     {
       id: 7,
-      name: "Altro",
+      name: constantsDictionary.RESTAURANT_CATEGORIES.other,
     },
   ],
   plate_categories: [{
       id: 1,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.first_course,
       img_path: Primi,
     },
     {
       id: 2,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.second_course'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.second_course,
       img_path: Secondi,
     },
     {
       id: 3,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.sidedish'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.side_dish,
       img_path: Contorni,
     },
     {
@@ -68,17 +67,17 @@ const localStorageData = {
     },
     {
       id: 5,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.sandwich'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.sandwiches,
       img_path: Panini,
     },
     {
       id: 6,
-      name: "Pizze",
+      name: "Pizza",
       img_path: Pizze,
     },
     {
       id: 7,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.mexican'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.mexican,
       img_path: Messicano,
     },
     {
@@ -93,11 +92,10 @@ const localStorageData = {
     },
     {
       id: 10,
-      name: i18n.t('backoffice.useful_constants.my_menu_categories.other'),
+      name: constantsDictionary.MY_MENU_CATEGORIES.other,
       img_path: Altro,
     },
   ],
-  // this.countries = _map(constantsDictionary.
   countries:[
     {
       country_name: constantsDictionary.COUNTRIES.italy,

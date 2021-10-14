@@ -175,7 +175,7 @@ class SinglePlate extends Component {
         const { t } = this.props
         return (
             <>
-                <LayoutBackOffice pageTitle='Piatto'>
+                <LayoutBackOffice pageTitle={t('backoffice.screens.single_plate.title')}>
 
                     <div className="bo-profile-container">
                         <div className="bo-profile-form">
@@ -255,7 +255,7 @@ class SinglePlate extends Component {
                                     value={this.state.data.plate_category_id[0]}
                                     disabled={!this.state.editData}
                                 >
-                                    <option disabled value="">Categorie</option>
+                                    <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
                                     {
                                         this.state.list_categories.map((category, index) => {

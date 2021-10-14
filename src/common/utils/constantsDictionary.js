@@ -22,6 +22,14 @@ const constantsDictionary = {
         delivering: i18n.t('backoffice.useful_constants.order_status.delivering'),
         preparing: i18n.t('backoffice.useful_constants.order_status.preparing'),
         confirmed: i18n.t('backoffice.useful_constants.order_status.confirmed'),
+    },
+    MY_MENU_CATEGORIES: {
+        first_course: i18n.t('backoffice.useful_constants.my_menu_categories.first_course'),
+        second_course: i18n.t('backoffice.useful_constants.my_menu_categories.second_course'),
+        side_dish: i18n.t('backoffice.useful_constants.my_menu_categories.sidedish'),
+        sandwiches: i18n.t('backoffice.useful_constants.my_menu_categories.sandwich'),
+        mexican: i18n.t('backoffice.useful_constants.my_menu_categories.mexican'),
+        other: i18n.t('backoffice.useful_constants.my_menu_categories.other')
     }
 }
 

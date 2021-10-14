@@ -113,7 +113,7 @@ class IncomingOrders extends Component {
         const { t } = this.props
         return (
             <>
-                <LayoutBackOffice pageTitle="IN ARRIVO">
+                <LayoutBackOffice pageTitle={t('backoffice.screens.incoming_orders.title')}>
                     <div className="bo-io-container">
                         <div className="bo-io-first-row">
                             <div className="bo-io-home">
