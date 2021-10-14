@@ -150,7 +150,7 @@ class SinglePlate extends Component {
     }
 
     handleDelete = () => {
-        /* Elimination plate to localSotorage */
+        /* Delete plate from localSotorage */
         const plateList = this.storageData.plate_list.filter((el, key) => {
             return el.id !== this.props.location.state.plateId
         })

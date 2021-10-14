@@ -12,6 +12,9 @@ import Altro from "../assets/images/altro.jpg";
 import Carbonara from "../assets/images/carbonara.jpg";
 import moment from "moment";
 import i18n from "../../common/localization/i18n";
+import constantsDictionary from '../../common/utils/constantsDictionary'
+import { map as _map } from "lodash";
+
 // import Profile from '../screens/profile/Profile'
 const localStorageData = {
   restaurant_categories: [{
@@ -94,13 +97,14 @@ const localStorageData = {
       img_path: Altro,
     },
   ],
+  // this.countries = _map(constantsDictionary.
   countries:[
     {
-      country_name: 'Italy',
+      country_name: _map(constantsDictionary.COUNTRIES)[1],
       country_id: 1
     },
     {
-      country_name: 'England',
+      country_name: _map(constantsDictionary.COUNTRIES)[2],
       country_id: 2
     }
   ],

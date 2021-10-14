@@ -29,6 +29,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             your_orders: "Your orders",
             number_of_order: "Order #",
             status: "Status",
+            show: "Show"
         },
         incoming_orders: {
             title: "Incoming orders",

@@ -5,10 +5,10 @@ import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import utils from '../../../common/utils/utils'
-// import constantsDictionary from '../../../common/utils/constantsDictionary'
+import constantsDictionary from '../../../common/utils/constantsDictionary'
 // import Select from '../../../common/components/ui/select/Select'
 import { withTranslation } from 'react-i18next';
-// import { map as _map } from "lodash";
+import { map as _map } from "lodash";
 /* import IsEmpty from 'lodash'; */
 // import { message, Button as ButtonAnt } from 'antd';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
@@ -36,10 +36,12 @@ class Registration extends Component {
             phone_number: null,
             restaurant_category_id: '',
         }
-
+        console.log(_map(constantsDictionary.COUNTRIES)[0])
         // this.countries = _map(constantsDictionary.COUNTRIES)
         // this.categories = _map(constantsDictionary.RESTAURANT_CATEGORIES)
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
+        
+        //Da aggiungere caso se il localstorage è undefined o non riesce a mappare le cose
         if(!this.localStorageData){
             this.localStorageData = localStorageData
             localStorage.setItem('localStorageData',JSON.stringify(localStorageData))

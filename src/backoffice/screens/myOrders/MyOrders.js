@@ -74,7 +74,7 @@ class MyOrders extends Component {
                 ),
             },
             {
-                title: 'Visualizza',
+                title: i18n.t('backoffice.screens.my_orders.show'),
                 dataIndex: 'order_id',
                 key: '4',
                 render: (order_id) => (
