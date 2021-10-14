@@ -19,7 +19,15 @@ export const TRANSLATIONS_FRONTEND = {
         },
         forgot_password: {
             title: "Reimposta la tua password"
+        },
+        restaurants: {
+            title:'Settimana del sombrero',
+            category:'Categorie',
+            chose:'Scegli il ristorante',
+            trend:'Ristoranti in tendenza',
+            area:'Ristoranti in zona'
         }
+
 
     },
 

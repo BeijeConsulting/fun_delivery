@@ -19,6 +19,13 @@ export const TRANSLATIONS_FRONTEND = {
         },
         forgot_password: {
             title: "Reset your password"
+        },
+        restaurants: {
+            title:'Sombrero week',
+            category:'Category',
+            chose:'Choose Restaurant',
+            trend:'Trendy restaurants',
+            area:'Restaurants in the area'
         }
 
     },
