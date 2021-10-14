@@ -48,7 +48,7 @@ const LayoutBackOffice = (props) => {
                         <div className="bo-btn-logout">
                             <Button
                                 className="bo-btn"
-                                text="Logout"
+                                text={t('backoffice.components.button.logout')}
                                 callback={handleLogout}
 
                             />

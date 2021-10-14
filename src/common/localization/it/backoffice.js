@@ -39,6 +39,17 @@ export const TRANSLATIONS_BACKOFFICE = {
             quantity: "Quantità",
             total: "TOTALE",
             approve: "Approva",
+            dont_approve: "Non approvare",
+            rejected_title: "Ordine rifiutato"
+        },
+        single_plate:{
+            save_plate: "Salva Piatto",
+            delete_plate: "Elimina Piatto",
+            edit_plate: "Modifica Piatto",
+            visibility: "Visibilità"
+        },
+        new_plate:{
+            create_plate: "Crea il tuo piatto",
             dont_approve: "Non approvare"
         },
         my_menu:{
@@ -64,6 +75,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             categories: 'Categoria',
             discounts: 'Sconti',
             restaurant_description: 'Descrizione ristorante'             
+        },
+        plates:{
+            title:'Lista Piatti',
+            new_plate:'Nuovo Piatto'
         }
     },
 
@@ -78,12 +93,15 @@ export const TRANSLATIONS_BACKOFFICE = {
         button: {
             login: "ACCEDI",
             register: "REGISTRATI",
+            logout:'Esci'
             
         },
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
-            confirm_password:"Conferma password"
+            confirm_password:"Conferma password",
+            name_plate: "Nome del piatto",
+            price: "Prezzo €"
         },
         timeline: {
             title: {

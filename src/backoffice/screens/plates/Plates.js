@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import { get } from 'lodash';
 import { LeftOutlined } from '@ant-design/icons'
 import properties from "../../../common/utils/properties";
-
+import { withTranslation } from 'react-i18next';
 // images
 import AddPlate from '../../assets/images/plus.png'
 
@@ -61,10 +61,11 @@ class Plates extends Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <>
                 <LayoutBackOffice
-                    pageTitle='LISTA PIATTI'
+                    pageTitle={t('backoffice.screens.plates.title')}
                 >
                     <div className="bo-profile-container">
 
@@ -74,13 +75,13 @@ class Plates extends Component {
                                 <h2>{this.pageTitle}</h2>
                             </div>
 
-                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
+                            <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t('backoffice.components.back')}</h3> </div>
                         </div>
 
                         <section className="bo-mymenu-form">
                             <div className="bo-mymenu-flex-cards">
                                 <Card
-                                    title='Nuovo Piatto'
+                                    title={t('backoffice.screens.plates.new_plate')}
                                     img={AddPlate}
                                     newCss='new-plate'
                                     callback={this.handleCallbackGoNewPlate}
@@ -109,4 +110,4 @@ class Plates extends Component {
     }
 }
 
-export default Plates
+export default withTranslation()(Plates);

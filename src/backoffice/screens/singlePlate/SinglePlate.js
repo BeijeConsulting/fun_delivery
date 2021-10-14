@@ -1,18 +1,19 @@
 import { Component } from "react";
-import './SinglePlate.css';
-import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
-import 'antd/dist/antd.css';
+import { get } from "lodash";
 import { LeftOutlined } from '@ant-design/icons'
 import { EditFilled, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
+import { withTranslation } from "react-i18next";
+import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
+import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
-// import Button from "../../../common/components/ui/button/Button"
-import utils from "../../../common/utils/utils";
+import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
+import utils from "../../../common/utils/utils";
 import properties from "../../../common/utils/properties";
-import { get } from "lodash";
-
+import i18n from "../../../common/localization/i18n";
+import './SinglePlate.css';
+import 'antd/dist/antd.css';
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
@@ -148,10 +149,6 @@ class SinglePlate extends Component {
         }
     }
 
-    handleCallbackGoBack = () => {
-        this.props.history.goBack()
-    }
-
     handleDelete = () => {
         /* Elimination plate to localSotorage */
         const plateList = this.storageData.plate_list.filter((el, key) => {
@@ -175,6 +172,7 @@ class SinglePlate extends Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <>
                 <LayoutBackOffice pageTitle='Piatto'>
@@ -187,16 +185,19 @@ class SinglePlate extends Component {
                                     {
                                         this.state.editData &&
                                         <>
-                                            <span className="bo-icon-edit" title="Salva Piatto" style={{ marginLeft: '20px' }}><SaveOutlined onClick={this.handleSubmit} /></span>
-                                            <span className="bo-icon-edit delete" title="Elimina Piatto"><DeleteOutlined onClick={this.handleDelete} /></span>
+                                            <span className="bo-icon-edit" title={t('backoffice.screens.single_plate.save_plate')} style={{ marginLeft: '20px' }}><SaveOutlined onClick={this.handleSubmit} /></span>
+                                            <span className="bo-icon-edit delete" title={t('backoffice.screens.single_plate.delete_plate')}><DeleteOutlined onClick={this.handleDelete} /></span>
                                         </>
                                     }
                                     {
                                         this.state.editData === false &&
-                                        <span className="bo-icon-edit" title="Modifica Piatto"><EditFilled onClick={this.handleEdit} /></span>
+                                        <span className="bo-icon-edit" title={t('backoffice.screens.single_plate.edit_plate')}><EditFilled onClick={this.handleEdit} /></span>
                                     }
                                 </div>
-                                <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>Indietro</h3> </div>
+                                <BackPageButton
+                                    classProp={"bo-mymenu-welcome"}
+                                    historyProp={this.props.history}
+                                />
                             </div>
 
                             <section>
@@ -209,7 +210,7 @@ class SinglePlate extends Component {
                                 />
 
                                 <div className="bo-profile-switch">
-                                    <p style={{ fontSize: '16px' }}>Visibilità
+                                    <p style={{ fontSize: '16px' }}>{t('backoffice.screens.single_plate.visibility')}
                                         <span style={{ paddingLeft: '10px' }}>
                                             <SwitchProfile
                                                 handleSwitchCallback={this.handleVisibility}
@@ -222,18 +223,20 @@ class SinglePlate extends Component {
                                 <div className="bo-profile-flex-inputs">
                                     <InputBox
                                         type="text"
-                                        placeholder="Nome piatto"
+                                        placeholder={t('backoffice.components.input_box.name_plate')}
                                         className={`bo-input-box ${this.state.data.plate_name[1] ? 'alert' : ''}`}
                                         name="plate_name"
                                         value={this.state.data.plate_name[0]}
                                         disable={!this.state.editData}
                                         callback={this.handleCallbackInput}
-                                        callbackOnFocus={this.handleCallBackFocus}
+                                        name={'plate_img'}
+                                        newCss=''
+                                        disable={!this.state.editData}
                                     />
 
                                     <InputBox
                                         type="text"
-                                        placeholder="Prezzo €"
+                                        placeholder={t('backoffice.components.input_box.price')}
                                         className={`bo-input-box ${this.state.data.plate_price[1] ? 'alert' : ''}`}
                                         name="plate_price"
                                         value={this.state.data.plate_price[0]}
@@ -279,6 +282,7 @@ class SinglePlate extends Component {
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
                             </section>
+
                         </div>
                     </div>
                 </LayoutBackOffice>
@@ -287,4 +291,4 @@ class SinglePlate extends Component {
     }
 }
 
-export default SinglePlate
+export default withTranslation()(SinglePlate)

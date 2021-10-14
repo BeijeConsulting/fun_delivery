@@ -41,6 +41,17 @@ export const TRANSLATIONS_BACKOFFICE = {
             quantity: "Quantity",
             total: "TOTAL",
             approve: "Approve",
+            dont_approve: "Don't approve",
+            rejected_title: "Order rejected"
+        },
+        single_plate:{
+            save_plate: "Save Plate",
+            delete_plate: "Delete Plate",
+            edit_plate: "Edit Plate",
+            visibility: "Visibility"
+        },
+        new_plate:{
+            create_plate: "Create your plate",
             dont_approve: "Don't approve"
         },
         my_menu:{
@@ -66,6 +77,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             categories: 'Category',
             discounts: 'Discounts',
             restaurant_description: 'Restaurant description'
+        },
+        plates:{
+            title:'Plates list',
+            new_plate:'New Plate'
         }
     },
 
@@ -79,11 +94,14 @@ export const TRANSLATIONS_BACKOFFICE = {
         button: {
             login: "LOG IN",
             register: "REGISTER",
+            logout:'Logout'
         },
         inputbox: {
             restaurant_name: "Restaurant name",
             vat: "VAT",
-            confirm_password:"Confirm password"
+            confirm_password:"Confirm password",
+            name_plate: "Name of the plate",
+            price: "Price €"
         },
         timeline: {
             title: {

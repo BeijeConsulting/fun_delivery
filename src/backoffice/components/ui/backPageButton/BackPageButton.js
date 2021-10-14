@@ -1,10 +1,11 @@
 import { LeftOutlined } from "@ant-design/icons";
 import i18n from "../../../../common/localization/i18n";
+import utils from "../../../../common/utils/utils";
 
 
 const BackPageButton = (props) => {
-    const handleClick = (e) => {
-        return props.callback(e)
+    const handleClick = () => {
+        utils.handleCallbackGoBack(props.historyProp)
     }
     
     return (
