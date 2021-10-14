@@ -37,7 +37,7 @@ class MyMenu extends Component {
         return (
             <>
                 <LayoutBackOffice
-                    pageTitle="MY MENU"
+                    pageTitle={t('backoffice.screens.my_menu.title')}
                 >
                     <div className="bo-profile-container">
 
