@@ -13,6 +13,12 @@ export const TRANSLATIONS_BACKOFFICE = {
             register_now: "Register now",
             error: "Wrong email or password"
         },
+        forgot_password:{
+            title:"Forgot Password?",
+            partner:"Are you already our partner?",
+            login:'Log in now.',
+            error: "Wrong email or password"
+        },
         registration: {
             title: "Register your restaurant",
             your_data: "Your data",
@@ -47,7 +53,8 @@ export const TRANSLATIONS_BACKOFFICE = {
         },
         inputbox: {
             restaurant_name: "Restaurant name",
-            vat: "VAT"
+            vat: "VAT",
+            confirm_password:"Confirm password"
         },
         timeline: {
             title: {
