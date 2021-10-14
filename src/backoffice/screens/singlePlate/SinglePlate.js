@@ -209,7 +209,7 @@ class SinglePlate extends Component {
                             />
 
                             <div className="bo-profile-switch">
-                                <p style={{ fontSize: '16px' }}>{t('backoffice.screens.single_plate.visibility')}
+                                <p style={{ fontSize: '16px' }}>{t('backoffice.screens.common_screens.visibility')}
                                     <span style={{ paddingLeft: '10px' }}>
                                         <SwitchProfile
                                             handleSwitchCallback={this.handleVisibility}

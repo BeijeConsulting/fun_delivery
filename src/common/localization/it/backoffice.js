@@ -2,7 +2,8 @@ export const TRANSLATIONS_BACKOFFICE = {
     screens: {
         common_screens: {
             order: "Ordine",
-            address: "Indirizzo"
+            address: "Indirizzo",
+            visibility: "Visibilità"
         },
         login: {
             partner: "Vuoi diventare un nostro partner?",
@@ -11,10 +12,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             register_now: "Registrati ora",
             error: "Email o password errati"
         },
-        forgot_password:{
-            title:"Password dimenticata?",
-            partner:"Sei già nostro partner?",
-            login:'Accedi ora.',
+        forgot_password: {
+            title: "Password dimenticata?",
+            partner: "Sei già nostro partner?",
+            login: 'Accedi ora.',
             error: "Email o password errati!"
         },
         registration: {
@@ -42,118 +43,115 @@ export const TRANSLATIONS_BACKOFFICE = {
             dont_approve: "Non approvare",
             rejected_title: "Ordine rifiutato"
         },
-        single_plate:{
+        single_plate: {
             save_plate: "Salva Piatto",
             delete_plate: "Elimina Piatto",
             edit_plate: "Modifica Piatto",
-            visibility: "Visibilità"
-        },
-        new_plate:{
-            create_plate: "Crea il tuo piatto",
-            dont_approve: "Non approvare"
-        },
-        my_menu:{
-            title:"Il tuo Menù",
-        },
-        profile: {
-            profile: 'PROFILO',
-            welcome: 'Benvenuto',
-            edit_data: 'Modifica dati profilo',
-            save_data: 'Salva dati profilo',
-            your_data: 'I tuoi dati',
-            free_shipping: 'Spedizione gratuita',
-            first_name: 'Nome',
-            last_name: 'Cognome',
-            your_restaurant: 'Il tuo ristorante',
-            restaurant_name: 'Nome ristorante',
-            telephone: 'Telefono',
-            address: 'Indirizzo',
-            cap: 'CAP',
-            state: 'Stato',
-            city: 'Città',
-            vat: 'P.IVA',
-            categories: 'Categoria',
-            discounts: 'Sconti',
-            restaurant_description: 'Descrizione ristorante'             
-        },
-        plates:{
-            title:'Lista Piatti',
-            new_plate:'Nuovo Piatto'
-        }
-    },
-
-
-    components: {
-        sidebar:{
-            profile:'Profilo',
-            my_menu: 'Menu',
-            my_orders: 'Ordini',
-            incoming_orders: 'In arrivo'
-        },
-        button: {
-            login: "ACCEDI",
-            register: "REGISTRATI",
-            logout:'Esci'
-            
-        },
-        inputbox: {
-            restaurant_name: "Nome ristorante",
-            vat: "P.IVA",
-            confirm_password:"Conferma password",
-            name_plate: "Nome del piatto",
-            price: "Prezzo €"
-        },
-        timeline: {
-            title: {
-                approved: "Approvato",
-                preparing: "In preparazione",
-                delivering: "In consegna",
-                delivered: "Consegnato",
+            new_plate: {
+                create_plate: "Crea il tuo piatto",
+                dont_approve: "Non approvare"
             },
-            confirm_to_continue: "Sei sicuro di continuare?",
-            next_step: "Prossimo step",
-            cancel: "Annulla",
-            next: "Prossimo",
-            complete_order: "Completa",
-            success_message: "Ordine completato"
+            my_menu: {
+                title: "Il tuo Menù",
+            },
+            profile: {
+                profile: 'PROFILO',
+                welcome: 'Benvenuto',
+                edit_data: 'Modifica dati profilo',
+                save_data: 'Salva dati profilo',
+                your_data: 'I tuoi dati',
+                free_shipping: 'Spedizione gratuita',
+                first_name: 'Nome',
+                last_name: 'Cognome',
+                your_restaurant: 'Il tuo ristorante',
+                restaurant_name: 'Nome ristorante',
+                telephone: 'Telefono',
+                address: 'Indirizzo',
+                cap: 'CAP',
+                state: 'Stato',
+                city: 'Città',
+                vat: 'P.IVA',
+                categories: 'Categoria',
+                discounts: 'Sconti',
+                restaurant_description: 'Descrizione ristorante'
+            },
+            plates: {
+                title: 'Lista Piatti',
+                new_plate: 'Nuovo Piatto'
+            }
         },
-        back : "Indietro"
-    },
 
-    useful_constants: {
-        restaurant_categories: {
-            title_component: 'Categorie',
-            pizza: 'Pizza',
-            poke: 'Pokè',
-            sushi: 'Sushi',
-            mexican: 'Messicano',
-            italian: 'Italiano',
-            hamburger: 'Hamburger',
-            other: 'Altro'
+        components: {
+            sidebar: {
+                profile: 'Profilo',
+                my_menu: 'Menu',
+                my_orders: 'Ordini',
+                incoming_orders: 'In arrivo'
+            },
+            button: {
+                login: "ACCEDI",
+                register: "REGISTRATI",
+                logout: 'Esci'
+
+            },
+            inputbox: {
+                restaurant_name: "Nome ristorante",
+                vat: "P.IVA",
+                confirm_password: "Conferma password",
+                name_plate: "Nome del piatto",
+                price: "Prezzo €"
+            },
+            timeline: {
+                title: {
+                    approved: "Approvato",
+                    preparing: "In preparazione",
+                    delivering: "In consegna",
+                    delivered: "Consegnato",
+                },
+                confirm_to_continue: "Sei sicuro di continuare?",
+                next_step: "Prossimo step",
+                cancel: "Annulla",
+                next: "Prossimo",
+                complete_order: "Completa",
+                success_message: "Ordine completato"
+            },
+            back: "Indietro"
         },
-        countries: {
-            titleComponent: "Paese",
-            italy: "Italia",
-            england: "Inghilterra"
-        },
-        order_status: {
-            all: "Tutti",
-            approved: "🟣 Approvato",
-            completed: "🟢 Completato",
-            delivering: "🟡 In consegna",
-            preparing: "🟠 In preparazione",
-            pending: "🔵 Da approvare",
-            rejected: "🔴 Rifiutato",
-            error: "Errore"
-        },
-        my_menu_categories:{
-            first_course: 'Primi',
-            second_course: 'Secondi',
-            sidedish: 'Cotorni',
-            sandwich:'Panini',
-            mexican:'Messicano',
-            other:'Altro'
+
+        useful_constants: {
+            restaurant_categories: {
+                title_component: 'Categorie',
+                pizza: 'Pizza',
+                poke: 'Pokè',
+                sushi: 'Sushi',
+                mexican: 'Messicano',
+                italian: 'Italiano',
+                hamburger: 'Hamburger',
+                other: 'Altro'
+            },
+            countries: {
+                titleComponent: "Paese",
+                italy: "Italia",
+                england: "Inghilterra"
+            },
+            order_status: {
+                all: "Tutti",
+                approved: "🟣 Approvato",
+                completed: "🟢 Completato",
+                delivering: "🟡 In consegna",
+                preparing: "🟠 In preparazione",
+                pending: "🔵 Da approvare",
+                rejected: "🔴 Rifiutato",
+                error: "Errore"
+            },
+            my_menu_categories: {
+                first_course: 'Primi',
+                second_course: 'Secondi',
+                sidedish: 'Cotorni',
+                sandwich: 'Panini',
+                mexican: 'Messicano',
+                other: 'Altro'
+            }
         }
-
     }
 }

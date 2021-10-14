@@ -149,7 +149,7 @@ class NewPlate extends Component {
 
                         <div className="bo-new-plate-switch">
                             <p style={{fontSize: '16px'}}>
-                                Visibilità
+                                {t("backoffice.screens.visibility")}
                                 <span style={{paddingLeft:'10px'}}>
                                     <SwitchProfile
                                         handleSwitchCallback={this.handleSwitchCallback}

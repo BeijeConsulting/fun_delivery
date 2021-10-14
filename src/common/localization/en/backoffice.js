@@ -4,7 +4,8 @@ export const TRANSLATIONS_BACKOFFICE = {
     screens: {
         common_screens: {
             order: "Order",
-            address: "Address"
+            address: "Address",
+            visibility: "Visibility"
         },
         login: {
             partner: "Want to become our partner?",
@@ -136,7 +137,6 @@ export const TRANSLATIONS_BACKOFFICE = {
             italy: "Italy",
             england: "England"
         },
-
         order_status: {
             all: "All",
             approved: "🟣 Approved",
