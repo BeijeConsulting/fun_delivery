@@ -26,12 +26,37 @@ export const TRANSLATIONS_FRONTEND = {
             chose:'Scegli il ristorante',
             trend:'Ristoranti in tendenza',
             area:'Ristoranti in zona'
-        }
+        },
 
+        landing_page:{
+            title : "Fame?Si mangia!"
+        }
 
     },
 
     components: {
+
+        landing_page :{
+            footer:{
+                button:{
+                    register:'Registrati',
+                    login:'Accedi',
+                    find:'Trova ristoranti'
+                },
+                paragraph:{
+                    first:'Diventa partner di Beije Delivery',
+                    second:'Sei già un nostro partner?',
+                    third:'Seguici'
+                },
+               navbar:{
+                   button:{
+                       register:'Registrati',
+                       login:'Accedi'
+                   }
+               }
+            }
+            
+        },
         order_confirmed: {
             button: 'Gioca con noi',
         },

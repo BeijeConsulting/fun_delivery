@@ -21,16 +21,40 @@ export const TRANSLATIONS_FRONTEND = {
             title: "Reset your password"
         },
         restaurants: {
-            title:'Sombrero week',
-            category:'Category',
-            chose:'Choose Restaurant',
-            trend:'Trendy restaurants',
-            area:'Restaurants in the area'
+            title: 'Sombrero week',
+            category: 'Category',
+            chose: 'Choose Restaurant',
+            trend: 'Trendy restaurants',
+            area: 'Restaurants in the area'
+        },
+        landing_page: {
+            title: "Hungry?Let's eat!"
         }
-
     },
 
     components: {
+
+        landing_page: {
+            footer: {
+                button: {
+                    register: 'Register',
+                    login: 'Login',
+                    find: 'Find Restaurants'
+                },
+                paragraph: {
+                    first: "Become a Beije Delivery's partner",
+                    second: 'Are you already our partner?',
+                    third: 'Follow us'
+                },
+                navbar: {
+                    button: {
+                        register: 'Register',
+                        login: 'Login'
+                    }
+                }
+            }
+
+        },
         order_confirmed: {
             button: 'Play with us'
         },

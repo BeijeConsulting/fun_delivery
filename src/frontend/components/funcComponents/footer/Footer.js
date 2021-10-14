@@ -5,11 +5,14 @@ import logo_beijeRosa from '../../../../common/assets/logo_beijeRosa.png'
 import HtmlTag from "../htmlTag/HtmlTag";
 import properties from "../../../../common/utils/properties";
 import { useHistory } from "react-router";
+import { withTranslation } from "react-i18next";
 
 
 
-const Footer = (props) => {
 
+
+const Footer = ({ t, i18n }) => {
+    
     let history = useHistory();
 
     const goToPageRegistration = () => {
@@ -19,6 +22,8 @@ const Footer = (props) => {
     const goToPageLogin = () => {
         history.push(properties.BO_ROUTING.LOGIN)
     }
+
+   
 
     return (
         <footer>
@@ -35,7 +40,7 @@ const Footer = (props) => {
                 <div class="fe-footer-icons">
                     <HtmlTag
                         tag='p'
-                        text='Seguici'
+                        text={t('frontend.components.landing_page.footer.paragraph.third')}
                         className="fe-social-p"
                     />
                     <FacebookFilled />
@@ -50,20 +55,20 @@ const Footer = (props) => {
 
                 <div class="fe-footer-right">
 
-                    <p>Diventa partner di Beije Delivery</p>
+                    <p>{t('frontend.components.landing_page.footer.paragraph.first')}</p>
 
                     <Button
-                        text='Registrati'
+                        text={t('frontend.components.landing_page.footer.button.register')}
                         callback={goToPageRegistration}
                         className='fe-footer-btn'
                     />
 
 
-                    <p>Sei già un nostro partner?</p>
+                    <p>{t('frontend.components.landing_page.footer.paragraph.second')}</p>
 
                     <Button
-                        text='Accedi'
-                         callback={goToPageLogin}
+                        text={t('frontend.components.landing_page.footer.button.login')}
+                        callback={goToPageLogin}
                         className='fe-footer-btn'
                     />
 
@@ -73,4 +78,4 @@ const Footer = (props) => {
         </footer >
     )
 }
-export default Footer
+export default withTranslation()(Footer)
