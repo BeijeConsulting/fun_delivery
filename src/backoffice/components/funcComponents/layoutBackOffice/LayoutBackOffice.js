@@ -36,7 +36,7 @@ const LayoutBackOffice = (props) => {
                     onBreakpoint={broken => { /*console.log(broken)*/ }}
                     onCollapse={(collapsed, type) => { /*console.log(collapsed, type)*/ }}
                 >
-                    <div className="backoffice-menu-container">
+                    <nav className="backoffice-menu-container">
                         <ul className="backoffice-menu">
                             <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>{t('backoffice.components.sidebar.profile')}</Link></li>
                             <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>{t('backoffice.components.sidebar.my_menu')}</Link></li>
@@ -53,13 +53,13 @@ const LayoutBackOffice = (props) => {
 
                             />
                         </div>
-                    </div>
+                    </nav>
 
                 </Sider>
                 <Content className="content-layout">
-                    <div className="content">
+                    <main className="content">
                         {props.children}
-                    </div>
+                    </main>
                 </Content>
             </Layout>
         </div>

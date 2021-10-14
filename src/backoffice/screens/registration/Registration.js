@@ -42,6 +42,8 @@ class Registration extends Component {
         this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
         
         //Da aggiungere caso se il localstorage è undefined o non riesce a mappare le cose
+        // this.localStorageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'))
+
         if(!this.localStorageData){
             this.localStorageData = localStorageData
             localStorage.setItem('localStorageData',JSON.stringify(localStorageData))
@@ -104,7 +106,7 @@ class Registration extends Component {
                         sponsor: null,
                     };
 
-                    let localStorageRestaurantsData = localStorageRestaurants;
+                    let localStorageRestaurantsData = JSON.parse(localStorage.getItem('localStorageRestaurants'));
 
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
@@ -270,7 +272,7 @@ class Registration extends Component {
                                     onFocus={this.handleCallBackFocus}
                                     defaultValue=""
                                 >
-                                    <option disabled value="">Stato</option>
+                                    <option disabled value="">{t('backoffice.useful_constants.')}</option>
 
                                     {
                                         this.localStorageData.countries.map((category, index) => {

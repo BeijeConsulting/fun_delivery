@@ -78,7 +78,7 @@ class Plates extends Component {
                             <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t('backoffice.components.back')}</h3> </div>
                         </div>
 
-                        <div className="bo-mymenu-form">
+                        <section className="bo-mymenu-form">
                             <div className="bo-mymenu-flex-cards">
                                 <Card
                                     title={t('backoffice.screens.plates.new_plate')}
@@ -102,7 +102,7 @@ class Plates extends Component {
                                 })
                             }
 
-                        </div>
+                        </section>
                     </div>
                 </LayoutBackOffice>
             </>

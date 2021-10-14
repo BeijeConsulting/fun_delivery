@@ -47,7 +47,7 @@ class RestaurantSingleOrder extends Component {
 
     //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
     handleStatusTimeline = (e) => {
-        this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status=e;  
+        this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status = e;
         localStorage.setItem("localStorageData", JSON.stringify(this.ordersLocalStorage));
         this.setState({
             order_status: e,
@@ -73,94 +73,102 @@ class RestaurantSingleOrder extends Component {
                         />
                     </div>
 
-                    {this.state.showTimeline && this.state.order_status !== "rejected" && (
-                        <div>
-                            <Timeline
-                                callback={this.handleStatusTimeline}
-                                currentStep={this.state.order_status}
-                            />
-                        </div>
-                    )}
+                    <section>
+                        {this.state.showTimeline && this.state.order_status !== "rejected" && (
+                            <div>
+                                <Timeline
+                                    callback={this.handleStatusTimeline}
+                                    currentStep={this.state.order_status}
+                                />
+                            </div>
+                        )}
 
-                    {!this.state.showTimeline && this.state.order_status !== "rejected" && (
-                        <div className="btn-orders-container">
-                            <Button
-                                className="bo-btn single-order"
-                                value="approve"
-                                text={t("backoffice.screens.single_order.approve")}
-                                callback={this.handleShowTimelineAccept}
-                            />
-                            <Button
-                                className="bo-btn single-order"
-                                value="dontapprove"
-                                text={t("backoffice.screens.single_order.dont_approve")}
-                                callback={this.handleShowTimelineReject}
-                            />
-                        </div>
-                    )}
+                        {!this.state.showTimeline && this.state.order_status !== "rejected" && (
+                            <div className="btn-orders-container">
+                                <Button
+                                    className="bo-btn single-order"
+                                    value="approve"
+                                    text={t("backoffice.screens.single_order.approve")}
+                                    callback={this.handleShowTimelineAccept}
+                                />
+                                <Button
+                                    className="bo-btn single-order"
+                                    value="dontapprove"
+                                    text={t("backoffice.screens.single_order.dont_approve")}
+                                    callback={this.handleShowTimelineReject}
+                                />
+                            </div>
+                        )}
 
-                    {this.state.order_status === "rejected" && (
-                        <div className="bo-mymenu-welcome">
-                            <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
-                        </div>
-                    )}
+                        {this.state.order_status === "rejected" && (
+                            <div className="bo-mymenu-welcome">
+                                <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
+                            </div>
+                        )}
+                    </section>
 
                     <div className="bo-profile-form">
-                        <div>
-                            <InputBox
-                                className="bo-input-box"
-                                name="customer_address"
-                                disable={true}
-                                type="text"
-                                // value={this.props.location.state.order.customer_address}
-                                value={`${t("backoffice.screens.single_order.date")}: ${this.state.order.date
-                                    }`}
-                            />
-                        </div>
-                        <div className="bo-profile-flex-inputs">
-                            <InputBox
-                                className="bo-input-box"
-                                name="customer_name"
-                                disable={true}
-                                value={`${t(
-                                    "backoffice.screens.single_order.customer_name"
-                                )}: ${this.state.order.customer_name}`}
-                            />
 
-                            <InputBox
-                                className="bo-input-box"
-                                name="customer_address"
-                                disable={true}
-                                value={`${t("backoffice.screens.common_screens.address")}: ${this.state.order.customer_address
-                                    }`}
-                            />
-                        </div>
-
-                        <h2> {t("backoffice.screens.single_order.ordered_food")}:</h2>
-
-                        <div className="list-group-item orders" name="foodOrdered">
-                            {this.state.order.ordered.map((item, index) => {
-                                return (
-                                    <ul
-                                        key={index}
-                                        className="list-style"
-                                        style={{ width: "100%" }}
-                                    >
-                                        <li>
-                                            {item.nameFood} <br />
-                                            {t("backoffice.screens.single_order.price")}: {item.price}{" "}
-                                            <br />
-                                            {t("backoffice.screens.single_order.quantity")}:{" "}
-                                            {item.quantity} <br />
-                                        </li>
-                                    </ul>
-                                );
-                            })}
-                            <div style={{ padding: "10px" }}>
-                                {t("backoffice.screens.single_order.total")}: €
-                                {this.state.total_price}
+                        <section>
+                            <div>
+                                <InputBox
+                                    className="bo-input-box"
+                                    name="customer_address"
+                                    disable={true}
+                                    type="text"
+                                    // value={this.props.location.state.order.customer_address}
+                                    value={`${t("backoffice.screens.single_order.date")}: ${this.state.order.date
+                                        }`}
+                                />
                             </div>
-                        </div>
+                            <div className="bo-profile-flex-inputs">
+                                <InputBox
+                                    className="bo-input-box"
+                                    name="customer_name"
+                                    disable={true}
+                                    value={`${t(
+                                        "backoffice.screens.single_order.customer_name"
+                                    )}: ${this.state.order.customer_name}`}
+                                />
+
+                                <InputBox
+                                    className="bo-input-box"
+                                    name="customer_address"
+                                    disable={true}
+                                    value={`${t("backoffice.screens.common_screens.address")}: ${this.state.order.customer_address
+                                        }`}
+                                />
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2> {t("backoffice.screens.single_order.ordered_food")}:</h2>
+
+                            <div className="list-group-item orders" name="foodOrdered">
+                                {this.state.order.ordered.map((item, index) => {
+                                    return (
+                                        <ul
+                                            key={index}
+                                            className="list-style"
+                                            style={{ width: "100%" }}
+                                        >
+                                            <li>
+                                                {item.nameFood} <br />
+                                                {t("backoffice.screens.single_order.price")}: {item.price}{" "}
+                                                <br />
+                                                {t("backoffice.screens.single_order.quantity")}:{" "}
+                                                {item.quantity} <br />
+                                            </li>
+                                        </ul>
+                                    );
+                                })}
+                                <div style={{ padding: "10px" }}>
+                                    {t("backoffice.screens.single_order.total")}: €
+                                    {this.state.total_price}
+                                </div>
+                            </div>
+                        </section>
+
                     </div>
                 </div>
             </LayoutBackOffice>

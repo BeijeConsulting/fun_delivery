@@ -71,7 +71,8 @@ class Profile extends Component {
                     pageTitle="SPONSOR"
                 >
                     <div className="bo-sponsor-container">
-                        <div className="gm-containersponsor"
+                        
+                        <section className="gm-containersponsor"
                         >
                             <div className={"pseudo pseudo-1"}></div>
                             <div className={"pseudo pseudo-2"}></div>
@@ -114,14 +115,17 @@ class Profile extends Component {
                                 classNameBtn={"gm-classNameBtn"}
                                 callbacksponsor={this.handleOnClick({ name: 'sponsor 3', id: 3, durata: 2592000000, price: 100 })}
                             />
-                        </div>
-                        {
-                            this.state.choice !== null &&
-                            <div>
-                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>HAI SCELTO {this.state.choice.name} </h1>
-                                <h3 style={{ color: 'red' }}> {this.state.expireData}</h3>
-                            </div>
-                        }
+                        </section>
+
+                        <footer>
+                            {
+                                this.state.choice !== null &&
+                                <div>
+                                    <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>HAI SCELTO {this.state.choice.name} </h1>
+                                    <h3 style={{ color: 'red' }}> {this.state.expireData}</h3>
+                                </div>
+                            }
+                        </footer>
 
                     </div>
                 </LayoutBackOffice>
