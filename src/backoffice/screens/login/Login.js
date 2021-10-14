@@ -12,6 +12,7 @@ import Button from '../../../common/components/ui/button/Button'
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties';
 import localStorageData from '../../localStorageData/localStorageData';
+import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
 
 class Login extends Component {
 
@@ -22,6 +23,14 @@ class Login extends Component {
         this.state = {
             warning: false
         }
+    }
+    componentDidMount = () => {
+        // Salvo nel local Storage i Ristoranti
+        let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+        if (!foundRestaurant){
+            localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurants));
+        }
+
     }
 
     handleInputEmail = (e) => {
@@ -37,16 +46,31 @@ class Login extends Component {
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
-            // SAVE DATA on localStorage
-            let storageExists = localStorage.getItem('localStorageData');
-            if (!storageExists) {
-                localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-            }
-            error = false
-            this.props.history.push(properties.BO_ROUTING.PROFILE, {
-                validation: true
+            let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+            let restaurant = foundRestaurant.restaurant_list.find(item => {
+                return this.email === item.email
             })
+
+            if (restaurant === undefined) {
+                error = true
+            } else {
+                // Save activeRestaurantId on localstorage
+                localStorage.setItem('activeRestaurantId', JSON.stringify(restaurant.id))
+
+                // SAVE DATA on localStorage
+                let storageExists = localStorage.getItem('localStorageData');
+                if (!storageExists) {
+                    localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
+                }
+
+                error = false
+
+                this.props.history.push(properties.BO_ROUTING.PROFILE, {
+                    validation: true
+                })
+            }
         }
+        
         this.setState({
             warning: error
         })

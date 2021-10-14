@@ -84,6 +84,11 @@
     position: relative;
     z-index: 2;
 }
+.gm-singlecontainerBlur{
+    filter: blur(1px);
+    background-color: rgba(50, 48, 48, 0.19);
+
+}
 .pseudo{
     content: "";
     height: 50px;
@@ -132,6 +137,10 @@
     border-radius: 5px;
     background-color: #3f3d56;
     padding: 1%;
+}
+.gm-classNameBtnDisable{
+    display: none;
+    /* border: 5px solid salmon; */
 }
 .gm-sponsor-coin{
     height: 30px;

@@ -15,7 +15,11 @@ import SinglePlateCard from '../../components/funcComponents/singlePlateCard/Sin
 class Profile extends Component {
     constructor(props) {
         super(props)
+
         this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
+        this.storageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+        this.activeRestaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
+        
         this.state = {
             data: {
                 firstName: ['', false],
@@ -31,7 +35,8 @@ class Profile extends Component {
                 restaurant_category_id: ['', false],
                 description: ['', false],
                 discount: ['', false],
-                profile_img: ['', false]
+                profile_img: ['', false],
+                coins: ['', false]
             },
             list_categories: [],
             list_countries: [],
@@ -41,8 +46,31 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        let restaurant_categories = this.storageData.restaurant_categories;
+        let restaurant_categories = this.storageData.restaurant_categories;  
+        
+        // Finding the right restaurant info
+        let restaurant = this.storageRestaurants.restaurant_list.find(item => {
+            return item.id === this.activeRestaurantId;
+        }) 
 
+        let data = {
+            firstName: [restaurant.firstName, false],            
+            lastName: [restaurant.lastName, false],
+            email: [restaurant.email, false],
+            restaurant_name: [restaurant.restaurant_name, false],
+            street: [restaurant.address.street, false],
+            city: [restaurant.address.city, false],
+            cap: [restaurant.address.cap, false],
+            country_id: [restaurant.address.country_id, false],
+            VAT: [restaurant.VAT, false],
+            phone_number: [restaurant.phone_number, false],
+            restaurant_category_id: [restaurant.restaurant_category_id, false],
+            description: [restaurant.description, false],
+            discount: [restaurant.discount, false],
+            profile_img: [restaurant.profile_img, false],
+            coins:[restaurant.coins,false]
+        }
+        
         // Init list_countries
         let countries = [
             {
@@ -57,7 +85,11 @@ class Profile extends Component {
 
         this.setState({
             list_categories: restaurant_categories,
-            list_countries: countries
+            list_countries: countries,
+            data: {
+                ...this.state.data,
+                ...data
+            }
         })
     }
 
@@ -167,6 +199,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.firstName[0]}
                                 />
 
                                 <InputBox
@@ -177,6 +210,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.lastName[0]}
                                 />
 
                             </div>
@@ -188,6 +222,7 @@ class Profile extends Component {
                                 callback={this.handleCallbackInput}
                                 disable={!this.state.editData}
                                 callbackOnFocus={this.handleCallBackFocus}
+                                value={this.state.data.email[0]}
                             />
 
                         </div>
@@ -204,6 +239,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.restaurant_name[0]}
                                 />
 
                                 <InputBox
@@ -214,6 +250,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.phone_number[0]}
                                 />
 
                             </div>
@@ -227,6 +264,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.street[0]}
                                 />
 
                                 <InputBox
@@ -237,6 +275,7 @@ class Profile extends Component {
                                     callback={this.handleCallbackInput}
                                     disable={!this.state.editData}
                                     callbackOnFocus={this.handleCallBackFocus}
+                                    value={this.state.data.cap[0]}
                                 />
 
                             </div>
@@ -328,6 +367,7 @@ class Profile extends Component {
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
                                 callbackOnFocus={this.handleCallBackFocus}
+                                value={this.state.data.discount[0]}
                             />
 
                             <TextArea
@@ -338,6 +378,7 @@ class Profile extends Component {
                                 disable={!this.state.editData}
                                 callback={this.handleCallbackInput}
                                 callbackOnFocus={this.handleCallBackFocus}
+                                value={this.state.data.description[0]}
                             />
                         </div>
                     </div>
