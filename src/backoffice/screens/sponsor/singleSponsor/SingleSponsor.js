@@ -8,7 +8,7 @@ const SingleSponsor = (props) => {
         props.callbacksponsor()
     }
     return (
-        <div className={props.className} value={props.value}>
+        <div style={props.style} className={props.className} value={props.value}>
             <div className={props.durationClass}>
             <h3>{props.title}</h3>
                 <div className={props.glassClass}><HourglassOutlined /></div>
