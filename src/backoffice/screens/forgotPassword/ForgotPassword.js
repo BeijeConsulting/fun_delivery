@@ -65,7 +65,7 @@ class ForgotPassword extends Component {
                         this.state.warning &&
                         <h3 class="alert">{t('backoffice.screens.forgot_password.error')}</h3>
                     }
-                    <div className="bo-login-form">
+                    <section className="bo-login-form">
                         <InputBox
                             type={'email'}
                             className='bo-input-box'
@@ -93,7 +93,7 @@ class ForgotPassword extends Component {
                             {t('backoffice.screens.forgot_password.partner')}
                         </div>
                         <Link to={properties.BO_ROUTING.LOGIN} className='bo-link'><b>{t('backoffice.screens.forgot_password.login')}</b></Link>
-                    </div>
+                    </section>
                 </main>
                 <br />
             </div>

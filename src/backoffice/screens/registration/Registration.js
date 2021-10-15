@@ -133,11 +133,11 @@ class Registration extends Component {
                 <main>
                     <div className="bo-reg-form">
                         <h1>{t('backoffice.screens.registration.title')}</h1>
-                        <div className="bo-reg-row">
+                        <section className="bo-reg-row">
 
 
                             {/* Form Left */}
-                            <div className="bo-left-form">
+                            <section className="bo-left-form">
                                 <h2>{t('backoffice.screens.registration.your_data')}</h2>
                                 <div className="flex-inputs">
                                     <InputBox
@@ -186,129 +186,130 @@ class Registration extends Component {
                                     />
                                 </div>
 
-                            </div>
+                            </section>
 
-                        </div>
 
-                        {/* Form Right */}
-                        <div className="bo-right-form">
-                            <h2>{t('backoffice.screens.registration.your_restaurant')}</h2>
 
-                            <div className="flex-inputs">
+                            {/* Form Right */}
+                            <section className="bo-right-form">
+                                <h2>{t('backoffice.screens.registration.your_restaurant')}</h2>
 
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
-                                    placeholder={t('backoffice.components.inputbox.restaurant_name')}
-                                    callback={this.handleCallbackInput}
-                                    name='restaurant_name'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
+                                <div className="flex-inputs">
 
-                                <select
-                                    id='category'
-                                    name='restaurant_category_id'
-                                    onChange={this.handleCallbackInput}
-                                    onFocus={this.handleCallBackFocus}
-                                    className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
-                                    default=""
-                                >
-                                    <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
+                                        placeholder={t('backoffice.components.inputbox.restaurant_name')}
+                                        callback={this.handleCallbackInput}
+                                        name='restaurant_name'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
 
-                                    {
-                                        this.localStorageData.restaurant_categories.map((category, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={category.id}
-                                                >
-                                                    {category.name}
-                                                </option>
-                                            )
-                                        })
-                                    }
+                                    <select
+                                        id='category'
+                                        name='restaurant_category_id'
+                                        onChange={this.handleCallbackInput}
+                                        onFocus={this.handleCallBackFocus}
+                                        className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
+                                        default=""
+                                    >
+                                        <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
-                                </select>
-                            </div>
+                                        {
+                                            this.localStorageData.restaurant_categories.map((category, index) => {
+                                                return (
+                                                    <option
+                                                        key={index}
+                                                        value={category.id}
+                                                    >
+                                                        {category.name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
 
-                            <div className="flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.street ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.address')}
-                                    callback={this.handleCallbackInput}
-                                    name='street'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.city ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.city')}
-                                    callback={this.handleCallbackInput}
-                                    name='city'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                            </div>
+                                    </select>
+                                </div>
 
-                            <div className="flex-inputs">
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.cap ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.zip')}
-                                    callback={this.handleCallbackInput}
-                                    name='cap'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
+                                <div className="flex-inputs">
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.street ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.address')}
+                                        callback={this.handleCallbackInput}
+                                        name='street'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.city ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.city')}
+                                        callback={this.handleCallbackInput}
+                                        name='city'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                </div>
 
-                                <select
-                                    id='country_id'
-                                    name='country_id'
-                                    className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
-                                    onChange={this.handleCallbackInput}
-                                    onFocus={this.handleCallBackFocus}
-                                    defaultValue=""
-                                >
-                                    <option disabled value="">{t('backoffice.useful_constants.countries.titleComponent')}</option>
+                                <div className="flex-inputs">
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.cap ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.zip')}
+                                        callback={this.handleCallbackInput}
+                                        name='cap'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
 
-                                    {
-                                        this.localStorageData.countries.map((category, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={category.country_id}
-                                                >
-                                                    {category.country_name}
-                                                </option>
-                                            )
-                                        })
-                                    }
+                                    <select
+                                        id='country_id'
+                                        name='country_id'
+                                        className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
+                                        onChange={this.handleCallbackInput}
+                                        onFocus={this.handleCallBackFocus}
+                                        defaultValue=""
+                                    >
+                                        <option disabled value="">{t('backoffice.useful_constants.countries.titleComponent')}</option>
 
-                                </select>
-                            </div>
+                                        {
+                                            this.localStorageData.countries.map((category, index) => {
+                                                return (
+                                                    <option
+                                                        key={index}
+                                                        value={category.country_id}
+                                                    >
+                                                        {category.country_name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
 
-                            <div className="flex-inputs">
-                                <InputBox
-                                    type="tel"
-                                    className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
-                                    placeholder={t('common.components.inputbox.number')}
-                                    callback={this.handleCallbackInput}
-                                    name='phone_number'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                                <InputBox
-                                    type="text"
-                                    className={`bo-input-box ${this.state.VAT ? 'alert' : ''}`}
-                                    placeholder={t('backoffice.components.inputbox.vat')}
-                                    callback={this.handleCallbackInput}
-                                    name='VAT'
-                                    callbackOnFocus={this.handleCallBackFocus}
-                                />
-                            </div>
-                            <Button
-                                text={t('backoffice.components.button.register')}
-                                className='bo-btn'
-                                callback={this.handleSubmit} />
-                        </div>
+                                    </select>
+                                </div>
+
+                                <div className="flex-inputs">
+                                    <InputBox
+                                        type="tel"
+                                        className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
+                                        placeholder={t('common.components.inputbox.number')}
+                                        callback={this.handleCallbackInput}
+                                        name='phone_number'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                    <InputBox
+                                        type="text"
+                                        className={`bo-input-box ${this.state.VAT ? 'alert' : ''}`}
+                                        placeholder={t('backoffice.components.inputbox.vat')}
+                                        callback={this.handleCallbackInput}
+                                        name='VAT'
+                                        callbackOnFocus={this.handleCallBackFocus}
+                                    />
+                                </div>
+                                <Button
+                                    text={t('backoffice.components.button.register')}
+                                    className='bo-btn'
+                                    callback={this.handleSubmit} />
+                            </section>
+                        </section>
                     </div>
                 </main>
             </div>

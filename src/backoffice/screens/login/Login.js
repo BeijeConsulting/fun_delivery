@@ -27,7 +27,7 @@ class Login extends Component {
     componentDidMount = () => {
         // Salvo nel local Storage i Ristoranti
         let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-        if (!foundRestaurant){
+        if (!foundRestaurant) {
             localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurants));
         }
 
@@ -70,7 +70,7 @@ class Login extends Component {
                 })
             }
         }
-        
+
         this.setState({
             warning: error
         })
@@ -89,40 +89,38 @@ class Login extends Component {
                     pageTitle='Login'
                 />
                 <main>
-                <BannerBackground />
-                <h1>{t('backoffice.screens.login.title')}</h1>
-                {
-                    this.state.warning &&
-                    <h3 className="alert">{t('backoffice.screens.login.error')}</h3>
-                }
-                <div className="bo-login-form">
-                    <InputBox
-                        type={'email'}
-                        className='bo-input-box'
-                        placeholder='Email'
-                        callback={this.handleInputEmail}
-                    />
-                    <InputBox
-                        type={'password'}
-                        className='bo-input-box'
-                        placeholder='Password'
-                        callback={this.handleInputPassword}
-                    />
-                    <Link to={properties.BO_ROUTING.FORGOT_PSW} className='bo-link'><b> {t('backoffice.screens.login.forgot_password')}</b></Link>
-                    <Button
-                        text={t('backoffice.components.button.login')}
-                        className='bo-btn'
-                        callback={this.handleSubmit}
-                    />
-                    <div style={{ fontSize: '20px' }}>
-                        {t('backoffice.screens.login.partner')}
-                    </div>
-                    <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>{t('backoffice.screens.login.register_now')}</b></Link>
-                </div>
+                    <BannerBackground />
+                    <h1>{t('backoffice.screens.login.title')}</h1>
+                    {
+                        this.state.warning &&
+                        <h3 className="alert">{t('backoffice.screens.login.error')}</h3>
+                    }
+                    <section className="bo-login-form">
+                        <InputBox
+                            type={'email'}
+                            className='bo-input-box'
+                            placeholder='Email'
+                            callback={this.handleInputEmail}
+                        />
+                        <InputBox
+                            type={'password'}
+                            className='bo-input-box'
+                            placeholder='Password'
+                            callback={this.handleInputPassword}
+                        />
+                        <Link to={properties.BO_ROUTING.FORGOT_PSW} className='bo-link'><b> {t('backoffice.screens.login.forgot_password')}</b></Link>
+                        <Button
+                            text={t('backoffice.components.button.login')}
+                            className='bo-btn'
+                            callback={this.handleSubmit}
+                        />
+                        <div style={{ fontSize: '20px' }}>
+                            {t('backoffice.screens.login.partner')}
+                        </div>
+                        <Link to={properties.BO_ROUTING.REGISTRATION} className='bo-link'><b>{t('backoffice.screens.login.register_now')}</b></Link>
+                    </section>
                 </main>
                 <br />
-                <button value="it" onClick={this.handleClickButton}>it</button>
-                <button value="en" onClick={this.handleClickButton}>en</button>
             </div>
         )
     }
