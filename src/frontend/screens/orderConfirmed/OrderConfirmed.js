@@ -31,6 +31,7 @@ const OrderConfirmed = ({ t, i18n }) => {
         setState({
             chooseGameModal:false
         })
+    }
     const changeLanguages = (e) => {
         i18n.changeLanguage(e.target.value)
     }
