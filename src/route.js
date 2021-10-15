@@ -32,7 +32,6 @@ import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 // GAMIFICATION SCREENS
 import Quiz from "./gamification/screens/quiz/Quiz";
 import Memory from './gamification/screens/memory/Memory'
-import Mission from "./gamification/screens/missions/Mission";
 
 
 import properties from "./common/utils/properties";
@@ -75,7 +74,6 @@ const Routing = () => {
                 {/* GAMIFICATION ROUTES */}
                 <Route path="/quiz" component={Quiz}/>
                 <Route path="/memory" component={Memory}/>
-                <Route exact path='/userHome/missions' component={Mission} />
 
                 
             </Switch>

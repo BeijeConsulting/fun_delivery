@@ -39,8 +39,8 @@ const LayoutBackOffice = (props) => {
                     <nav className="backoffice-menu-container">
                         <ul className="backoffice-menu">
                             <li className={pathname === properties.BO_ROUTING.PROFILE ? 'active' : ''}><Link to={properties.BO_ROUTING.PROFILE}><span><UserOutlined /></span>{t('backoffice.components.sidebar.profile')}</Link></li>
-                            <li className={pathname === properties.BO_ROUTING.MY_MENU ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>{t('backoffice.components.sidebar.my_menu')}</Link></li>
-                            <li className={pathname === properties.BO_ROUTING.MY_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>{t('backoffice.components.sidebar.my_orders')}</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_MENU || pathname === properties.BO_ROUTING.PLATES || pathname === properties.BO_ROUTING.SINGLE_PLATE || pathname === properties.BO_ROUTING.NEW_PLATE ?'active' : ''}><Link to={properties.BO_ROUTING.MY_MENU}><span><AppstoreOutlined /></span>{t('backoffice.components.sidebar.my_menu')}</Link></li>
+                            <li className={pathname === properties.BO_ROUTING.MY_ORDERS || pathname === properties.BO_ROUTING.SINGLE_ORDER ? 'active' : ''}><Link to={properties.BO_ROUTING.MY_ORDERS}><span><ShoppingOutlined /></span>{t('backoffice.components.sidebar.my_orders')}</Link></li>
                             <li className={pathname === properties.BO_ROUTING.INCOMING_ORDERS ? 'active' : ''}><Link to={properties.BO_ROUTING.INCOMING_ORDERS}><span><ExclamationCircleOutlined /></span>{t('backoffice.components.sidebar.incoming_orders')}</Link></li>
                             <li className={pathname === properties.BO_ROUTING.SPONSOR ? 'active' : ''}><Link to={properties.BO_ROUTING.SPONSOR}><span><DollarCircleOutlined /></span>Sponsor</Link></li>
                         </ul>

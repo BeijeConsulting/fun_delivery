@@ -74,7 +74,7 @@ class MyOrders extends Component {
                 ),
             },
             {
-                title: 'Visualizza',
+                title: i18n.t('backoffice.screens.my_orders.show'),
                 dataIndex: 'order_id',
                 key: '4',
                 render: (order_id) => (
@@ -149,7 +149,7 @@ class MyOrders extends Component {
         const { t } = this.props
         return (
             <>
-                <LayoutBackOffice pageTitle="MY ORDERS">
+                <LayoutBackOffice pageTitle={t('backoffice.screens.my_orders.title')}>
                     <div className="bo-profile-container">
                         <div className="bo-mymenu-first-row align-left">
                             <div className="bo-mymenu-welcome">

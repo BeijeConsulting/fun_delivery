@@ -140,7 +140,8 @@
 }
 .gm-classNameBtnDisable{
     /* display: none; */
-    border: 5px solid salmon;
+    opacity: 0;
+    /* border: 5px solid salmon; */
 }
 .gm-sponsor-coin{
     height: 30px;

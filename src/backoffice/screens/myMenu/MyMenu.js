@@ -8,9 +8,6 @@ import { withTranslation } from 'react-i18next';
 class MyMenu extends Component {
     constructor(props) {
         super(props);
-
-       // this.categories = JSON.parse(localStorage.getItem('localStorageData')).plate_categories;
-
         this.state = {
             categories: []
         };
@@ -23,14 +20,12 @@ class MyMenu extends Component {
         }) 
     }
 
-
     handleCallbackPagePlates = (category_id, category_name) => () => {
         this.props.history.push(properties.BO_ROUTING.PLATES, {
             titlePage: category_name.toUpperCase(),
             category_id: category_id
         })
     }
-
 
     render() {
         const { t } = this.props

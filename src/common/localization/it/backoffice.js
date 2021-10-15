@@ -2,7 +2,8 @@ export const TRANSLATIONS_BACKOFFICE = {
     screens: {
         common_screens: {
             order: "Ordine",
-            address: "Indirizzo"
+            address: "Indirizzo",
+            visibility: "Visibilità"
         },
         login: {
             partner: "Vuoi diventare un nostro partner?",
@@ -11,10 +12,10 @@ export const TRANSLATIONS_BACKOFFICE = {
             register_now: "Registrati ora",
             error: "Email o password errati"
         },
-        forgot_password:{
-            title:"Password dimenticata?",
-            partner:"Sei già nostro partner?",
-            login:'Accedi ora.',
+        forgot_password: {
+            title: "Password dimenticata?",
+            partner: "Sei già nostro partner?",
+            login: 'Accedi ora.',
             error: "Email o password errati!"
         },
         registration: {
@@ -23,9 +24,11 @@ export const TRANSLATIONS_BACKOFFICE = {
             your_restaurant: "Il tuo ristorante",
         },
         my_orders: {
+            title: "I miei ordini",
             your_orders: "I tuoi ordini",
             number_of_order: "Ordine #",
             status: "Stato",
+            show: "Visualizza"
         },
         incoming_orders: {
             title: "Ordini in arrivo",
@@ -42,18 +45,20 @@ export const TRANSLATIONS_BACKOFFICE = {
             dont_approve: "Non approvare",
             rejected_title: "Ordine rifiutato"
         },
-        single_plate:{
+        single_plate: {
+            title: "Piatto",
             save_plate: "Salva Piatto",
             delete_plate: "Elimina Piatto",
             edit_plate: "Modifica Piatto",
-            visibility: "Visibilità"
         },
-        new_plate:{
+        new_plate: {
+            title: "Nuovo piatto",
             create_plate: "Crea il tuo piatto",
-            dont_approve: "Non approvare"
+            dont_approve: "Non approvare",
+            description: "Descrizione piatto"
         },
-        my_menu:{
-            title:"Il tuo Menù",
+        my_menu: {
+            title: "Il Tuo Menù",
         },
         profile: {
             profile: 'PROFILO',
@@ -74,18 +79,16 @@ export const TRANSLATIONS_BACKOFFICE = {
             vat: 'P.IVA',
             categories: 'Categoria',
             discounts: 'Sconti',
-            restaurant_description: 'Descrizione ristorante'             
+            restaurant_description: 'Descrizione ristorante'
         },
-        plates:{
-            title:'Lista Piatti',
-            new_plate:'Nuovo Piatto'
+        plates: {
+            title: 'Lista Piatti',
+            new_plate: 'Nuovo Piatto'
         }
     },
-
-
     components: {
-        sidebar:{
-            profile:'Profilo',
+        sidebar: {
+            profile: 'Profilo',
             my_menu: 'Menu',
             my_orders: 'Ordini',
             incoming_orders: 'In arrivo'
@@ -93,13 +96,13 @@ export const TRANSLATIONS_BACKOFFICE = {
         button: {
             login: "ACCEDI",
             register: "REGISTRATI",
-            logout:'Esci'
-            
+            logout: 'Esci'
+
         },
         inputbox: {
             restaurant_name: "Nome ristorante",
             vat: "P.IVA",
-            confirm_password:"Conferma password",
+            confirm_password: "Conferma password",
             name_plate: "Nome del piatto",
             price: "Prezzo €"
         },
@@ -117,7 +120,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             complete_order: "Completa",
             success_message: "Ordine completato"
         },
-        back : "Indietro"
+        back: "Indietro"
     },
 
     useful_constants: {
@@ -146,14 +149,14 @@ export const TRANSLATIONS_BACKOFFICE = {
             rejected: "🔴 Rifiutato",
             error: "Errore"
         },
-        my_menu_categories:{
+        my_menu_categories: {
             first_course: 'Primi',
             second_course: 'Secondi',
             sidedish: 'Cotorni',
-            sandwich:'Panini',
-            mexican:'Messicano',
-            other:'Altro'
+            sandwich: 'Panini',
+            mexican: 'Messicano',
+            other: 'Altro'
         }
-
     }
+
 }
