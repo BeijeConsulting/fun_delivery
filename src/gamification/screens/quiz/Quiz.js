@@ -20,6 +20,7 @@ import Tear from './../../assets/images/tear.svg';
 import i18n from "../../../common/localization/i18n"
 import { withTranslation } from "react-i18next"
 import ChooseGame from "../../components/funcComponents/chooseGame/ChooseGame"
+import HeaderModalX from "../../components/funcComponents/headerModalX/HeaderModalX"
 
 class Quiz extends Component {
 
@@ -61,9 +62,9 @@ class Quiz extends Component {
         // console.log('SINGLE OBJjjjjjjjj', this.singleObj)
         // console.log('quiz' , this.quiz)
         // console.log('quizData', this.quizProva)
-/*         let audio = new Audio(musicQuiz);
-        audio.volume = 0.2;
-        audio.play(); */
+        /*         let audio = new Audio(musicQuiz);
+                audio.volume = 0.2;
+                audio.play(); */
         // document.addEventListener('click', this.handleClickButton);
         // console.log('sono componentDidMount')
         // console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
@@ -243,10 +244,10 @@ class Quiz extends Component {
         this.setState({
             audio: !this.state.audio
         })
-        if(this.state.audio === false){
+        if (this.state.audio === false) {
             this.audio.volume = 0.04;
             this.audio.play();
-        }else{
+        } else {
             this.audio.pause();
         }
     }

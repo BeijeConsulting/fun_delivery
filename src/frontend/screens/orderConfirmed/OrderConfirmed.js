@@ -7,6 +7,7 @@ import { useState } from 'react'
 import ChooseGame from "../../../gamification/components/funcComponents/chooseGame/ChooseGame"
 import GeneralModal from "../../../gamification/components/funcComponents/generalModal/GeneralModal"
 import { Steps } from 'antd';
+import HeaderModalX from '../../../gamification/components/funcComponents/headerModalX/HeaderModalX';
 
 const OrderConfirmed = (props) => {
 
@@ -24,7 +25,11 @@ const OrderConfirmed = (props) => {
 
     const { Step } = Steps;
 
-
+    const goToOrder = () => {
+        setState({
+            chooseGameModal:false
+        })
+    }
 
 
     return (
@@ -59,6 +64,7 @@ const OrderConfirmed = (props) => {
             {
                 state.chooseGameModal &&
                 <GeneralModal
+                    headerModal={<HeaderModalX callback={goToOrder} />}
                     contentModal={<ChooseGame />} />
             }
         </div>
