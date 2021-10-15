@@ -91,9 +91,11 @@
     border-radius: 50%;
     width: 40px;
 }
-.fe-user-name-container{
+
+.fe-user-name-container {
     text-align: end;
 }
+
 .fe-user-name {
     font-size: 1.4rem;
     color: var(--primary-dark)
@@ -298,7 +300,7 @@
 /* ----- MODAL WHEEL ----- */
 
 .gm-wheel-modal {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     position: absolute;
     top: 0px;
@@ -306,6 +308,14 @@
     background-color: rgba(63, 61, 86, 0.65);
     backdrop-filter: blur(5px);
     z-index: 5000;
+    color: #fff
+}
+
+.gm-wheel-modal span {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
 }
 
 @media screen and (min-width: 768.1px) {
@@ -402,16 +412,15 @@
         color: var(--primary-dark);
         border-radius: 5px 5px 0 0;
     }
-    .fe-user-header-tabs span{
+    .fe-user-header-tabs span {
         cursor: pointer;
         letter-spacing: 1px;
     }
-    .fe-user-tab-active{
+    .fe-user-tab-active {
         color: var(--primary-strawberry);
         font-weight: bold;
         letter-spacing: 1px;
     }
-
     .fe-user-second-section-content {
         height: calc(100vh - 272px);
         width: 90%;
@@ -421,15 +430,12 @@
         overflow-y: scroll;
         border: 15px solid #fff;
     }
-
     .fe-user-second-section-content::-webkit-scrollbar {
         display: none;
-      }
-    
+    }
     .fe-user-switching-container {
         display: none !important;
     }
-    
 }
 
 @media screen and (min-width: 1760px) {
