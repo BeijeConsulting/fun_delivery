@@ -17,6 +17,8 @@ import Sushi from '../../assets/images/sushi.png'
 import { useState } from "react"
 import { useEffect } from "react"
 import { useRef } from "react"
+import { useHistory } from "react-router"
+
 
 //gsap
 import { gsap } from "gsap";
@@ -24,6 +26,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 //i18n
  import { useTranslation } from 'react-i18next';
+
+ 
 
 
 const Restaurants = (props) => {
@@ -190,6 +194,10 @@ const Restaurants = (props) => {
         })
     }
 
+    const goToMenu = () =>{
+        props.history.push('/menuRestaurant')
+    }
+
     return (
         <main className="fe-main-screen-container" ref={ref}>
             <section className="fe-restaurants-section-one">
@@ -235,6 +243,7 @@ const Restaurants = (props) => {
                                         restaurantDeliveryTime={item.delivery_time}
                                         classNameWrapper="fe-img-wrapper"
                                         classNameImage="imageSingleRestaurant"
+                                        callback={goToMenu}
                                     />
                                 )
                             })}
