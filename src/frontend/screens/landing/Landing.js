@@ -39,11 +39,11 @@ const Landing = (props) => {
     useEffect(() => {
         const element = ref.current;
         const burgerSel = element.querySelector('.fe-burger-svg')
-        const iceCreamSel = element.querySelector('.fe-icecream-svg')
+        /* const iceCreamSel = element.querySelector('.fe-icecream-svg')
         const breakfastSel = element.querySelector('.fe-breakfast-svg')
         gsap.from(burgerSel, { x: 50, opacity: 0, duration: 1, scale: 0.2 })
         gsap.from(iceCreamSel, { y: -50, opacity: 0, duration: 1, scale: 0.2 })
-        gsap.from(breakfastSel, { x: -50, opacity: 0, duration: 1, scale: 0.2 })
+        gsap.from(breakfastSel, { x: -50, opacity: 0, duration: 1, scale: 0.2 }) */
         //AOS INIT
         AOS.init({
             duration: 1000
@@ -116,7 +116,7 @@ const Landing = (props) => {
 
                     {/* FOOTER */}
                 </div>
-                <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} />
+                {/* <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} /> */}
                 {/* { <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage}/> /* */}
             </div>
             <Footer />
