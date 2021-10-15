@@ -21,17 +21,17 @@
     width: 90%;
 }
 
-.MissionMenu {
+.UserOrdersMenu {
     height: 100%;
     width: 100%;
 }
 
-ul.MissionMenu li.MissionSingle {
+ul.UserOrdersMenu li.UserOrderSingle {
     border-color: none;
-    border-radius: 5px;
-    background-color: var(--primary-desaturated-strawberry);
+    
+    border-bottom: 3px solid var(--primary-desaturated-strawberry);
     /* debug */
-    color: white;
+    color: var(--primary-dark);
     /*debug*/
     width: 100%;
     margin: 10px 0;
@@ -40,18 +40,15 @@ ul.MissionMenu li.MissionSingle {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    transition-duration: 0.4s;
 }
 
-ul.MissionMenu li.MissionSingle:hover{
-    background-color: var(--primary-strawberry);
-}
 
-div.MissionAward {
+
+div.UserOrdersDatas {
     display: flex;
-    align-items: flex-start;
-    flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
+
+
 }
 
 .MissionCollect{
@@ -67,12 +64,24 @@ div.MissionAward {
     cursor: pointer;
 }
 
+
+.OrderSingleTitle{
+    display: flex;
+    justify-content: space-between;
+}
+.OrderSingleTitle h2{
+    font-size: 1.3em;
+    text-align: start;
+}
 @media screen and (min-width: 768px) {
     .MissionMenuContainer{
         width: 70%;
     }
-    .ul.MissionMenu li.MissionSingle {
+    .ul.UserOrdersMenu li.UserOrderSingle {
         padding: 2.5%;
+    }
+    .OrderSingleTitle h2{
+        font-size: 1.4em;
     }
 }
 
