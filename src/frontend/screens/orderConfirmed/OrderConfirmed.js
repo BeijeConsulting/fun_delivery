@@ -7,8 +7,10 @@ import { useState } from 'react'
 import ChooseGame from "../../../gamification/components/funcComponents/chooseGame/ChooseGame"
 import GeneralModal from "../../../gamification/components/funcComponents/generalModal/GeneralModal"
 import { Steps } from 'antd';
+import { withTranslation } from 'react-i18next';
 
-const OrderConfirmed = (props) => {
+const OrderConfirmed = ({ t, i18n }) => {
+
 
     const [state, setState] = useState({
         chooseGameModal: false,
@@ -24,15 +26,26 @@ const OrderConfirmed = (props) => {
 
     const { Step } = Steps;
 
-
+    const changeLanguages = (e) => {
+        i18n.changeLanguage(e.target.value)
+    }
 
 
     return (
         <div className="gm-order-confirmed">
+        
+            
+          
+            <button value="it" onClick={changeLanguages}>it</button>
+            <button  value="en" onClick={changeLanguages}>en</button>
+        
+
             <HtmlTag
                 tag="h1"
-                text="Il tuo ordine sta arrivando!"
+                text={t('frontend.screens.order_confirmed.title')}
                 className="title-order-confirmed" />
+
+            
 
             <div className="container-gif">
                 {!state.chooseGameModal &&
@@ -41,9 +54,9 @@ const OrderConfirmed = (props) => {
 
             <div  >
                 <Steps current={1} percent={60} direction="vertical" >
-                    <Step title="In preparazione" description="Il tuo ordine è in preparazione" />
-                    <Step title="Spedito" description="Il rider arriverà a momenti " />
-                    <Step title="Consegnato" description="L'ordine è stato consegnato" />
+                    <Step title={t('frontend.screens.order_confirmed.step_one')} description={t('frontend.screens.order_confirmed.step_one_description')} />
+                    <Step title={t('frontend.screens.order_confirmed.step_two')} description={t('frontend.screens.order_confirmed.step_two_description')} />
+                    <Step title={t('frontend.screens.order_confirmed.step_three')} description={t('frontend.screens.order_confirmed.step_three_description')} />
                 </Steps>
             </div>
 
@@ -51,9 +64,10 @@ const OrderConfirmed = (props) => {
 
             <div className="btn-confirmed-class">
                 <Button
-                    text="Gioca con noi"
+                    text={t('frontend.components.order_confirmed.button')}
                     className={"btn-order-confirmed"}
                     callback={playWithUs} />
+
             </div>
 
             {
@@ -63,6 +77,8 @@ const OrderConfirmed = (props) => {
             }
         </div>
 
+        
+
     )
 }
-export default OrderConfirmed
+export default withTranslation()(OrderConfirmed)

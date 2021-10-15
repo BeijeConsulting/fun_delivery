@@ -109,7 +109,7 @@ class LoginUser extends React.Component {
 
                         <InputBox
                             type='email'
-                            placeholder={t('frontend.components.login_placeholder.username')}
+                            placeholder={t('frontend.components.login_page.login_placeholder.username')}
                             name={'email'}
                             callback={this.onEmailChange}
                             value={this.state.email}
@@ -119,7 +119,7 @@ class LoginUser extends React.Component {
 
                         <InputBox
                             type={'password'}
-                            placeholder={t('frontend.components.login_placeholder.password')}
+                            placeholder={t('frontend.components.login_page.login_placeholder.password')}
                             name={'password'}
                             callback={this.onPasswordChange}
                             value={this.state.password}
@@ -128,7 +128,7 @@ class LoginUser extends React.Component {
                         />
 
                         <Button
-                            text={t('frontend.components.button.login')}
+                            text={t('frontend.components.login_page.button.login')}
                             callback={this.validateClick}
                             className={'frontend-primary-btn'}
                         />

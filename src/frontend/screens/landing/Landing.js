@@ -2,6 +2,7 @@ import '../landing/Landing.css';
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag';
 import Input from '../../../common/components/ui/inputBox/InputBox';
 import Button from '../../../common/components/ui/button/Button';
+import Footer from '../../components/funcComponents/footer/Footer'
 
 import burger from '../../../common/assets/HAMBURGER.svg';
 /* import barbecue from '../../../common/assets/BARBECUE.svg'; */
@@ -16,10 +17,13 @@ import { gsap } from "gsap";
 import { useState } from "react";
 import { useRef } from "react"
 import { useEffect } from "react/cjs/react.development";
+import { useTranslation } from 'react-i18next';
+import { i18n } from 'i18next';
 
 
 const Landing = (props) => {
     const ref = useRef(null);
+    const [t, i18n] = useTranslation()
 
     //STATE
     const [state, setState] = useState({
@@ -33,7 +37,7 @@ const Landing = (props) => {
 
 
 
-        
+
 
     //USEEFFECT
     useEffect(() => {
@@ -64,11 +68,15 @@ const Landing = (props) => {
     const mouseMoveFunction = (e) => {
         setState({
             ...state,
-            burgerOnPage : {
-                bottom : e.pageY / 80,
-                left : -e.pageX / 80,
+            burgerOnPage: {
+                bottom: e.pageY / 80,
+                left: -e.pageX / 80,
             },
         })
+    }
+
+    const changeLanguages = (e) => {
+        i18n.changeLanguage(e.target.value)
     }
 
 
@@ -80,9 +88,11 @@ const Landing = (props) => {
                 <HtmlTag
                     tag='h1'
                     className='main-title'
-                    text='Fame? Si mangia!'
+                    text={t('frontend.screens.landing_page.title')}
                 />
-
+                <button value="it" onClick={changeLanguages}>IT</button>
+                <button value="en" onClick={changeLanguages}>EN</button>
+                        
                 <div className='main-box'>
                     <Input
                         placeholder='via Roma n.173'
@@ -100,16 +110,17 @@ const Landing = (props) => {
                     />
 
                     <Button
-                        text='Trova Ristoranti'
+                        text={t('frontend.components.landing_page.footer.button.find')}
                         callback={handleCallbackBtn}
                         className='landing-btn'
                     />
+
                 </div>
 
-                {/* FOOTER */}
+                
             </div>
             <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} />
-            <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage}/>
+            <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage} />
             {/* <img className='fe-barbecue-svg fe-svg-landing' src={barbecue} alt="" /> */}
             <img className='fe-breakfast-svg fe-svg-landing' src={breakFast} alt="" />
         </div>

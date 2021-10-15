@@ -22,13 +22,20 @@ import { useRef } from "react"
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+//i18n
+ import { useTranslation } from 'react-i18next';
+
+
 const Restaurants = (props) => {
+
+    const {t,i18n}=useTranslation()
 
     const ref = useRef(null);
 
     //GSAP
     gsap.registerPlugin(ScrollTrigger);
 
+ 
     //DATA
     const objectRestaurantsForListReference = [
         {
@@ -183,16 +190,14 @@ const Restaurants = (props) => {
         })
     }
 
-
-
     return (
         <main className="fe-main-screen-container" ref={ref}>
             <section className="fe-restaurants-section-one">
                 {/* JUMBO */}
-                <h1 className='fe-title-main'>Settimana del Sombrero</h1>
+                <h1 className='fe-title-main'>{t('frontend.screens.restaurants.title')}</h1>
                 <div className='fe-restaurants-banner'></div>
                 {/* categorie */}
-                <h2 className='fe-categories-title'>Categorie</h2>
+                <h2 className='fe-categories-title'>{t('frontend.screens.restaurants.category')}</h2>
                 <div className='fe-categories-container'>
                     <IconCategories value={"hamburger"} icon={Burger} caption={"Hamburger"} callback={filterByRestaurants} />
                     <IconCategories value={"italian"} icon={Italian} caption={"Italian"} callback={filterByRestaurants} />
@@ -201,7 +206,7 @@ const Restaurants = (props) => {
                     <IconCategories value={"poke"} icon={Poke} caption={"Poke"} callback={filterByRestaurants} />
                     <IconCategories value={"sushi"} icon={Sushi} caption={"Sushi"} callback={filterByRestaurants} />
                 </div>
-                <button className='fe-btn-goTo' onClick={scrollMeTo}>Choose Restaurant</button>
+                <button className='fe-btn-goTo' onClick={scrollMeTo}>{t('frontend.screens.restaurants.chose')}</button>
             </section>
 
             <section  className='fe-restaurants-section-two'>
@@ -217,7 +222,7 @@ const Restaurants = (props) => {
                     <button className='fe-btn-side-toggler' onClick={sideToggle}>Filter</button>
 
                     <div className='trendRestaurants'>
-                        <h2 className='fe-trend-title'>Ristoranti in tendenza</h2>
+                        <h2 className='fe-trend-title'>{t('frontend.screens.restaurants.trend')}</h2>
                         <div className="fe-restaurants-container row-one">
                             {state.objectRestaurantsForTrend.map((item, key) => {
                                 return (
@@ -237,7 +242,7 @@ const Restaurants = (props) => {
                     </div>
 
                     <div className='nearbyRestaurants'>
-                        <h2 className='fe-near-title'>Ristoranti in zona</h2>
+                        <h2 className='fe-near-title'>{t('frontend.screens.restaurants.area')}</h2>
                         {/* tutti */}
                         <div className='fe-restaurants-container row-two'>
                             {state.objectRestaurantsForList.map((item, key) => {
