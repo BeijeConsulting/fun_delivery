@@ -66,11 +66,13 @@
     width: 100%;
     font-size: 1em;
     color: var(--primary-dark);
-    justify-content: flex-start;
+    justify-content: center;
     box-shadow: 1px 1px 13px rgb(186, 218, 218);
+    background-color: var(--primary-strawberry);
     border-radius: 10px;
     margin-bottom: 4%;
     margin-top: 1%;
+    flex-wrap: wrap;
 }
 
 .rowSidebar:hover {
@@ -81,24 +83,27 @@
 
 .voicePlate {
     font-size: 13px;
-    width: 100%;
     margin: 0px 1% 0px 1%;
+    width: 95px;
     height: 40px;
     text-align: left;
     padding: 0.2% 2% 0% 1%;
-    box-shadow: 1px 1px 8px rgb(164, 186, 186);
     white-space: nowrap;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: .5rem;
 }
 
 .voicePlate:hover {
-    background-color: var(--primary-strawberry);
+    background-color: var(--primary-dark);
     color: white;
 }
 
 .voicePlate:focus {
     transform: scale(1.1);
-    background-color: var(--primary-strawberry);
+    background-color: var(--primary-dark);
     color: white;
 }
 
@@ -119,9 +124,14 @@
 
 .fe-menu-wrapper {
     position: relative;
-    padding-left: 316px;
+    /* TEST */
+    display: flex;
+    
+    /* padding-left: 316px; */
 }
-
+.fe-menu-all-categories{
+    width: 100%;
+}
 .fe-menu-single-plate {
     width: 45%;
     padding: .5rem;
@@ -133,9 +143,14 @@
     padding: 0 1rem 1rem 1rem;
     min-width: 200px;
     margin-top: 80px;
-    position: absolute;
-    left: 0;
-    border-right: 2px solid var(--primary-strawberry);
+    position: sticky;
+    align-self: flex-start;
+    z-index: 1350;
+    padding-top: 1rem;
+    top: 0;
+    margin-right: 2rem;
+    width: 25%;
+    border-right: 2px solid var(--primary-strawberry); 
 }
 
 .fe-menu-cart-toggler {
@@ -195,26 +210,28 @@
         border-radius: 10px;
     }
     .fe-menu-cart {
-        position: fixed;
-        bottom: 0;
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
         height: 0;
         padding-top: 1rem;
         transform: translateY(100px);
         width: 100%;
         background-color: white;
-        border-top: 2px solid var(--primary-strawberry);
         border-right: none;
-        transition: .5s;
-        z-index: 150;
+        transition: .2s;
     }
     .fe-menu-cart-single {
         display: flex;
         padding-bottom: 0.3rem;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 3rem;
+        padding: 1rem 2rem;
         font-size: 16px;
         border-bottom: 2px solid #dfdfdf;
+    }
+    .fe-menu-cart-media-btn{
+        display: none;
     }
     .fe-menu-cart-toggler {
         text-align: center;
@@ -235,7 +252,6 @@
         background-color: var(--primary-strawberry);
     }
     .fe-menu-cart-toggled-on {
-        transition: .5s;
         text-align: center;
         display: block;
         position: fixed;
@@ -246,7 +262,8 @@
         width: 100%;
         z-index: 150;
         background-color: white;
-        overflow-y: scroll;
+        overflow-y: auto;
+        transition: .5s;
     }
     .fe-menu-btn-bottom{
         display: none;

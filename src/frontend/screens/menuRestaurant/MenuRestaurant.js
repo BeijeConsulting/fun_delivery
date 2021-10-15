@@ -17,12 +17,13 @@ import Poke from '../../../backoffice/assets/images/poke.jpg'
 import Sushi from '../../../backoffice/assets/images/sushi.png'
 import Altro from '../../../backoffice/assets/images/altro.jpg'
 import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
+
 export default class MenuRestaurant extends React.Component {
     constructor(props) {
 
         super(props)
-        
 
+        /* DATA */
         this.restaurant_categories = {
             1: 'Pizza',
             2: 'Pokè',
@@ -38,60 +39,57 @@ export default class MenuRestaurant extends React.Component {
                 name: 'Primi',
                 img_path: Primi
             },
-            {           
+            {
                 id: 2,
                 name: 'Secondi',
-                img_path: Secondi           
+                img_path: Secondi
             },
             {
                 id: 3,
                 name: 'Contorni',
-                img_path: Contorni 
+                img_path: Contorni
             },
             {
                 id: 4,
                 name: 'Dessert',
-                img_path: Dessert 
+                img_path: Dessert
             },
             {
                 id: 5,
                 name: 'Panini',
-                img_path: Panini 
+                img_path: Panini
             },
             {
                 id: 6,
                 name: 'Pizze',
-                img_path: Pizze 
+                img_path: Pizze
             },
             {
                 id: 7,
                 name: 'Messicani',
-                img_path: Messicano 
+                img_path: Messicano
             },
             {
                 id: 8,
                 name: 'Pokè',
-                img_path: Poke 
+                img_path: Poke
             },
             {
                 id: 9,
                 name: 'Sushi',
-                img_path: Sushi 
+                img_path: Sushi
             },
             {
                 id: 10,
                 name: 'Altro',
-                img_path: Altro 
+                img_path: Altro
             }
         ]
 
         this.newPlateCategories = {}
         for (const iterator of this.arrPlate_categories) {
-            this.newPlateCategories[iterator.id] = {name: iterator.name, img_path : iterator.name}
+            this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
         }
-        console.log(this.newPlateCategories);
-
-        
         this.categoriesSet = new Set();
         this.categoriesArr = []
         for (const key in this.newPlateCategories) {
@@ -100,7 +98,7 @@ export default class MenuRestaurant extends React.Component {
         for (const iterator of this.categoriesSet) {
             this.categoriesArr.push(iterator);
         }
-        
+
         this.menuArray = [
             {
                 id: 1,
@@ -213,15 +211,7 @@ export default class MenuRestaurant extends React.Component {
                 plate_quantity: 0
             }
         ]
-
-        this.scrollItem = [
-            //SCROLL REF
-            this.myRefAntipasti = React.createRef(),
-            this.myRefDolce = React.createRef(),
-            this.myRefScelti = React.createRef(),
-            this.myRefPrimi = React.createRef(),
-            this.myRefSecondi = React.createRef()
-        ]
+        /* END DATA */
 
         this.state = {
             menuArray: this.menuArray,
@@ -229,25 +219,9 @@ export default class MenuRestaurant extends React.Component {
             totalPrice: 0,
             cartToggle: 'fe-menu-cart',
         }
-
     }
+    
     // FUNCTION SCROLL
-
-    scrollAntipasti = () => {
-        this.myRefAntipasti.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    scrollScelti = () => {
-        this.myRefScelti.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    scrollDolce = () => {
-        this.myRefDolce.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    scrollPrimi = () => {
-        this.myRefPrimi.current.scrollIntoView({ behavior: 'smooth' })
-    }
-    scrollSecondi = () => {
-        this.myRefSecondi.current.scrollIntoView({ behavior: 'smooth' })
-    }
 
 
     view = () => {
@@ -305,7 +279,7 @@ export default class MenuRestaurant extends React.Component {
                 if (element.plate_quantity == 0) { return; }
                 this.setState({
                     menuArray: [...this.menuArray,
-                    this.menuArray[i].quantity--],
+                    this.menuArray[i].plate_quantity--],
                     totalPrice: this.state.totalPrice - this.menuArray[i].plate_price
 
                 })
@@ -314,11 +288,9 @@ export default class MenuRestaurant extends React.Component {
     }
 
     goToFinalPage = () => {
-        localStorage.setItem('orderConfirmed', JSON.stringify(this.state.menuArray.filter(item => item.quantity > 0)));
+        localStorage.setItem('orderConfirmed', JSON.stringify(this.state.menuArray.filter(item => item.plate_quantity > 0)));
         this.props.history.push('/orderConfirmed');
     }
-
-
 
     render() {
         return (
@@ -342,17 +314,21 @@ export default class MenuRestaurant extends React.Component {
                 </div>
                 <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
                 <div className='fe-menu-categories-picker' data-aos="">
-                    {/* DA AGGIUNGERE MAP DINAMICO CON LE CATEGORIE */}
-                    <button onClick={this.scrollAntipasti} ref={this.myRefAntipasti} className='voicePlate'> Antipasti </button>
-                    <button className='voicePlate' onClick={this.scrollPrimi} ref={this.myRefPrimi}> Primi </button>
-                    <button className='voicePlate' onClick={this.scrollSecondi} ref={this.myRefSecondi}> Secondi </button>
-                    <button className='voicePlate' onClick={this.scrollDolce} ref={this.myRefDolce}> Dolci </button>
+                    {
+                        this.categoriesArr.map((item, index) => {
+                            return(
+                                <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
+                            )
+                        })
+                    }
                 </div>
 
                 {/* ALL CATEGORIES */}
                 <div className='fe-menu-wrapper'>
 
                     {/* CARRELLO */}
+
+                    {/* TOGGLER del carrello nella media query */}
                     <div className='fe-menu-cart-toggler'>
                         <button onClick={this.cartToggler} >{this.state.cartToggle === 'fe-menu-cart' ? 'Vedi Carrello' : 'Torna al menu'}</button>
                         {this.state.cartToggle === 'fe-menu-cart-toggled-on' &&
@@ -362,6 +338,8 @@ export default class MenuRestaurant extends React.Component {
                             >
                                 Vai alla cassa</button>}
                     </div>
+
+                    {/* CARRELLO nella modalita` desktop */}
                     <div className={`${this.state.cartToggle}`}>
                         <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
 
@@ -383,61 +361,52 @@ export default class MenuRestaurant extends React.Component {
 
                         {this.state.totalPrice > 0 ? (
                             <div className=''>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
                                     <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
                                     <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
 
                                 </div>
-                                {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
+                                {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
                             </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
                         }
                     </div>
 
 
-                    {/* ANTIPASTI */}
+                    {/* ALL CATEGORIES */}
+                    <div className='fe-menu-all-categories'>
 
-                    {
-                        this.categoriesArr.map((itemCategory, index) => {
-                            return (
-                                <div className='fe-menu-category-container'>
-                                    <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
-                                    <div className="fe-menu-plate-container" data-aos="">
+                        {
+                            this.categoriesArr.map((itemCategory, index) => {
+                                return (
+                                    <div className='fe-menu-category-container' key={index}>
+                                        <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
+                                        <div className="fe-menu-plate-container" data-aos="">
 
-                                        {this.menuArray
-                                            .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
-                                            .map((item, key) => {
-                                                return (
-                                                    <SinglePlate
-                                                        key={key}
-                                                        image={item.plate_img}
-                                                        descriptPlate={item.plate_description}
-                                                        plateName={item.plate_name}
-                                                        platePrice={item.plate_price}
-                                                        quantity={item.plate_quantity}
-                                                        counter={item.plate_quantity}
-                                                        classNameWrapper="fe-menu-single-plate"
-                                                        classNameImage="imageSinglePlate"
-                                                        callbackHandler={this.operatorSwitch}
-                                                    />
-                                                )
-                                            })}
+                                            {this.menuArray
+                                                .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+                                                .map((item, key) => {
+                                                    return (
+                                                        <SinglePlate
+                                                            key={key}
+                                                            image={item.plate_img}
+                                                            descriptPlate={item.plate_description}
+                                                            plateName={item.plate_name}
+                                                            platePrice={item.plate_price}
+                                                            quantity={item.plate_quantity}
+                                                            counter={item.plate_quantity}
+                                                            classNameWrapper="fe-menu-single-plate"
+                                                            classNameImage="imageSinglePlate"
+                                                            callbackHandler={this.operatorSwitch}
+                                                        />
+                                                    )
+                                                })}
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })
-                    }
-
-
-
-                    {/* da aggiungere il ref per salire al carrello*/}
-                    <button
-                        style={{ marginTop: '2rem' }}
-                        className='fe-menu-cart-btn fe-menu-btn-bottom'>
-                        Torna al carrello
-                    </button>
-
+                                );
+                            })
+                        }
+                    </div>
                 </div>
-
             </div>
         )
     }
