@@ -2,14 +2,8 @@ import '../landing/Landing.css';
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag';
 import Input from '../../../common/components/ui/inputBox/InputBox';
 import Button from '../../../common/components/ui/button/Button';
-import burger from '../../../common/assets/HAMBURGER.svg';
-/* import barbecue from '../../../common/assets/BARBECUE.svg'; */
-import iceCream from '../../../common/assets/IceCream.svg';
-import breakFast from '../../../common/assets/Breakfast.svg';
 import backgroundFood from '../../assets/images/background_food.png'
-/* import plateBreakfast from '../../../common/assets/PlateBreakfast.svg'; */
 //gsap
-import { gsap } from "gsap";
 //AOS 
 import AOS from 'aos';
 /* import { ScrollTrigger } from "gsap/ScrollTrigger"; */
