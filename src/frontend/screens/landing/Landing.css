@@ -1,42 +1,73 @@
 /* Add css here */
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+.translation-container{
+    width: 150px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+.translation-container>button{
+    width: 25%;
+    padding: 5px;
+    margin: 5px;
+    border-radius:25px;
+    background-color: white;
+}
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
-    height: calc(100vh - 82px);
+    min-height: calc(100vh - 82px);
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     flex-direction: column;
-    padding: 5rem 2rem 0 2rem
+    padding: 4rem 2rem 2rem 2rem
 }
 .landing-screen .landing-content{
-    width: 50%;
+    width: 100%;
+    position: relative;
 }
-
 .landing-screen .main-box{
     display: flex;
-    justify-content: center;
     flex-direction: column;
     width: 100%;
 }
+.foodBack {
+    width: 53%;
+    margin-top: -60px;
+    max-height: 80%;
+    position: absolute;
+    overflow: hidden;
+    left: 45%;
+    
+}
 /* TO BE re-checked */
 .landing-screen .landing-input{
-    padding: 10px 20px;
-    margin-bottom: 1rem;
+    width: 700px;
+    margin-right: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    opacity: 90%;
+    box-shadow: 0px 7px 20px rgb(97, 79, 79);
+    
     /* TO BE re-checked */
     /* 
     border: 3px solid rgb(48, 124, 211); */
 }
 .landing-screen .landing-btn{
-    margin-top: 1rem;
-    padding: 10px 20px;
+    width: 700px;
     color: white;
+    padding: 20px;
+    margin-top: 20px;
+    z-index: 2;
     background-color: #3F3D56;
+    box-shadow: 0px 5px 20px rgb(97, 79, 79);
 }
 .landing-screen .landing-btn:hover{
     background-color: rgba(63, 61, 86, .85);
@@ -44,9 +75,40 @@
 }
 .landing-screen .main-title{
     color: white;
-    margin-bottom: 2rem;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 50px;
 }
-
+/* IMGS */
+.fe-svg-landing{
+    position: absolute;
+}
+.fe-burger-svg{
+    width: 200px;
+    margin-left: 58%;
+    top: 350px;
+    z-index: 1;
+}
+.fe-icecream-svg{
+    width: 130px;
+    top: 320px;
+    left: 60%;
+    z-index: 1;
+    transform: rotateZ(40deg);
+    
+}
+.fe-barbecue-svg{
+    width: 250px;
+    right: 120px;
+    top: 120px;
+    transform: rotateZ(-40deg);
+}
+.fe-breakfast-svg{
+    width: 25%;
+    bottom: 0;
+    right: 0%;
+    
+}
 @media screen and (max-width: 768px){
     .landing-screen{
         align-items: center;
@@ -54,4 +116,251 @@
     .landing-screen .landing-content{
         width: 100%;
     }
+    .landing-screen .main-title{
+    color: white;
+    margin-bottom: 2rem;
+    margin-top: -2rem;
+    font-size: 3rem;
+    font-weight: 700;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .fe-icecream-svg{
+        width: 70px;
+        top: 120px;
+        left: 350px;
+        transform: rotateZ(40deg);
+    }
+    .fe-barbecue-svg{
+        width: 19%;
+        right: 120px;
+        top: 120px;
+        transform: rotateZ(-40deg);
+    }
+    .fe-breakfast-svg{
+        width: 25%;
+        bottom: 0;
+        right: 0;
+        
+    }
+    
+    
+    .landing-screen .landing-input{
+        width: 400px;
+        margin-right: 10px;
+        margin-bottom: 1rem;
+        /* TO BE re-checked */
+        /* 
+        border: 3px solid rgb(48, 124, 211); */
+    }
+    .landing-screen .landing-btn{
+        width: 400px;
+        padding: 20px;
+        color: white;
+        background-color: #3F3D56;
+    }
+    .foodBack {
+        width: 100%;
+        left: 0;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+    
 }
+@media screen and (max-width: 524px) {
+    .fe-icecream-svg{
+        display: none;
+    }
+    .landing-screen .main-box{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    
+    .landing-screen .landing-input{
+        width: 100%;
+        margin-right: 10px;
+        margin-bottom: 1rem;
+        /* TO BE re-checked */
+        /* 
+        border: 3px solid rgb(48, 124, 211); */
+    }
+    .landing-screen .landing-btn{
+        width: 100%;
+        padding: 10px;
+        margin-top: -3px;
+        color: white;
+        background-color: #3F3D56;
+    }
+    .foodBack{
+        width: 100%;
+        left: 0;
+        top: 18%;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    
+    .landing-screen .landing-input{
+        
+        margin-top: 0px;
+        justify-content: center;
+        
+  
+    }
+}
+@media only screen and (max-device-width: 480px) 
+{
+    .foodBack{
+        width: 100%;
+        left: 0;
+        top: 141px;
+        max-height: 80%;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen .main-title{
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 50px;
+        text-shadow: 1px 1px 10px rgb(107, 83, 83);
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+    .fe-breakfast-svg{
+        display: none;
+    }
+    .landing-screen .landing-input{
+        
+        margin-top: 10px;
+        
+  
+    }
+}
+@media screen and (max-height: 600px){
+    .foodBack{
+        top: 25%;
+        max-height: 80%;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen .main-title{
+        color: white;
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 50px;
+        text-shadow: 1px 1px 10px rgb(107, 83, 83);
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+    .fe-breakfast-svg{
+        display: none;
+    }
+    .landing-screen .landing-input{
+        
+        margin-top: 10px;
+        
+  
+    }
+    
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 600px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+    .foodBack{
+        width: 100%;
+        left: 0;
+        top: 45%;
+        max-height: 100%;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen .main-title{
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 50px;
+        text-shadow: 1px 1px 10px rgb(107, 83, 83);
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+    .fe-breakfast-svg{
+        display: none;
+    }
+    .landing-screen .landing-input{
+        
+        margin-top: 0px;
+        
+  
+    }
+}
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .foodBack{
+        width: 100%;
+        left: 0;
+        top: 38%;
+        max-height: 100%;
+    }
+    .landing-screen .landing-input{
+        
+        margin-top: 10px;
+        
+  
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+}
+@media screen and (width: 1024px){
+    
+    .foodBack{
+        width: 100%;
+        left: 0;
+        top: 11%;
+        max-height: 80%;
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: landscape)  {
+    
+    .foodBack{
+        width: 60%;
+        left: 35%;
+         top: 11%; 
+         max-height: 80%;     
+    }
+    .fe-burger-svg{
+        display: none;
+    }
+    .landing-screen{
+        justify-content: center;
+    }
+    .landing-input {
+        margin-bottom: 10px;
+    }
+}
+

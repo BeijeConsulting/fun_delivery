@@ -3,226 +3,414 @@ import './MenuRestaurant.css'
 import SingleRestaurant from '../../components/classComponents/singleRestaurant/SingleRestaurant'
 import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
 import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate'
-export default class MenuRestaurant extends React.Component
-{
-    constructor ( props )
-    {
-        super( props )
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+// Plate categories images
+import Primi from '../../../backoffice/assets/images/primi.png'
+import Secondi from '../../../backoffice/assets/images/secondi.jfif'
+import Contorni from '../../../backoffice/assets/images/contorni.jpg'
+import Dessert from '../../../backoffice/assets/images/dessert.png'
+import Panini from '../../../backoffice/assets/images/hamburger.jpg'
+import Pizze from '../../../backoffice/assets/images/pizza2.png'
+import Messicano from '../../../backoffice/assets/images/messicano.jpg'
+import Poke from '../../../backoffice/assets/images/poke.jpg'
+import Sushi from '../../../backoffice/assets/images/sushi.png'
+import Altro from '../../../backoffice/assets/images/altro.jpg'
+import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
+import Navbar from '../../components/ui/navbar/Navbar'
 
-        this.objectRestaurantsForListReference = [
-            {
-                name: "Nino u Ballerino",
-                category: "hamburger",
-                free_shipping: 0, // non è gratuito
-                restaurant_logo: imagePaniniCaMeusa,
-                rating: 4.5,
-                delivery_time: "35-45 min",
-                number_orders: 200,
-                price_range: 1
-            },
-            {
-                name: "Da Ciro",
-                category: "pizza",
-                free_shipping: 1, //è gratuito
-                restaurant_logo: imagePaniniCaMeusa,
-                rating: 5,
-                delivery_time: "15-35 min",
-                number_orders: 150,
-                price_range: 1
-            },
-            {
-                name: "La Pokentona",
-                category: "poke",
-                free_shipping: 0, // non è gratuito
-                restaurant_logo: imagePaniniCaMeusa,
-                rating: 3.5,
-                delivery_time: "35-45 min",
-                number_orders: 20,
-                price_range: 3
-            },
-            {
-                name: "Sacro Romano Impero",
-                category: "italian",
-                free_shipping: 0, // non è gratuito
-                restaurant_logo: imagePaniniCaMeusa,
-                rating: 4,
-                delivery_time: "20-30 min",
-                number_orders: 50,
-                price_range: 2
-            },
+export default class MenuRestaurant extends React.Component {
+    constructor(props) {
 
+        super(props)
+
+        /* DATA */
+        this.restaurant_categories = {
+            1: 'Pizza',
+            2: 'Pokè',
+            3: 'Sushi',
+            4: "Messicano",
+            5: 'Italiano',
+            6: 'Hamburger',
+            7: 'Altro',
+        }
+        this.arrPlate_categories = [
+            {
+                id: 1,
+                name: 'Primi',
+                img_path: Primi
+            },
+            {
+                id: 2,
+                name: 'Secondi',
+                img_path: Secondi
+            },
+            {
+                id: 3,
+                name: 'Contorni',
+                img_path: Contorni
+            },
+            {
+                id: 4,
+                name: 'Dessert',
+                img_path: Dessert
+            },
+            {
+                id: 5,
+                name: 'Panini',
+                img_path: Panini
+            },
+            {
+                id: 6,
+                name: 'Pizze',
+                img_path: Pizze
+            },
+            {
+                id: 7,
+                name: 'Messicani',
+                img_path: Messicano
+            },
+            {
+                id: 8,
+                name: 'Pokè',
+                img_path: Poke
+            },
+            {
+                id: 9,
+                name: 'Sushi',
+                img_path: Sushi
+            },
+            {
+                id: 10,
+                name: 'Altro',
+                img_path: Altro
+            }
         ]
 
-        this.objectPlate = [
+        this.newPlateCategories = {}
+        for (const iterator of this.arrPlate_categories) {
+            this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
+        }
+        this.categoriesSet = new Set();
+        this.categoriesArr = []
+        for (const key in this.newPlateCategories) {
+            this.categoriesSet.add(this.newPlateCategories[key].name)
+        }
+        for (const iterator of this.categoriesSet) {
+            this.categoriesArr.push(iterator);
+        }
 
+        this.menuArray = [
             {
-                name: "PaneGrana",
-                category: "antipasti",
-                platePic: imagePaniniCaMeusa,
-                price: '10€',
+                id: 1,
+                plate_img: Primi,
+                plate_name: 'Spaghetti alla carbonara',
+                plate_description: 'Il piatto più buono',
+                plate_price: 15,
+                plate_category_id: 1,
+                plate_visibility: true,
+                plate_quantity: 0
             },
             {
-                name: "Tagliere",
-                category: "antipasti",
-                platePic: imagePaniniCaMeusa,
-                price: '11€',
+                id: 2,
+                plate_img: Primi,
+                plate_name: 'Spaghetti al Pesto',
+                plate_description: 'Il piatto più buono',
+                plate_price: 12,
+                plate_category_id: 1,
+                plate_visibility: true,
+                plate_quantity: 0
             },
             {
-                name: "Tagliere",
-                category: "antipasti",
-                platePic: imagePaniniCaMeusa,
-                price: '12€',
+                id: 3,
+                plate_img: Secondi,
+                plate_name: 'Bistecca',
+                plate_description: 'Il piatto più buono',
+                plate_price: 32.3,
+                plate_category_id: 2,
+                plate_visibility: true,
+                plate_quantity: 0
             },
             {
-                name: "Primo pesce",
-                category: "primi",
-                platePic: imagePaniniCaMeusa,
-                price: '12€',
+                id: 4,
+                plate_img: Contorni,
+                plate_name: 'Insalata',
+                plate_description: 'Il piatto più buono',
+                plate_price: 10,
+                plate_category_id: 3,
+                plate_visibility: true,
+                plate_quantity: 0
             },
             {
-                name: "Primo carne",
-                category: "primi",
-                platePic: imagePaniniCaMeusa,
-                price: '12€',
+                id: 5,
+                plate_img: Dessert,
+                plate_name: 'Torta',
+                plate_description: 'Il piatto più buono',
+                plate_price: 6,
+                plate_category_id: 4,
+                plate_visibility: true,
+                plate_quantity: 0
             },
             {
-                name: "Primo",
-                category: "primi",
-                platePic: imagePaniniCaMeusa,
-                price: '12€',
+                id: 6,
+                plate_img: Panini,
+                plate_name: 'Panino al salame',
+                plate_description: 'Il piatto più buono',
+                plate_price: 5,
+                plate_category_id: 5,
+                plate_visibility: true,
+                plate_quantity: 0
             },
-           
-
-
-
+            {
+                id: 7,
+                plate_img: Pizze,
+                plate_name: 'Margherita',
+                plate_description: 'Il piatto più buono',
+                plate_price: 7,
+                plate_category_id: 6,
+                plate_visibility: true,
+                plate_quantity: 0
+            },
+            {
+                id: 8,
+                plate_img: Messicano,
+                plate_name: 'Tacos',
+                plate_description: 'Il piatto più buono',
+                plate_price: 8,
+                plate_category_id: 7,
+                plate_visibility: true,
+                plate_quantity: 0
+            },
+            {
+                id: 9,
+                plate_img: Poke,
+                plate_name: 'Poke',
+                plate_description: 'Il Poke più buono',
+                plate_price: 9,
+                plate_category_id: 8,
+                plate_visibility: true,
+                plate_quantity: 0
+            },
+            {
+                id: 10,
+                plate_img: Sushi,
+                plate_name: 'Sushi',
+                plate_description: 'Il piatto più buono',
+                plate_price: 17,
+                plate_category_id: 9,
+                plate_visibility: true,
+                plate_quantity: 0
+            },
+            {
+                id: 11,
+                plate_img: Altro,
+                plate_name: 'Vermi fritti',
+                plate_description: 'Il piatto più buono',
+                plate_price: 0,
+                plate_category_id: 10,
+                plate_visibility: true,
+                plate_quantity: 0
+            }
         ]
+        /* END DATA */
 
         this.state = {
-            objectRestaurantsForList: this.objectRestaurantsForListReference,
-            objectRestaurantsForTrend: this.objectRestaurantsForListReference,
-            objectPlate: this.objectPlate,
-            isClick: false
+            menuArray: this.menuArray,
+            isClick: false,
+            totalPrice: 0,
+            cartToggle: 'fe-menu-cart',
         }
-        console.log( this.objectPlate )
     }
 
-    categoryFilter =  (category) => {
-        let arrFilter = category ? this.objectPlate.filter((item) => {
-            return (
-                item.category === category
-            ) 
-        }) : this.objectPlate
-        console.log(arrFilter)
+    // FUNCTION SCROLL
+
+
+    view = () => {
         this.setState({
-            objectPlate: arrFilter
+            isClick: !this.state.isClick
+        })
+        console.log(this.state.isClick)
+    }
+
+    componentDidMount() {
+        AOS.init({
+            duration: 1000
         })
     }
 
-    
+    cartToggler = () => {
+        this.setState({
+            cartToggle: this.state.cartToggle === 'fe-menu-cart' ? 'fe-menu-cart-toggled-on' : 'fe-menu-cart',
+        })
+    }
+
+    operatorSwitch = (e) => {
+        let operator = e.target.getAttribute('operator')
+        switch (operator) {
+            case '+':
+                this.add(e);
+                break;
+            case '-':
+                this.remove(e);
+            default:
+                break;
+        }
+    }
+    add = (e) => {
+        let currentTarget = e.target.value
+        let tempArr = this.state.menuArray;
+        for (let i = 0; i < tempArr.length; i++) {
+            const element = tempArr[i];
+            if (element.plate_name === currentTarget) {
+                this.setState({
+                    menuArray: [...this.menuArray,
+                    this.menuArray[i].plate_quantity++],
+                    totalPrice: this.state.totalPrice + this.menuArray[i].plate_price
+                })
+            }
+        }
+    }
+    remove = (e) => {
+        let currentTarget = e.target.value
+        let tempArr = this.state.menuArray;
+        for (let i = 0; i < tempArr.length; i++) {
+            const element = tempArr[i];
+
+            if (element.plate_name === currentTarget) {
+                if (element.plate_quantity == 0) { return; }
+                this.setState({
+                    menuArray: [...this.menuArray,
+                    this.menuArray[i].plate_quantity--],
+                    totalPrice: this.state.totalPrice - this.menuArray[i].plate_price
+
+                })
+            }
+        }
+    }
+
+    goToFinalPage = () => {
+        localStorage.setItem('orderConfirmed', JSON.stringify(this.state.menuArray.filter(item => item.plate_quantity > 0)));
+        this.props.history.push('/orderConfirmed');
+    }
+
+    render() {
+        return (
+            <>
+                <Navbar />
+                <div className='fe-menu-page-wrapper'>
+                    {/* BANNER */}
+                    <div className='fe-menu-header-center'>
+                        <div className='fe-menu-header-restaurant' data-aos="zoom-in">
+                            <div className='fe-menu-info-container'>
+                                <h2 className='fe-menu-restaurant-name'>Nome Ristorante</h2>
+                                <p className='fe-menu-restaurant-price'>Costo 1.90€ • 30-40 min  • 4.5 </p>
+                            </div>
+                            <div className='fe-menu-filter-blur'></div>
+                        </div>
+
+                    </div>
+
+                    <div className='fe-menu-restaurant-address' data-aos="zoom-in">
+                        {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
+                        <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
+                    </div>
+                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
+                    <div className='fe-menu-categories-picker' data-aos="">
+                        {
+                            this.categoriesArr.map((item, index) => {
+                                return (
+                                    <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
+                                )
+                            })
+                        }
+                    </div>
+
+                    {/* ALL CATEGORIES */}
+                    <div className='fe-menu-wrapper'>
+
+                        {/* CARRELLO */}
+
+                        {/* TOGGLER del carrello nella media query */}
+                        <div className='fe-menu-cart-toggler'>
+                            <button onClick={this.cartToggler} >{this.state.cartToggle === 'fe-menu-cart' ? 'Vedi Carrello' : 'Torna al menu'}</button>
+                            {this.state.cartToggle === 'fe-menu-cart-toggled-on' &&
+                                <button
+                                    style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
+                                    onClick={this.goToFinalPage}
+                                >
+                                    Vai alla cassa</button>}
+                        </div>
+
+                        {/* CARRELLO nella modalita` desktop */}
+                        <div className={`${this.state.cartToggle}`}>
+                            <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
+
+                            <div className='fe-menu-cart-content'>
+                                {
+                                    this.state.menuArray.filter((item) => {
+                                        return item.plate_quantity > 0
+                                    }).map((item, index) => {
+                                        return (
+                                            <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
+                                                <span>{item.plate_quantity} {item.plate_name}</span>
+                                                <span>{item.plate_price * item.plate_quantity}€</span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
 
 
+                            {this.state.totalPrice > 0 ? (
+                                <div className=''>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
+
+                                    </div>
+                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
+                                </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
+                            }
+                        </div>
 
 
+                        {/* ALL CATEGORIES */}
+                        <div className='fe-menu-all-categories'>
 
+                            {
+                                this.categoriesArr.map((itemCategory, index) => {
+                                    return (
+                                        <div className='fe-menu-category-container' key={index}>
+                                            <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
+                                            <div className="fe-menu-plate-container" data-aos="">
 
-    render ()
-    {
-        return <div className='containerMenu'>
-            <div className='headerCenter'>
-
-
-
-
-                <div className='headerRestaurant'>
-
-
-                    <div className='namePrice'>
-                        <h2 className='nameRest'>Nome Ristorante</h2>
-                        <p className='priceRest'>Costo 1.90€ . 30-40 min  . 4.5 </p>
+                                                {this.menuArray
+                                                    .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+                                                    .map((item, key) => {
+                                                        return (
+                                                            <SinglePlate
+                                                                key={key}
+                                                                image={item.plate_img}
+                                                                descriptPlate={item.plate_description}
+                                                                plateName={item.plate_name}
+                                                                platePrice={item.plate_price}
+                                                                quantity={item.plate_quantity}
+                                                                counter={item.plate_quantity}
+                                                                classNameWrapper="fe-menu-single-plate"
+                                                                classNameImage="imageSinglePlate"
+                                                                callbackHandler={this.operatorSwitch}
+                                                            />
+                                                        )
+                                                    })}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div className='infoRestaurant'>
-                <p style={ { fontWeight: '600', fontSize: '25px' } }>Pizza 🍕</p>
-                <p style={ { marginTop: '-20px' } }>Via da Cacacas 22 Milano (MI)</p>
-            </div>
-            <div className='rowSidebar'>
-                <p className='voicePlate'> Antipasti </p>
-                <p className='voicePlate'> Pan Bon </p>
-                <p className='voicePlate'> Pizze classiche </p>
-                <p className='voicePlate'> Pizze speciali </p>
-                <p className='voicePlate'> Scelte per te </p>
-
-            </div>
-            <div className='menuWrapper'>
-                <div className='trendRestaurants'>
-                    <h2 className='trendRist'>Antipasti</h2>
-                    <div className="restaurantsMenuContainer">
-                        {/* mapping che dipende dal risultato della ricerca*/ }
-                        {/* tendenza */ }
-                        {this.categoryFilter('antipasti')}
-                        {this.state.objectPlate.map((item,key)=> {
-                            return (
-                                <SinglePlate key={ key } image={ item.platePic } plateName={ item.name } platePrice={ item.price } classNameWrapper="wrapperPlate" classNameImage="imageSinglePlate" />
-                            )
-                        })}
-                        
-                        
-                            
-                    </div>
-                </div>
-
-                <h2 className='trendRist'>Pan Bon</h2>
-                {/* tutti */ }
-                <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
-                        return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSinglePlate" />
-                        )
-                    } ) }
-                </div>
-            </div>
-            <div>
-                <h2 className='trendRist'>Pizze classiche</h2>
-                {/* tutti */ }
-                <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
-                        return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
-                        )
-                    } ) }
-                </div>
-            </div>
-            <div>
-                <h2 className='trendRist'>Pizze speciali</h2>
-                {/* tutti */ }
-                <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
-                        return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
-                        )
-                    } ) }
-                </div>
-            </div>
-            <div>
-                <h2 className='trendRist'>Scelte per te</h2>
-                {/* tutti */ }
-                <div className='restaurantsMenuContainer'>
-                    { this.state.objectRestaurantsForList.map( ( item, key ) =>
-                    {
-                        return (
-                            <SingleRestaurant key={ key } image={ item.restaurant_logo } restaurantName={ item.name } restaurantRating={ item.rating } restaurantShipping={ item.free_shipping } restaurantDeliveryTime={ item.delivery_time } classNameWrapper="wrapperImage" classNameImage="imageSingleRestaurant" />
-                        )
-                    } ) }
-                </div>
-            </div>
-
-        </div>
-
-
+            </>
+        )
     }
 }
