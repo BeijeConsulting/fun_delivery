@@ -11,11 +11,12 @@ class IncomingOrders extends Component {
     constructor(props) {
         super(props);
         this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
+        this.in_pending_orders = this.all_orders.filter(item => item.status==="pending")
     }
 
     handleCallbackPageSingleOrder = (orderID) => () => {
         let foundOrder = {}
-        foundOrder = this.all_orders.find((order) => order.order_id === orderID)
+        foundOrder = this.in_pending_orders.find((order) => order.order_id === orderID)
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
             order: foundOrder,
             titlePage: "#" + orderID,
@@ -37,7 +38,7 @@ class IncomingOrders extends Component {
 
                         <section>
                             {/* mapping ordini ricevuti */}
-                            {this.all_orders.map((item, index) => {
+                            {this.in_pending_orders.map((item, index) => {
                                 return (
                                     <SingleOrder
                                         key={index}

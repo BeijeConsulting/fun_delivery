@@ -330,6 +330,29 @@ const localStorageData = {
       status: "pending",
     },
     {
+      order_id: 34230,
+      date: moment("2021-10-12T20:47:00+0000").format(i18n.t('common.formats.date')),
+      customer_name: "Simone Micalizzi",
+      customer_address: "Una via a Palermo",
+      ordered: [{
+          nameFood: "Romana",
+          price: 5,
+          quantity: 1,
+        },
+        {
+          nameFood: "Capricciosa",
+          price: 6,
+          quantity: 1,
+        },
+        {
+          nameFood: "Sprite",
+          price: 2.5,
+          quantity: 1,
+        },
+      ],
+      status: "pending",
+    },
+    {
       order_id: 34224,
       date: moment("2021-10-11T21:35:00+0000").format(i18n.t('common.formats.date')),
       customer_name: "Simone Micalizzi",

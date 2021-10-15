@@ -29,14 +29,12 @@ class RestaurantSingleOrder extends Component {
     handleShowTimelineAccept = () => {
         this.setState({
             showTimeline: true,
-            order_status: "approved",
         });
+        this.handleStatusTimeline("approved")
     };
 
     handleShowTimelineReject = () => {
-        this.setState({
-            order_status: "rejected",
-        });
+        this.handleStatusTimeline("rejected")
     };
 
     totalPriceOrder = () => {

@@ -132,11 +132,7 @@ class MyOrders extends Component {
     }
 
     handleCallbackPageSingleOrder = (orderID) => () => {
-        // let foundOrder = {}
-        // foundOrder = this.all_orders.find((order) => order.order_id === orderID)
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
-            // order: foundOrder,
-            // titlePage: "#" + orderID,
             order_id: orderID,
         })
     }
