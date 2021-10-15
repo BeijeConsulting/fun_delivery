@@ -85,7 +85,6 @@ const handleSubmit = () => {
     localStorage.setItem('userInfo', JSON.stringify(modifiedUser))
 
     setState({
-        // ...state,
         data: newData,
         editData: correctCheck ? false : true
     })
