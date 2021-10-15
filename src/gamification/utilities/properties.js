@@ -101,14 +101,14 @@ const properties = {
             title: 'Mangia con noi',
             description: 'Effettua il primo ordine',
             exp: 200,
-            claim: null,
+            claim: false,
             beijeCoin: 5,
         },
         {
             title: 'Special One',
             description: 'Effettua almeno un ordine dalla special week',
             exp: 300,
-            claim: null,
+            claim: false,
             beijeCoin: 7,
         },
         {
@@ -117,7 +117,6 @@ const properties = {
             exp: 100,
             claim: null,
             beijeCoin: 3,
-
         },
         {
             title: 'Spendaccione',
@@ -125,7 +124,6 @@ const properties = {
             exp: 200,
             claim: null,
             beijeCoin: 5,
-
         },
         {
             title: 'Capitano 20',
@@ -140,7 +138,6 @@ const properties = {
             exp: 500,
             claim: null,
             beijeCoin: 15,
-
         }
     ]
 }
