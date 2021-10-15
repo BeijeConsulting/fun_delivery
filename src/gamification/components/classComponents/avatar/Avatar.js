@@ -81,7 +81,7 @@ class Avatar extends Component {
       this.userPath.avatar.userAvatars.push(this.state.avatarDetail)
       this.userPath.avatar.selectedAvatar = this.state.avatarDetail
       let audio = new Audio(buyAvatarBadge)
-      audio.volume = 1
+      audio.volume = 0.1
       audio.play()
     }
 

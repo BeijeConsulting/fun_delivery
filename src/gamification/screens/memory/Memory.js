@@ -3,7 +3,7 @@ import './Memory.css'
 import properties from '../../utilities/properties'
 import { Link } from 'react-router-dom'
 
-// import musicMemory from "../../assets/sounds/musicMemory.mp3"
+import musicMemory from "../../assets/sounds/musicMemory.mp3"
 import rightCardsMemory from "../../assets/sounds/rightCardsMemory.mp3"
 import wrongCardsMemory from "../../assets/sounds/wrongCardsMemory.mp3"
 import seeCardMemory from "../../assets/sounds/seeCardsMemory.mp3"
@@ -34,6 +34,8 @@ class Memory extends Component {
         this.audioRightCardsMemory = new Audio(rightCardsMemory);
         this.audioWrongCardsMemory = new Audio(wrongCardsMemory);
         this.audioLose = new Audio(lose)
+        this.audio = new Audio(musicMemory);
+
 
         this.state = {
             storage: storage === null ? [] : storage,
@@ -42,7 +44,7 @@ class Memory extends Component {
             winModal: false,
             loseModal: false,
             beijeCoin: storage.beijeCoin,
-            audio: true,
+            audio: false,
             chooseGame: false,
             countSec: 60
         }
@@ -73,6 +75,7 @@ class Memory extends Component {
             })
             if (this.state.audio) {
                 this.audioWin.play()
+                this.audioWin.volume = 0.2;
             }
             this.addCoins()
             clearInterval(this.timer)
@@ -103,6 +106,7 @@ class Memory extends Component {
         if (newMemoryCardsPair[key].active === false) {
             if (this.state.audio) {
                 this.audioSeeCardMemory.play();
+                this.audioSeeCardMemory.volume = 0.2;
             }
         }
         newMemoryCardsPair[key].active = true
@@ -124,11 +128,13 @@ class Memory extends Component {
                     newMemoryCardsPair = cardsRemove
                     if (this.state.audio) {
                         this.audioRightCardsMemory.play();
+                        this.audioRightCardsMemory.volume = 0.2;
                     }
                 } else {
                     newMemoryCardsPair.map(el => el.name === filteredCard[0].name || el.name === filteredCard[1].name ? el.active = false : el)
                     if (this.state.audio) {
                         this.audioWrongCardsMemory.play();
+                        this.audioWrongCardsMemory.volume = 0.03;
                     }
                 }
 
@@ -150,6 +156,7 @@ class Memory extends Component {
             })
             if (this.state.audio) {
                 this.audioLose.play()
+                this.audioLose.volume = 0.2;
             }
         }, 60000)
     }
@@ -170,6 +177,12 @@ class Memory extends Component {
         this.setState({
             audio: !this.state.audio
         })
+        if(this.state.audio === false){
+            this.audio.volume = 0.05;
+            this.audio.play();
+        }else{
+            this.audio.pause();
+        }
     }
 
     chooseGameCallback = () => {

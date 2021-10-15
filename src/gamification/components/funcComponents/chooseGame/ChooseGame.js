@@ -3,6 +3,10 @@ import quiz from "../../../assets/images/chooseGame/Quiz.png"
 import memory from "../../../assets/images/chooseGame/memory.png"
 import { withTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
+
+
+
+
 const ChooseGame = (props) => {
     const { t } = props;
 

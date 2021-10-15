@@ -97,7 +97,7 @@ const Wheel = (props) => {
     }
 
     const handleClick = () => {
-        audio.volume = 0.4
+        audio.volume = 0.02
         audio.play()
     }
 
