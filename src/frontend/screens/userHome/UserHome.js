@@ -11,6 +11,7 @@ import Button from '../../../common/components/ui/button/Button'
 import CountDownTimer from "../../../gamification/components/funcComponents/CountDownTimer";
 import Avatar from '../../../gamification/components/classComponents/avatar/Avatar.js'
 import Mission from "../../../gamification/components/classComponents/missions/Mission";
+import UserOrders from "../../components/funcComponents/userOrders/UserOrders"
 
 //Images
 import coin from '../../../common/assets/BeijeCoin.png'
@@ -361,7 +362,7 @@ const UserHome = (props) => {
                             className='fe-user-switching-container'
                             style={state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
                         >
-                            User order</div>
+                            <UserOrders /></div>
 
                         <div
                             className='fe-user-switching-container'
@@ -427,7 +428,7 @@ const UserHome = (props) => {
                         }
                         {
                             state.selectedTab === 'orderUser' &&
-                            <p>orderUser</p>
+                            <UserOrders />
                         }
                         {
                             state.selectedTab === 'missionUser' &&
