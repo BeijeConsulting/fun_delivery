@@ -229,7 +229,6 @@ class SinglePlate extends Component {
                                         value={this.state.data.plate_name[0]}
                                         disable={!this.state.editData}
                                         callback={this.handleCallbackInput}
-                                        name={'plate_img'}
                                         newCss=''
                                         disable={!this.state.editData}
                                     />
