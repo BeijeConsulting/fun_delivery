@@ -5,7 +5,7 @@ import './Mission.css'
 import Coin from '../../../assets/images/beijeCoin.png'
 import { isElementOfType } from "react-dom/test-utils";
 import properties from "../../../utilities/properties";
-
+import firstOrder2 from "../../../assets/images/badges/firstOrder2.png"
 
 class Mission extends Component {
     constructor(props) {
@@ -47,14 +47,19 @@ class Mission extends Component {
         newStorage.mission.push(i)
         newStorage.experience = newStorage.experience >= 15000 ? newStorage.experience : newStorage.experience += e.exp
         newStorage.beijeCoin += e.beijeCoin
+        if (e.badge !== null) {
+            newStorage.badge.userBadges.push(e.badge)
+        }
         newArr[i].claim = true
+
+        localStorage.setItem('userInfo', JSON.stringify(newStorage))
 
         this.setState({
             storage: newStorage,
             arr: newArr
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(newStorage))
+        
 
     }
 
@@ -71,19 +76,33 @@ class Mission extends Component {
                         <p>{e.description}</p>
                     </div>
                     <div className="MissionAward">
-                        <span className="MissionSub">
-                            <span>
-                                EXP:
+                        {e.exp > 0 && e.beijeCoin > 0 &&
+                            <>
+                                <span className="MissionSub">
+                                    <span>
+                                        EXP:
+                                    </span>
+                                    {e.exp}
+                                </span>
+                                <span className="MissionSub">
+                                    <span style={{ marginLeft: '20px' }}>
+                                        BeijeCoin: &nbsp;
+                                    </span>
+                                    {e.beijeCoin}
+                                    <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
+                                </span>
+                            </>
+                        }
+                        {
+                            e.badge !== null &&
+                            <span className="MissionSub">
+                                <span>
+                                    Badge: &nbsp;
+                                </span>
+                                {/* {e.badge} */}
+                                <img className="badgeMission" src={firstOrder2} alt="Badge" />
                             </span>
-                            {e.exp}
-                        </span>
-                        <span className="MissionSub">
-                            <span style={{ marginLeft: '20px' }}>
-                                BeijeCoin: &nbsp;
-                            </span>
-                            {e.beijeCoin}
-                            <img className="BeijeCoinMission" src={Coin} alt="BeijeCoin" />
-                        </span>
+                        }
 
                     </div>
                     {this.missions[i].claim === false &&
