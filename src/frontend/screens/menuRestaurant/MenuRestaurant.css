@@ -1,239 +1,270 @@
- * {
-     box-sizing: border-box;
-     margin: 0;
- }
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
 
- .containerMenu {
-     width: 100%;
-     display: flex;
-     flex-direction: column;
-     padding: 1em 2em;
-     align-items: left;
+.fe-menu-page-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 2em;
+    align-items: left;
+}
 
- }
+.fe-menu-header-restaurant {
+    width: 100%;
+    margin-top: 2em;
+    border-radius: 10px;
+    height: 18em;
+    border: none;
+    display: flex;
+    background-image: url(../../assets//images/imagePaniniCaMeusa.png);
+    background-size: cover;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 
+.fe-menu-filter-blur {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(0deg, rgba(15, 36, 0, 1) 0%, rgba(172, 59, 59, 1) 29%, rgba(242, 68, 68, 1) 54%);
+    opacity: 50%;
+}
 
- .headerRestaurant {
-     width: 100%;
-     margin-top: 2em;
-     border-radius: 10px;
-     height: 18em;
-     border: none;
-     display: flex;
-     background-image: url(../../assets//images/imagePaniniCaMeusa.png);
-     background-size: cover;
-     flex-direction: column;
-     justify-content: flex-end;
+.fe-menu-restaurant-name {
+    font-size: 4em;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    z-index: 2;
+}
 
- }
+.fe-menu-info-container {
+    line-height: 1em;
+    display: flex;
+    padding: 0px 15px;
+    position: absolute;
+    flex-direction: column;
+    align-items: left;
+}
 
- .blurRestaurant {
-     width: 100%;
-     height: 100%;
-     border-radius: 10px;
-     background: linear-gradient(0deg, rgba(15,36,0,1) 0%, rgba(172,59,59,1) 29%, rgba(242,68,68,1) 54%);
-     opacity: 50%;
- }
+.fe-menu-restaurant-price {
+    font-size: 1em;
+    z-index: 5;
+    color: rgb(255, 254, 254);
+}
 
- .nameRestPlate {
-     font-size: 4em;
-     font-weight: bold;
-     color: rgb(255, 255, 255);
-     z-index: 2;
- }
+.fe-menu-restaurant-address {
+    padding-top: 1rem;
+    font-size: 1em;
+    font-weight: 300;
+}
 
- .namePricePlate {
-     line-height: 1em;
-     display: flex;
-     padding: 0px 15px;
-      position: absolute;
-     flex-direction: column;
-     align-items: left;
- }
+.fe-menu-categories-picker {
+    display: flex;
+    padding: 2rem;
+    width: 100%;
+    font-size: 1em;
+    color: var(--primary-dark);
+    justify-content: flex-start;
+    box-shadow: 1px 1px 13px rgb(186, 218, 218);
+    border-radius: 10px;
+    margin-bottom: 4%;
+    margin-top: 1%;
+}
 
- .priceRestPlate {
-     font-size: 1em;
-     z-index: 5;
-     color: rgb(255, 254, 254);
- }
+.rowSidebar:hover {
+    box-shadow: 1px 1px 200px rgb(237, 238, 230);
+    transition: 0.5s;
+    z-index: 0;
+}
 
- .infoPlate {
-     padding: 1em;
-     font-size: 1em;
-     font-weight: 300;
-     justify-content: space-around;
- }
+.voicePlate {
+    font-size: 13px;
+    width: 100%;
+    margin: 0px 1% 0px 1%;
+    height: 40px;
+    text-align: left;
+    padding: 0.2% 2% 0% 1%;
+    box-shadow: 1px 1px 8px rgb(164, 186, 186);
+    white-space: nowrap;
+    background-color: white;
+}
 
- .rowSidebar {
-     display: flex;
-     padding: 2rem;
-     width: 100%;
-     font-size: 1em;
-     color: var(--primary-dark);
-     justify-content: flex-start;
-     box-shadow: 1px 1px 13px rgb(186, 218, 218);
-     border-radius: 10px;
-     margin-bottom: 4%;
-     margin-top: 1%;
+.voicePlate:hover {
+    background-color: var(--primary-strawberry);
+    color: white;
+}
 
+.voicePlate:focus {
+    transform: scale(1.1);
+    background-color: var(--primary-strawberry);
+    color: white;
+}
 
+.fe-menu-category-title {
+    text-align: left;
+    padding: 20px 0px;
+    font-weight: 700;
+}
 
- }
+.fe-menu-plate-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
- .rowSidebar:hover {
-     box-shadow: 1px 1px 200px rgb(237, 238, 230);
-     transition: 0.5s;
-     z-index: 0;
- }
+/* da modificare quando c`e` il carrello */
 
- .voicePlate {
-     font-size: 13px;
-     width: 100%;
-     margin: 0px 1% 0px 1%;
-     height: 40px;
-     text-align: left;
-     padding: 0.2% 2% 0% 1%;
-     box-shadow: 1px 1px 8px rgb(164, 186, 186);
-     white-space: nowrap;
-     background-color: white;
+.fe-menu-wrapper {
+    position: relative;
+    padding-left: 316px;
+}
 
- }
+.fe-menu-single-plate {
+    width: 45%;
+    padding: .5rem;
+    box-shadow: 1px 1px 10px rgb(206, 206, 206);
+    border-radius: 10px;
+}
 
- .voicePlate:hover {
-     background-color: var(--primary-strawberry);
-     color: white;
- }
+.fe-menu-cart {
+    padding: 0 1rem 1rem 1rem;
+    min-width: 200px;
+    margin-top: 80px;
+    position: absolute;
+    left: 0;
+    border-right: 2px solid var(--primary-strawberry);
+}
 
- .voicePlate:focus {
-     transform: scale(1.1);
-     background-color: var(--primary-strawberry);
-     color: white;
- }
+.fe-menu-cart-toggler {
+    display: none;
+}
 
- .trendPlate {
-     text-align: left;
-     padding: 20px 0px;
-     font-weight: 700;
-     margin-left: 0.3%;
- }
+.fe-menu-header-center {
+    display: flex;
+    width: 100%;
+    padding: 0px;
+}
 
+.fe-menu-cart-btn {
+    background-color: var(--primary-strawberry);
+    margin-top: 1rem;
+    padding: 5px 25px;
+    color: white;
+}
 
+.fe-menu-cart-single {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
 
- .plateMenuContainer {
-     display: grid;
-     width: 100%;
-     justify-content: space-between;
-     grid-template-columns: 31% 31% 31%;
-     grid-gap: 40px 0px;
+/* ----- MEDIA QUERIES ----- */
+@media screen and (max-width: 950px) {
+    .fe-menu-single-plate {
+        width: 100%;
+        padding: .5rem;
+        box-shadow: 1px 1px 10px rgb(206, 206, 206);
+        border-radius: 10px;
+    }
+}
 
- }
-
- .wrapperImage {
-     margin: 10px;
- }
-
-
- .headerCenter {
-     display: flex;
-     width: 100%;
-     padding: 0px;
- }
-
- .containerMODAL {
-     width: 100%;
-     position: absolute;
-     height: 52%;
-     background-color: white;
- }
-
- .trendRestaurants {
-     width: 100%;
-     display: flex;
-     flex-direction: column;
- }
-
-
-
- @media only screen and (min-device-width: 320px) and (max-device-width: 520px) {
-     .containerMenu {
-         margin-top: -3em;
-         padding: 1em 1em;
-
-
-     }
-
-     .rowSidebar {
+@media screen and (max-width: 700px) {
+    .fe-menu-restaurant-name {
+        font-size: 40px;
+    }
+    .fe-menu-categories-picker {
         display: flex;
-        font-size: 1em;
-        color: var(--primary-dark);
         justify-content: center;
-        margin-top: -3%;
         flex-wrap: wrap;
-        box-shadow: none
+    }
+    .voicePlate {
+        width: 45%;
+        margin-bottom: 1rem;
+    }
+    .fe-menu-wrapper {
+        padding-left: 0;
+        padding-bottom: 5rem;
+    }
+    .fe-menu-single-plate {
+        width: 100%;
+        padding: .5rem;
+        box-shadow: 1px 1px 10px rgb(206, 206, 206);
+        border-radius: 10px;
+    }
+    .fe-menu-cart {
+        position: fixed;
+        bottom: 0;
+        height: 0;
+        padding-top: 1rem;
+        transform: translateY(100px);
+        width: 100%;
+        background-color: white;
+        border-top: 2px solid var(--primary-strawberry);
+        border-right: none;
+        transition: .5s;
+        z-index: 150;
+    }
+    .fe-menu-cart-single {
+        display: flex;
+        padding-bottom: 0.3rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 3rem;
+        font-size: 16px;
+        border-bottom: 2px solid #dfdfdf;
+    }
+    .fe-menu-cart-toggler {
+        text-align: center;
+        display: block;
+        position: fixed;
+        padding: 1rem 2rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 200;
+        background-color: white;
+    }
+    .fe-menu-cart-toggler button {
+        padding: 10px 25px;
+        color: white;
+        width: 100%;
+        z-index: 200;
+        background-color: var(--primary-strawberry);
+    }
+    .fe-menu-cart-toggled-on {
+        transition: .5s;
+        text-align: center;
+        display: block;
+        position: fixed;
+        padding: 1rem 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 150;
+        background-color: white;
+        overflow-y: scroll;
+    }
+    .fe-menu-btn-bottom{
+        display: none;
+    }
+}
 
-
-
-     }
-
-     .plateMenuContainer {
-         display: flex;
-         width: 100%;
-         flex-direction: column;
-
-     }
-
-     .trendRist {
-         text-align: left;
-         padding: 0vw 1.5vw;
-     }
-
-     .infoRestaurant {
-         padding: 10px 10px;
-     }
-
-     .headerRestaurant {
-         width: 100%;
-         margin-top: 3em;
-         height: 15em;
-         border-radius: 10px;
-         border: none;
-         background-color: var(--primary-strawberry);
-         display: flex;
-         flex-direction: column;
-         justify-content: flex-end;
-
-     }
-
-     .nameRestPlate {
-         font-size: 1.7em;
-         min-width: 100%;
-         display: flex;
-         flex-wrap: nowrap;
-         font-weight: bold;
-         color: rgb(255 255 255);
-         text-align: left;
-     }
-
-     .namePricePlate {
-         line-height: 1em;
-         display: flex;
-         color: black;
-         flex-direction: column;
-         align-items: left;
-     }
-
-     .priceRestPlate {
-         font-size: 1em;
-         color: rgb(255, 255, 255);
-     }
-     .voicePlate {
-         text-align: center;
-         margin: 5% 0% 0% 0%;
-     }
-     .wrapperPlate {
-         margin-top: 5%;
-     }
-
-
-
- }
+@media screen and (max-width: 550px) {
+    .fe-menu-restaurant-name {
+        font-size: 30px;
+    }
+    .fe-menu-categories-picker {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .voicePlate {
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+}

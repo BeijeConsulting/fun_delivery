@@ -111,11 +111,11 @@
     height: 20px;
     width: 35px;
     position: relative;
-    z-index: 99;
+    z-index: 100;
     cursor: pointer;
 }
 .logo-smartphone{
-    z-index: 99;
+    z-index: 100;
 }
 .burger{
     position: absolute;
@@ -155,7 +155,7 @@
     }
     .drop-down-link-box{
         position: absolute;
-        z-index: 2;
+        z-index:50;
         top: 0;
         left: 0;
         transform: translateY(-100vh);
