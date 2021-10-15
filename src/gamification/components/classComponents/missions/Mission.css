@@ -43,7 +43,7 @@ ul.MissionMenu li.MissionSingle {
     transition-duration: 0.4s;
 }
 
-ul.MissionMenu li.MissionSingle:hover{
+ul.MissionMenu li.MissionSingle:hover {
     background-color: var(--primary-strawberry);
 }
 
@@ -54,29 +54,38 @@ div.MissionAward {
     justify-content: flex-start;
 }
 
-.MissionCollect{
+.MissionCollect {
     background-color: var(--primary-desaturated-strawberry);
-    padding: 5px 10px;
+    padding: 5px 5px;
     margin-top: 10px;
     width: 40%;
     align-self: self-end;
     letter-spacing: 1px;
 }
-.MissionCollect:hover{
+
+.MissionCollect:hover {
     background-color: var(--primary-strawberry);
     cursor: pointer;
-}
-
-@media screen and (min-width: 768px) {
-    .MissionMenuContainer{
-        width: 70%;
-    }
-    .ul.MissionMenu li.MissionSingle {
-        padding: 2.5%;
-    }
 }
 
 .BeijeCoinMission {
     width: 20px;
     height: 20px;
+}
+
+.badgeMission {
+    width: 40px;
+    height: 40px;
+}
+
+@media screen and (min-width: 768px) {
+    .MissionMenuContainer {
+        width: 70%;
+    }
+    .ul.MissionMenu li.MissionSingle {
+        padding: 2.5%;
+    }
+    .MissionCollect {
+        padding: 5px 10px;
+    }
 }

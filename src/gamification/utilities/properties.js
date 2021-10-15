@@ -55,7 +55,7 @@ const properties = {
             selectedAvatar: 0,
         },
         badge: {
-            userBadges: [0, 3, 8],
+            userBadges: [0],
             selectedBadge: 0,
         },
         levelExp: 250,
@@ -96,20 +96,23 @@ const properties = {
             exp: 100,
             claim: false,
             beijeCoin: 7,
+            badge: null
         },
         {
             title: 'Mangia con noi',
             description: 'Effettua il primo ordine',
-            exp: 200,
+            exp: 0,
             claim: false,
-            beijeCoin: 5,
+            beijeCoin: 0,
+            badge: 3
         },
         {
             title: 'Special One',
             description: 'Effettua almeno un ordine dalla special week',
             exp: 300,
-            claim: false,
+            claim: null,
             beijeCoin: 7,
+            badge: null
         },
         {
             title: 'Giochiamo/ insieme',
@@ -117,6 +120,7 @@ const properties = {
             exp: 100,
             claim: null,
             beijeCoin: 3,
+            badge: null
         },
         {
             title: 'Spendaccione',
@@ -124,6 +128,7 @@ const properties = {
             exp: 200,
             claim: null,
             beijeCoin: 5,
+            badge: null
         },
         {
             title: 'Capitano 20',
@@ -131,6 +136,7 @@ const properties = {
             exp: 300,
             claim: null,
             beijeCoin: 10,
+            badge: null
         },
         {
             title: 'King',
@@ -138,6 +144,7 @@ const properties = {
             exp: 500,
             claim: null,
             beijeCoin: 15,
+            badge: null
         },
 
     ],
@@ -177,7 +184,6 @@ const properties = {
             title: 'Il postaccio',
             description: '22/08/21',
             cost: 20.30,
-
         }
     ]
 }

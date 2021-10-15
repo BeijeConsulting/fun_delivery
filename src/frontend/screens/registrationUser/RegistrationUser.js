@@ -35,7 +35,7 @@ class RegistrationUser extends React.Component {
                     selectedAvatar: 0,
                 },
                 badge: {
-                    userBadges: [0,1,6],
+                    userBadges: [0],
                     selectedBadge: 0,
                 },
                 mission: [0],
