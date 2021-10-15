@@ -211,7 +211,7 @@ class Registration extends Component {
                                         onChange={this.handleCallbackInput}
                                         onFocus={this.handleCallBackFocus}
                                         className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
-                                        default=""
+                                        defaultValue=""
                                     >
                                         <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
