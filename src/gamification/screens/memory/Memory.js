@@ -189,6 +189,17 @@ class Memory extends Component {
         this.setState({
             chooseGame: true,
         })
+        this.audio.pause()
+        this.audioWin.pause()
+        this.audioLose.pause()
+    }
+    redirect = () => {
+        this.audio.pause()
+        this.audioWin.pause()
+        this.audioLose.pause()
+        return (
+            <Link to="/orderConfirmed" />
+        )
     }
 
 
@@ -256,13 +267,13 @@ class Memory extends Component {
                 {
                     this.state.winModal &&
                     <GeneralModal
-                        contentModal={<ModalReaction chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />}
+                        contentModal={<ModalReaction callback={this.redirect} chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Coin} />} textModal="Hai vinto" />}
                     />
                 }
                 {
                     this.state.loseModal && this.state.winModal === false &&
                     <GeneralModal
-                        contentModal={<ModalReaction chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
+                        contentModal={<ModalReaction callback={this.redirect} chooseGameCallback={this.chooseGameCallback} cascadeMoney={<MoneyCascade svgCascade={Tear} />} textModal='Mi dispiace, ma hai perso' />}
                     />
                 }
                 {

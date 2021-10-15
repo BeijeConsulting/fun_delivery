@@ -183,12 +183,16 @@ class Quiz extends Component {
     }
 
     redirect = () => {
+        this.audio.pause()
+        this.audioWin.pause()
+        this.audioLose.pause()
         return (
             <Link to="/orderConfirmed" />
         )
     }
 
     chooseGameCallback = () => {
+        this.audio.pause()
         this.setState({
             chooseGame: true,
         })
@@ -199,13 +203,11 @@ class Quiz extends Component {
             if (this.state.audio) {
                 this.audioWin.play()
                 this.audioWin.volume = 0.1;
-
             }
         } else {
             if (this.state.audio) {
                 this.audioLose.play()
                 this.audioLose.volume = 0.1;
-
             }
         }
         return (
