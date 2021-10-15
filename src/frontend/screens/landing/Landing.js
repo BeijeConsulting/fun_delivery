@@ -13,9 +13,7 @@ import { gsap } from "gsap";
 //AOS 
 import AOS from 'aos';
 /* import { ScrollTrigger } from "gsap/ScrollTrigger"; */
-import { useState } from "react";
-import { useRef } from "react"
-import { useEffect } from "react/cjs/react.development";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import Navbar from '../../components/ui/navbar/Navbar';

@@ -14,9 +14,7 @@ import Poke from '../../assets/images/poke.png'
 import Sushi from '../../assets/images/sushi.png'
 
 /* HOOKS */
-import { useState } from "react"
-import { useEffect } from "react"
-import { useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useHistory } from "react-router"
 
 
