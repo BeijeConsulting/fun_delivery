@@ -17,7 +17,7 @@ class ForgotPassword extends Component {
         this.password = ''
         this.confirmPsw = ''
         this.state = {
-            warning:false
+            warning: false
         }
     }
 
@@ -59,44 +59,46 @@ class ForgotPassword extends Component {
                     pageTitle='Reset Password'
                 />
                 <BannerBackground />
-                <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>{t('backoffice.screens.forgot_password.title')}</h1>
-                {
-                    this.state.warning &&
-                    <h3 class="alert">{t('backoffice.screens.forgot_password.error')}</h3>
-                }
-                <div className="bo-login-form">
-                    <InputBox
-                        type={'email'}
-                        className='bo-input-box'
-                        placeholder='Email'
-                        callback={this.handleInputEmail}
-                    />
-                    <InputBox
-                        type={'password'}
-                        className='bo-input-box'
-                        placeholder='Password'
-                        callback={this.handleInputPassword}
-                    />
-                    <InputBox
-                        type={'password'}
-                        className='bo-input-box'
-                        placeholder={t('backoffice.components.inputbox.confirm_password')}
-                        callback={this.handleInputConfirmPsw}
-                    />
-                    <Button
-                        text='RESET PASSWORD'
-                        className='bo-btn'
-                        callback = {this.handelSubmit}
-                    />
-                    <div style={{ fontSize: '20px' }}>
-                    {t('backoffice.screens.forgot_password.partner')}
-                    </div>
-                    <Link to={properties.BO_ROUTING.LOGIN} className='bo-link'><b>{t('backoffice.screens.forgot_password.login')}</b></Link>
-                </div>
+                <main>
+                    <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>{t('backoffice.screens.forgot_password.title')}</h1>
+                    {
+                        this.state.warning &&
+                        <h3 class="alert">{t('backoffice.screens.forgot_password.error')}</h3>
+                    }
+                    <section className="bo-login-form">
+                        <InputBox
+                            type={'email'}
+                            className='bo-input-box'
+                            placeholder='Email'
+                            callback={this.handleInputEmail}
+                        />
+                        <InputBox
+                            type={'password'}
+                            className='bo-input-box'
+                            placeholder='Password'
+                            callback={this.handleInputPassword}
+                        />
+                        <InputBox
+                            type={'password'}
+                            className='bo-input-box'
+                            placeholder={t('backoffice.components.inputbox.confirm_password')}
+                            callback={this.handleInputConfirmPsw}
+                        />
+                        <Button
+                            text='RESET PASSWORD'
+                            className='bo-btn'
+                            callback={this.handelSubmit}
+                        />
+                        <div style={{ fontSize: '20px' }}>
+                            {t('backoffice.screens.forgot_password.partner')}
+                        </div>
+                        <Link to={properties.BO_ROUTING.LOGIN} className='bo-link'><b>{t('backoffice.screens.forgot_password.login')}</b></Link>
+                    </section>
+                </main>
                 <br />
             </div>
         )
     }
 }
 
-export default  withTranslation()(ForgotPassword)
+export default withTranslation()(ForgotPassword)

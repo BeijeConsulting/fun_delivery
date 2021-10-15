@@ -126,7 +126,7 @@ class NewPlate extends Component {
         const { t } = this.props
         return (
             <LayoutBackOffice
-                pageTitle='Nuovo Piatto'
+                pageTitle={t('backoffice.screens.new_plate.title')}
             >
                 <div className="bo-profile-container">
                     <div className="bo-profile-form">
@@ -134,7 +134,7 @@ class NewPlate extends Component {
 
                             <div className="bo-mymenu-welcome">
                                 <h2>{t('backoffice.screens.new_plate.create_plate')}</h2>
-                                <span className="bo-icon-edit" title="Salva Piatto"><SaveOutlined onClick={this.handleSubmit} /></span>
+                                <span className="bo-icon-edit" title={t('backoffice.screens.single_plate.save_plate')}><SaveOutlined onClick={this.handleSubmit} /></span>
                             </div>
 
                             <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t("backoffice.components.back")}</h3> </div>
@@ -150,7 +150,7 @@ class NewPlate extends Component {
 
                             <div className="bo-new-plate-switch">
                                 <p style={{ fontSize: '16px' }}>
-                                    Visibilità
+                                    {t('backoffice.screens.common_screens.visibility')}
                                     <span style={{ paddingLeft: '10px' }}>
                                         <SwitchProfile
                                             handleSwitchCallback={this.handleSwitchCallback}
@@ -163,7 +163,7 @@ class NewPlate extends Component {
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
                                     type="text"
-                                    placeholder="Nome piatto"
+                                    placeholder={t('backoffice.components.inputbox.name_plate')}
                                     className={`bo-input-box ${this.state.warning.plate_name ? 'alert' : ''}`}
                                     name="plate_name"
                                     callback={this.handleCallbackInput}
@@ -172,7 +172,7 @@ class NewPlate extends Component {
 
                                 <InputBox
                                     type="text"
-                                    placeholder="Prezzo € "
+                                    placeholder={t('backoffice.components.inputbox.price')}
                                     className={`bo-input-box ${this.state.warning.plate_price ? 'alert' : ''}`}
                                     name="plate_price"
                                     callback={this.handleCallbackInput}
@@ -188,7 +188,7 @@ class NewPlate extends Component {
                                 className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
                                 defaultValue=""
                             >
-                                <option disabled value="">Categorie</option>
+                                <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
                                 {
                                     this.state.list_categories.map((category, index) => {
@@ -209,7 +209,7 @@ class NewPlate extends Component {
                                 name="plate_description"
                                 className={`bo-input-box ${this.state.warning.plate_description ? 'alert' : ''}`}
                                 id="description_plate"
-                                placeholder="Descrizione piatto"
+                                placeholder={t('backoffice.screens.new_plate.description')}
                                 callback={this.handleCallbackInput}
                                 callbackOnFocus={this.handleCallBackFocus}
                             />
