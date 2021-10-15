@@ -27,8 +27,8 @@ const Navbar = (props) => {
     
     /* DA RIVEDERE */
     useEffect(() => {
-        let storage = JSON.parse(localStorage.getItem('userInfo'))
-        let userName = (get(storage, 'userName', null))
+        let storage = JSON.parse(localStorage.getItem('userInfo'));
+        let userName = (get(storage, 'userName', null));
         if (userName) {
             setState({
                 ...state,
@@ -133,6 +133,10 @@ const Navbar = (props) => {
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>
                                     {state.userInfo.userName}
+                                </span>
+
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/restaurant')}>
+                                    Order
                                 </span>
                             </div>
                         } 

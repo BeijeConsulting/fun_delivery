@@ -37,13 +37,6 @@ const Landing = (props) => {
 
     //USEEFFECT
     useEffect(() => {
-        const element = ref.current;
-        const burgerSel = element.querySelector('.fe-burger-svg')
-        /* const iceCreamSel = element.querySelector('.fe-icecream-svg')
-        const breakfastSel = element.querySelector('.fe-breakfast-svg')
-        gsap.from(burgerSel, { x: 50, opacity: 0, duration: 1, scale: 0.2 })
-        gsap.from(iceCreamSel, { y: -50, opacity: 0, duration: 1, scale: 0.2 })
-        gsap.from(breakfastSel, { x: -50, opacity: 0, duration: 1, scale: 0.2 }) */
         //AOS INIT
         AOS.init({
             duration: 1000
