@@ -5,8 +5,7 @@ const SingleRestaurant = (props) => {
         return props.callback()
     }
     return (
-        <article className={props.classNameWrapper}
-            onClick={handleClick}>
+        <article className={props.classNameWrapper} onClick={handleClick}>
             <picture>
                 <source srcSet={props.image} media={props.media} />
                 <img className={props.classNameImage} src={props.altImage} alt={props.altText} />

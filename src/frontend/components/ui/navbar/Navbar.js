@@ -76,7 +76,7 @@ const Navbar = (props) => {
 
     // TEMP
     const showCart = () => {
-        return
+        history.push('/restaurants')
     }
 
     return (
@@ -127,7 +127,7 @@ const Navbar = (props) => {
                             state.isLoggedIn &&
                             <div className='right-nav-side'>
                                 <span className='right-btn login' style={styleObj} onClick={showCart}>
-                                    Cart
+                                    Order Now
                                 </span>
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>

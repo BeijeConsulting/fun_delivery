@@ -230,7 +230,7 @@ const Restaurants = (props) => {
                         className={state.isSideToggle ? 'sideNav-toggleOn' : 'sideNav'}
                     />
                     <div className='fe-restaurants-wrapper'>
-                        <button className='fe-btn-side-toggler' onClick={sideToggle}>Filter</button>
+                        <button className='fe-btn-side-toggler' onClick={sideToggle}>Filters</button>
 
                         <div className='trendRestaurants'>
                             <h2 className='fe-trend-title'>{t('frontend.screens.restaurants.trend')}</h2>
@@ -246,6 +246,7 @@ const Restaurants = (props) => {
                                             restaurantDeliveryTime={item.delivery_time}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
+                                            callback={goToMenu}
                                         />
                                     )
                                 })}
@@ -267,6 +268,7 @@ const Restaurants = (props) => {
                                             restaurantDeliveryTime={item.delivery_time}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
+                                            callback={goToMenu}
                                         />
                                     )
                                 })}
