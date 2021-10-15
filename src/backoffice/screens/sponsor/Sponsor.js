@@ -34,6 +34,9 @@ class Profile extends Component {
         this.activeRestaurant = this.totalRestaurant.restaurant_list.find(el => {
             return el.id === this.restaurantId
         })
+        // this.qualcosa = localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+
+        this.newDate = new Date().getTime()
 
 
         // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
@@ -61,7 +64,7 @@ class Profile extends Component {
                     localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
                     console.log(this.state.choice)
                     console.log('EEEEEEEEE: ', e)
-                    let newChoice = e.durata + new Date().getTime();
+                    let newChoice = e.durata + this.newDate;
                     for (let key in e) {
                         if (key === 'durata') {
                             e[key] = newChoice;
