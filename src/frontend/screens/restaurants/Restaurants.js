@@ -17,6 +17,8 @@ import Sushi from '../../assets/images/sushi.png'
 import { useState } from "react"
 import { useEffect } from "react"
 import { useRef } from "react"
+import { useHistory } from "react-router"
+
 
 //gsap
 import { gsap } from "gsap";
@@ -25,6 +27,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 //i18n
 import { useTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar"
+
+ 
 
 
 const Restaurants = (props) => {
@@ -189,6 +193,10 @@ const Restaurants = (props) => {
             ...state,
             isSideToggle: !state.isSideToggle
         })
+    }
+
+    const goToMenu = () =>{
+        props.history.push('/menuRestaurant')
     }
 
     return (

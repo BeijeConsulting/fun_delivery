@@ -77,10 +77,6 @@ class LoginUser extends React.Component {
         })
     }
 
-    handleClickButton = (e) => {
-        i18n.changeLanguage(e.target.value);
-    }
-
     render() {
 
         const { t } = this.props
@@ -152,9 +148,6 @@ class LoginUser extends React.Component {
                             className='frontend-link'
                         />
                     </Link>
-
-                    <button value="it" onClick={this.handleClickButton}>it</button>
-                    <button value="en" onClick={this.handleClickButton}>en</button>
 
                     <img className='frontend-img' src={delivery} alt='delivery guy' />
                 </main>

@@ -46,11 +46,7 @@ class ForgotPassword extends Component {
             errormsg: error
         })
     }
-
-    handleClickButton = (e) => {
-        i18n.changeLanguage(e.target.value);
-    }
-
+ 
     render() {
 
         const { t } = this.props
