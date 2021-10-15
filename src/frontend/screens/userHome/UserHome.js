@@ -356,7 +356,7 @@ const UserHome = (props) => {
                             className='fe-user-switching-container'
                             style={state.selectedPage !== 'infoUser' ? { display: 'none' } : { display: 'block' }}
                         >
-                            User Info</div>
+                            <UserInformation/></div>
 
                         <div
                             className='fe-user-switching-container'

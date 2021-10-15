@@ -91,7 +91,9 @@
     border-radius: 50%;
     width: 40px;
 }
-
+.fe-user-name-container{
+    text-align: end;
+}
 .fe-user-name {
     font-size: 1.4rem;
     color: var(--primary-dark)
