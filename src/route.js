@@ -44,7 +44,7 @@ const Routing = () => {
         <Router>
             <Switch>
                 </Switch>
-            <Navbar />
+            {/* <Navbar /> */}
             <Switch>
                 {/* FRONTEND ROUTES */}
                 <Route exact path="/" component={Landing} />

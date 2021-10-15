@@ -19,6 +19,7 @@ import badge from '../../../gamification/assets/images/badges/capitan20.png'
 import coin from '../../../common/assets/BeijeCoin.png'
 
 import Avatar from '../../../gamification/components/classComponents/avatar/Avatar.js'
+import Navbar from "../../components/ui/navbar/Navbar";
 
 
 
@@ -162,49 +163,51 @@ const UserHome = (props) => {
     }
 
     return (
-        <div className='frontend-user-page-container'>
-            <div className='frontend-user-page'>
-                {/* ----- NAVBAR ----- */}
-                <UserNavbar
-                    /* from API */
-                    callback={callbackSwitcher}
-                />
-
-                {/* ----- MAIN ----- */}
-                <main className='frontend-main-user'>
-                    <ul>
-                        <li>
-                            <span style={{ cursor: 'pointer' }}>Le mie informazioni</span>
-                        </li>
-
-                        <li>
-                            <span style={{ cursor: 'pointer' }}>I miei ordini</span>
-                        </li>
-
-                        <li>
-                            <span style={{ cursor: 'pointer' }} onClick={goToUserMissionsPage}>Le mie missioni</span>
-                        </li>
-                    </ul>
-
-                    <div className='fortune-wheel-container'>
-                        <img src={luckySpin} alt="fortunewheel" className='lucky-spin' />
-                        <Button
-                            style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
-                            text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
-                            callback={openWheelOfFortuneGame}
-                        />
-
-
-                    </div>
-
-                    <Button
-                        text='LOGOUT'
-                        className='frontend-user-logout-btn'
-                        callback={logoutUser}
+        <>
+            <Navbar />
+            <div className='frontend-user-page-container'>
+                <div className='frontend-user-page'>
+                    {/* ----- NAVBAR ----- */}
+                    <UserNavbar
+                        /* from API */
+                        callback={callbackSwitcher}
                     />
-                </main>
 
-                {state.wheelModal &&
+                    {/* ----- MAIN ----- */}
+                    <main className='frontend-main-user'>
+                        <ul>
+                            <li>
+                                <span style={{ cursor: 'pointer' }}>Le mie informazioni</span>
+                            </li>
+
+                            <li>
+                                <span style={{ cursor: 'pointer' }}>I miei ordini</span>
+                            </li>
+
+                            <li>
+                                <span style={{ cursor: 'pointer' }} onClick={goToUserMissionsPage}>Le mie missioni</span>
+                            </li>
+                        </ul>
+
+                        <div className='fortune-wheel-container'>
+                            <img src={luckySpin} alt="fortunewheel" className='lucky-spin' />
+                            <Button
+                                style={newWheelAvaileble ? { backgroundColor: '#F2CB05' } : { color: "white", backgroundColor: "gray" }}
+                                text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
+                                callback={openWheelOfFortuneGame}
+                            />
+
+
+                        </div>
+
+                        <Button
+                            text='LOGOUT'
+                            className='frontend-user-logout-btn'
+                            callback={logoutUser}
+                        />
+                    </main>
+
+                    {state.wheelModal &&
 
 
                         <div className="gm-wheel-modal">
@@ -212,21 +215,21 @@ const UserHome = (props) => {
                             <Wheel />
                         </div>
 
-                }
-            </div>
-
-            {/* ---- AVATAR ----*/}
-            {state.avatarDisplay &&
-                <div className='frontend-avatar'>
-                    <Avatar
-                        closeCallback={handleCloseCallback}
-                    />
+                    }
                 </div>
-            }
 
-        </div>
+                {/* ---- AVATAR ----*/}
+                {state.avatarDisplay &&
+                    <div className='frontend-avatar'>
+                        <Avatar
+                            closeCallback={handleCloseCallback}
+                        />
+                    </div>
+                }
+
+            </div>
+        </>
     )
-
 }
 
 export default UserHome;

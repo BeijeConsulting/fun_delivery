@@ -10,6 +10,7 @@ import utils from "../../../common/utils/utils";
 import { Helmet } from "react-helmet";
 import i18n from "../../../common/localization/i18n";
 import { withTranslation } from 'react-i18next';
+import Navbar from "../../components/ui/navbar/Navbar";
 
 
 
@@ -92,7 +93,7 @@ class LoginUser extends React.Component {
                     <meta name="description" content="This is a login page" />
                     <title>Login</title>
                 </Helmet> */}
-
+                <Navbar/>
                 <main className="frontend-outer-container fe-login">
                     <div className='frontend-inner-container'>
 

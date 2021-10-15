@@ -3,9 +3,11 @@ import logo from '../../../../common/assets/LogoSvgRosa.svg';
 import scream from '../../../../common/assets/sounds/scream.mp3'
 import { useState } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
+import { useEffect } from 'react/cjs/react.development';
+import { get } from "lodash";
+
 
 const Navbar = (props) => {
-
     //location per sapere quando renderizzare la navbar e quando no
     let location = useLocation();
     let history = useHistory();
@@ -15,13 +17,27 @@ const Navbar = (props) => {
 
     // HOOKS STATE
     const [state, setState] = useState({
-        
         isBurgerClicked: false,
         navOptionRightLeft: 'pickup',
         selectedDelivery: 'white-txt',
-        selectedPickup: ''
+        selectedPickup: '',
+        userInfo : {},
+        isLoggedIn : false,
     })
-  
+    
+    /* DA RIVEDERE */
+    useEffect(() => {
+        let storage = JSON.parse(localStorage.getItem('userInfo'))
+        let userName = (get(storage, 'userName', null))
+        if (userName) {
+            setState({
+                ...state,
+                userInfo : storage,
+                isLoggedIn : true,
+            })
+        }
+
+    }, [state.isLoggedIn])
   
 
     const styleObj = {
@@ -66,12 +82,10 @@ const Navbar = (props) => {
     return (
         
         <>
-        
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
                 pathArray[1] !== 'restaurant' && pathArray[1] !== 'quiz' && pathArray[1] !== "memory" &&
                 
-               
                 <nav className="navbar">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
                     <div className='box-desktop'>
@@ -107,19 +121,20 @@ const Navbar = (props) => {
                             </div>
                         }
                         
-                        {/* user LOGGED */}
+                        {/* {/* user LOGGED */}
                         {
-                            /* state.isLoggedIn &&
+                            
+                            state.isLoggedIn &&
                             <div className='right-nav-side'>
                                 <span className='right-btn login' style={styleObj} onClick={showCart}>
                                     Cart
                                 </span>
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>
-                                    {state.userName}
+                                    {state.userInfo.userName}
                                 </span>
-                            </div> */
-                        }
+                            </div>
+                        } 
                     </div>
 
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}

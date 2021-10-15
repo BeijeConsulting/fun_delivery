@@ -17,6 +17,7 @@ import Fireworks from '../../../gamification/components/funcComponents/fireworks
 
 //utils
 import utils from "../../../common/utils/utils";
+import Navbar from "../../components/ui/navbar/Navbar";
 
 class RegistrationUser extends React.Component {
     constructor(props) {
@@ -97,11 +98,13 @@ class RegistrationUser extends React.Component {
     handleClickButton = (e) => {
         i18n.changeLanguage(e.target.value);
     }
-        render() {
+    render() {
 
-            const { t } = this.props
+        const { t } = this.props
 
-            return (
+        return (
+            <>
+                <Navbar />
 
                 <div className="frontend-outer-container fe-registration">
                     <div className="frontend-inner-container">
@@ -184,8 +187,9 @@ class RegistrationUser extends React.Component {
 
                     <img className='frontend-img' src={delivery} alt='delivery guy' />
                 </div>
-            );
-        }
+            </>
+        );
+    }
 }
 
- export default withTranslation()(RegistrationUser)
+export default withTranslation()(RegistrationUser)

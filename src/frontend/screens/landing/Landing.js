@@ -19,11 +19,14 @@ import { useRef } from "react"
 import { useEffect } from "react/cjs/react.development";
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
+import Navbar from '../../components/ui/navbar/Navbar';
 
 
 const Landing = (props) => {
     const ref = useRef(null);
     const [t, i18n] = useTranslation()
+
+    //localStorage.setItem('userInfo', JSON.stringify({}))
 
     //STATE
     const [state, setState] = useState({
@@ -81,49 +84,53 @@ const Landing = (props) => {
 
 
     return (
-        <div className='landing-screen' ref={ref} onMouseMove={mouseMoveFunction}>
-            <div className='landing-content'>
-                {/* NAV  */}
+        <>
+            <Navbar />
+            
+            <div className='landing-screen' ref={ref} onMouseMove={mouseMoveFunction}>
+                <div className='landing-content'>
+                    {/* NAV  */}
 
-                <HtmlTag
-                    tag='h1'
-                    className='main-title'
-                    text={t('frontend.screens.landing_page.title')}
-                />
-                <button value="it" onClick={changeLanguages}>IT</button>
-                <button value="en" onClick={changeLanguages}>EN</button>
-                        
-                <div className='main-box'>
-                    <Input
-                        placeholder='via Roma n.173'
-                        name='addressValue'
-                        type='text'
-                        value={state.addressValue}
-                        callback={handleCallbackInputBox}
-                        className='landing-input'
+                    <HtmlTag
+                        tag='h1'
+                        className='main-title'
+                        text={t('frontend.screens.landing_page.title')}
                     />
-                    <Input
-                        name='hourValue'
-                        type='time'
-                        callback={handleCallbackInputBox}
-                        className='landing-input'
-                    />
+                    <button value="it" onClick={changeLanguages}>IT</button>
+                    <button value="en" onClick={changeLanguages}>EN</button>
 
-                    <Button
-                        text={t('frontend.components.landing_page.footer.button.find')}
-                        callback={handleCallbackBtn}
-                        className='landing-btn'
-                    />
+                    <div className='main-box'>
+                        <Input
+                            placeholder='via Roma n.173'
+                            name='addressValue'
+                            type='text'
+                            value={state.addressValue}
+                            callback={handleCallbackInputBox}
+                            className='landing-input'
+                        />
+                        <Input
+                            name='hourValue'
+                            type='time'
+                            callback={handleCallbackInputBox}
+                            className='landing-input'
+                        />
+
+                        <Button
+                            text={t('frontend.components.landing_page.footer.button.find')}
+                            callback={handleCallbackBtn}
+                            className='landing-btn'
+                        />
+
+                    </div>
+
 
                 </div>
-
-                
+                <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} />
+                <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage} />
+                {/* <img className='fe-barbecue-svg fe-svg-landing' src={barbecue} alt="" /> */}
+                <img className='fe-breakfast-svg fe-svg-landing' src={breakFast} alt="" />
             </div>
-            <img className='fe-burger-svg fe-svg-landing' src={burger} alt="" style={state.burgerOnPage} />
-            <img className='fe-icecream-svg fe-svg-landing' src={iceCream} alt="" style={state.iceCreamOnPage} />
-            {/* <img className='fe-barbecue-svg fe-svg-landing' src={barbecue} alt="" /> */}
-            <img className='fe-breakfast-svg fe-svg-landing' src={breakFast} alt="" />
-        </div>
+        </>
     );
 }
 

@@ -17,6 +17,7 @@ import Poke from '../../../backoffice/assets/images/poke.jpg'
 import Sushi from '../../../backoffice/assets/images/sushi.png'
 import Altro from '../../../backoffice/assets/images/altro.jpg'
 import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
+import Navbar from '../../components/ui/navbar/Navbar'
 
 export default class MenuRestaurant extends React.Component {
     constructor(props) {
@@ -220,7 +221,7 @@ export default class MenuRestaurant extends React.Component {
             cartToggle: 'fe-menu-cart',
         }
     }
-    
+
     // FUNCTION SCROLL
 
 
@@ -294,120 +295,122 @@ export default class MenuRestaurant extends React.Component {
 
     render() {
         return (
-
-            <div className='fe-menu-page-wrapper'>
-                {/* BANNER */}
-                <div className='fe-menu-header-center'>
-                    <div className='fe-menu-header-restaurant' data-aos="zoom-in">
-                        <div className='fe-menu-info-container'>
-                            <h2 className='fe-menu-restaurant-name'>Nome Ristorante</h2>
-                            <p className='fe-menu-restaurant-price'>Costo 1.90€ • 30-40 min  • 4.5 </p>
+            <>
+                <Navbar />
+                <div className='fe-menu-page-wrapper'>
+                    {/* BANNER */}
+                    <div className='fe-menu-header-center'>
+                        <div className='fe-menu-header-restaurant' data-aos="zoom-in">
+                            <div className='fe-menu-info-container'>
+                                <h2 className='fe-menu-restaurant-name'>Nome Ristorante</h2>
+                                <p className='fe-menu-restaurant-price'>Costo 1.90€ • 30-40 min  • 4.5 </p>
+                            </div>
+                            <div className='fe-menu-filter-blur'></div>
                         </div>
-                        <div className='fe-menu-filter-blur'></div>
+
                     </div>
 
-                </div>
-
-                <div className='fe-menu-restaurant-address' data-aos="zoom-in">
-                    {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
-                    <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
-                </div>
-                <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
-                <div className='fe-menu-categories-picker' data-aos="">
-                    {
-                        this.categoriesArr.map((item, index) => {
-                            return(
-                                <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
-                            )
-                        })
-                    }
-                </div>
-
-                {/* ALL CATEGORIES */}
-                <div className='fe-menu-wrapper'>
-
-                    {/* CARRELLO */}
-
-                    {/* TOGGLER del carrello nella media query */}
-                    <div className='fe-menu-cart-toggler'>
-                        <button onClick={this.cartToggler} >{this.state.cartToggle === 'fe-menu-cart' ? 'Vedi Carrello' : 'Torna al menu'}</button>
-                        {this.state.cartToggle === 'fe-menu-cart-toggled-on' &&
-                            <button
-                                style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
-                                onClick={this.goToFinalPage}
-                            >
-                                Vai alla cassa</button>}
+                    <div className='fe-menu-restaurant-address' data-aos="zoom-in">
+                        {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
+                        <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
+                    </div>
+                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
+                    <div className='fe-menu-categories-picker' data-aos="">
+                        {
+                            this.categoriesArr.map((item, index) => {
+                                return (
+                                    <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
+                                )
+                            })
+                        }
                     </div>
 
-                    {/* CARRELLO nella modalita` desktop */}
-                    <div className={`${this.state.cartToggle}`}>
-                        <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
+                    {/* ALL CATEGORIES */}
+                    <div className='fe-menu-wrapper'>
 
-                        <div className='fe-menu-cart-content'>
-                            {
-                                this.state.menuArray.filter((item) => {
-                                    return item.plate_quantity > 0
-                                }).map((item, index) => {
-                                    return (
-                                        <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
-                                            <span>{item.plate_quantity} {item.plate_name}</span>
-                                            <span>{item.plate_price * item.plate_quantity}€</span>
-                                        </div>
-                                    )
-                                })
+                        {/* CARRELLO */}
+
+                        {/* TOGGLER del carrello nella media query */}
+                        <div className='fe-menu-cart-toggler'>
+                            <button onClick={this.cartToggler} >{this.state.cartToggle === 'fe-menu-cart' ? 'Vedi Carrello' : 'Torna al menu'}</button>
+                            {this.state.cartToggle === 'fe-menu-cart-toggled-on' &&
+                                <button
+                                    style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
+                                    onClick={this.goToFinalPage}
+                                >
+                                    Vai alla cassa</button>}
+                        </div>
+
+                        {/* CARRELLO nella modalita` desktop */}
+                        <div className={`${this.state.cartToggle}`}>
+                            <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
+
+                            <div className='fe-menu-cart-content'>
+                                {
+                                    this.state.menuArray.filter((item) => {
+                                        return item.plate_quantity > 0
+                                    }).map((item, index) => {
+                                        return (
+                                            <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
+                                                <span>{item.plate_quantity} {item.plate_name}</span>
+                                                <span>{item.plate_price * item.plate_quantity}€</span>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
+
+                            {this.state.totalPrice > 0 ? (
+                                <div className=''>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
+
+                                    </div>
+                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
+                                </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
                             }
                         </div>
 
 
-                        {this.state.totalPrice > 0 ? (
-                            <div className=''>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
-                                    <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
-                                    <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
+                        {/* ALL CATEGORIES */}
+                        <div className='fe-menu-all-categories'>
 
-                                </div>
-                                {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
-                            </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
-                        }
-                    </div>
+                            {
+                                this.categoriesArr.map((itemCategory, index) => {
+                                    return (
+                                        <div className='fe-menu-category-container' key={index}>
+                                            <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
+                                            <div className="fe-menu-plate-container" data-aos="">
 
-
-                    {/* ALL CATEGORIES */}
-                    <div className='fe-menu-all-categories'>
-
-                        {
-                            this.categoriesArr.map((itemCategory, index) => {
-                                return (
-                                    <div className='fe-menu-category-container' key={index}>
-                                        <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
-                                        <div className="fe-menu-plate-container" data-aos="">
-
-                                            {this.menuArray
-                                                .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
-                                                .map((item, key) => {
-                                                    return (
-                                                        <SinglePlate
-                                                            key={key}
-                                                            image={item.plate_img}
-                                                            descriptPlate={item.plate_description}
-                                                            plateName={item.plate_name}
-                                                            platePrice={item.plate_price}
-                                                            quantity={item.plate_quantity}
-                                                            counter={item.plate_quantity}
-                                                            classNameWrapper="fe-menu-single-plate"
-                                                            classNameImage="imageSinglePlate"
-                                                            callbackHandler={this.operatorSwitch}
-                                                        />
-                                                    )
-                                                })}
+                                                {this.menuArray
+                                                    .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+                                                    .map((item, key) => {
+                                                        return (
+                                                            <SinglePlate
+                                                                key={key}
+                                                                image={item.plate_img}
+                                                                descriptPlate={item.plate_description}
+                                                                plateName={item.plate_name}
+                                                                platePrice={item.plate_price}
+                                                                quantity={item.plate_quantity}
+                                                                counter={item.plate_quantity}
+                                                                classNameWrapper="fe-menu-single-plate"
+                                                                classNameImage="imageSinglePlate"
+                                                                callbackHandler={this.operatorSwitch}
+                                                            />
+                                                        )
+                                                    })}
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })
-                        }
+                                    );
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         )
     }
 }
