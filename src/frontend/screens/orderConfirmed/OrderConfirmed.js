@@ -7,6 +7,7 @@ import { useState } from 'react'
 import ChooseGame from "../../../gamification/components/funcComponents/chooseGame/ChooseGame"
 import GeneralModal from "../../../gamification/components/funcComponents/generalModal/GeneralModal"
 import { Steps } from 'antd';
+import HeaderModalX from '../../../gamification/components/funcComponents/headerModalX/HeaderModalX';
 import { withTranslation } from 'react-i18next';
 
 const OrderConfirmed = ({ t, i18n }) => {
@@ -26,6 +27,11 @@ const OrderConfirmed = ({ t, i18n }) => {
 
     const { Step } = Steps;
 
+    const goToOrder = () => {
+        setState({
+            chooseGameModal:false
+        })
+    }
     const changeLanguages = (e) => {
         i18n.changeLanguage(e.target.value)
     }
@@ -73,6 +79,7 @@ const OrderConfirmed = ({ t, i18n }) => {
             {
                 state.chooseGameModal &&
                 <GeneralModal
+                    headerModal={<HeaderModalX callback={goToOrder} />}
                     contentModal={<ChooseGame />} />
             }
         </div>
