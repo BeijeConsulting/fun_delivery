@@ -28,18 +28,19 @@ class RegistrationUser extends React.Component {
                 phone: "",
                 password: "",
                 confpsw: "",
-                beijeCoin: 999,
+                beijeCoin: 0,
                 experience: 0,
                 avatar: {
                     userAvatars: [0],
                     selectedAvatar: 0,
                 },
                 badge: {
-                    userBadges: [0,1,6],
+                    userBadges: [0],
                     selectedBadge: 0,
                 },
-                mission: [],
+                mission: [0],
                 freeDelivery: false,
+                freeDeliveryModal: false,
                 discount: false
             },
             errormsg: ''

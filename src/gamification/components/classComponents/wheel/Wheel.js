@@ -91,13 +91,13 @@ const Wheel = (props) => {
                 awards: state.awards,
                 premio: winner
             }
-        )
-        // localStorage.setItem('awards', JSON.stringify(state.awards))
-        audio.pause()
+            )
+            localStorage.setItem('awards', JSON.stringify(winner))
+            audio.pause()
     }
 
     const handleClick = () => {
-        audio.volume = 0.4
+        audio.volume = 0.02
         audio.play()
     }
 

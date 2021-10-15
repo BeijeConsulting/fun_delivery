@@ -31,9 +31,9 @@ const ModalReaction = (props) => {
                     className='gm-reaction-button'
                     callback={chooseGameCallback}
                     text={t('gamification.components.modalreaction.changegame')} />
-                <Link to="/orderConfirmed">
+                <Link className='gm-reaction-button' to="/orderConfirmed">
                     <Button
-                        className='gm-reaction-button'
+                        className='gm-reaction-button-link'
                         callback={handleCallback}
                         text={t('gamification.components.modalreaction.mapOrder')} />
                 </Link>

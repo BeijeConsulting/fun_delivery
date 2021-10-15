@@ -55,7 +55,7 @@ const properties = {
             selectedAvatar: 0,
         },
         badge: {
-            userBadges: [0, 3, 8],
+            userBadges: [0],
             selectedBadge: 0,
         },
         levelExp: 250,
@@ -63,30 +63,128 @@ const properties = {
 
 
     avatar_list: [
-        {image: apple, cost: 0},
-        {image: banana, cost: 10},
-        {image: cherries, cost: 20},
-        {image: icecream, cost: 30},
-        {image: lemon, cost: 100},
-        {image: pear, cost: 30},
-        {image: pineapple, cost: 100},
-        {image: strawberry, cost: 100},
-        {image: watermelon, cost: 100}
+        { image: apple, cost: 0 },
+        { image: banana, cost: 10 },
+        { image: cherries, cost: 20 },
+        { image: icecream, cost: 30 },
+        { image: lemon, cost: 100 },
+        { image: pear, cost: 30 },
+        { image: pineapple, cost: 100 },
+        { image: strawberry, cost: 100 },
+        { image: watermelon, cost: 100 }
     ],
 
     badge_list: [
-        {image: signedUp},
-        {image: capitan20},
-        {image: firstOrder},
-        {image: firstOrder2},
-        {image: greedy},
-        {image: king},
-        {image: mexican},
-        {image: mostPopular},
-        {image: pizzaKing},
-        {image: playTogether},
-        {image: spendthrift},
-        {image: topClient}
+        { image: signedUp },
+        { image: capitan20 },
+        { image: firstOrder },
+        { image: firstOrder2 },
+        { image: greedy },
+        { image: king },
+        { image: mexican },
+        { image: mostPopular },
+        { image: pizzaKing },
+        { image: playTogether },
+        { image: spendthrift },
+        { image: topClient }
+    ],
+
+    missions: [
+        {
+            title: 'Iscriviti!',
+            description: `Effettua l'iscrizione a Beije Delivery!`,
+            exp: 100,
+            claim: false,
+            beijeCoin: 7,
+            badge: null
+        },
+        {
+            title: 'Mangia con noi',
+            description: 'Effettua il primo ordine',
+            exp: 0,
+            claim: false,
+            beijeCoin: 0,
+            badge: 3
+        },
+        {
+            title: 'Special One',
+            description: 'Effettua almeno un ordine dalla special week',
+            exp: 300,
+            claim: null,
+            beijeCoin: 7,
+            badge: null
+        },
+        {
+            title: 'Giochiamo/ insieme',
+            description: 'Fai una partita ad un minigame',
+            exp: 100,
+            claim: null,
+            beijeCoin: 3,
+            badge: null
+        },
+        {
+            title: 'Spendaccione',
+            description: 'Compra almeno un avatar premium',
+            exp: 200,
+            claim: null,
+            beijeCoin: 5,
+            badge: null
+        },
+        {
+            title: 'Capitano 20',
+            description: 'Spendi almeno 20 euro per un ordine',
+            exp: 300,
+            claim: null,
+            beijeCoin: 10,
+            badge: null
+        },
+        {
+            title: 'King',
+            description: 'Ordina da tre categorie diverse',
+            exp: 500,
+            claim: null,
+            beijeCoin: 15,
+            badge: null
+        },
+
+    ],
+    userOrders: [
+        {
+            title: "Creuza de mä",
+            description: `14/10/21`,
+            cost: 10.5,
+        },
+        {
+            title: 'La taverna',
+            description: '10/10/21',
+            cost: 15.1,
+        },
+        {
+            title: 'Los Pollos Hermanos',
+            description: '02/10/21',
+            cost: 27.99,
+        },
+        {
+            title: 'La fiera della panza',
+            description: '27/09/21',
+            cost: 10.70,
+        },
+        {
+            title: 'Carne di dubbia',
+            description: '23/09/21',
+            cost: 22.00,
+        },
+        {
+            title: 'Provenienza',
+            description: '07/09/21',
+            cost: 50.80,
+
+        },
+        {
+            title: 'Il postaccio',
+            description: '22/08/21',
+            cost: 20.30,
+        }
     ]
 }
 

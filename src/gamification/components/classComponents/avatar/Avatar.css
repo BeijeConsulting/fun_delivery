@@ -7,7 +7,7 @@
     background-color: #f2446438;
     backdrop-filter: blur(2px);
     position: relative;
-    z-index: 3;
+    z-index: 300;
 }
 
 .avatar-container {

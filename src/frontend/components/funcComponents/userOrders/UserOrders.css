@@ -1,0 +1,91 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #F24464
+} */
+
+.MissionContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MissionMenuContainer {
+    height: 95%;
+    width: 90%;
+}
+
+.UserOrdersMenu {
+    height: 100%;
+    width: 100%;
+}
+
+ul.UserOrdersMenu li.UserOrderSingle {
+    border-color: none;
+    
+    border-bottom: 3px solid var(--primary-desaturated-strawberry);
+    /* debug */
+    color: var(--primary-dark);
+    /*debug*/
+    width: 100%;
+    margin: 10px 0;
+    height: calc(100% / 10 - 100px);
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+
+div.UserOrdersDatas {
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.MissionCollect{
+    background-color: var(--primary-desaturated-strawberry);
+    padding: 5px 10px;
+    margin-top: 10px;
+    width: 40%;
+    align-self: self-end;
+    letter-spacing: 1px;
+}
+.MissionCollect:hover{
+    background-color: var(--primary-strawberry);
+    cursor: pointer;
+}
+
+
+.OrderSingleTitle{
+    display: flex;
+    justify-content: space-between;
+}
+.OrderSingleTitle h2{
+    font-size: 1.3em;
+    text-align: start;
+}
+@media screen and (min-width: 768px) {
+    .MissionMenuContainer{
+        width: 70%;
+    }
+    .ul.UserOrdersMenu li.UserOrderSingle {
+        padding: 2.5%;
+    }
+    .OrderSingleTitle h2{
+        font-size: 1.4em;
+    }
+}
+
+.BeijeCoinMission {
+    width: 20px;
+    height: 20px;
+}

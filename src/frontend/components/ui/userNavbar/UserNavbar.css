@@ -99,3 +99,19 @@
     background-color: #F24464;
     border-right: 1px solid black;
 }
+
+.max-level-delivery{
+    padding: 0px 20px;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .max-level-delivery{
+        padding: 0px 70px;
+    }
+}
+@media screen and (min-width: 1400px) {
+    .max-level-delivery{
+        padding: 0px 120px;
+    }
+}

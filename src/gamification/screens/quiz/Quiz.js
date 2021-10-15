@@ -36,6 +36,7 @@ class Quiz extends Component {
         this.audioWrongQuiz = new Audio(wrongQuiz)
         this.audioWin = new Audio(win)
         this.audioLose = new Audio(lose)
+        this.audio = new Audio(musicQuiz);
 
         this.state = {
             storage: storage === null ? [] : storage,
@@ -51,7 +52,7 @@ class Quiz extends Component {
             showLoader: false,
             beijeCoin: storage.beijeCoin,
             translate: false,
-            audio: true,
+            audio: false,
             chooseGame: false,
         }
     }
@@ -60,9 +61,9 @@ class Quiz extends Component {
         // console.log('SINGLE OBJjjjjjjjj', this.singleObj)
         // console.log('quiz' , this.quiz)
         // console.log('quizData', this.quizProva)
-        // let audio = new Audio(musicQuiz);
-        // audio.volume = 1;
-        // audio.play();
+/*         let audio = new Audio(musicQuiz);
+        audio.volume = 0.2;
+        audio.play(); */
         // document.addEventListener('click', this.handleClickButton);
         // console.log('sono componentDidMount')
         // console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
@@ -73,6 +74,7 @@ class Quiz extends Component {
     //     console.log('STATO PRECEDENTE DI SINGLE OBJ: ', prevState.singleObjSt)
     //     this.prova = prevState.singleObjSt;
     // }
+
 
     getRndQuestion(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -124,6 +126,8 @@ class Quiz extends Component {
             if (this.state.showLoader === false && this.state.chosenAnswer === this.state.singleObjSt.answer) {
                 if (this.state.audio) {
                     this.audioRightQuiz.play()
+                    this.audioRightQuiz.volume = 0.1;
+
                 }
             }
         }
@@ -133,6 +137,7 @@ class Quiz extends Component {
             if (this.state.showLoader === false) {
                 if (this.state.audio) {
                     this.audioWrongQuiz.play()
+                    this.audioWrongQuiz.volume = 0.1;
                 }
             }
         }
@@ -178,9 +183,9 @@ class Quiz extends Component {
     }
 
     redirect = () => {
-        return(
-            <Link to="/orderConfirmed"/>
-            )
+        return (
+            <Link to="/orderConfirmed" />
+        )
     }
 
     chooseGameCallback = () => {
@@ -193,10 +198,14 @@ class Quiz extends Component {
         if (this.state.counterWins >= 2) {
             if (this.state.audio) {
                 this.audioWin.play()
+                this.audioWin.volume = 0.1;
+
             }
         } else {
             if (this.state.audio) {
                 this.audioLose.play()
+                this.audioLose.volume = 0.1;
+
             }
         }
         return (
@@ -232,6 +241,12 @@ class Quiz extends Component {
         this.setState({
             audio: !this.state.audio
         })
+        if(this.state.audio === false){
+            this.audio.volume = 0.04;
+            this.audio.play();
+        }else{
+            this.audio.pause();
+        }
     }
 
     render() {
@@ -295,7 +310,7 @@ class Quiz extends Component {
                 {
                     this.state.chooseGame &&
                     <GeneralModal
-                    contentModal={<ChooseGame />} />
+                        contentModal={<ChooseGame />} />
                 }
 
             </div >
