@@ -6,6 +6,19 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+.translation-container{
+    width: 150px;
+    height: 30px;
+    margin-top: 30px;
+}
+
+.translation-container>button{
+    width: 25%;
+    padding: 5px;
+    margin: 5px;
+    border-radius:25px;
+    background-color: white;
+}
 .landing-screen{
     background-color: #F24464d9;
     font-family: 'Poppins', sans-serif;
