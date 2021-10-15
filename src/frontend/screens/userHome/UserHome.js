@@ -27,6 +27,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { CloseOutlined } from '@ant-design/icons';
 import UserInformation from "../../components/funcComponents/userInformation/UserInformation";
 
+import Navbar from "../../components/ui/navbar/Navbar";
+
 
 
 const UserHome = (props) => {
@@ -263,204 +265,207 @@ const UserHome = (props) => {
     }
 
     return (
-        <div className='fe-user-page-container'>
+        <>
+            <Navbar />
+            <div className='fe-user-page-container'>
 
-            {/* ----- MAIN ----- */}
-            <main className='fe-main-user'>
-                {/* ----- First section ----- */}
-                <div className='fe-user-first-section'>
-                    <div style={{ padding: '0 2rem' }}>
-                        <div className='fe-user-header'>
-                            {/* User images */}
-                            <div className='fe-user-images-container'>
-                                <img className='fe-user-avatar' src={properties.avatar_list[userPath.avatar.selectedAvatar].image} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
+                {/* ----- MAIN ----- */}
+                <main className='fe-main-user'>
+                    {/* ----- First section ----- */}
+                    <div className='fe-user-first-section'>
+                        <div style={{ padding: '0 2rem' }}>
+                            <div className='fe-user-header'>
+                                {/* User images */}
+                                <div className='fe-user-images-container'>
+                                    <img className='fe-user-avatar' src={properties.avatar_list[userPath.avatar.selectedAvatar].image} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
 
-                                <div className='fe-user-badge-container'>
-                                    <img className='fe-user-badge' src={properties.badge_list[userPath.badge.selectedBadge].image} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
+                                    <div className='fe-user-badge-container'>
+                                        <img className='fe-user-badge' src={properties.badge_list[userPath.badge.selectedBadge].image} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
+                                    </div>
+
+                                    <div className='fe-user-icon-container'>
+                                        <img className='fe-user-icon' src={pencil} alt="pencil" onClick={callbackSwitcher} name='userAvatar' />
+                                    </div>
                                 </div>
-
-                                <div className='fe-user-icon-container'>
-                                    <img className='fe-user-icon' src={pencil} alt="pencil" onClick={callbackSwitcher} name='userAvatar' />
+                                {/* User name */}
+                                <div className='fe-user-name-container'>
+                                    <span className='fe-user-name'>{userPath.userName + " " + userPath.surname}</span>
                                 </div>
                             </div>
-                            {/* User name */}
-                            <div className='fe-user-name-container'>
-                                <span className='fe-user-name'>{userPath.userName + " " + userPath.surname}</span>
-                            </div>
-                        </div>
-                        {/* Coin info */}
-                        <div className='fe-user-switching-home-container' style={state.selectedPage !== 'homeUser' ? { display: 'none' } : { display: 'block' }}>
-                            <div className='fe-user-coin-container'>
-                                <img className='fe-user-coin' src={coin} alt="coin" />
-                                <span className='fe-coin-number'>{userPath.beijeCoin}</span>
-                                <span style={{
-                                    fontSize: '.9rem',
-                                    letterSpacing: '1px'
-                                }}
-                                >BeijeCoin</span>
-                            </div>
-                            {/* Level and experience */}
-                            <div className='fe-user-level-container'>
-                                <span style={{
-                                    position: 'relative',
-                                    fontSize: '.9rem',
-                                    letterSpacing: '1px'
-                                }}>Level:
-                                    <span className={userPath.experience >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{userLevel()}</span>
-                                    {userPath.experience >= 15000 &&
-                                        <span>
-                                            <img className='fe-user-gif-fire' src={fire} alt="fire" />
-                                        </span>
-                                    }
-                                </span>
-                                <div className='fe-progress-bar'>
-                                    <div style={{ width: `${percentageExp}%` }} className="fe-progress-exp"></div>
-                                </div>
-                                <span
-                                    style={{
+                            {/* Coin info */}
+                            <div className='fe-user-switching-home-container' style={state.selectedPage !== 'homeUser' ? { display: 'none' } : { display: 'block' }}>
+                                <div className='fe-user-coin-container'>
+                                    <img className='fe-user-coin' src={coin} alt="coin" />
+                                    <span className='fe-coin-number'>{userPath.beijeCoin}</span>
+                                    <span style={{
                                         fontSize: '.9rem',
-                                        letterSpacing: '1px',
-                                        textAlign: 'center'
+                                        letterSpacing: '1px'
                                     }}
-                                >Experience
-                                    <span className='fe-exp-number'>&nbsp;{totalExp}</span>
-                                    /{levelExp}
-                                    <Button
-                                        className={'fe-user-add-experience'}
-                                        text={'+'}
-                                        callback={addExp}
-                                    />
-                                </span>
-
-                            </div>
-                            {/* WHeel container */}
-                            <div className='fe-user-wheel-container'>
-                                {
-                                    //mostrare solo se c'è una vincita
-                                    <span className='fe-wheel-text'>La tua vincita del giorno è: <br />
-                                        {
-                                            <span className='fe-wheel-award'>{wheelAward ? wheelAward : 'Gira la ruota'}</span>
+                                    >BeijeCoin</span>
+                                </div>
+                                {/* Level and experience */}
+                                <div className='fe-user-level-container'>
+                                    <span style={{
+                                        position: 'relative',
+                                        fontSize: '.9rem',
+                                        letterSpacing: '1px'
+                                    }}>Level:
+                                        <span className={userPath.experience >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{userLevel()}</span>
+                                        {userPath.experience >= 15000 &&
+                                            <span>
+                                                <img className='fe-user-gif-fire' src={fire} alt="fire" />
+                                            </span>
                                         }
                                     </span>
-                                }
-                                <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
-                                <Button
-                                    className={newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
-                                    text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
-                                    callback={openWheelOfFortuneGame}
-                                />
+                                    <div className='fe-progress-bar'>
+                                        <div style={{ width: `${percentageExp}%` }} className="fe-progress-exp"></div>
+                                    </div>
+                                    <span
+                                        style={{
+                                            fontSize: '.9rem',
+                                            letterSpacing: '1px',
+                                            textAlign: 'center'
+                                        }}
+                                    >Experience
+                                        <span className='fe-exp-number'>&nbsp;{totalExp}</span>
+                                        /{levelExp}
+                                        <Button
+                                            className={'fe-user-add-experience'}
+                                            text={'+'}
+                                            callback={addExp}
+                                        />
+                                    </span>
+
+                                </div>
+                                {/* WHeel container */}
+                                <div className='fe-user-wheel-container'>
+                                    {
+                                        //mostrare solo se c'è una vincita
+                                        <span className='fe-wheel-text'>La tua vincita del giorno è: <br />
+                                            {
+                                                <span className='fe-wheel-award'>{wheelAward ? wheelAward : 'Gira la ruota'}</span>
+                                            }
+                                        </span>
+                                    }
+                                    <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
+                                    <Button
+                                        className={newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
+                                        text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
+                                        callback={openWheelOfFortuneGame}
+                                    />
+                                </div>
+                            </div>
+
+                            <div
+                                className='fe-user-switching-container'
+                                style={state.selectedPage !== 'infoUser' ? { display: 'none' } : { display: 'block' }}
+                            >
+                                <UserInformation /></div>
+
+                            <div
+                                className='fe-user-switching-container'
+                                style={state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
+                            >
+                                <UserOrders /></div>
+
+                            <div
+                                className='fe-user-switching-container'
+                                style={state.selectedPage !== 'missionUser' ? { display: 'none' } : { display: 'block' }}
+                            >
+                                <Mission /></div>
+
+
+                            {/* Slide Menu closed */}
+                            <div className='fe-user-slide-menu-closed'>
+                                <FontAwesomeIcon icon={faChevronUp} className='fe-user-slide-up-arrow' onClick={slideMenu} />
                             </div>
                         </div>
+                        {/* ----- Slide menu opened ----- */}
+                        <div className={state.slideMenu ? 'fe-user-slide-menu-opened fe-user-slide-menu-animation' : 'fe-user-slide-menu-opened'} >
+                            <FontAwesomeIcon icon={faChevronDown} className='fe-user-slide-down-arrow' onClick={slideMenu} />
+                            <Button
+                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'homeUser' ? 'fe-slide-menu-active' : null}`}
+                                text={'Home'}
+                                callback={goToHome}
+                            />
+                            <Button
+                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'infoUser' ? 'fe-slide-menu-active' : null}`}
+                                text={'Le mie informazioni'}
+                                callback={goToInformation}
+                            />
+                            <Button
+                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'orderUser' ? 'fe-slide-menu-active' : null}`}
+                                text={'I miei ordini'}
+                                callback={goToOrders}
+                            />
+                            <Button
+                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'missionUser' ? 'fe-slide-menu-active' : null}`}
+                                text={'Le mie missioni'}
+                                callback={goToMissions}
+                            />
+                        </div>
 
-                        <div
-                            className='fe-user-switching-container'
-                            style={state.selectedPage !== 'infoUser' ? { display: 'none' } : { display: 'block' }}
-                        >
-                            <UserInformation/></div>
+                    </div>
+                    {/* ----- Second section ----- */}
+                    <div className='fe-user-second-section'>
+                        <div className='fe-user-header-tabs'>
+                            <span
+                                className={state.selectedTab === 'infoUser' ? 'fe-user-tab-active' : null}
+                                onClick={showMyInfo}
+                            >Le mie informazioni</span>
+                            <span>|</span>
+                            <span
+                                className={state.selectedTab === 'orderUser' ? 'fe-user-tab-active' : null}
+                                onClick={showMyOrder}
+                            >I miei ordini</span>
+                            <span>|</span>
+                            <span
+                                className={state.selectedTab === 'missionUser' ? 'fe-user-tab-active' : null}
+                                onClick={showMyMission}
+                            >Le mie missioni</span>
+                        </div>
+                        <div className='fe-user-second-section-content'>
 
-                        <div
-                            className='fe-user-switching-container'
-                            style={state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
-                        >
-                            <UserOrders /></div>
-
-                        <div
-                            className='fe-user-switching-container'
-                            style={state.selectedPage !== 'missionUser' ? { display: 'none' } : { display: 'block' }}
-                        >
-                            <Mission /></div>
-
-
-                        {/* Slide Menu closed */}
-                        <div className='fe-user-slide-menu-closed'>
-                            <FontAwesomeIcon icon={faChevronUp} className='fe-user-slide-up-arrow' onClick={slideMenu} />
+                            {
+                                state.selectedTab === 'infoUser' &&
+                                <UserInformation />
+                            }
+                            {
+                                state.selectedTab === 'orderUser' &&
+                                <UserOrders />
+                            }
+                            {
+                                state.selectedTab === 'missionUser' &&
+                                <Mission />
+                            }
                         </div>
                     </div>
-                    {/* ----- Slide menu opened ----- */}
-                    <div className={state.slideMenu ? 'fe-user-slide-menu-opened fe-user-slide-menu-animation' : 'fe-user-slide-menu-opened'} >
-                        <FontAwesomeIcon icon={faChevronDown} className='fe-user-slide-down-arrow' onClick={slideMenu} />
-                        <Button
-                            className={`fe-user-btn-slide-menu ${state.selectedPage === 'homeUser' ? 'fe-slide-menu-active' : null}`}
-                            text={'Home'}
-                            callback={goToHome}
-                        />
-                        <Button
-                            className={`fe-user-btn-slide-menu ${state.selectedPage === 'infoUser' ? 'fe-slide-menu-active' : null}`}
-                            text={'Le mie informazioni'}
-                            callback={goToInformation}
-                        />
-                        <Button
-                            className={`fe-user-btn-slide-menu ${state.selectedPage === 'orderUser' ? 'fe-slide-menu-active' : null}`}
-                            text={'I miei ordini'}
-                            callback={goToOrders}
-                        />
-                        <Button
-                            className={`fe-user-btn-slide-menu ${state.selectedPage === 'missionUser' ? 'fe-slide-menu-active' : null}`}
-                            text={'Le mie missioni'}
-                            callback={goToMissions}
+                </main>
+
+                {state.wheelModal &&
+
+
+                    <div className="gm-wheel-modal">
+                        <CloseOutlined onClick={wheelModalClick} />
+                        <Wheel />
+                    </div>
+
+                }
+
+
+                {/* ---- AVATAR ----*/}
+                {state.avatarDisplay &&
+                    <div className='frontend-avatar'>
+                        <Avatar
+                            closeCallback={handleCloseCallback}
                         />
                     </div>
 
-                </div>
-                {/* ----- Second section ----- */}
-                <div className='fe-user-second-section'>
-                    <div className='fe-user-header-tabs'>
-                        <span
-                            className={state.selectedTab === 'infoUser' ? 'fe-user-tab-active' : null}
-                            onClick={showMyInfo}
-                        >Le mie informazioni</span>
-                        <span>|</span>
-                        <span
-                            className={state.selectedTab === 'orderUser' ? 'fe-user-tab-active' : null}
-                            onClick={showMyOrder}
-                        >I miei ordini</span>
-                        <span>|</span>
-                        <span
-                            className={state.selectedTab === 'missionUser' ? 'fe-user-tab-active' : null}
-                            onClick={showMyMission}
-                        >Le mie missioni</span>
-                    </div>
-                    <div className='fe-user-second-section-content'>
+                }
 
-                        {
-                            state.selectedTab === 'infoUser' &&
-                            <UserInformation/>
-                        }
-                        {
-                            state.selectedTab === 'orderUser' &&
-                            <UserOrders />
-                        }
-                        {
-                            state.selectedTab === 'missionUser' &&
-                            <Mission />
-                        }
-                    </div>
-                </div>
-            </main>
-
-            {state.wheelModal &&
-
-
-                <div className="gm-wheel-modal">
-                    <CloseOutlined onClick={wheelModalClick} />
-                    <Wheel />
-                </div>
-
-            }
-
-
-            {/* ---- AVATAR ----*/}
-            {state.avatarDisplay &&
-                <div className='frontend-avatar'>
-                    <Avatar
-                        closeCallback={handleCloseCallback}
-                    />
-                </div>
-            }
-
-        </div>
+            </div>
+        </>
     )
-
 }
 
 export default UserHome;
