@@ -112,7 +112,7 @@ const properties = {
             beijeCoin: 7,
         },
         {
-            title: 'Giochiamo insieme',
+            title: 'Giochiamo/ insieme',
             description: 'Fai una partita ad un minigame',
             exp: 100,
             claim: null,
@@ -138,6 +138,46 @@ const properties = {
             exp: 500,
             claim: null,
             beijeCoin: 15,
+        },
+
+    ],
+    userOrders: [
+        {
+            title: "Creuza de mä",
+            description: `14/10/21`,
+            cost: 10.5,
+        },
+        {
+            title: 'La taverna',
+            description: '10/10/21',
+            cost: 15.1,
+        },
+        {
+            title: 'Los Pollos Hermanos',
+            description: '02/10/21',
+            cost: 27.99,
+        },
+        {
+            title: 'La fiera della panza',
+            description: '27/09/21',
+            cost: 10.70,
+        },
+        {
+            title: 'Carne di dubbia',
+            description: '23/09/21',
+            cost: 22.00,
+        },
+        {
+            title: 'Provenienza',
+            description: '07/09/21',
+            cost: 50.80,
+
+        },
+        {
+            title: 'Il postaccio',
+            description: '22/08/21',
+            cost: 20.30,
+
         }
     ]
 }
