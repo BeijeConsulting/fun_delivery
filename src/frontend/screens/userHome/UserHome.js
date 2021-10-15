@@ -134,7 +134,7 @@ const UserHome = (props) => {
     }
 
     const addExp = () => {
-        userPath.experience += 100
+        userPath.experience += 250
         localStorage.setItem('userInfo', JSON.stringify(userPath))
         setState({
             ...state,
