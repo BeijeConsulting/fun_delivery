@@ -41,7 +41,7 @@ class RegistrationUser extends React.Component {
                     userBadges: [0],
                     selectedBadge: 0,
                 },
-                mission: [0],
+                mission: [],
                 freeDelivery: false,
                 freeDeliveryModal: false,
                 discount: false
