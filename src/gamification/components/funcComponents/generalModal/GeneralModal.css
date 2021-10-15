@@ -1,6 +1,8 @@
 .gm-modal-container {
+    /* width: 100%;
+    height: 100vh; */
     width: 100%;
-    height: 100vh;
+    height: calc(100% + 82px);
     display: flex;
     align-items: center;
     justify-content: center;
