@@ -70,8 +70,8 @@ const handleCallBackFocus = (e) => {
 const handleSubmit = () => {
     let modifiedUser = storageData
     let newData = {
-        firstName: [state.data.firstName[0], state.data.firstName[0].length > 1],
-        lastName: [state.data.lastName[0], state.data.lastName[0].length > 1],
+        firstName: [state.data.firstName[0], state.data.firstName[0].length < 1],
+        lastName: [state.data.lastName[0], state.data.lastName[0].length < 1],
         email: [state.data.email[0], !utils.validateEmail(state.data.email[0])],
         phone_number: [state.data.phone_number[0], !utils.validatePhone(state.data.phone_number[0])],
     }
