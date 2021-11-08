@@ -74,16 +74,17 @@
 }
 .landing-screen .main-title{
     color: white;
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 700;
     margin-bottom: -2%;
-    margin-top: -2%;
+    margin-top: -3%;
 }
 .main-titleD {
     color: white;
-    font-size: 5rem;
+    font-size: 6rem;
     flex-wrap: nowrap;
     font-weight: 700;
+    margin-bottom: -1%;
 }
 /* IMGS */
 .fe-svg-landing{
@@ -124,14 +125,14 @@
     }
     .landing-screen .main-title{
     color: white;
-    margin-bottom: 2rem;
-    margin-top: -2rem;
-    font-size: 3rem;
+    font-size: 4rem;
+    margin: 0px;
     font-weight: 700;
+    text-shadow: 1px 1px 10px rgb(107, 83, 83);
     }
     .main-titleD {
         color: white;
-        font-size: 3rem;
+        font-size: 4rem;
         flex-wrap: nowrap;
         font-weight: 700;
         text-shadow: 1px 1px 10px rgb(107, 83, 83);
@@ -214,7 +215,6 @@
     .foodBack{
         width: 100%;
         left: 0;
-        top: 18%;
     }
     .fe-burger-svg{
         display: none;
@@ -268,7 +268,7 @@
 }
 @media screen and (max-height: 600px){
     .foodBack{
-        top: 25%;
+        top: 20%;
         max-height: 80%;
     }
     .fe-burger-svg{
@@ -369,7 +369,7 @@
     .foodBack{
         width: 100%;
         left: 0;
-        top: 11%;
+        margin-top: -8%; 
         max-height: 80%;
     }
     .fe-burger-svg{
@@ -384,7 +384,7 @@
     .foodBack{
         width: 60%;
         left: 35%;
-         top: 11%; 
+        
          max-height: 80%;     
     }
     .fe-burger-svg{
@@ -397,4 +397,8 @@
         margin-bottom: 10px;
     }
 }
-
+@media only screen and (min-device-width: 480px) and (max-device-width: 768px)  {
+.foodBack {
+    top: 145px;
+}
+}
