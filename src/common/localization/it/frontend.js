@@ -113,6 +113,12 @@ export const TRANSLATIONS_FRONTEND = {
         }, 
         my_cart_empty:{
             cartEmpty: 'Il tuo carrello è vuoto'
+        },
+        view_cart: {
+            view : 'Vedi carrello'
+        },
+        goTo_checkout: {
+            check : 'Vai alla cassa'
         }
 
     }

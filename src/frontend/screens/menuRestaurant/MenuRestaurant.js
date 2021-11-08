@@ -295,6 +295,7 @@ class MenuRestaurant extends React.Component {
         this.props.history.push('/orderConfirmed');
     }
 
+  
     render() {
         const { t } = this.props
         return (
@@ -322,7 +323,7 @@ class MenuRestaurant extends React.Component {
                         {
                             this.categoriesArr.map((item, index) => {
                                 return (
-                                    <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
+                                    <button key={index} className='voicePlate'>{item}</button>
                                 )
                             })
                         }
@@ -341,7 +342,7 @@ class MenuRestaurant extends React.Component {
                                     style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
                                     onClick={this.goToFinalPage}
                                 >
-                                    Vai alla cassa</button>}
+                                     {t('frontend.components.goTo_checkout.check')}</button>}
                         </div>
 
                         {/* CARRELLO nella modalita` desktop */}
@@ -358,7 +359,7 @@ class MenuRestaurant extends React.Component {
                                         return (
                                             <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
                                                 <span>{item.plate_quantity} {item.plate_name}</span>
-                                                <span>{item.plate_price * item.plate_quantity}€</span>
+                                                <span>{(item.plate_price * item.plate_quantity).toFixed(2)}€</span>
                                             </div>
                                         )
                                     })
@@ -370,10 +371,10 @@ class MenuRestaurant extends React.Component {
                                 <div className=''>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
                                         <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
-                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice.toFixed(2)}€</span>
 
                                     </div>
-                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
+                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>{t('frontend.components.goTo_checkout.check')}</button>}
                                 </div>) : <span style={{ color: 'lightgray' }}>{t('frontend.components.my_cart_empty.cartEmpty')}</span>
                             }
                         </div>
@@ -386,7 +387,8 @@ class MenuRestaurant extends React.Component {
                                 this.categoriesArr.map((itemCategory, index) => {
                                     return (
                                         <div className='fe-menu-category-container' key={index}>
-                                            <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
+                                            <h2 className='fe-menu-category-title' 
+                                             data-aos="fade-right">{itemCategory}</h2>
                                             <div className="fe-menu-plate-container" data-aos="">
 
                                                 {this.menuArray

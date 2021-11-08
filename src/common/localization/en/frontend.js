@@ -111,6 +111,15 @@ export const TRANSLATIONS_FRONTEND = {
         }, 
         my_cart_empty:{
             cartEmpty: 'Your cart is empty'
+        },
+        view_cart: {
+            view : 'View Cart'
+        },
+        goTo_checkout: {
+            check : 'Go to Checkout'
+        },
+        backTo_menu:{
+            back: 'Back to Menù'
         }
     }
 }
