@@ -13,7 +13,9 @@ const properties = {
         INCOMING_ORDERS: '/restaurant/incoming-orders',
         SPONSOR: '/restaurant/sponsor'
     },
-    PATH_IMAGE:  '../../assets/images/'
+    PATH_IMAGE: '../../assets/images/',
+    BASE_URL: 'http://fundelivery-test.eba-banmpye7.eu-south-1.elasticbeanstalk.com/',
+    GENERIC_SERVICE: null,
 }
 
 export default properties;
