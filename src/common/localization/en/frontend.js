@@ -102,6 +102,15 @@ export const TRANSLATIONS_FRONTEND = {
                 confirm_password: 'Password does not match',
                 forgot_accept: "Password changed"
             }
+        },
+        menu_restaurant: {
+            sombreroWeek: 'Sombrero Week'
+        },
+         my_cart: {
+            cart : 'My Cart'
+        }, 
+        my_cart_empty:{
+            cartEmpty: 'Your cart is empty'
         }
     }
 }

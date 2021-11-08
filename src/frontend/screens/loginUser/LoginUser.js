@@ -53,7 +53,7 @@ class LoginUser extends React.Component {
                 }
             } else {
                 alert('Register First!')
-                this.props.history.push('/registratioUser');
+                this.props.history.push('/registrationUser');
             }
             //inserire this.props.history.push('/UserPage")
         }

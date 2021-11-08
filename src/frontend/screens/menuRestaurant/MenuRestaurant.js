@@ -4,6 +4,7 @@ import SingleRestaurant from '../../components/classComponents/singleRestaurant/
 import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
 import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate'
 import AOS from 'aos';
+import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
@@ -19,7 +20,7 @@ import Altro from '../../../backoffice/assets/images/altro.jpg'
 import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
 import Navbar from '../../components/ui/navbar/Navbar'
 
-export default class MenuRestaurant extends React.Component {
+class MenuRestaurant extends React.Component {
     constructor(props) {
 
         super(props)
@@ -86,6 +87,7 @@ export default class MenuRestaurant extends React.Component {
                 img_path: Altro
             }
         ]
+        
 
         this.newPlateCategories = {}
         for (const iterator of this.arrPlate_categories) {
@@ -294,6 +296,7 @@ export default class MenuRestaurant extends React.Component {
     }
 
     render() {
+        const { t } = this.props
         return (
             <>
                 <Navbar />
@@ -314,7 +317,7 @@ export default class MenuRestaurant extends React.Component {
                         {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
                         <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
                     </div>
-                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
+                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">{t('frontend.components.menu_restaurant.sombreroWeek')}</h2>
                     <div className='fe-menu-categories-picker' data-aos="">
                         {
                             this.categoriesArr.map((item, index) => {
@@ -343,7 +346,9 @@ export default class MenuRestaurant extends React.Component {
 
                         {/* CARRELLO nella modalita` desktop */}
                         <div className={`${this.state.cartToggle}`}>
-                            <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
+                            <h2 className={`fe-menu-cart-title`}>
+                            {t('frontend.components.my_cart.cart')}
+                            </h2>
 
                             <div className='fe-menu-cart-content'>
                                 {
@@ -369,7 +374,7 @@ export default class MenuRestaurant extends React.Component {
 
                                     </div>
                                     {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
-                                </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
+                                </div>) : <span style={{ color: 'lightgray' }}>{t('frontend.components.my_cart_empty.cartEmpty')}</span>
                             }
                         </div>
 
@@ -414,3 +419,4 @@ export default class MenuRestaurant extends React.Component {
         )
     }
 }
+export default withTranslation()(MenuRestaurant);
