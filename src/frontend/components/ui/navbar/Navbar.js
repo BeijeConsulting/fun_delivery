@@ -1,9 +1,8 @@
 import './Navbar.css';
 import logo from '../../../../common/assets/LogoSvgRosa.svg';
 import scream from '../../../../common/assets/sounds/scream.mp3'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
-import { useEffect } from 'react/cjs/react.development';
 import { get } from "lodash";
 
 
@@ -27,8 +26,8 @@ const Navbar = (props) => {
     
     /* DA RIVEDERE */
     useEffect(() => {
-        let storage = JSON.parse(localStorage.getItem('userInfo'))
-        let userName = (get(storage, 'userName', null))
+        let storage = JSON.parse(localStorage.getItem('userInfo'));
+        let userName = (get(storage, 'userName', null));
         if (userName) {
             setState({
                 ...state,
@@ -96,14 +95,14 @@ const Navbar = (props) => {
                             </span>
 
                             {/* render dinamico della selezione del tipo di consegna */}
-                            {
+                            {/* {
                                 (pathArray[1] === '' || pathArray[1] === 'restaurants') &&
                                 <div className='outer-btn' onClick={navOptionSlide}>
                                     <span className={`left-inner-text ${state.selectedPickup}`}>Pickup</span>
                                     <span className={`right-inner-text ${state.selectedDelivery}`}>Consegna</span>
                                     <div className={`inner-btn ${state.navOptionRightLeft}`}></div>
                                 </div>
-                            }
+                            } */}
                         </div>
 
                         {/* user NOT logged */}
@@ -119,6 +118,10 @@ const Navbar = (props) => {
                                     Register
                                     {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
                                 </span>
+
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/restaurants')}>
+                                    Order
+                                </span>
                             </div>
                         }
                         
@@ -133,6 +136,10 @@ const Navbar = (props) => {
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>
                                     {state.userInfo.userName}
+                                </span>
+
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/restaurants')}>
+                                    Order
                                 </span>
                             </div>
                         } 

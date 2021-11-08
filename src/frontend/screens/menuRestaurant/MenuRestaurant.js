@@ -4,6 +4,7 @@ import SingleRestaurant from '../../components/classComponents/singleRestaurant/
 import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
 import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate'
 import AOS from 'aos';
+import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
@@ -19,7 +20,7 @@ import Altro from '../../../backoffice/assets/images/altro.jpg'
 import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
 import Navbar from '../../components/ui/navbar/Navbar'
 
-export default class MenuRestaurant extends React.Component {
+class MenuRestaurant extends React.Component {
     constructor(props) {
 
         super(props)
@@ -86,6 +87,7 @@ export default class MenuRestaurant extends React.Component {
                 img_path: Altro
             }
         ]
+        
 
         this.newPlateCategories = {}
         for (const iterator of this.arrPlate_categories) {
@@ -293,7 +295,9 @@ export default class MenuRestaurant extends React.Component {
         this.props.history.push('/orderConfirmed');
     }
 
+  
     render() {
+        const { t } = this.props
         return (
             <>
                 <Navbar />
@@ -314,12 +318,12 @@ export default class MenuRestaurant extends React.Component {
                         {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
                         <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
                     </div>
-                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">Scegli il tuo piatto!</h2>
+                    <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">{t('frontend.components.menu_restaurant.sombreroWeek')}</h2>
                     <div className='fe-menu-categories-picker' data-aos="">
                         {
                             this.categoriesArr.map((item, index) => {
                                 return (
-                                    <button key={index} className='voicePlate' onClick={this.scrollTo}>{item}</button>
+                                    <button key={index} className='voicePlate'>{item}</button>
                                 )
                             })
                         }
@@ -338,12 +342,14 @@ export default class MenuRestaurant extends React.Component {
                                     style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
                                     onClick={this.goToFinalPage}
                                 >
-                                    Vai alla cassa</button>}
+                                     {t('frontend.components.goTo_checkout.check')}</button>}
                         </div>
 
                         {/* CARRELLO nella modalita` desktop */}
                         <div className={`${this.state.cartToggle}`}>
-                            <h2 className={`fe-menu-cart-title`}>Il mio Carrello</h2>
+                            <h2 className={`fe-menu-cart-title`}>
+                            {t('frontend.components.my_cart.cart')}
+                            </h2>
 
                             <div className='fe-menu-cart-content'>
                                 {
@@ -353,7 +359,7 @@ export default class MenuRestaurant extends React.Component {
                                         return (
                                             <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
                                                 <span>{item.plate_quantity} {item.plate_name}</span>
-                                                <span>{item.plate_price * item.plate_quantity}€</span>
+                                                <span>{(item.plate_price * item.plate_quantity).toFixed(2)}€</span>
                                             </div>
                                         )
                                     })
@@ -365,11 +371,11 @@ export default class MenuRestaurant extends React.Component {
                                 <div className=''>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
                                         <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
-                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice.toFixed(2)}€</span>
 
                                     </div>
-                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>Go to checkout</button>}
-                                </div>) : <span style={{ color: 'lightgray' }}>Il tuo carrello e` vuoto</span>
+                                    {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>{t('frontend.components.goTo_checkout.check')}</button>}
+                                </div>) : <span style={{ color: 'lightgray' }}>{t('frontend.components.my_cart_empty.cartEmpty')}</span>
                             }
                         </div>
 
@@ -381,7 +387,8 @@ export default class MenuRestaurant extends React.Component {
                                 this.categoriesArr.map((itemCategory, index) => {
                                     return (
                                         <div className='fe-menu-category-container' key={index}>
-                                            <h2 className='fe-menu-category-title' ref={this.myRefAntipasti} data-aos="fade-right">{itemCategory}</h2>
+                                            <h2 className='fe-menu-category-title' 
+                                             data-aos="fade-right">{itemCategory}</h2>
                                             <div className="fe-menu-plate-container" data-aos="">
 
                                                 {this.menuArray
@@ -414,3 +421,4 @@ export default class MenuRestaurant extends React.Component {
         )
     }
 }
+export default withTranslation()(MenuRestaurant);

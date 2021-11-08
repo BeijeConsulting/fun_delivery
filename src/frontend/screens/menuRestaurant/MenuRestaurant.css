@@ -29,7 +29,7 @@
     height: 100%;
     border-radius: 10px;
     background: linear-gradient(0deg, rgba(15, 36, 0, 1) 0%, rgba(172, 59, 59, 1) 29%, rgba(242, 68, 68, 1) 54%);
-    opacity: 50%;
+    opacity: 0.5;
 }
 
 .fe-menu-restaurant-name {
@@ -86,8 +86,7 @@
     margin: 0px 1% 0px 1%;
     width: 95px;
     height: 40px;
-    text-align: left;
-    padding: 0.2% 2% 0% 1%;
+    text-align: center;
     white-space: nowrap;
     background-color: white;
     display: flex;

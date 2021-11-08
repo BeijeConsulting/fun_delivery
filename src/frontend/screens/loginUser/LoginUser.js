@@ -36,13 +36,13 @@ class LoginUser extends React.Component {
 
         let error = ''
         if (!this.state.email) {
-            error = i18n.t('frontend.components.error_login.email')
+            error = i18n.t('frontend.components.login_page.error_login.email')
         } else if (!this.state.password) {
-            error = i18n.t('frontend.components.error_login.password')
+            error = i18n.t('frontend.components.login_page.error_login.password')
         }
 
         if (!this.state.email && !this.state.password) {
-            error = i18n.t('frontend.components.error_login.email_password')
+            error = i18n.t('frontend.components.login_page.error_login.email_password')
 
         } else if (this.state.email && this.state.password) {
             if (storageUserInfo) {
@@ -53,7 +53,7 @@ class LoginUser extends React.Component {
                 }
             } else {
                 alert('Register First!')
-                this.props.history.push('/registratioUser');
+                this.props.history.push('/registrationUser');
             }
             //inserire this.props.history.push('/UserPage")
         }

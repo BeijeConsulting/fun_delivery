@@ -31,7 +31,7 @@ class RegistrationUser extends React.Component {
                 phone: "",
                 password: "",
                 confpsw: "",
-                beijeCoin: 0,
+                beijeCoin: 3,
                 experience: 0,
                 avatar: {
                     userAvatars: [0],
@@ -41,7 +41,7 @@ class RegistrationUser extends React.Component {
                     userBadges: [0],
                     selectedBadge: 0,
                 },
-                mission: [0],
+                mission: [],
                 freeDelivery: false,
                 freeDeliveryModal: false,
                 discount: false
