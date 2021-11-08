@@ -29,7 +29,7 @@
     height: 100%;
     border-radius: 10px;
     background: linear-gradient(0deg, rgba(15, 36, 0, 1) 0%, rgba(172, 59, 59, 1) 29%, rgba(242, 68, 68, 1) 54%);
-    opacity: 50%;
+    opacity: 0.5;
 }
 
 .fe-menu-restaurant-name {
