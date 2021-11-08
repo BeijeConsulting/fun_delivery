@@ -1,19 +1,22 @@
 html {
     scroll-behavior: smooth;
 }
+
 /* ----- SECTION ONE ----- */
-.fe-main-screen-container{
+.fe-main-screen-container {
     padding: 0 2rem;
 }
-.fe-title-main{
+
+.fe-title-main {
     margin-top: 2rem;
     font-size: 2.5rem;
 }
-.fe-restaurants-section-one{
+
+.fe-restaurants-section-one {
     min-height: calc(100vh - 83px);
 }
 
-.fe-restaurants-banner{
+.fe-restaurants-banner {
     border-radius: 10px;
     height: 250px;
     width: 100%;
@@ -23,12 +26,12 @@ html {
     background-position-y: center;
 }
 
-.fe-categories-title{
+.fe-categories-title {
     font-size: 1.5rem;
 }
 
 /* to add media to display in column */
-.fe-categories-container{
+.fe-categories-container {
     width: 100%;
     display: flex;
     align-items: center;
@@ -36,7 +39,7 @@ html {
     flex-wrap: wrap;
 }
 
-.fe-btn-goTo{
+.fe-btn-goTo {
     width: 250px;
     background-color: var(--primary-strawberry);
     font-size: 18px;
@@ -49,38 +52,42 @@ html {
     border: none;
     cursor: pointer;
 }
-.icon{
+
+.icon {
     margin-bottom: 1rem;
 }
 
 
 /* ----- SECTION TWO ----- */
-.fe-restaurants-section-two{
+.fe-restaurants-section-two {
     display: flex;
     min-height: 100vh;
     padding-top: 6rem;
-    position:relative;
+    position: relative;
 }
-.fe-trend-title{
-    font-size: 1.5rem;
-}
-.fe-near-title{
+
+.fe-trend-title {
     font-size: 1.5rem;
 }
 
-.fe-restaurants-wrapper{
+.fe-near-title {
+    font-size: 1.5rem;
+}
+
+.fe-restaurants-wrapper {
     padding: 0 0 0 0rem;
 }
 
-.fe-img-wrapper{
+.fe-img-wrapper {
     margin-right: 20px;
 }
+
 .fe-restaurants-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.fe-btn-side-toggler{
+.fe-btn-side-toggler {
     position: absolute;
     top: 45px;
     left: 0px;
@@ -91,7 +98,7 @@ html {
 }
 
 
-.sideNav{
+.sideNav {
     transform: translateX(-350px);
     width: 0px;
     opacity: 0;
@@ -99,7 +106,8 @@ html {
     transition: .3s;
     margin-right: 0rem;
 }
-.sideNav-toggleOn{
+
+.sideNav-toggleOn {
     opacity: 1;
     transform: translateX(0px);
     background-color: white;
@@ -112,61 +120,82 @@ html {
 
 /* MEDIA QUERIES */
 
-@media screen and (max-width: 1200px){
-    .fe-restaurants-section-two{
+@media screen and (max-width: 1200px) {
+    .fe-restaurants-section-two {
         padding-top: 6rem;
     }
-    .fe-trend-title{
+
+    .fe-trend-title {
         text-align: left;
     }
-    .fe-categories-container{
+
+    .fe-categories-container {
         flex-wrap: wrap;
     }
-    .icon{
+
+    .icon {
         width: calc(95% / 3);
     }
+
     .fe-restaurants-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media screen and (max-width: 978px){
-    
+
+@media screen and (max-width: 978px) {
+
     .fe-restaurants-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
 }
 
-@media screen and (max-width: 768px){
-    .fe-restaurants-section-two{
+@media screen and (max-width: 768px) {
+    .fe-restaurants-section-two {
         padding-top: 6rem;
     }
-    .fe-trend-title{
+
+    .fe-trend-title {
         text-align: left;
     }
-    .fe-categories-container{
+
+    .fe-categories-container {
         flex-wrap: wrap;
     }
-    .icon{
+
+    .icon {
         width: calc(95% / 2);
     }
+
     .fe-restaurants-container {
         display: grid;
         grid-template-columns: 1fr;
     }
+
+    .fe-categories-container {
+        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
 }
+
 @media screen and (max-width: 624px) {
-    .icon{
+    .icon {
         width: calc(100% / 1);
     }
-    .sideNav{
+
+    .sideNav {
         transform: translateX(-350px);
         opacity: 0;
         background-color: white;
         transition: .3s;
     }
-    .sideNav-toggleOn{
+
+    .sideNav-toggleOn {
         position: absolute;
         width: 100%;
         border: 2px solid var(--primary-strawberry);
@@ -174,5 +203,10 @@ html {
     }
     .fe-restaurants-banner{
         height: 180px;
+    }
+    .fe-title-main {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        text-align: center;
     }
 }

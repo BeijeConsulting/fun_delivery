@@ -59,6 +59,7 @@ export const TRANSLATIONS_FRONTEND = {
         },
         order_confirmed: {
             button: 'Gioca con noi',
+            buttonBack: 'Torna indietro'
         },
 
         login_page: {
@@ -94,7 +95,7 @@ export const TRANSLATIONS_FRONTEND = {
                 surname: 'Cognome non valido',
                 email: 'Email non valida',
                 phone: 'Numero non valido',
-                password: 'Password non valiida',
+                password: 'Password non valiida,deve contenere almeno 8 caratteri,un numero,un carattere speciale',
                 confirm_password: 'Password non corrispondono',
                 registration_accept: 'Registration effettuata',
             },
@@ -104,6 +105,22 @@ export const TRANSLATIONS_FRONTEND = {
                 confirm_password: 'Password non corrispondono',
                 forgot_accept: "Password cambiata",
             }
+        },
+        menu_restaurant: {
+            sombreroWeek: 'Settimana del sombrero'
+        },
+        my_cart: {
+            cart : 'Il mio carrello'
+        }, 
+        my_cart_empty:{
+            cartEmpty: 'Il tuo carrello è vuoto'
+        },
+        view_cart: {
+            view : 'Vedi carrello'
+        },
+        goTo_checkout: {
+            check : 'Vai alla cassa'
         }
+
     }
 }
