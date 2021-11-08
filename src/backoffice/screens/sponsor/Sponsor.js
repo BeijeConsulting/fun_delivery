@@ -45,47 +45,49 @@ class Profile extends Component {
     }
 
     handleOnClick = (e) => () => {
-        let choice = this.state.choice;
-        choice = e;
+        if (this.state.choice === '') {
 
-        this.totalRestaurant.restaurant_list.map(element => {
-            if (element.id === this.restaurantId) {
-                if (this.activeRestaurant.coins >= choice.price) {
+            let choice = this.state.choice;
+            choice = e;
 
-                    let result = this.activeRestaurant.coins - choice.price;
-                    console.log(result)
-                    this.activeRestaurant.coins = result;
-                    console.log('activeRestaurant: ', this.activeRestaurant)
+            this.totalRestaurant.restaurant_list.map(element => {
+                if (element.id === this.restaurantId) {
+                    if (this.activeRestaurant.coins >= choice.price) {
 
-                    localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-                    //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
-                    element.sponsor = true;
-                    element = this.activeRestaurant;
-                    localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
-                    console.log(this.state.choice)
-                    console.log('EEEEEEEEE: ', e)
-                    let newChoice = e.durata + this.newDate;
-                    for (let key in e) {
-                        if (key === 'durata') {
-                            e[key] = newChoice;
+                        let result = this.activeRestaurant.coins - choice.price;
+                        console.log(result)
+                        this.activeRestaurant.coins = result;
+                        console.log('activeRestaurant: ', this.activeRestaurant)
+
+                        localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+                        //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
+                        element.sponsor = true;
+                        element = this.activeRestaurant;
+                        localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
+                        console.log(this.state.choice)
+                        console.log('EEEEEEEEE: ', e)
+                        let newChoice = e.durata + this.newDate;
+                        for (let key in e) {
+                            if (key === 'durata') {
+                                e[key] = newChoice;
+                            }
                         }
+
+
+
+                        this.setState({
+                            choice: e,
+                            sponsorSelected: this.activeRestaurant
+                        })
+                        console.log('choice post set state ', choice)
+                        localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
                     }
-
-
-
-                    this.setState({
-                        choice: e,
-                        sponsorSelected: this.activeRestaurant
-                    })
-                    console.log('choice post set state ', choice)
-                    localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
+                    else {
+                        console.log('sei povero!')
+                    }
                 }
-                else {
-                    console.log('sei povero!')
-                }
-            }
-        })
-
+            })
+        }
 
     }
 
@@ -133,7 +135,8 @@ class Profile extends Component {
 
 
                                 <div style={{ marginBottom: '10px' }}>
-                                    <span>{this.state.sponsorSelected.coins}</span>
+                                    {/* <span>{this.state.sponsorSelected.coins}</span> */}
+                                    <span>Inutile da fixare</span>
                                     <img style={{ width: '20px', height: '20px' }} src={coin} alt="beijecoin" />
                                 </div>
 
@@ -152,7 +155,7 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-1'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Povero', id: 1, durata: 86400000, price: 10 })}
                             />
                             <SingleSponsor
@@ -165,7 +168,7 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-2'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Borghese', id: 2, durata: 604800000, price: 50 })}
                             />
                             <SingleSponsor
@@ -178,7 +181,7 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-3'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Milanese imbruttito', id: 3, durata: 2592000000, price: 100 })}
                             />
                         </div>
