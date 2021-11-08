@@ -8,6 +8,7 @@
 
 
 
+
 .btn-order-confirmed{
     background-color:#F14464 ;
     padding: 10px 10px;
@@ -17,7 +18,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    
+  
     
 }
 .btn-order-confirmed:hover{
@@ -26,8 +27,10 @@
 
 .btn-confirmed-class{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: space-between;
+    padding: 10px;
+   
 }
 
 
@@ -37,11 +40,11 @@
     align-items: center;
     margin: 0 auto;
     width: 80%;
+    margin-bottom: 10px;
 }
 .gif-style{
     width: 100%;
 }
-
 
 .ant-steps-vertical{
     display: flex;
@@ -67,7 +70,8 @@
 @media (min-width: 768px) {
     .container-gif{
         width: 60%;
-        box-shadow: 18px -16px 30px -1px rgba(0,0,0,0.68);
+        /* box-shadow: 10px -10px 20px -1px rgba(0,0,0,0.50); */
+       
     }
     
 }
@@ -85,7 +89,7 @@
     }
     
 }
-@media (min-width: 1025px) and (max-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1380px) {
   
     .ant-steps-vertical{
         display: flex;
@@ -93,4 +97,10 @@
         align-items: center;
         
     }
+    .container-gif{
+        width: 35%;
+        
+    }
+
+    
   }

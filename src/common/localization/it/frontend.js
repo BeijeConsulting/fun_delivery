@@ -59,6 +59,7 @@ export const TRANSLATIONS_FRONTEND = {
         },
         order_confirmed: {
             button: 'Gioca con noi',
+            buttonBack: 'Torna indietro'
         },
 
         login_page: {
@@ -94,7 +95,7 @@ export const TRANSLATIONS_FRONTEND = {
                 surname: 'Cognome non valido',
                 email: 'Email non valida',
                 phone: 'Numero non valido',
-                password: 'Password non valiida',
+                password: 'Password non valiida,deve contenere alemno 8 caratteri,un numero,un carattere speciale',
                 confirm_password: 'Password non corrispondono',
                 registration_accept: 'Registration effettuata',
             },

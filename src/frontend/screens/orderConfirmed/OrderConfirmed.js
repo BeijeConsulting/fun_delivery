@@ -8,6 +8,8 @@ import ChooseGame from "../../../gamification/components/funcComponents/chooseGa
 import GeneralModal from "../../../gamification/components/funcComponents/generalModal/GeneralModal"
 import { Steps } from 'antd';
 import { withTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
+
 
 const OrderConfirmed = ({ t, i18n }) => {
 
@@ -15,6 +17,7 @@ const OrderConfirmed = ({ t, i18n }) => {
     const [state, setState] = useState({
         chooseGameModal: false,
     })
+    let history = useHistory()
 
     const playWithUs = () => {
 
@@ -26,26 +29,24 @@ const OrderConfirmed = ({ t, i18n }) => {
 
     const { Step } = Steps;
 
-    const changeLanguages = (e) => {
-        i18n.changeLanguage(e.target.value)
-    }
+    // const changeLanguages = (e) => {
+    //     i18n.changeLanguage(e.target.value)
+    // }
 
+    const goToMenuRestaurant = () => {
+        history.goBack('/menuRestaurant')
+    }
 
     return (
         <div className="gm-order-confirmed">
-        
-            
-          
-            <button value="it" onClick={changeLanguages}>it</button>
-            <button  value="en" onClick={changeLanguages}>en</button>
-        
+
 
             <HtmlTag
                 tag="h1"
                 text={t('frontend.screens.order_confirmed.title')}
                 className="title-order-confirmed" />
 
-            
+
 
             <div className="container-gif">
                 {!state.chooseGameModal &&
@@ -68,7 +69,16 @@ const OrderConfirmed = ({ t, i18n }) => {
                     className={"btn-order-confirmed"}
                     callback={playWithUs} />
 
+                <Button
+                    text={t('frontend.components.order_confirmed.buttonBack')}
+                    className={"btn-order-confirmed"}
+                    callback={goToMenuRestaurant}
+                    style={{ marginLeft: '10px' }} />
+
+
             </div>
+
+
 
             {
                 state.chooseGameModal &&
@@ -77,7 +87,7 @@ const OrderConfirmed = ({ t, i18n }) => {
             }
         </div>
 
-        
+
 
     )
 }
