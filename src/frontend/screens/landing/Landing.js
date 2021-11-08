@@ -86,6 +86,12 @@ const Landing = (props) => {
                         className='main-title'
                         text={t('frontend.screens.landing_page.title')}
                      />
+                     <HtmlTag
+                        tag='h1'
+                        className='main-titleD'
+                        text={t('frontend.screens.landing_page.titleFame')}
+                     />
+                     
 
                     <div className='main-box'>
                         <Input
