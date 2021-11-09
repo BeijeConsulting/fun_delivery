@@ -73,8 +73,8 @@ class genericServices {
 
     //Chiamata API CRUD
     // GET (READ)
-    apiGET = async (path) => {
-        // this.instance.defaults.headers = this.getHeaderWithToken(this.getLocalAccessToken())
+    apiGET = async (path, token) => {
+        this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.get(path)
             .then((response) => {
                 if (response.status === 200) {
@@ -90,7 +90,6 @@ class genericServices {
     // POST (Create)
     apiPOST = async (path, obj, token = null) => {
         //richiamo duck o parametro token
-        // token = await this.getLocalAccessToken();
         this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.post(path, obj)
             .then((response) => {
@@ -105,8 +104,7 @@ class genericServices {
     };
 
     // PUT (UPDATE)
-    apiPUT = async (path, obj) => {
-        let token = await this.getLocalAccessToken();
+    apiPUT = async (path, obj, token) => {
         this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.put(path, obj)
             .then((response) => {
@@ -118,8 +116,7 @@ class genericServices {
     };
 
     // DELETE (DELETE)
-    apiDELETE = async (path) => {
-        let token = await this.getLocalAccessToken();
+    apiDELETE = async (path, token) => {
         this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.delete(path)
             .then((response) => {
