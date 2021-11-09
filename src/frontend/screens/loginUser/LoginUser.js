@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { setToken } from '../../../common/redux/duck/tokenDuck'
 import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
+import { get as _get } from 'lodash';
 
 
 
@@ -64,8 +65,10 @@ class LoginUser extends React.Component {
         else {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
+            let statusCode = _get(response, "status", null)
+            let userRole = _get(response, "permission", [])
             console.log(response)
-            if (response.status === 401 || !response.permission.includes("USER")) {
+            if (statusCode === "401" || !userRole.includes("USER")) {
                 error = true;
             }
             else {
