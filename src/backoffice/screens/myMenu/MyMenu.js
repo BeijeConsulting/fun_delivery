@@ -66,5 +66,7 @@ class MyMenu extends Component {
         )
     }
 }
-
-export default connect()(withTranslation()(MyMenu))
+const mapStateToProps = state =>({
+    tokenDuck: state.tokenDuck
+})
+export default connect(mapStateToProps)(withTranslation()(MyMenu))
