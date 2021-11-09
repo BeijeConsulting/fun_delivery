@@ -35,49 +35,52 @@ import Memory from './gamification/screens/memory/Memory'
 
 
 import properties from "./common/utils/properties";
-
+import ApplicationStore from "./ApplicationStore";
+import { Provider } from "react-redux";
 
 const Routing = () => {
 
     return (
-        <Router>
-            <Switch>
+        <Provider store={ApplicationStore}>
+            <Router>
+                <Switch>
                 </Switch>
-            {/* <Navbar /> */}
-            <Switch>
-                {/* FRONTEND ROUTES */}
-                <Route exact path="/" component={Landing} />
-                <Route path="/loginUser" component={LoginUser} />
-                <Route path="/registrationUser" component={RegistrationUser} />
-                <Route path="/forgotPassword" component={ForgotPassword} />
-                <Route path="/restaurants" component={Restaurants} />
-                <Route exact path="/userHome" component={UserHome} />
-                <Route path="/recapOrder" component={RecapOrder}/>
-                <Route path="/menuRestaurant" component={MenuRestaurant} />
-                <Route path="/orderConfirmed" component={OrderConfirmed} />
+                {/* <Navbar /> */}
+                <Switch>
+                    {/* FRONTEND ROUTES */}
+                    <Route exact path="/" component={Landing} />
+                    <Route path="/loginUser" component={LoginUser} />
+                    <Route path="/registrationUser" component={RegistrationUser} />
+                    <Route path="/forgotPassword" component={ForgotPassword} />
+                    <Route path="/restaurants" component={Restaurants} />
+                    <Route exact path="/userHome" component={UserHome} />
+                    <Route path="/recapOrder" component={RecapOrder} />
+                    <Route path="/menuRestaurant" component={MenuRestaurant} />
+                    <Route path="/orderConfirmed" component={OrderConfirmed} />
 
 
-                {/* BACKOFFICE ROUTES */}
-                <Route path={properties.BO_ROUTING.LOGIN} component={LoginBackOffice}/>
-                <Route path={properties.BO_ROUTING.REGISTRATION} component={RegistrationBackOffice}/>
-                <Route path={properties.BO_ROUTING.FORGOT_PSW} component={ForgotPasswordBackOffice}/>
-                <Route path={properties.BO_ROUTING.PROFILE} component={RestaurantProfile}/>
-                <Route path={properties.BO_ROUTING.MY_MENU} component={MyMenu}/>
-                <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates}/>
-                <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate}/>
-                <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate}/>                
-                <Route exact path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders}/>
-                <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder}/>                                
-                <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders}/>
-                <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor}/>
+                    {/* BACKOFFICE ROUTES */}
+                    <Route path={properties.BO_ROUTING.LOGIN} component={LoginBackOffice} />
+                    <Route path={properties.BO_ROUTING.REGISTRATION} component={RegistrationBackOffice} />
+                    <Route path={properties.BO_ROUTING.FORGOT_PSW} component={ForgotPasswordBackOffice} />
+                    <Route path={properties.BO_ROUTING.PROFILE} component={RestaurantProfile} />
+                    <Route path={properties.BO_ROUTING.MY_MENU} component={MyMenu} />
+                    <Route exact path={properties.BO_ROUTING.PLATES} component={RestaurantPlates} />
+                    <Route path={properties.BO_ROUTING.SINGLE_PLATE} component={RestaurantSinglePlate} />
+                    <Route path={properties.BO_ROUTING.NEW_PLATE} component={RestaurantNewPlate} />
+                    <Route exact path={properties.BO_ROUTING.MY_ORDERS} component={RestaurantOrders} />
+                    <Route path={properties.BO_ROUTING.SINGLE_ORDER} component={RestaurantSingleOrder} />
+                    <Route path={properties.BO_ROUTING.INCOMING_ORDERS} component={RestaurantIncomingOrders} />
+                    <Route path={properties.BO_ROUTING.SPONSOR} component={RestaurantSponsor} />
 
-                {/* GAMIFICATION ROUTES */}
-                <Route path="/quiz" component={Quiz}/>
-                <Route path="/memory" component={Memory}/>
+                    {/* GAMIFICATION ROUTES */}
+                    <Route path="/quiz" component={Quiz} />
+                    <Route path="/memory" component={Memory} />
 
-                
-            </Switch>
-        </Router>
+
+                </Switch>
+            </Router>
+        </Provider>
     )
 }
 
