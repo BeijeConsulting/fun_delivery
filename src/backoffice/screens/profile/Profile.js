@@ -11,6 +11,7 @@ import utils from '../../../common/utils/utils'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
 import localStorageData from "../../localStorageData/localStorageData";
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 
 // const format = 'HH:mm';
 
@@ -46,7 +47,6 @@ class Profile extends Component {
             list_countries: [],
             editData: false
         }
-        console.log("stato: ", this.state.data)
     }
 
     componentDidMount() {
@@ -426,4 +426,8 @@ class Profile extends Component {
     }
 }
 
-export default withTranslation()(Profile)
+const mapStateToProps = state =>({
+    tokenDuck: state.tokenDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(Profile))

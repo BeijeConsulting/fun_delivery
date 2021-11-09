@@ -10,6 +10,7 @@ class genericServices {
             timeout: 1000, //MS
         });
 
+        //Si aspetta la funzione per il refresh token
         // Response interceptor for API calls - Waiting for Ivo
         // this.instance.interceptors.response.use(
         //     (response) => {
@@ -46,10 +47,11 @@ class genericServices {
         return accessToken.token;
     };
 
-    getLocalRefreshToken = () => {
-        const refreshToken = localStorage.getItem("refreshToken");
-        return refreshToken;
-    };
+    //Si aspetta la funzione per il refresh token
+    // getLocalRefreshToken = () => {
+    //     const refreshToken = localStorage.getItem("refreshToken");
+    //     return refreshToken;
+    // };
 
     // funzione per modificare header del server
     // getHeaderWithToken = (auth, lang) => {
@@ -71,7 +73,7 @@ class genericServices {
     //Chiamata API CRUD
     // GET (READ)
     apiGET = async (path) => {
-       // this.instance.defaults.headers = this.getHeaderWithToken(this.getLocalAccessToken())
+        // this.instance.defaults.headers = this.getHeaderWithToken(this.getLocalAccessToken())
         return await this.instance.get(path)
             .then((response) => {
                 if (response.status === 200) {
@@ -85,11 +87,10 @@ class genericServices {
     };
 
     // POST (Create)
-    apiPOST = async (path, obj) => {
-        if(path!=="/signin"){
-            let token = this.getLocalAccessToken();
-            this.instance.defaults.headers = this.getHeaderWithToken(token);
-        }
+    apiPOST = async (path, obj, token = null) => {
+        //richiamo duck o parametro token
+        // token = await this.getLocalAccessToken();
+        this.instance.defaults.headers = this.getHeaderWithToken(token);
 
         return await this.instance.post(path, obj)
             .then((response) => {
@@ -104,6 +105,8 @@ class genericServices {
 
     // PUT (UPDATE)
     apiPUT = async (path, obj) => {
+        let token = await this.getLocalAccessToken();
+        this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.put(path, obj)
             .then((response) => {
                 return response;
@@ -115,6 +118,8 @@ class genericServices {
 
     // DELETE (DELETE)
     apiDELETE = async (path) => {
+        let token = await this.getLocalAccessToken();
+        this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.delete(path)
             .then((response) => {
                 return response;

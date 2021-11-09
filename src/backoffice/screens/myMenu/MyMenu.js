@@ -5,6 +5,7 @@ import Card from "../../components/funcComponents/card/Card"
 import 'antd/dist/antd.css';
 import properties from "../../../common/utils/properties";
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -66,4 +67,4 @@ class MyMenu extends Component {
     }
 }
 
-export default withTranslation()(MyMenu);
+export default connect()(withTranslation()(MyMenu))
