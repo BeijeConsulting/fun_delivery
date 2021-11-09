@@ -64,7 +64,7 @@ class LoginUser extends React.Component {
         }
         else {
             properties.GENERIC_SERVICE = new genericServices();
-            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
+            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", [])
             console.log(response)
@@ -76,8 +76,9 @@ class LoginUser extends React.Component {
                 this.props.dispatch(setToken(response.token))
 
                 // andare avanti nella prossima pagina
-                this.props.history.push('/UserPage')
+                // this.props.history.push('/userHome')
             }
+            this.props.history.push('/restaurants')
 
         }
 
