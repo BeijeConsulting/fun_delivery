@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
+import { get as _get } from 'lodash';
 
 import '../userHome/UserHome.css'
 import properties from "../../../common/utils/properties"
@@ -70,7 +71,9 @@ const UserHome = (props) => {
 
 
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/users/1')
+        let response = await properties.GENERIC_SERVICE.apiGET('/user/1')
+        let statusCode = _get(response, "status", null)
+        let userRole = _get(response, "permission", [])
 
         console.log('get user id: ', response)
 
