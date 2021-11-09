@@ -31,14 +31,15 @@ class genericServices {
         // );
     }
 
-    checkErrorStatus = (error) => {
-        if (error.response.status === "403") {
+    checkErrorStatus = (errorResponse) => {
+        if (errorResponse.status === 403) {
             //Fare il refresh token
-            return error.response.data;
+            return errorResponse.data;
         }
-        if (error.response.status === "401") {
+        if (errorResponse.status === 401) {
             //Email o password errati
-            return error.response.data;
+            console.log("Sto passando: ", errorResponse.data)
+            return errorResponse.data;
         }
     };
 
@@ -82,7 +83,7 @@ class genericServices {
                 // this.interceptorsResponse()
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                this.checkErrorStatus(error.response);
             });
     };
 
@@ -91,7 +92,6 @@ class genericServices {
         //richiamo duck o parametro token
         // token = await this.getLocalAccessToken();
         this.instance.defaults.headers = this.getHeaderWithToken(token);
-
         return await this.instance.post(path, obj)
             .then((response) => {
                 if (response.status === 200) {
@@ -99,7 +99,8 @@ class genericServices {
                 }
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                console.log("error apiPost: ", error.response)
+                this.checkErrorStatus(error.response);
             });
     };
 

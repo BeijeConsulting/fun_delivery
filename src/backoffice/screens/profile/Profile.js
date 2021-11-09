@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 class Profile extends Component {
     constructor(props) {
         super(props)
-
+        console.log(props)
         this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
         this.storageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'));
         this.activeRestaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
