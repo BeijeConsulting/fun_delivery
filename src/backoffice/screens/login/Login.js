@@ -11,9 +11,11 @@ import Button from '../../../common/components/ui/button/Button'
 // Utils & Properties
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties';
+import genericServices from '../../../common/utils/genericServices';
 import localStorageData from '../../localStorageData/localStorageData';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
-
+import { setToken } from '../../../common/redux/duck/tokenDuck';
+import { connect } from 'react-redux';
 class Login extends Component {
 
     constructor(props) {
@@ -39,35 +41,48 @@ class Login extends Component {
     handleInputPassword = (e) => {
         this.password = e.target.value
     }
-    handleSubmit = () => {
+    handleSubmit = async () => {
         let emailChecked = Utils.validateEmail(this.email);
-        let passwordChecked = Utils.validatePassword(this.password);
+        // let passwordChecked = Utils.validatePassword(this.password);
+        let passwordChecked = this.password.length >= 2
         let error = this.state.warning
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
-            let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-            let restaurant = foundRestaurant.restaurant_list.find(item => {
-                return this.email === item.email
-            })
+            // let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
+            // let restaurant = foundRestaurant.restaurant_list.find(item => {
+            //     return this.email === item.email
+            // })
 
-            if (restaurant === undefined) {
-                error = true
-            } else {
-                // Save activeRestaurantId on localstorage
-                localStorage.setItem('activeRestaurantId', JSON.stringify(restaurant.id))
+            // if (restaurant === undefined) {
+            //     error = true
+            // } else {
+            //     // Save activeRestaurantId on localstorage
+            //     localStorage.setItem('activeRestaurantId', JSON.stringify(restaurant.id))
 
-                // SAVE DATA on localStorage
-                let storageExists = localStorage.getItem('localStorageData');
-                if (!!storageExists || !storageExists) {
-                    localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-                }
+            //     // SAVE DATA on localStorage
+            //     let storageExists = localStorage.getItem('localStorageData');
+            //     if (!!storageExists || !storageExists) {
+            //         localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
+            //     }
 
-                error = false
+            //     error = false
 
-                this.props.history.push(properties.BO_ROUTING.PROFILE, {
-                    validation: true
-                })
+            //     this.props.history.push(properties.BO_ROUTING.PROFILE, {
+            //         validation: true
+            //     })
+            // }
+            properties.GENERIC_SERVICE = new genericServices();
+            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
+            if (response.status === '401' || !response.permission.includes("RESTAURANT")) {
+                error = true;
+            }
+            else {                
+                // Salvare token nel duck
+                this.props.dispatch(setToken(response.token))
+
+                // andare avanti nella prossima pagina
+                this.props.history.push(properties.BO_ROUTING.PROFILE)
             }
         }
 
@@ -126,4 +141,4 @@ class Login extends Component {
     }
 }
 
-export default withTranslation()(Login);
+export default connect()(withTranslation()(Login));
