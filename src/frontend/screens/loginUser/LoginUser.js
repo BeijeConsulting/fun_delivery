@@ -65,7 +65,7 @@ class LoginUser extends React.Component {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
             console.log(response)
-            if (response.status === '401' || !response.permission.includes("RESTAURANT")) {
+            if (response.status === 401 || !response.permission.includes("USER")) {
                 error = true;
             }
             else {

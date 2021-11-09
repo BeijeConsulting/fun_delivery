@@ -88,16 +88,14 @@ class RegistrationUser extends React.Component {
 
 
             properties.GENERIC_SERVICE = new genericServices();
-            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', JSON.stringify({
+            let response = await properties.GENERIC_SERVICE.apiPOST('/user', JSON.stringify({
 
-                "userName": this.state.userInfo.userName,
-                "surname": this.state.userInfo.surname,
+                "firstName": this.state.userInfo.userName,
+                "lastName": this.state.userInfo.surname,
                 "email": this.state.userInfo.email,
-                "phone": this.state.userInfo.phone,
                 "password": this.state.userInfo.password,
-                "confpsw": this.state.userInfo.confpsw,
             }))
-            if (response.status === '401' || !response.permission.includes("RESTAURANT")) {
+            if (response.status === 401 || !response.permission.includes("USER")) {
                 error = true;
             }
             else {
@@ -105,10 +103,9 @@ class RegistrationUser extends React.Component {
                 this.props.dispatch(setToken(response.token))
 
                 // andare avanti nella prossima pagina
-                this.props.history.push(properties.BO_ROUTING.PROFILE)
+                this.props.history.push('/userHome')
             }
 
-            this.props.history.push('/userHome')
         }
 
         this.setState({
