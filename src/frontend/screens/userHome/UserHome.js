@@ -71,7 +71,7 @@ const UserHome = (props) => {
 
 
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/user/1')
+        let response = await properties.GENERIC_SERVICE.apiGET('/user/1', props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", [])
 
