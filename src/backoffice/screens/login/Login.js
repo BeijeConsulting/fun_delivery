@@ -7,7 +7,7 @@ import BannerBackground from '../../components/ui/bannerBackground/BannerBackgro
 import Navbar from '../../components/ui/navbar/Navbar'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import Button from '../../../common/components/ui/button/Button'
-
+import { get as _get } from 'lodash';
 // Utils & Properties
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties';
@@ -49,32 +49,12 @@ class Login extends Component {
         if (!emailChecked || !passwordChecked) {
             error = true
         } else {
-            // let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-            // let restaurant = foundRestaurant.restaurant_list.find(item => {
-            //     return this.email === item.email
-            // })
-
-            // if (restaurant === undefined) {
-            //     error = true
-            // } else {
-            //     // Save activeRestaurantId on localstorage
-            //     localStorage.setItem('activeRestaurantId', JSON.stringify(restaurant.id))
-
-            //     // SAVE DATA on localStorage
-            //     let storageExists = localStorage.getItem('localStorageData');
-            //     if (!!storageExists || !storageExists) {
-            //         localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-            //     }
-
-            //     error = false
-
-            //     this.props.history.push(properties.BO_ROUTING.PROFILE, {
-            //         validation: true
-            //     })
-            // }
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
-            if (response.status === '401' || !response.permission.includes("RESTAURANT")) {
+            let statusCode = _get(response, "status", null)
+            let userRole = _get(response, "permission", [])
+
+            if (statusCode === "401" || !userRole.includes("RESTAURANT")) {
                 error = true;
             }
             else {                
