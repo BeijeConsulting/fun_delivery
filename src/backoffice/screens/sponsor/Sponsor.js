@@ -188,8 +188,8 @@ class Profile extends Component {
 
                         {
                             this.state.choice !== '' &&
-                            <div>
-                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>La durata di {this.state.choice.name} é: </h1>
+                            <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>Termine sponsorizzazione di {this.state.choice.name} in: </h1>
                                 <h3 style={{ color: 'red' }}> {this.state.expireData}</h3>
 
 
