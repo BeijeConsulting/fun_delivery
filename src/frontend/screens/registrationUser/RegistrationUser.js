@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import properties from "../../../common/utils/properties";
+import genericServices from "../../../common/utils/genericServices";
+import { setToken } from "../../../common/redux/duck/tokenDuck";
 
 //import Button
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
@@ -31,7 +35,7 @@ class RegistrationUser extends React.Component {
                 phone: "",
                 password: "",
                 confpsw: "",
-                beijeCoin: 0,
+                beijeCoin: 3,
                 experience: 0,
                 avatar: {
                     userAvatars: [0],
@@ -41,7 +45,7 @@ class RegistrationUser extends React.Component {
                     userBadges: [0],
                     selectedBadge: 0,
                 },
-                mission: [0],
+                mission: [],
                 freeDelivery: false,
                 freeDeliveryModal: false,
                 discount: false
@@ -64,7 +68,7 @@ class RegistrationUser extends React.Component {
 
     //TEST TEMP
     //Levare alert e mettere i vari messaggi di errori e di login effettuato
-    handleSignUp = () => {
+    handleSignUp = async () => {
         let error = this.state.errormsg
 
         if (utils.validateName(this.state.userInfo.userName) === false) {
@@ -81,6 +85,29 @@ class RegistrationUser extends React.Component {
             error = i18n.t('frontend.components.login_page.error_registration.confirm_password')
         } else {
             error = i18n.t('frontend.components.login_page.error_registration.registration_accept')
+
+
+            properties.GENERIC_SERVICE = new genericServices();
+            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', JSON.stringify({
+
+                "userName": this.state.userInfo.userName,
+                "surname": this.state.userInfo.surname,
+                "email": this.state.userInfo.email,
+                "phone": this.state.userInfo.phone,
+                "password": this.state.userInfo.password,
+                "confpsw": this.state.userInfo.confpsw,
+            }))
+            if (response.status === '401' || !response.permission.includes("RESTAURANT")) {
+                error = true;
+            }
+            else {
+                // Salvare token nel duck
+                this.props.dispatch(setToken(response.token))
+
+                // andare avanti nella prossima pagina
+                this.props.history.push(properties.BO_ROUTING.PROFILE)
+            }
+
             this.props.history.push('/userHome')
         }
 
@@ -88,7 +115,7 @@ class RegistrationUser extends React.Component {
             errormsg: error
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
+        // localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
 
     }
 
@@ -190,4 +217,4 @@ class RegistrationUser extends React.Component {
     }
 }
 
-export default withTranslation()(RegistrationUser)
+export default connect()(withTranslation()(RegistrationUser))

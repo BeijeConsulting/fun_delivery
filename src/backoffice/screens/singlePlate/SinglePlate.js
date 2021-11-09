@@ -1,19 +1,17 @@
-import { Component } from "react";
+import { DeleteOutlined, EditFilled, SaveOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
 import { get } from "lodash";
-import { LeftOutlined } from '@ant-design/icons'
-import { EditFilled, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
+import { Component } from "react";
 import { withTranslation } from "react-i18next";
-import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import TextArea from "../../../common/components/ui/textarea/TextArea";
+import properties from "../../../common/utils/properties";
+import utils from "../../../common/utils/utils";
+import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
+import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
-import utils from "../../../common/utils/utils";
-import properties from "../../../common/utils/properties";
-import i18n from "../../../common/localization/i18n";
 import './SinglePlate.css';
-import 'antd/dist/antd.css';
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
@@ -230,7 +228,6 @@ class SinglePlate extends Component {
                                         disable={!this.state.editData}
                                         callback={this.handleCallbackInput}
                                         newCss=''
-                                        disable={!this.state.editData}
                                     />
 
                                     <InputBox

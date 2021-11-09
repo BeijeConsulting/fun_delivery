@@ -13,10 +13,9 @@ import Pizza from '../../assets/images/pizza.png'
 import Poke from '../../assets/images/poke.png'
 import Sushi from '../../assets/images/sushi.png'
 
+
 /* HOOKS */
-import { useState } from "react"
-import { useEffect } from "react"
-import { useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useHistory } from "react-router"
 
 
@@ -28,7 +27,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar"
 
- 
+
 
 
 const Restaurants = (props) => {
@@ -195,7 +194,7 @@ const Restaurants = (props) => {
         })
     }
 
-    const goToMenu = () =>{
+    const goToMenu = () => {
         props.history.push('/menuRestaurant')
     }
 
@@ -206,7 +205,8 @@ const Restaurants = (props) => {
                 <section className="fe-restaurants-section-one">
                     {/* JUMBO */}
                     <h1 className='fe-title-main'>{t('frontend.screens.restaurants.title')}</h1>
-                    <div className='fe-restaurants-banner'></div>
+                    <div className='fe-restaurants-banner'>
+                    </div>
                     {/* categorie */}
                     <h2 className='fe-categories-title'>{t('frontend.screens.restaurants.category')}</h2>
                     <div className='fe-categories-container'>

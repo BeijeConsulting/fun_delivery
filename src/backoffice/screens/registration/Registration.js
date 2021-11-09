@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
-import './Registration.css'
-import Navbar from '../../components/ui/navbar/Navbar'
-import InputBox from '../../../common/components/ui/inputBox/InputBox'
+import { withTranslation } from 'react-i18next'
 import Button from '../../../common/components/ui/button/Button'
-import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
-import utils from '../../../common/utils/utils'
-import constantsDictionary from '../../../common/utils/constantsDictionary'
-// import Select from '../../../common/components/ui/select/Select'
-import { withTranslation } from 'react-i18next';
-import { map as _map } from "lodash";
-/* import IsEmpty from 'lodash'; */
-// import { message, Button as ButtonAnt } from 'antd';
-import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
+import InputBox from '../../../common/components/ui/inputBox/InputBox'
 import properties from '../../../common/utils/properties'
+import utils from '../../../common/utils/utils'
+import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
+import Navbar from '../../components/ui/navbar/Navbar'
 import localStorageData from '../../localStorageData/localStorageData'
+import './Registration.css'
 class Registration extends Component {
 
     constructor(props) {
@@ -105,7 +99,8 @@ class Registration extends Component {
                     localStorageRestaurantsData.restaurant_list.push({
                         ...this.objData,
                         ...gamificationData,
-                        id: localStorageRestaurantsData.restaurant_list.length + 1
+                        id: localStorageRestaurantsData.restaurant_list.length + 1,
+                        description:''
                     });
 
                     localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurantsData));

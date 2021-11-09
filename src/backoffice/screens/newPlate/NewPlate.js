@@ -7,8 +7,6 @@ import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard';
 import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';
-import i18n from "../../../common/localization/i18n";
-// import Button from "../../../common/components/ui/button/Button";
 
 import 'antd/dist/antd.css';
 import './NewPlate.css';

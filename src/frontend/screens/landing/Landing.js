@@ -2,20 +2,12 @@ import '../landing/Landing.css';
 import HtmlTag from '../../components/funcComponents/htmlTag/HtmlTag';
 import Input from '../../../common/components/ui/inputBox/InputBox';
 import Button from '../../../common/components/ui/button/Button';
-import burger from '../../../common/assets/HAMBURGER.svg';
-/* import barbecue from '../../../common/assets/BARBECUE.svg'; */
-import iceCream from '../../../common/assets/IceCream.svg';
-import breakFast from '../../../common/assets/Breakfast.svg';
 import backgroundFood from '../../assets/images/background_food.png'
-/* import plateBreakfast from '../../../common/assets/PlateBreakfast.svg'; */
 //gsap
-import { gsap } from "gsap";
 //AOS 
 import AOS from 'aos';
 /* import { ScrollTrigger } from "gsap/ScrollTrigger"; */
-import { useState } from "react";
-import { useRef } from "react"
-import { useEffect } from "react/cjs/react.development";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import Navbar from '../../components/ui/navbar/Navbar';
@@ -37,13 +29,6 @@ const Landing = (props) => {
 
     //USEEFFECT
     useEffect(() => {
-        const element = ref.current;
-        const burgerSel = element.querySelector('.fe-burger-svg')
-        /* const iceCreamSel = element.querySelector('.fe-icecream-svg')
-        const breakfastSel = element.querySelector('.fe-breakfast-svg')
-        gsap.from(burgerSel, { x: 50, opacity: 0, duration: 1, scale: 0.2 })
-        gsap.from(iceCreamSel, { y: -50, opacity: 0, duration: 1, scale: 0.2 })
-        gsap.from(breakfastSel, { x: -50, opacity: 0, duration: 1, scale: 0.2 }) */
         //AOS INIT
         AOS.init({
             duration: 1000

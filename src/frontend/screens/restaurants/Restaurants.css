@@ -18,10 +18,12 @@ html {
 
 .fe-restaurants-banner {
     border-radius: 10px;
-    height: 300px;
+    height: 250px;
     width: 100%;
     margin: 2rem 0;
-    background-color: var(--primary-strawberry);
+    background-image: url("../../../gamification/assets/images/sombrerosWeek.jpg");
+    overflow:"hidden";
+    background-position-y: center;
 }
 
 .fe-categories-title {
@@ -199,7 +201,9 @@ html {
         border: 2px solid var(--primary-strawberry);
         padding: 1rem
     }
-
+    .fe-restaurants-banner{
+        height: 180px;
+    }
     .fe-title-main {
         margin-top: 2rem;
         font-size: 1.5rem;
