@@ -6,6 +6,7 @@ import 'antd/dist/antd.css';
 import properties from "../../../common/utils/properties";
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import genericServices from "../../../common/utils/genericServices";
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +15,10 @@ class MyMenu extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         // Simulating api call on localStorage
+        properties.GENERIC_SERVICE = new genericServices()
+        let apiCategories = await properties.GENERIC_SERVICE.apiGET('platecategorys',get(tokenDuck,'token'))
         this.setState({
             categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
         }) 
