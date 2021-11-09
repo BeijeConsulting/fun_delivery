@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import '../userHome/UserHome.css'
-
+import properties from "../../../common/utils/properties"
 
 //Components
 import Wheel from '../../../gamification/components/classComponents/wheel/Wheel'
@@ -17,7 +18,7 @@ import coin from '../../../common/assets/BeijeCoin.png'
 import pencil from '../../../frontend/assets/images/pencil.svg'
 import fire from '../../assets/images/fire.gif'
 import luckySpinMobile from '../../assets/images/luckySpinMobile.png'
-import properties from "../../../gamification/utilities/properties";
+import propertiesGM from "../../../gamification/utilities/properties";
 
 //Icon fontawsome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -27,6 +28,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import UserInformation from "../../components/funcComponents/userInformation/UserInformation";
 
 import Navbar from "../../components/ui/navbar/Navbar";
+import genericServices from "../../../common/utils/genericServices";
 
 
 
@@ -61,10 +63,17 @@ const UserHome = (props) => {
     let percentageExp = 0
 
     //useEffect
-    useEffect(() => {
+    useEffect(async () => {
         if (oldDate) {
             newWheelAvaileble = compare
         }
+
+
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET('/users/1')
+
+        console.log('get user id: ', response)
+
 
         setState({
             ...state,
@@ -276,10 +285,10 @@ const UserHome = (props) => {
                             <div className='fe-user-header'>
                                 {/* User images */}
                                 <div className='fe-user-images-container'>
-                                    <img className='fe-user-avatar' src={properties.avatar_list[userPath.avatar.selectedAvatar].image} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
+                                    <img className='fe-user-avatar' src={propertiesGM.avatar_list[userPath.avatar.selectedAvatar].image} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
 
                                     <div className='fe-user-badge-container'>
-                                        <img className='fe-user-badge' src={properties.badge_list[userPath.badge.selectedBadge].image} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
+                                        <img className='fe-user-badge' src={propertiesGM.badge_list[userPath.badge.selectedBadge].image} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
                                     </div>
 
                                     <div className='fe-user-icon-container'>
@@ -467,4 +476,8 @@ const UserHome = (props) => {
     )
 }
 
-export default UserHome;
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+})
+
+export default connect(mapStateToProps)(UserHome);

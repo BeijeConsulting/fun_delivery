@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+
+//Import style
 import './Sponsor.css';
-import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
-import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
-// import CountDownTimer from "../../../gamification/components/funcComponents/CountDownTimer";
+
+//Import icons
 import coin from '../../../common/assets/BeijeCoin.png'
-// import { HourglassOutlined } from '@ant-design/icons';
+
+//Import component
 import SingleSponsor from "./singleSponsor/SingleSponsor";
+import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
+import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
+
 class Profile extends Component {
     constructor(props) {
         let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
@@ -17,14 +23,9 @@ class Profile extends Component {
             choice: storage === null ? '' : storage,
             expireData: null,
             sponsorAvailable: true,
-
             sponsorSelected: storageRestaurantSelected === null ? '' : storageRestaurantSelected,
-
-
-
             objRestaurant: null
         }
-
     }
 
 
@@ -40,7 +41,6 @@ class Profile extends Component {
 
 
         // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-        console.log('risto attivo : ', this.activeRestaurant)
 
     }
 
@@ -55,31 +55,23 @@ class Profile extends Component {
                     if (this.activeRestaurant.coins >= choice.price) {
 
                         let result = this.activeRestaurant.coins - choice.price;
-                        console.log(result)
                         this.activeRestaurant.coins = result;
-                        console.log('activeRestaurant: ', this.activeRestaurant)
 
                         localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
                         //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
                         element.sponsor = true;
                         element = this.activeRestaurant;
                         localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
-                        console.log(this.state.choice)
-                        console.log('EEEEEEEEE: ', e)
                         let newChoice = e.durata + this.newDate;
                         for (let key in e) {
                             if (key === 'durata') {
                                 e[key] = newChoice;
                             }
                         }
-
-
-
                         this.setState({
                             choice: e,
                             sponsorSelected: this.activeRestaurant
                         })
-                        console.log('choice post set state ', choice)
                         localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
                     }
                     else {
@@ -119,7 +111,6 @@ class Profile extends Component {
 
 
     render() {
-        console.log(this.state.sponsorSelected)
         return (
             <>
 
@@ -213,4 +204,8 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+const mapStateToProps = state =>({
+    tokenDuck: state.tokenDuck
+})
+
+export default connect(mapStateToProps)(Profile)
