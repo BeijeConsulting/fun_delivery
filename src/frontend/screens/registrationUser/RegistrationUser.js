@@ -90,31 +90,52 @@ class RegistrationUser extends React.Component {
 
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/user', {
-                "firstName": this.state.userInfo.userName,
-                "lastName": this.state.userInfo.surname,
-                "email": this.state.userInfo.email,
-                "password": this.state.userInfo.password,
+                firstName: this.state.userInfo.userName,
+                lastName: this.state.userInfo.surname,
+                email: this.state.userInfo.email,
+                phoneNumber: this.state.userInfo.phone,
+                password: this.state.userInfo.password,
+
             })
+
             let statusCode = _get(response, "status", null)
-            let userRole = _get(response, "permission", [])
-            if (statusCode === "401" || !userRole.includes("USER")) {
+            let userRole = _get(response, "permission", null)
+            if (statusCode === 401) {
+                console.log('errore trovato')
                 error = true;
             }
             else {
-                // Salvare token nel duck
-                this.props.dispatch(setToken(response.token))
 
-                // andare avanti nella prossima pagina
-
+                properties.GENERIC_SERVICE = new genericServices();
+                let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.userInfo.email, password: this.state.userInfo.password })
+                let statusCode = _get(response, "status", null)
+                let userRole = _get(response, "permission", null)
+                console.log(response)
+                if (statusCode === 401 || userRole === "restaurant") {
+                    error = true;
+                }
+                else {
+                    // Salvare token nel duck
+                    this.props.dispatch(setToken(response.token))
+                    // andare avanti nella prossima pagina
+                    // localStorage.setItem('token', response.token)
+                    this.props.history.push('/restaurants')
+                }
+            
             }
-            this.props.history.push('/restaurants')
+
+
         }
+
+
+
 
         this.setState({
             errormsg: error
         })
 
-        // localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
+        localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
+
 
     }
 
@@ -147,7 +168,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.userName')}
                             name={"userName"}
                             type={"text"}
-                            value={this.state.userName}
+                            value={this.state.userInfo.userName}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -155,7 +176,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.surname')}
                             name={"surname"}
                             type={"text"}
-                            value={this.state.surname}
+                            value={this.state.userInfo.surname}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -164,7 +185,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.email')}
                             name={"email"}
                             type={"email"}
-                            value={this.state.email}
+                            value={this.state.userInfo.email}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -173,7 +194,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.phone')}
                             name={"phone"}
                             type={"tel"}
-                            value={this.state.phone}
+                            value={this.state.userInfo.phone}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -182,7 +203,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.password')}
                             name={"password"}
                             type={"password"}
-                            value={this.state.password}
+                            value={this.state.userInfo.password}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -191,7 +212,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.confpsw')}
                             name={"confpsw"}
                             type={"password"}
-                            value={this.state.confpsw}
+                            value={this.state.userInfo.confpsw}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />

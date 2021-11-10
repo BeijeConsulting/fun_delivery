@@ -32,10 +32,9 @@ class LoginUser extends React.Component {
     }
 
 
-
-
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+
         let error = ''
         if (!this.state.email) {
             error = i18n.t('frontend.components.login_page.error_login.email')
@@ -66,17 +65,16 @@ class LoginUser extends React.Component {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
-            let userRole = _get(response, "permission", [])
+            let userRole = _get(response, "permission", null)
             console.log(response)
-            if (statusCode === "401" || !userRole.includes("USER")) {
+            if (statusCode === 401 || userRole === "restaurant") {
                 error = true;
             }
             else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
-
                 // andare avanti nella prossima pagina
-                // this.props.history.push('/userHome')
+                // localStorage.setItem('token', response.token)
             }
             this.props.history.push('/restaurants')
 

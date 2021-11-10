@@ -6,6 +6,8 @@ import 'antd/dist/antd.css';
 import properties from "../../../common/utils/properties";
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import genericServices from "../../../common/utils/genericServices";
+import { get } from 'lodash'
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -14,11 +16,15 @@ class MyMenu extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         // Simulating api call on localStorage
+        properties.GENERIC_SERVICE = new genericServices()
+        let apiCategories = await properties.GENERIC_SERVICE.apiGET('platecategorys', get(this.props, 'tokenDuck.token', null))
+
+        console.log('tokenDuck', this.props.tokenDuck.token);
         this.setState({
-            categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
-        }) 
+            categories: apiCategories
+        })
     }
 
     handleCallbackPagePlates = (category_id, category_name) => () => {
@@ -44,29 +50,33 @@ class MyMenu extends Component {
                         </div>
 
                         <section className="bo-mymenu-form">
-
                             {
-                                this.state.categories.map((category, index) => {
-                                    return (
-                                        <div className="bo-mymenu-flex-cards" key={index}>
-                                            <Card
-                                                title={category.name}
-                                                img={category.img_path}
-                                                callback={this.handleCallbackPagePlates(category.id, category.name)}
-                                            />
-                                        </div>
-                                    )
-                                }) 
+                                this.state.categories !== undefined &&
+                                <>
+                                {
+                                    this.state.categories.map((category, index) => {
+                                        return (
+                                            <div className="bo-mymenu-flex-cards" key={index}>
+                                                <Card
+                                                    title={category.name}
+                                                    //  img={category.img_path}
+                                                    callback={this.handleCallbackPagePlates(category.id, category.name)}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                             </>
                             }
 
-                        </section>
-                    </div>
-                </LayoutBackOffice>
+                    </section>
+                </div>
+            </LayoutBackOffice>
             </>
         )
     }
 }
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
     tokenDuck: state.tokenDuck
 })
 export default connect(mapStateToProps)(withTranslation()(MyMenu))
