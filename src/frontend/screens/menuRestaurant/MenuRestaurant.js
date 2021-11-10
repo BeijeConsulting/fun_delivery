@@ -6,6 +6,7 @@ import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate
 import AOS from 'aos';
 import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
+import filter from "lodash/filter"
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
 import Secondi from '../../../backoffice/assets/images/secondi.jfif'
@@ -17,24 +18,37 @@ import Messicano from '../../../backoffice/assets/images/messicano.jpg'
 import Poke from '../../../backoffice/assets/images/poke.jpg'
 import Sushi from '../../../backoffice/assets/images/sushi.png'
 import Altro from '../../../backoffice/assets/images/altro.jpg'
-import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
 import Navbar from '../../components/ui/navbar/Navbar'
+import { createRef } from 'react/cjs/react.production.min'
+
+import genericServices from "../../../common/utils/genericServices";
+import properties from "../../../common/utils/properties";
+import { get as _get } from 'lodash';
+import { setToken } from "../../../common/redux/duck/tokenDuck";
+import { connect } from "react-redux";
+
+
+
 
 class MenuRestaurant extends React.Component {
     constructor(props) {
 
         super(props)
 
+
+
         /* DATA */
-        this.restaurant_categories = {
-            1: 'Pizza',
-            2: 'Pokè',
-            3: 'Sushi',
-            4: "Messicano",
-            5: 'Italiano',
-            6: 'Hamburger',
-            7: 'Altro',
-        }
+        // this.restaurant_categories = {
+        //     1: 'Pizza',
+        //     2: 'Pokè',
+        //     3: 'Sushi',
+        //     4: "Messicano",
+        //     5: 'Italiano',
+        //     6: 'Hamburger',
+        //     7: 'Altro',
+        //     8: 'Cinese'
+        // }
+
         this.arrPlate_categories = [
             {
                 id: 1,
@@ -85,9 +99,9 @@ class MenuRestaurant extends React.Component {
                 id: 10,
                 name: 'Altro',
                 img_path: Altro
-            }
+            },
         ]
-        
+
 
         this.newPlateCategories = {}
         for (const iterator of this.arrPlate_categories) {
@@ -220,6 +234,7 @@ class MenuRestaurant extends React.Component {
             menuArray: this.menuArray,
             isClick: false,
             totalPrice: 0,
+            filteredList: this.arrPlate_categories,
             cartToggle: 'fe-menu-cart',
         }
     }
@@ -234,10 +249,34 @@ class MenuRestaurant extends React.Component {
         console.log(this.state.isClick)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         AOS.init({
             duration: 1000
         })
+        // REF
+
+        this.scrollOnTop()
+
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET('/platecategorys')
+        let statusCode = _get(response, "status", null)
+        let userRole = _get(response, "permission", [])
+        if (statusCode === "401" || !userRole.includes("USER")) {
+            console.log('error')
+        }
+        else {
+            // Salvare token nel duck
+            this.props.dispatch(setToken(response.token))
+            console.log(response)
+
+            // andare avanti nella prossima pagina
+
+        }
+    }
+
+
+    scrollOnTop = () => {
+        window.scrollTo(0, 0)
     }
 
     cartToggler = () => {
@@ -295,7 +334,6 @@ class MenuRestaurant extends React.Component {
         this.props.history.push('/orderConfirmed');
     }
 
-  
     render() {
         const { t } = this.props
         return (
@@ -342,13 +380,13 @@ class MenuRestaurant extends React.Component {
                                     style={{ backgroundColor: 'var(--primary-dark)', marginTop: '1rem' }}
                                     onClick={this.goToFinalPage}
                                 >
-                                     {t('frontend.components.goTo_checkout.check')}</button>}
+                                    {t('frontend.components.goTo_checkout.check')}</button>}
                         </div>
 
                         {/* CARRELLO nella modalita` desktop */}
                         <div className={`${this.state.cartToggle}`}>
                             <h2 className={`fe-menu-cart-title`}>
-                            {t('frontend.components.my_cart.cart')}
+                                {t('frontend.components.my_cart.cart')}
                             </h2>
 
                             <div className='fe-menu-cart-content'>
@@ -381,21 +419,24 @@ class MenuRestaurant extends React.Component {
 
 
                         {/* ALL CATEGORIES */}
-                        <div className='fe-menu-all-categories'>
+                        <div className='fe-menu-all-categories' >
 
                             {
                                 this.categoriesArr.map((itemCategory, index) => {
                                     return (
                                         <div className='fe-menu-category-container' key={index}>
-                                            <h2 className='fe-menu-category-title' 
-                                             data-aos="fade-right">{itemCategory}</h2>
-                                            <div className="fe-menu-plate-container" data-aos="">
+                                            <h2 className='fe-menu-category-title'
+                                                data-aos="fade-right" >{itemCategory}</h2>
+                                            <div className="fe-menu-plate-container">
+
 
                                                 {this.menuArray
                                                     .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+
                                                     .map((item, key) => {
                                                         return (
                                                             <SinglePlate
+
                                                                 key={key}
                                                                 image={item.plate_img}
                                                                 descriptPlate={item.plate_description}
@@ -421,4 +462,4 @@ class MenuRestaurant extends React.Component {
         )
     }
 }
-export default withTranslation()(MenuRestaurant);
+export default connect()(withTranslation()(MenuRestaurant));

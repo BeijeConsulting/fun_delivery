@@ -103,6 +103,7 @@ const Restaurants = (props) => {
 
     //USEEFFECT
     useEffect(() => {
+    
         let orderedRestaurants = []
         orderedRestaurants = orderBy(state.objectRestaurantsForList, ['number_orders'], ['desc'])
         orderedRestaurants = orderedRestaurants.slice(0, 3)
@@ -141,7 +142,7 @@ const Restaurants = (props) => {
         tl2.from(restaurantsRowTwo, { y: -50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back' })
 
         gsap.fromTo(title, { opacity: 0, scale: 0.2, y: -20, }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "none", })
-
+        
     }, []) //componentDidMount    
 
 
