@@ -94,18 +94,21 @@ class RegistrationUser extends React.Component {
                 "lastName": this.state.userInfo.surname,
                 "email": this.state.userInfo.email,
                 "password": this.state.userInfo.password,
-            })
+                "restaurantId": 3,
+                "disableDate": null,
+                "totalCoins": this.state.userInfo.beijeCoin,
+                "exp": this.state.userInfo.experience,
+                "avatarId": 1
+            }, )
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", [])
-            if (statusCode === "401" || !userRole.includes("USER")) {
+            if (statusCode === 401 || !userRole.includes("user")) {
                 error = true;
             }
             else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
-
                 // andare avanti nella prossima pagina
-
             }
             this.props.history.push('/restaurants')
         }
@@ -114,7 +117,7 @@ class RegistrationUser extends React.Component {
             errormsg: error
         })
 
-        // localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
+        localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
 
     }
 
@@ -147,7 +150,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.userName')}
                             name={"userName"}
                             type={"text"}
-                            value={this.state.userName}
+                            value={this.state.userInfo.userName}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -155,7 +158,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.surname')}
                             name={"surname"}
                             type={"text"}
-                            value={this.state.surname}
+                            value={this.state.userInfo.surname}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -164,7 +167,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.email')}
                             name={"email"}
                             type={"email"}
-                            value={this.state.email}
+                            value={this.state.userInfo.email}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -173,7 +176,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.phone')}
                             name={"phone"}
                             type={"tel"}
-                            value={this.state.phone}
+                            value={this.state.userInfo.phone}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -182,7 +185,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.password')}
                             name={"password"}
                             type={"password"}
-                            value={this.state.password}
+                            value={this.state.userInfo.password}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
@@ -191,7 +194,7 @@ class RegistrationUser extends React.Component {
                             placeholder={t('frontend.components.login_page.register_placeholder.confpsw')}
                             name={"confpsw"}
                             type={"password"}
-                            value={this.state.confpsw}
+                            value={this.state.userInfo.confpsw}
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />

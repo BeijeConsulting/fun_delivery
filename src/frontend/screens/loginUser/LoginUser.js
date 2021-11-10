@@ -35,7 +35,7 @@ class LoginUser extends React.Component {
 
 
     validateClick = async () => {
-        // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+        let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
         let error = ''
         if (!this.state.email) {
             error = i18n.t('frontend.components.login_page.error_login.email')
@@ -46,17 +46,17 @@ class LoginUser extends React.Component {
         else if (!this.state.email && !this.state.password) {
             error = i18n.t('frontend.components.login_page.error_login.email_password')
 
-            // } else if (this.state.email && this.state.password) {
-            //     if (storageUserInfo) {
-            //         if (storageUserInfo.email === this.state.email &&
-            //             storageUserInfo.password === this.state.password) {
-            //             alert('Signed in!')
-            //             this.props.history.push('/userHome');
-            //         }
-            //     } else {
-            //         alert('Register First!')
-            //         this.props.history.push('/registrationUser');
-            //     }
+            } else if (this.state.email && this.state.password) {
+                if (storageUserInfo) {
+                    if (storageUserInfo.email === this.state.email &&
+                        storageUserInfo.password === this.state.password) {
+                        alert('Signed in!')
+                        this.props.history.push('/userHome');
+                    }
+                } else {
+                    alert('Register First!')
+                    this.props.history.push('/registrationUser');
+                }
             //inserire this.props.history.push('/UserPage")
 
 
@@ -68,15 +68,13 @@ class LoginUser extends React.Component {
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", [])
             console.log(response)
-            if (statusCode === "401" || !userRole.includes("USER")) {
+            if (statusCode === 401 || !userRole.includes("user")) {
                 error = true;
             }
             else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
-
                 // andare avanti nella prossima pagina
-                // this.props.history.push('/userHome')
             }
             this.props.history.push('/restaurants')
 
