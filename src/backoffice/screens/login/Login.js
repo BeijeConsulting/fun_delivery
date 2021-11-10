@@ -16,6 +16,7 @@ import localStorageData from '../../localStorageData/localStorageData';
 import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
 import { setToken } from '../../../common/redux/duck/tokenDuck';
 import { connect } from 'react-redux';
+import { setRestaurantId } from '../../../common/redux/duck/restaurantIdDuck';
 class Login extends Component {
 
     constructor(props) {
@@ -52,15 +53,16 @@ class Login extends Component {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
             let statusCode = _get(response, "status", null)
-            let userRole = _get(response, "permission", [])
+            let userRole = _get(response, "permission", null)
+            let restaurantId = _get(response, "restaurant_id", null)
 
-            if (statusCode === "401" || !userRole.includes("RESTAURANT")) {
+            if (statusCode === "401" || !userRole === 'restaurant' || restaurantId === null) {
                 error = true;
             }
-            else {                
+            else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
-
+                this.props.dispatch(setRestaurantId(restaurantId))
                 // andare avanti nella prossima pagina
                 this.props.history.push(properties.BO_ROUTING.PROFILE)
             }
