@@ -4,29 +4,36 @@ import { cloneDeep as _cloneDeep } from "lodash";
 import constantsDictionary from '../../../common/utils/constantsDictionary';
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import properties from "../../../common/utils/properties";
+import genericServices from "../../../common/utils/genericServices";
 import i18n from "../../../common/localization/i18n";
 import './MyOrders.css';
 import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
 import { Table, Tooltip } from 'antd';
-
+import restaurantIdDuck from "../../../common/redux/duck/restaurantIdDuck";
+import { connect } from "react-redux";
 
 class MyOrders extends Component {
 
     constructor(props) {
         super(props);
         this.status = constantsDictionary.ORDER_STATUS
-        this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
+        // this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
+        this.state = {
+            all_orders: [],
+            all_ordersModifiedStatus: [],
+            statusesOrders: []
+        }
 
         //Orders with modifed status to show emoji's instead of status
-        this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
+        // this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
             {
                 title: i18n.t('backoffice.screens.common_screens.order'),
-                dataIndex: 'order_id',
+                dataIndex: 'id',
                 key: '1',
                 defaultSortOrder: 'descend',
-                sorter: (a, b) => a.order_id - b.order_id,
+                sorter: (a, b) => a.id - b.id,
             },
             {
                 title: i18n.t('backoffice.screens.my_orders.status'),
@@ -62,14 +69,14 @@ class MyOrders extends Component {
             },
             {
                 title: i18n.t('backoffice.screens.common_screens.address'),
-                dataIndex: 'customer_address',
+                dataIndex: 'shippingAddress',
                 key: '3',
                 ellipsis: {
                     showTitle: false
                 },
-                render: customer_address => (
-                    <Tooltip placement="topLeft" color={"#f24364"} title={customer_address}>
-                        {customer_address}
+                render: shippingAddress => (
+                    <Tooltip placement="topLeft" color={"#f24364"} title={shippingAddress}>
+                        {shippingAddress}
                     </Tooltip>
                 ),
             },
@@ -84,16 +91,44 @@ class MyOrders extends Component {
         ];
     }
 
-    componentDidMount() {
-        this.mapObjectForEmojiStatus(this.all_ordersModifiedStatus)
+    componentDidMount = async() => {
+        let ordersToSave = await this.getOrders()
+        let statusesToSave = await this.getStatuses()
+        //converto array in oggetto
+        statusesToSave = this.arrayToObject(statusesToSave)
+        console.log("stati mappati in oggetto: ", statusesToSave)
+        this.mapObjectForEmojiStatus(ordersToSave, statusesToSave)
+        this.setState({
+            orders: ordersToSave,
+            all_ordersModifiedStatus: ordersToSave,
+            statusesOrders: statusesToSave
+        })
     }
 
-    mapObjectForEmojiStatus = (order) => {
-        order.map((item) => {
-            return (
-                item.status = this.handleEmojiStatus(item.status)
-            )
-        })
+    getOrders = async() => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET(`/order/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token)
+        console.log("Response: ", response)
+        return response
+    }
+
+    getStatuses = async() => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET('/orderstatuses/', this.props.tokenDuck.token)
+        console.log("Response: ", response)
+        return response
+    }
+
+    arrayToObject = (array) => {
+        let objToReturn = {}
+        for(let element of array){
+            objToReturn[element.id] = element.status 
+        }
+        return objToReturn
+    }
+
+    mapObjectForEmojiStatus = (order, statuses) => {
+        order.map((item) => item.status = this.handleEmojiStatus(statuses[item.statusId]))
     }
 
     handleEmojiStatus = (status) => {
@@ -137,10 +172,6 @@ class MyOrders extends Component {
         })
     }
 
-    handleClickButton = (e) => {
-        i18n.changeLanguage(e.target.value);
-    }
-
     render() {
         const { t } = this.props
         return (
@@ -158,7 +189,7 @@ class MyOrders extends Component {
                                 <Table
                                     rowKey={record => record.order_id}
                                     pagination={false}
-                                    dataSource={this.all_ordersModifiedStatus}
+                                    dataSource={this.state.all_ordersModifiedStatus}
                                     columns={this.columns}
                                     size={'small'}
                                     bordered
@@ -173,4 +204,9 @@ class MyOrders extends Component {
     }
 }
 
-export default withTranslation()(MyOrders)
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(MyOrders))
