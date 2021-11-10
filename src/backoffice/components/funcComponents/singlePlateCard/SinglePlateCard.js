@@ -1,4 +1,5 @@
 import './SinglePlateCard.css'
+import LogoBeije from '../../../assets/images/logo_beijeRosa.png';
 const SinglePlateCard = (props) => {
 
     const handleCallbackCard = (e) => {
@@ -9,10 +10,8 @@ const SinglePlateCard = (props) => {
         <div
             className={'bo-card-default-constainer'}            
         >
-
             <div
-                className={`bo-card-plate-container-img-${props.newCss}`}
-               
+                className={`bo-card-plate-container-img-${props.newCss}`}      
             >
 
                 <label htmlFor="upload-img"
@@ -46,11 +45,12 @@ const SinglePlateCard = (props) => {
                 />
 
             </div>
-
-
-
         </div>
     )
+}
+
+SinglePlateCard.defaultProps = {
+    img: LogoBeije
 }
 
 export default SinglePlateCard
