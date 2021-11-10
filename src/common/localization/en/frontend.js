@@ -28,7 +28,8 @@ export const TRANSLATIONS_FRONTEND = {
             area: 'Restaurants in the area'
         },
         landing_page: {
-            title: "Hungry?Let's eat!"
+            title: "Hungry?",
+            titleFame: "Let's eat!"
         }
     },
 
