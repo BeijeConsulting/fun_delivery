@@ -46,8 +46,8 @@ const UserHome = (props) => {
     })
 
     //Data from localStorage
-    let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
-    let userPath = JSON.parse(localStorage.getItem('userInfo'))
+    // let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
+    // let userPath = JSON.parse(localStorage.getItem('userInfo'))
     let wheelAward = JSON.parse(localStorage.getItem('awards'))
 
     //Dichiarazione variabili
@@ -60,8 +60,14 @@ const UserHome = (props) => {
     let timer = 86400000 - difference
 
     let levelExp = 1000
-    let totalExp = userPath.experience
+    let totalExp = dataUser.exp
     let percentageExp = 0
+
+    let dataUser = null
+    let oldDate = null
+    let avatar = null
+    let badge = null
+    let wheelAward = null
 
     //useEffect
     useEffect(async () => {
@@ -71,12 +77,16 @@ const UserHome = (props) => {
 
 
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/user/1', props.tokenDuck.token)
-        let statusCode = _get(response, "status", null)
-        let userRole = _get(response, "permission", [])
+        dataUser = await properties.GENERIC_SERVICE.apiGET('/user/1', props.tokenDuck.token)
+        let statusCode = _get(dataUser, "status", null)
+        let userRole = _get(dataUser, "permission", [])
 
-        console.log('get user id: ', response)
+        oldDate = await properties.GENERIC_SERVICE.apiGET('/wheel/1', props.tokenDuck.token)
+        avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', props.tokenDuck.token)
+        badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', props.tokenDuck.token)
+        wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', props.tokenDuck.token)
 
+        console.log('get user id: ', dataUser)
 
         setState({
             ...state,
@@ -110,34 +120,34 @@ const UserHome = (props) => {
 
     //calcola il livello sulla base dell'esperienza
     const userLevel = () => {
-        if (userPath.experience < 1000) {
+        if (dataUser.exp < 1000) {
             percentageExp = totalExp / levelExp * 100
             return 1
         }
-        if (userPath.experience >= 1000 && userPath.experience < 3000) {
+        if (dataUser.exp >= 1000 && dataUser.exp < 3000) {
             totalExp -= 1000
             levelExp = 2000
             percentageExp = totalExp / levelExp * 100
             return 2
         }
-        if (userPath.experience >= 3000 && userPath.experience < 6000) {
+        if (dataUser.exp >= 3000 && dataUser.exp < 6000) {
             totalExp -= 3000
             levelExp = 3000
             percentageExp = totalExp / levelExp * 100
             return 3
         }
-        if (userPath.experience >= 6000 && userPath.experience < 10000) {
+        if (dataUser.exp >= 6000 && dataUser.exp < 10000) {
             totalExp -= 6000
             levelExp = 4000
             percentageExp = totalExp / levelExp * 100
             return 4
         }
-        if (userPath.experience >= 10000 && userPath.experience < 15000) {
+        if (dataUser.exp >= 10000 && dataUser.exp < 15000) {
             totalExp -= 10000
             levelExp = 5000
             percentageExp = totalExp / levelExp * 100
             return 5
-        } if (userPath.experience >= 15000) {
+        } if (dataUser.exp >= 15000) {
             totalExp = 5000
             levelExp = 5000
             percentageExp = 100
@@ -146,8 +156,8 @@ const UserHome = (props) => {
     }
 
     const addExp = () => {
-        userPath.experience += 250
-        localStorage.setItem('userInfo', JSON.stringify(userPath))
+        dataUser.exp += 250
+        // localStorage.setItem('userInfo', JSON.stringify(userPath))
         setState({
             ...state,
             count: state.count + 1
@@ -288,10 +298,10 @@ const UserHome = (props) => {
                             <div className='fe-user-header'>
                                 {/* User images */}
                                 <div className='fe-user-images-container'>
-                                    <img className='fe-user-avatar' src={propertiesGM.avatar_list[userPath.avatar.selectedAvatar].image} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
+                                    <img className='fe-user-avatar' src={avatar.path} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
 
                                     <div className='fe-user-badge-container'>
-                                        <img className='fe-user-badge' src={propertiesGM.badge_list[userPath.badge.selectedBadge].image} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
+                                        <img className='fe-user-badge' src={badge.path} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
                                     </div>
 
                                     <div className='fe-user-icon-container'>
@@ -300,14 +310,14 @@ const UserHome = (props) => {
                                 </div>
                                 {/* User name */}
                                 <div className='fe-user-name-container'>
-                                    <span className='fe-user-name'>{userPath.userName + " " + userPath.surname}</span>
+                                    <span className='fe-user-name'>{dataUser.firstName + " " + dataUser.lastName}</span>
                                 </div>
                             </div>
                             {/* Coin info */}
                             <div className='fe-user-switching-home-container' style={state.selectedPage !== 'homeUser' ? { display: 'none' } : { display: 'block' }}>
                                 <div className='fe-user-coin-container'>
                                     <img className='fe-user-coin' src={coin} alt="coin" />
-                                    <span className='fe-coin-number'>{userPath.beijeCoin}</span>
+                                    <span className='fe-coin-number'>{dataUser.totalCoins}</span>
                                     <span style={{
                                         fontSize: '.9rem',
                                         letterSpacing: '1px'
@@ -321,8 +331,8 @@ const UserHome = (props) => {
                                         fontSize: '.9rem',
                                         letterSpacing: '1px'
                                     }}>Level:
-                                        <span className={userPath.experience >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{userLevel()}</span>
-                                        {userPath.experience >= 15000 &&
+                                        <span className={dataUser.exp >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{userLevel()}</span>
+                                        {dataUser.exp >= 15000 &&
                                             <span>
                                                 <img className='fe-user-gif-fire' src={fire} alt="fire" />
                                             </span>
