@@ -34,9 +34,10 @@ class Plates extends Component {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
         }        
 
+        // Chiamate API dei piatti 
         let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;
 
-        let categoryPlates = allPlates.filter((plate, index) => {
+        let categoryPlates = allPlates.filter((plate) => {
             return plate.plate_category_id === this.restaurant_category;
         })
 
