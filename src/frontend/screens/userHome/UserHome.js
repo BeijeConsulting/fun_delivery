@@ -48,7 +48,7 @@ const UserHome = (props) => {
     //Data from localStorage
     // let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
     // let userPath = JSON.parse(localStorage.getItem('userInfo'))
-    let wheelAward = JSON.parse(localStorage.getItem('awards'))
+    // let wheelAward = JSON.parse(localStorage.getItem('awards'))
 
     //Dichiarazione variabili
     let history = useHistory();
@@ -64,7 +64,7 @@ const UserHome = (props) => {
     let percentageExp = 0
 
     let dataUser = null
-    let oldDate = null
+    let wheel = null
     let avatar = null
     let badge = null
     let wheelAward = null
@@ -81,7 +81,7 @@ const UserHome = (props) => {
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
-        oldDate = await properties.GENERIC_SERVICE.apiGET('/wheel/1', props.tokenDuck.token)
+        wheel = await properties.GENERIC_SERVICE.apiGET('/wheel/1', props.tokenDuck.token)
         avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', props.tokenDuck.token)
         badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', props.tokenDuck.token)
         wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', props.tokenDuck.token)
@@ -195,7 +195,8 @@ const UserHome = (props) => {
     //Fortune wheel 
     const openWheelOfFortuneGame = () => {
         let newDate = new Date().getTime()
-        let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
+        
+        // let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
 
         if (oldDate) {
             setState({
