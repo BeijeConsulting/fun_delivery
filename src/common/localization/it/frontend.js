@@ -29,7 +29,8 @@ export const TRANSLATIONS_FRONTEND = {
         },
 
         landing_page:{
-            title : "Fame?Si mangia!"
+            title : "Fame?",
+            titleFame: 'Si mangia!'
         }
 
     },

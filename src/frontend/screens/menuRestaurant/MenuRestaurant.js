@@ -6,6 +6,7 @@ import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate
 import AOS from 'aos';
 import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
+import filter from "lodash/filter"
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
 import Secondi from '../../../backoffice/assets/images/secondi.jfif'
@@ -17,14 +18,16 @@ import Messicano from '../../../backoffice/assets/images/messicano.jpg'
 import Poke from '../../../backoffice/assets/images/poke.jpg'
 import Sushi from '../../../backoffice/assets/images/sushi.png'
 import Altro from '../../../backoffice/assets/images/altro.jpg'
-import Carbonara from '../../../backoffice/assets/images/carbonara.jpg'
 import Navbar from '../../components/ui/navbar/Navbar'
+import { createRef } from 'react/cjs/react.production.min'
 
 class MenuRestaurant extends React.Component {
     constructor(props) {
 
         super(props)
 
+
+       
         /* DATA */
         this.restaurant_categories = {
             1: 'Pizza',
@@ -220,6 +223,7 @@ class MenuRestaurant extends React.Component {
             menuArray: this.menuArray,
             isClick: false,
             totalPrice: 0,
+            filteredList: this.arrPlate_categories,
             cartToggle: 'fe-menu-cart',
         }
     }
@@ -238,6 +242,13 @@ class MenuRestaurant extends React.Component {
         AOS.init({
             duration: 1000
         })
+         // REF
+        
+        this.scrollOnTop()
+    }
+
+    scrollOnTop = () => {
+        window.scrollTo(0,0)
     }
 
     cartToggler = () => {
@@ -295,7 +306,6 @@ class MenuRestaurant extends React.Component {
         this.props.history.push('/orderConfirmed');
     }
 
-  
     render() {
         const { t } = this.props
         return (
@@ -381,21 +391,24 @@ class MenuRestaurant extends React.Component {
 
 
                         {/* ALL CATEGORIES */}
-                        <div className='fe-menu-all-categories'>
+                        <div className='fe-menu-all-categories' >
 
                             {
                                 this.categoriesArr.map((itemCategory, index) => {
                                     return (
                                         <div className='fe-menu-category-container' key={index}>
                                             <h2 className='fe-menu-category-title' 
-                                             data-aos="fade-right">{itemCategory}</h2>
-                                            <div className="fe-menu-plate-container" data-aos="">
+                                             data-aos="fade-right" >{itemCategory}</h2>
+                                            <div className="fe-menu-plate-container">
+                                            
 
                                                 {this.menuArray
                                                     .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+                                                   
                                                     .map((item, key) => {
                                                         return (
                                                             <SinglePlate
+                                                                
                                                                 key={key}
                                                                 image={item.plate_img}
                                                                 descriptPlate={item.plate_description}

@@ -11,6 +11,11 @@ import { Helmet } from "react-helmet";
 import i18n from "../../../common/localization/i18n";
 import { withTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar";
+import { connect } from 'react-redux';
+import { setToken } from '../../../common/redux/duck/tokenDuck'
+import genericServices from "../../../common/utils/genericServices";
+import properties from "../../../common/utils/properties";
+import { get as _get } from 'lodash';
 
 
 
@@ -29,11 +34,8 @@ class LoginUser extends React.Component {
 
 
 
-    validateClick = () => {
-        let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
-
-
-
+    validateClick = async () => {
+        // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
         let error = ''
         if (!this.state.email) {
             error = i18n.t('frontend.components.login_page.error_login.email')
@@ -41,21 +43,43 @@ class LoginUser extends React.Component {
             error = i18n.t('frontend.components.login_page.error_login.password')
         }
 
-        if (!this.state.email && !this.state.password) {
+        else if (!this.state.email && !this.state.password) {
             error = i18n.t('frontend.components.login_page.error_login.email_password')
 
-        } else if (this.state.email && this.state.password) {
-            if (storageUserInfo) {
-                if (storageUserInfo.email === this.state.email &&
-                    storageUserInfo.password === this.state.password) {
-                    alert('Signed in!')
-                    this.props.history.push('/userHome');
-                }
-            } else {
-                alert('Register First!')
-                this.props.history.push('/registrationUser');
-            }
+            // } else if (this.state.email && this.state.password) {
+            //     if (storageUserInfo) {
+            //         if (storageUserInfo.email === this.state.email &&
+            //             storageUserInfo.password === this.state.password) {
+            //             alert('Signed in!')
+            //             this.props.history.push('/userHome');
+            //         }
+            //     } else {
+            //         alert('Register First!')
+            //         this.props.history.push('/registrationUser');
+            //     }
             //inserire this.props.history.push('/UserPage")
+
+
+
+        }
+        else {
+            properties.GENERIC_SERVICE = new genericServices();
+            let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
+            let statusCode = _get(response, "status", null)
+            let userRole = _get(response, "permission", [])
+            console.log(response)
+            if (statusCode === "401" || !userRole.includes("USER")) {
+                error = true;
+            }
+            else {
+                // Salvare token nel duck
+                this.props.dispatch(setToken(response.token))
+
+                // andare avanti nella prossima pagina
+                // this.props.history.push('/userHome')
+            }
+            this.props.history.push('/restaurants')
+
         }
 
         this.setState({
@@ -89,7 +113,7 @@ class LoginUser extends React.Component {
                     <meta name="description" content="This is a login page" />
                     <title>Login</title>
                 </Helmet> */}
-                <Navbar/>
+                <Navbar />
                 <main className="frontend-outer-container fe-login">
                     <div className='frontend-inner-container'>
 
@@ -157,4 +181,4 @@ class LoginUser extends React.Component {
 
 }
 
-export default withTranslation()(LoginUser);
+export default connect()(withTranslation()(LoginUser));
