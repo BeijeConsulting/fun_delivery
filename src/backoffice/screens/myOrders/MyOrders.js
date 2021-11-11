@@ -96,7 +96,6 @@ class MyOrders extends Component {
         let statusesToSave = await this.getStatuses()
         //converto array in oggetto
         statusesToSave = this.arrayToObject(statusesToSave)
-        console.log("stati mappati in oggetto: ", statusesToSave)
         this.mapObjectForEmojiStatus(ordersToSave, statusesToSave)
         this.setState({
             orders: ordersToSave,
@@ -108,14 +107,12 @@ class MyOrders extends Component {
     getOrders = async() => {
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiGET(`/order/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token)
-        console.log("Response: ", response)
         return response
     }
 
     getStatuses = async() => {
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiGET('/orderstatuses/', this.props.tokenDuck.token)
-        console.log("Response: ", response)
         return response
     }
 
