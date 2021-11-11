@@ -34,14 +34,13 @@ class SinglePlate extends Component {
         }
         /*
         categoryId: 1
-description: "pomodoro, mozzarella, basilico fresco"
-disableDate: null
-id: 9
-img: ""
-name: "Pizza Margherita"
-price: 10
-restaurantId: 3
-visibility: true
+        description: "pomodoro, mozzarella, basilico fresco"
+        disableDate: null
+        img: ""
+        name: "Pizza Margherita"
+        price: 10
+        restaurantId: 3
+        visibility: true
         */
     }
 
@@ -112,8 +111,8 @@ visibility: true
     }
 
     handleVisibility = (e) => {
-        this.setState(
-            () => ({
+        this.setState({
+            /* () => ({
                 visibility: e
             }),
 
@@ -127,36 +126,38 @@ visibility: true
                 })
                 this.storageData.plate_list = plateList;
                 localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
-            })
+            }) */
+            visibility: e
+        })
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         let newData = {
-            img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
+           // img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
             name: [this.state.data.name[0], this.state.data.name[0] ? false : true],
             description: [this.state.data.description[0], this.state.data.description[0] ? false : true],
             price: [this.state.data.price[0], utils.checkNumber(this.state.data.price[0]) && this.state.data.price[0] ? false : true],
-            categoryId: [this.state.data.categoryId[0], this.state.data.img[0] ? false : true],
+            categoryId: [this.state.data.categoryId[0], this.state.data.categoryId[0] ? false : true],
         }
         let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true));
-
-        this.setState({
-            data: newData,
-            editData: correctCheck ? false : true,
-            plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
-        })
-
         if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
-                img: newData.img[0],
+             //   img: newData.img[0],
+                restaurantId: get(this.props, 'restaurantIdDuck.restaurant_id', null),
                 name: newData.name[0],
                 description: newData.description[0],
                 price: newData.price[0],
-                categoryId: newData.categoryId[0]
+                categoryId: newData.categoryId[0],
+                visibility: this.state.visibility,
+                disableDate: null
             }
 
-            const newList = this.storageData.plate_list.map((el) => {
+            // Api effettuare update del piatto 
+            properties.GENERIC_SERVICE = new genericServices()
+            let apiUpdatePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/update/${this.plateId}`, modifiedPlate, get(this.props, 'tokenDuck.token', null))
+            console.log('apiUpdatePlate', apiUpdatePlate)
+            /* const newList = this.storageData.plate_list.map((el) => {
                 if (el.id === this.props.location.state.plateId) {
                     el = {
                         ...el,
@@ -166,8 +167,12 @@ visibility: true
                 return el;
             })
             this.storageData.plate_list = newList;
-            localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
-
+            localStorage.setItem('localStorageData', JSON.stringify(this.storageData)); */
+            this.setState({
+                data: newData,
+                editData: correctCheck ? false : true,
+                plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
+            })
         }
     }
 
@@ -224,7 +229,7 @@ visibility: true
 
                             <section>
                                 <SinglePlateCard
-                                    img={this.state.data.img[0]}
+                                   // img={this.state.data.img[0]}
                                     callback={this.handleCallbackInput}
                                     name={'img'}
                                     newCss=''
@@ -245,7 +250,7 @@ visibility: true
                                 <div className="bo-profile-flex-inputs">
                                     <InputBox
                                         type="text"
-                                        placeholder={t('backoffice.components.input_box.name_plate')}
+                                        placeholder={t('backoffice.components.inputbox.name_plate')}
                                         className={`bo-input-box ${this.state.data.name[1] ? 'alert' : ''}`}
                                         name="name"
                                         value={this.state.data.name[0]}
@@ -256,7 +261,7 @@ visibility: true
 
                                     <InputBox
                                         type="text"
-                                        placeholder={t('backoffice.components.input_box.price')}
+                                        placeholder={t('backoffice.components.inputbox.price')}
                                         className={`bo-input-box ${this.state.data.price[1] ? 'alert' : ''}`}
                                         name="price"
                                         value={this.state.data.price[0]}
@@ -267,7 +272,7 @@ visibility: true
                                 </div>
 
                                 <select
-                                    id='categories'
+                                    id='categoryId'
                                     name='categoryId'
                                     onChange={this.handleCallbackInput}
                                     onFocus={this.handleCallBackFocus}

@@ -10,7 +10,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import genericServices from "../../../common/utils/genericServices";
 // images
-import AddPlate from '../../assets/images/plus.png'
+
 
 class Plates extends Component {
 
@@ -50,12 +50,7 @@ class Plates extends Component {
         this.props.history.goBack()
     }
 
-    handleCallbackGoNewPlate = () => {
-        this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
-    }
-
     handleCallbackSinglePlates = (plate_id, plate_name,plate_category_id) => () => {
-        console.log('dati da passare:',plate_id, plate_category_id,plate_name)
         this.props.history.push(properties.BO_ROUTING.SINGLE_PLATE, {
             plateId: plate_id,
             plateCategoryId: plate_category_id,
@@ -82,14 +77,7 @@ class Plates extends Component {
                         </div>
 
                         <section className="bo-mymenu-form">
-                            <div className="bo-mymenu-flex-cards">
-                                <Card
-                                    title={t('backoffice.screens.plates.new_plate')}
-                                    img={AddPlate}
-                                    newCss='new-plate'
-                                    callback={this.handleCallbackGoNewPlate}
-                                />
-                            </div>
+                           
                             {
                                 this.state.plates !== undefined &&
                                 <>

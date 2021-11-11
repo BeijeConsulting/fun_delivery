@@ -8,6 +8,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import genericServices from "../../../common/utils/genericServices";
 import { get } from 'lodash'
+import AddPlate from '../../assets/images/plus.png'
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -32,6 +33,10 @@ class MyMenu extends Component {
         })
     }
 
+    handleCallbackGoNewPlate = () => {
+        this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
+    }
+
     render() {
         const { t } = this.props
         return (
@@ -48,6 +53,14 @@ class MyMenu extends Component {
                         </div>
 
                         <section className="bo-mymenu-form">
+                            <div className="bo-mymenu-flex-cards">
+                                <Card
+                                    title={t('backoffice.screens.plates.new_plate')}
+                                    img={AddPlate}
+                                    newCss='new-plate'
+                                    callback={this.handleCallbackGoNewPlate}
+                                />
+                            </div>
                             {
                                 this.state.categories !== undefined &&
                                 <>
