@@ -3,7 +3,7 @@ import logo from '../../../../common/assets/LogoSvgRosa.svg';
 import scream from '../../../../common/assets/sounds/scream.mp3'
 import { useState, useEffect } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
-import { get } from "lodash";
+import { connect } from "react-redux";
 
 
 const Navbar = (props) => {
@@ -26,15 +26,16 @@ const Navbar = (props) => {
     
     /* DA RIVEDERE */
     useEffect(() => {
-        let storage = JSON.parse(localStorage.getItem('userInfo'));
-        let userName = (get(storage, 'userName', null));
-        if (userName) {
+       let redux = props.infoDuck.name
+       
+        if (redux) {
             setState({
                 ...state,
-                userInfo : storage,
+                userInfo : redux,
                 isLoggedIn : true,
             })
         }
+        
 
     }, [state.isLoggedIn])
   
@@ -77,6 +78,12 @@ const Navbar = (props) => {
     const showCart = () => {
         localStorage.clear()
         history.push('/')
+        setState({...state,
+            isLoggedIn: false
+            
+        })
+        console.log(state.isLoggedIn)
+        
     }
 
     return (
@@ -135,7 +142,7 @@ const Navbar = (props) => {
                                 </span>
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/userHome')}>
-                                    {state.userInfo.userName}
+                                    {props.infoDuck.name}
                                 </span>
 
                                 <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/restaurants')}>
@@ -174,4 +181,8 @@ const Navbar = (props) => {
     );
 
 }
-export default Navbar;
+const mapStateToProps = state => ( {
+    infoDuck: state.infoDuck
+  } )
+  
+export default connect(mapStateToProps)(Navbar);

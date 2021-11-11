@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import properties from "../../../common/utils/properties";
 import genericServices from "../../../common/utils/genericServices";
 import { setToken } from "../../../common/redux/duck/tokenDuck";
+import { setUserInfo } from "../../redux/infoDuck";
 import { get as _get } from 'lodash';
 
 //import Button
@@ -110,13 +111,14 @@ class RegistrationUser extends React.Component {
                 let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.userInfo.email, password: this.state.userInfo.password })
                 let statusCode = _get(response, "status", null)
                 let userRole = _get(response, "permission", null)
-                console.log(response)
+                console.log(response.token, 'TOKENINO', response, 'response')
                 if (statusCode === 401 || userRole === "restaurant") {
                     error = true;
                 }
                 else {
                     // Salvare token nel duck
                     this.props.dispatch(setToken(response.token))
+                    this.props.dispatch(setUserInfo(this.state.userInfo.userName))
                     // andare avanti nella prossima pagina
                     // localStorage.setItem('token', response.token)
                     this.props.history.push('/restaurants')
@@ -134,7 +136,7 @@ class RegistrationUser extends React.Component {
             errormsg: error
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(this.state.userInfo))
+        
 
 
     }
@@ -236,5 +238,9 @@ class RegistrationUser extends React.Component {
         );
     }
 }
+const mapStateToProps = state => ( {
+    infoDuck: state.infoDuck
+  } )
+  
 
-export default connect()(withTranslation()(RegistrationUser))
+export default connect(mapStateToProps)(withTranslation()(RegistrationUser))
