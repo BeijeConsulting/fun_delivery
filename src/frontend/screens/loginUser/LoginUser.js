@@ -32,9 +32,7 @@ class LoginUser extends React.Component {
         }
     }
    
-    componentDidMount(){
-        console.log(this.props.infoDuck)
-    }
+   
 
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -70,7 +68,7 @@ class LoginUser extends React.Component {
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", null)
-            console.log(response, 'TOKEN', response, 'RESPONSE')
+            console.log(response, 'TOKEN', response.id, 'RESPONSE')
             if (statusCode === 401 || userRole === "restaurant") {
                 error = true;
             }
@@ -83,6 +81,12 @@ class LoginUser extends React.Component {
                 
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
+                let id = response.id
+                console.log(id)
+                let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
+                let gesu = this.props.dispatch(setUserInfo(getId.firstName))
+                console.log(gesu)
+
             }
             this.props.history.push('/restaurants')
 

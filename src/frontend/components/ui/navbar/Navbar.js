@@ -27,17 +27,15 @@ const Navbar = (props) => {
     /* DA RIVEDERE */
     useEffect(() => {
        let redux = props.infoDuck.name
+     
+        setState({
+            ...state,
+            userInfo : redux,
+            isLoggedIn : true
+        })
        
-        if (redux) {
-            setState({
-                ...state,
-                userInfo : redux,
-                isLoggedIn : true,
-            })
-        }
-        
 
-    }, [state.isLoggedIn])
+    }, [])
   
 
     const styleObj = {
@@ -75,13 +73,13 @@ const Navbar = (props) => {
    
 
     // TEMP
-    const showCart = () => {
-        localStorage.clear()
-        history.push('/')
+    const logoutUser = () => {
+        
         setState({...state,
-            isLoggedIn: false
+            isLoggedIn: !state.isLoggedIn
             
         })
+        history.push('/')
         console.log(state.isLoggedIn)
         
     }
@@ -137,7 +135,7 @@ const Navbar = (props) => {
                             
                             state.isLoggedIn &&
                             <div className='right-nav-side'>
-                                <span className='right-btn login' style={styleObj} onClick={showCart}>
+                                <span className='right-btn login' style={styleObj} onClick={logoutUser}>
                                     Logout
                                 </span>
 
