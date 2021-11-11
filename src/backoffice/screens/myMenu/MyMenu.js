@@ -17,11 +17,9 @@ class MyMenu extends Component {
     }
 
     componentDidMount = async () => {
-        // Simulating api call on localStorage
+        // Api per avere tutte le categorie dei piatti
         properties.GENERIC_SERVICE = new genericServices()
-        let apiCategories = await properties.GENERIC_SERVICE.apiGET('platecategorys', get(this.props, 'tokenDuck.token', null))
-
-        console.log('tokenDuck', this.props.tokenDuck.token);
+        let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}`, get(this.props, 'tokenDuck.token', null))
         this.setState({
             categories: apiCategories
         })
@@ -53,30 +51,31 @@ class MyMenu extends Component {
                             {
                                 this.state.categories !== undefined &&
                                 <>
-                                {
-                                    this.state.categories.map((category, index) => {
-                                        return (
-                                            <div className="bo-mymenu-flex-cards" key={index}>
-                                                <Card
-                                                    title={category.name}
-                                                    //  img={category.img_path}
-                                                    callback={this.handleCallbackPagePlates(category.id, category.name)}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                                }
-                             </>
+                                    {
+                                        this.state.categories.map((category, index) => {
+                                            return (
+                                                <div className="bo-mymenu-flex-cards" key={index}>
+                                                    <Card
+                                                        title={category.name}
+                                                        //  img={category.img_path}
+                                                        callback={this.handleCallbackPagePlates(category.id, category.name)}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </>
                             }
 
-                    </section>
-                </div>
-            </LayoutBackOffice>
+                        </section>
+                    </div>
+                </LayoutBackOffice>
             </>
         )
     }
 }
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck,
 })
 export default connect(mapStateToProps)(withTranslation()(MyMenu))

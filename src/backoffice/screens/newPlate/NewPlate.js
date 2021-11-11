@@ -39,23 +39,12 @@ class NewPlate extends Component {
             },
             list_categories: [],
         }
-        /*
-        "id": 3,
-        "restaurantId": 3,
-        "categoryId": 3,
-        "name": "Cheese Burger",
-        "description": "pane, manzo, cheddar, insalta, pomodor",
-        "price": 12.5,
-        "visibility": true,
-        "img": null,
-        "disableDate": null
-        */
     }
 
     componentDidMount = async () => {
         // Api per avere tutte le categorie dei piatti
-        properties.GENERIC_SERVICE = new genericServices()
-        let apiCategories = await properties.GENERIC_SERVICE.apiGET('platecategorys', get(this.props, 'tokenDuck.token', null))
+         properties.GENERIC_SERVICE = new genericServices()
+         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'tokenDuck.token', null))
         this.setState({
             list_categories: apiCategories
         })
@@ -112,19 +101,15 @@ class NewPlate extends Component {
                 if (savingReady === true) {
 
                     properties.GENERIC_SERVICE = new genericServices()
-                    console.log('obj', this.new_plate)
                     let addNewPlate = await properties.GENERIC_SERVICE.apiPOST('/plate', this.new_plate, get(this.props, 'tokenDuck.token', null))
-                    console.log('addNewPlate',addNewPlate)
                     // Find category name
-                    let categoryName = this.state.list_categories.find((category, index) => {
+                    let categoryName = this.state.list_categories.find((category) => {
                         return category.id === this.new_plate.categoryId;
                     }).name;
-
-                    console.log('Salvataggio avvenuto correttamente');
-                    /* this.props.history.push(properties.BO_ROUTING.PLATES, {
+                     this.props.history.push(properties.BO_ROUTING.PLATES, {
                         category_id: parseInt(this.new_plate.categoryId),
                         titlePage: categoryName.toUpperCase()
-                    }) */
+                    })
                 }
 
             }
@@ -226,7 +211,6 @@ class NewPlate extends Component {
                     </div>
                 </div>
             </LayoutBackOffice>
-
         )
     }
 }

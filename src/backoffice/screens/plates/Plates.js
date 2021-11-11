@@ -7,6 +7,8 @@ import { get } from 'lodash';
 import { LeftOutlined } from '@ant-design/icons'
 import properties from "../../../common/utils/properties";
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import genericServices from "../../../common/utils/genericServices";
 // images
 import AddPlate from '../../assets/images/plus.png'
 
@@ -14,9 +16,10 @@ class Plates extends Component {
 
     constructor(props) {
         super(props)
+        console.log(props);
         this.pageTitle = get(this.props, 'location.state.titlePage', false);
-        this.restaurant_category = get(this.props, 'location.state.category_id', false);
-        if (!this.pageTitle || !this.restaurant_category) {
+        this.plate_category = get(this.props, 'location.state.category_id', false);
+        if (!this.pageTitle || !this.plate_category) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
         }
 
@@ -25,22 +28,19 @@ class Plates extends Component {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
 
         // If plate was deleted, redirect to my menu page
         const elementDeleted = get(this.props, 'location.state.elementDeleted', false);
 
         if (elementDeleted === true) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
-        }        
+        }
 
-        // Chiamate API dei piatti 
-        let allPlates = JSON.parse(localStorage.getItem('localStorageData')).plate_list;
-
-        let categoryPlates = allPlates.filter((plate) => {
-            return plate.plate_category_id === this.restaurant_category;
-        })
-
+        // Api per visualizzare tutti i piatti di quella categoria
+        properties.GENERIC_SERVICE = new genericServices()
+        let categoryPlates = await properties.GENERIC_SERVICE.apiGET(`plates/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}/${this.plate_category}`,
+            get(this.props, 'tokenDuck.token', null))
         this.setState({
             plates: categoryPlates
         })
@@ -54,9 +54,11 @@ class Plates extends Component {
         this.props.history.push(properties.BO_ROUTING.NEW_PLATE)
     }
 
-    handleCallbackSinglePlates = (plate_id, plate_name) => () => {
+    handleCallbackSinglePlates = (plate_id, plate_name,plate_category_id) => () => {
+        console.log('dati da passare:',plate_id, plate_category_id,plate_name)
         this.props.history.push(properties.BO_ROUTING.SINGLE_PLATE, {
             plateId: plate_id,
+            plateCategoryId: plate_category_id,
             plateName: plate_name
         })
     }
@@ -88,21 +90,24 @@ class Plates extends Component {
                                     callback={this.handleCallbackGoNewPlate}
                                 />
                             </div>
-
                             {
-                                this.state.plates.map((plate, index) => {
-                                    return (
-                                        <div className="bo-mymenu-flex-cards" key={index}>
-                                            <Card
-                                                title={plate.plate_name}
-                                                img={plate.plate_img}
-                                                callback={this.handleCallbackSinglePlates(plate.id, plate.plate_name)}
-                                            />
-                                        </div>
-                                    )
-                                })
+                                this.state.plates !== undefined &&
+                                <>
+                                    {
+                                        this.state.plates.map((plate, index) => {
+                                            return (
+                                                <div className="bo-mymenu-flex-cards" key={index}>
+                                                    <Card
+                                                        title={plate.name}
+                                                        // img={plate.img}
+                                                        callback={this.handleCallbackSinglePlates(plate.id, plate.name, plate.categoryId)}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </>
                             }
-
                         </section>
                     </div>
                 </LayoutBackOffice>
@@ -110,5 +115,8 @@ class Plates extends Component {
         )
     }
 }
-
-export default withTranslation()(Plates);
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck,
+})
+export default connect(mapStateToProps)(withTranslation()(Plates));

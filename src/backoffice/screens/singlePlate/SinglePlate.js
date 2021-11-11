@@ -11,51 +11,75 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import SinglePlateCard from "../../components/funcComponents/singlePlateCard/SinglePlateCard";
 import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
+import { connect } from 'react-redux';
+import genericServices from '../../../common/utils/genericServices';
 import './SinglePlate.css';
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
-        this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
+        // this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
         this.state = {
             list_categories: [],
             plate_show_title: "",
             data: {
-                plate_img: ['', false],
-                plate_name: ["", false],
-                plate_description: ["", false],
-                plate_price: ['', false],
-                plate_category_id: ['', false],
+                img: ['', false],
+                restaurantId: get(this.props, 'restaurantIdDuck.restaurant_id', null),
+                name: ["", false],
+                description: ["", false],
+                price: ['', false],
+                categoryId: ['', false],
             },
             editData: false,
-            plate_visibility: true
+            visibility: true
         }
+        /*
+        categoryId: 1
+description: "pomodoro, mozzarella, basilico fresco"
+disableDate: null
+id: 9
+img: ""
+name: "Pizza Margherita"
+price: 10
+restaurantId: 3
+visibility: true
+        */
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         this.plateId = get(this.props, 'location.state.plateId', false);
         this.plateName = get(this.props, 'location.state.plateName', false);
+        this.plateCategoryId = get(this.props, 'location.state.plateCategoryId', false)
 
-        if (!this.plateId || !this.plateName) {
+        if (!this.plateId || !this.plateName || !this.plateCategoryId) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU);
         } else {
-            let plate = this.storageData.plate_list.find(el => {
+            // Api per visualizzare tutti i piatti di quella categoria
+            properties.GENERIC_SERVICE = new genericServices()
+            let categoryPlates = await properties.GENERIC_SERVICE.apiGET(`plates/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}/${this.plateCategoryId}`,
+                get(this.props, 'tokenDuck.token', null))
+
+            let plate = categoryPlates.find(el => {
                 return el.id === this.props.location.state.plateId
             });
 
             let plateData = {
-                plate_img: [plate.plate_img, false],
-                plate_name: [plate.plate_name, false],
-                plate_description: [plate.plate_description, false],
-                plate_price: [plate.plate_price, false],
-                plate_category_id: [plate.plate_category_id, false],
+                img: [plate.img, false],
+                name: [plate.name, false],
+                description: [plate.description, false],
+                price: [plate.price, false],
+                categoryId: [plate.categoryId, false],
             }
 
-            // Simulating api call on localStorage
+            // Api per avere tutte le categorie dei piatti
+            properties.GENERIC_SERVICE = new genericServices()
+            let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'tokenDuck.token', null))
+
+            // Setto gli stati
             this.setState({
-                list_categories: this.storageData.plate_categories,
+                list_categories: apiCategories,
                 data: plateData,
-                plate_show_title: plate.plate_name,
-                plate_visibility: plate.plate_visibility
+                plate_show_title: plate.name,
+                visibility: plate.visibility
             })
         }
 
@@ -69,7 +93,7 @@ class SinglePlate extends Component {
 
     handleCallbackInput = (e) => {
         let data = this.state.data;
-        data[e.target.name] = e.target.name === 'plate_category_id' ? [parseInt(e.target.value), false] : [e.target.value, false]
+        data[e.target.name] = e.target.name === 'categoryId' ? [parseInt(e.target.value), false] : [e.target.value, false]
         this.setState({
             data: data
         });
@@ -90,14 +114,14 @@ class SinglePlate extends Component {
     handleVisibility = (e) => {
         this.setState(
             () => ({
-                plate_visibility: e
+                visibility: e
             }),
 
             () => {
 
                 const plateList = this.storageData.plate_list.map(el => {
                     if (el.id === this.props.location.state.plateId) {
-                        el.plate_visibility = this.state.plate_visibility
+                        el.visibility = this.state.visibility
                     }
                     return el
                 })
@@ -108,28 +132,28 @@ class SinglePlate extends Component {
 
     handleSubmit = () => {
         let newData = {
-            plate_img: [this.state.data.plate_img[0], this.state.data.plate_img[0] ? false : true],
-            plate_name: [this.state.data.plate_name[0], this.state.data.plate_name[0] ? false : true],
-            plate_description: [this.state.data.plate_description[0], this.state.data.plate_description[0] ? false : true],
-            plate_price: [this.state.data.plate_price[0], utils.checkNumber(this.state.data.plate_price[0]) && this.state.data.plate_price[0] ? false : true],
-            plate_category_id: [this.state.data.plate_category_id[0], this.state.data.plate_img[0] ? false : true],
+            img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
+            name: [this.state.data.name[0], this.state.data.name[0] ? false : true],
+            description: [this.state.data.description[0], this.state.data.description[0] ? false : true],
+            price: [this.state.data.price[0], utils.checkNumber(this.state.data.price[0]) && this.state.data.price[0] ? false : true],
+            categoryId: [this.state.data.categoryId[0], this.state.data.img[0] ? false : true],
         }
         let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true));
 
         this.setState({
             data: newData,
             editData: correctCheck ? false : true,
-            plate_show_title: correctCheck ? newData.plate_name[0] : this.state.plate_show_title
+            plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
         })
 
         if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
-                plate_img: newData.plate_img[0],
-                plate_name: newData.plate_name[0],
-                plate_description: newData.plate_description[0],
-                plate_price: newData.plate_price[0],
-                plate_category_id: newData.plate_category_id[0]
+                img: newData.img[0],
+                name: newData.name[0],
+                description: newData.description[0],
+                price: newData.price[0],
+                categoryId: newData.categoryId[0]
             }
 
             const newList = this.storageData.plate_list.map((el) => {
@@ -157,13 +181,13 @@ class SinglePlate extends Component {
 
         // Find plate category name
         let categoryName = this.state.list_categories.find(el => {
-            return el.id === this.state.data.plate_category_id[0]
+            return el.id === this.state.data.categoryId[0]
         }).name;
 
         // Redirect to right category page LOL
         this.props.history.push(properties.BO_ROUTING.PLATES, {
             titlePage: categoryName.toUpperCase(),
-            category_id: this.state.data.plate_category_id,
+            category_id: this.state.data.categoryId,
             elementDeleted: true
         })
 
@@ -200,9 +224,9 @@ class SinglePlate extends Component {
 
                             <section>
                                 <SinglePlateCard
-                                    img={this.state.data.plate_img[0]}
+                                    img={this.state.data.img[0]}
                                     callback={this.handleCallbackInput}
-                                    name={'plate_img'}
+                                    name={'img'}
                                     newCss=''
                                     disable={!this.state.editData}
                                 />
@@ -212,7 +236,7 @@ class SinglePlate extends Component {
                                         <span style={{ paddingLeft: '10px' }}>
                                             <SwitchProfile
                                                 handleSwitchCallback={this.handleVisibility}
-                                                value={this.state.plate_visibility}
+                                                value={this.state.visibility}
                                             />
                                         </span>
                                     </p>
@@ -222,9 +246,9 @@ class SinglePlate extends Component {
                                     <InputBox
                                         type="text"
                                         placeholder={t('backoffice.components.input_box.name_plate')}
-                                        className={`bo-input-box ${this.state.data.plate_name[1] ? 'alert' : ''}`}
-                                        name="plate_name"
-                                        value={this.state.data.plate_name[0]}
+                                        className={`bo-input-box ${this.state.data.name[1] ? 'alert' : ''}`}
+                                        name="name"
+                                        value={this.state.data.name[0]}
                                         disable={!this.state.editData}
                                         callback={this.handleCallbackInput}
                                         newCss=''
@@ -233,9 +257,9 @@ class SinglePlate extends Component {
                                     <InputBox
                                         type="text"
                                         placeholder={t('backoffice.components.input_box.price')}
-                                        className={`bo-input-box ${this.state.data.plate_price[1] ? 'alert' : ''}`}
-                                        name="plate_price"
-                                        value={this.state.data.plate_price[0]}
+                                        className={`bo-input-box ${this.state.data.price[1] ? 'alert' : ''}`}
+                                        name="price"
+                                        value={this.state.data.price[0]}
                                         disable={!this.state.editData}
                                         callback={this.handleCallbackInput}
                                         callbackOnFocus={this.handleCallBackFocus}
@@ -244,11 +268,11 @@ class SinglePlate extends Component {
 
                                 <select
                                     id='categories'
-                                    name='plate_category_id'
+                                    name='categoryId'
                                     onChange={this.handleCallbackInput}
                                     onFocus={this.handleCallBackFocus}
-                                    className={`bo-input-box ${this.state.data.plate_category_id[1] ? 'alert' : ''}`}
-                                    value={this.state.data.plate_category_id[0]}
+                                    className={`bo-input-box ${this.state.data.categoryId[1] ? 'alert' : ''}`}
+                                    value={this.state.data.categoryId[0]}
                                     disabled={!this.state.editData}
                                 >
                                     <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
@@ -269,10 +293,10 @@ class SinglePlate extends Component {
                                 </select>
 
                                 <TextArea
-                                    name="plate_description"
-                                    className={`bo-input-box ${this.state.data.plate_description[1] ? 'alert' : ''}`}
+                                    name="description"
+                                    className={`bo-input-box ${this.state.data.description[1] ? 'alert' : ''}`}
                                     id="description_plate"
-                                    value={this.state.data.plate_description[0]}
+                                    value={this.state.data.description[0]}
                                     disable={!this.state.editData}
                                     callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
@@ -286,5 +310,8 @@ class SinglePlate extends Component {
         )
     }
 }
-
-export default withTranslation()(SinglePlate)
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+export default connect(mapStateToProps)(withTranslation()(SinglePlate))
