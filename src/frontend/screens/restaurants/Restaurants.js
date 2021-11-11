@@ -154,6 +154,7 @@ const Restaurants = (props) => {
             ...state,
             objectRestaurantsForList: orderedRestaurants
         })
+        console.log(e.target.type)
     }
 
     const filterByRestaurants = (e) => {
@@ -164,15 +165,18 @@ const Restaurants = (props) => {
             ...state,
             objectRestaurantsForList: filteredRestaurants
         })
+        console.log(e.target.value, ) 
     }
 
-    const filterByDeliveryRestaurants = (e) => {
+    const filterByDeliveryRestaurants = (e)=> {
         let filteredRestaurants = []
-        isNaN(e.target.value) ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.target.value) })
+        e.value ===1 ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.value) })
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants
         })
+        console.log(e.value, 'gesu')
+        
     }
 
     const clearFilters = () => {
