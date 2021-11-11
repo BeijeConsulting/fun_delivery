@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { connect } from 'react-redux';
 import { withTranslation } from "react-i18next";
 import { LeftOutlined, SaveOutlined } from '@ant-design/icons'
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
@@ -7,43 +8,46 @@ import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard';
 import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';
-
 import 'antd/dist/antd.css';
 import './NewPlate.css';
 
 // Default Image for new plates
-import defaultImage from '../../assets/images/altro.jpg';
 import properties from "../../../common/utils/properties";
+import genericServices from "../../../common/utils/genericServices";
+import { get } from 'lodash'
 
 class NewPlate extends Component {
     constructor(props) {
         super(props)
         this.new_plate = {
-            plate_img: '',
-            plate_name: '',
-            plate_description: '',
-            plate_price: null,
-            plate_category_id: null,
-            plate_visibility: true,
+            img: '',
+            restaurantId: get(this.props, 'restaurantIdDuck.restaurant_id', null),
+            name: '',
+            description: '',
+            price: null,
+            categoryId: null,
+            visibility: true,
+            disableDate: null
         }
         this.state = {
             warning: {
-                plate_img: false,
-                plate_name: false,
-                plate_price: false,
-                plate_category_id: false,
-                plate_description: false,
+                img: false,
+                name: false,
+                price: false,
+                categoryId: false,
+                description: false,
             },
             list_categories: [],
         }
     }
 
-    componentDidMount = () => {
-        // Simulating api call on localStorage
+    componentDidMount = async () => {
+        // Api per avere tutte le categorie dei piatti
+         properties.GENERIC_SERVICE = new genericServices()
+         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'tokenDuck.token', null))
         this.setState({
-            list_categories: JSON.parse(localStorage.getItem('localStorageData')).plate_categories
+            list_categories: apiCategories
         })
-
     }
 
     handleCallbackGoBack = () => {
@@ -51,7 +55,7 @@ class NewPlate extends Component {
     }
 
     handleCallbackInput = (e) => {
-        if (e.target.name === 'plate_category_id') {
+        if (e.target.name === 'categoryId') {
             this.new_plate[e.target.name] = parseInt(e.target.value);
         } else {
             this.new_plate[e.target.name] = e.target.value
@@ -59,7 +63,7 @@ class NewPlate extends Component {
     }
 
     handleSwitchCallback = (e) => {
-        this.new_plate.plate_visibility = e
+        this.new_plate.visibility = e
     }
 
     handleCallBackFocus = (e) => {
@@ -71,20 +75,20 @@ class NewPlate extends Component {
         })
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
 
         this.setState(
 
             () => ({
                 warning: {
-                    plate_name: this.new_plate.plate_name.length < 4,
-                    plate_price: isNaN(parseFloat(this.new_plate.plate_price)),
-                    plate_category_id: !this.new_plate.plate_category_id,
-                    plate_description: this.new_plate.plate_description.length < 4,
+                    name: this.new_plate.name.length < 4,
+                    price: isNaN(parseFloat(this.new_plate.price)),
+                    categoryId: !this.new_plate.categoryId,
+                    description: this.new_plate.description.length < 4,
                 }
             }),
 
-            () => {
+            async () => {
                 let savingReady = true;
 
                 for (let key in this.state.warning) {
@@ -95,23 +99,15 @@ class NewPlate extends Component {
                 }
 
                 if (savingReady === true) {
-                    let localStorageData = JSON.parse(localStorage.getItem('localStorageData'));
 
-                    localStorageData.plate_list.push({
-                        ...this.new_plate,
-                        id: localStorageData.plate_list.length + 1,
-                        plate_img: defaultImage
-                    });
-
-                    localStorage.setItem('localStorageData', JSON.stringify(localStorageData));
-
+                    properties.GENERIC_SERVICE = new genericServices()
+                    let addNewPlate = await properties.GENERIC_SERVICE.apiPOST('/plate', this.new_plate, get(this.props, 'tokenDuck.token', null))
                     // Find category name
-                    let categoryName = this.state.list_categories.find((category, index) => {
-                        return category.id === this.new_plate.plate_category_id;
+                    let categoryName = this.state.list_categories.find((category) => {
+                        return category.id === this.new_plate.categoryId;
                     }).name;
-
-                    this.props.history.push(properties.BO_ROUTING.PLATES, {
-                        category_id: parseInt(this.new_plate.plate_category_id),
+                     this.props.history.push(properties.BO_ROUTING.PLATES, {
+                        category_id: parseInt(this.new_plate.categoryId),
                         titlePage: categoryName.toUpperCase()
                     })
                 }
@@ -140,7 +136,7 @@ class NewPlate extends Component {
 
                         <section>
                             <SinglePlateCard
-                                name='plate_img'
+                                name='img'
                                 img={upload_white}
                                 newCss='new-plate'
                                 callback={this.handleCallbackInput}
@@ -162,8 +158,8 @@ class NewPlate extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder={t('backoffice.components.inputbox.name_plate')}
-                                    className={`bo-input-box ${this.state.warning.plate_name ? 'alert' : ''}`}
-                                    name="plate_name"
+                                    className={`bo-input-box ${this.state.warning.name ? 'alert' : ''}`}
+                                    name="name"
                                     callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
@@ -171,8 +167,8 @@ class NewPlate extends Component {
                                 <InputBox
                                     type="text"
                                     placeholder={t('backoffice.components.inputbox.price')}
-                                    className={`bo-input-box ${this.state.warning.plate_price ? 'alert' : ''}`}
-                                    name="plate_price"
+                                    className={`bo-input-box ${this.state.warning.price ? 'alert' : ''}`}
+                                    name="price"
                                     callback={this.handleCallbackInput}
                                     callbackOnFocus={this.handleCallBackFocus}
                                 />
@@ -180,10 +176,10 @@ class NewPlate extends Component {
 
                             <select
                                 id='categories'
-                                name='plate_category_id'
+                                name='categoryId'
                                 onChange={this.handleCallbackInput}
                                 onFocus={this.handleCallBackFocus}
-                                className={`bo-input-box ${this.state.warning.plate_category_id ? 'alert' : ''}`}
+                                className={`bo-input-box ${this.state.warning.categoryId ? 'alert' : ''}`}
                                 defaultValue=""
                             >
                                 <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
@@ -204,8 +200,8 @@ class NewPlate extends Component {
                             </select>
 
                             <TextArea
-                                name="plate_description"
-                                className={`bo-input-box ${this.state.warning.plate_description ? 'alert' : ''}`}
+                                name="description"
+                                className={`bo-input-box ${this.state.warning.description ? 'alert' : ''}`}
                                 id="description_plate"
                                 placeholder={t('backoffice.screens.new_plate.description')}
                                 callback={this.handleCallbackInput}
@@ -215,9 +211,11 @@ class NewPlate extends Component {
                     </div>
                 </div>
             </LayoutBackOffice>
-
         )
     }
 }
-
-export default withTranslation()(NewPlate)
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+export default connect(mapStateToProps)(withTranslation()(NewPlate))
