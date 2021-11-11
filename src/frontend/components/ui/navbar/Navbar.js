@@ -4,6 +4,8 @@ import scream from '../../../../common/assets/sounds/scream.mp3'
 import { useState, useEffect } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import tokenDuck, { initToken } from '../../../../common/redux/duck/tokenDuck';
+import { setInitUserInfo } from '../../../redux/infoDuck';
 
 
 const Navbar = (props) => {
@@ -11,8 +13,8 @@ const Navbar = (props) => {
     let location = useLocation();
     let history = useHistory();
     const pathArray = location.pathname.split('/');
-   
-   
+
+
 
     // HOOKS STATE
     const [state, setState] = useState({
@@ -20,23 +22,28 @@ const Navbar = (props) => {
         navOptionRightLeft: 'pickup',
         selectedDelivery: 'white-txt',
         selectedPickup: '',
-        userInfo : {},
-        isLoggedIn : false,
+        userInfo: {},
+        isLoggedIn: false,
     })
-    
+
     /* DA RIVEDERE */
     useEffect(() => {
-       let redux = props.infoDuck.name
-     
-        setState({
-            ...state,
-            userInfo : redux,
-            isLoggedIn : true
-        })
-       
-
+        let redux = props.infoDuck.name
+        if (redux) {
+            setState({
+                ...state,
+                userInfo: redux,
+                isLoggedIn: state.userInfo ? true : false
+            })
+        } else {
+            setState({
+                ...state,
+                userInfo: {},
+                isLoggedIn: false
+            })
+        }
     }, [])
-  
+
 
     const styleObj = {
         textDecoration: 'none',
@@ -62,6 +69,7 @@ const Navbar = (props) => {
     }
 
     const goToSelectedPage = (path) => () => {
+      
         history.push(path)
     }
 
@@ -69,28 +77,31 @@ const Navbar = (props) => {
         burgerEffects();
         history.push(path)
     }
-    
-   
+
+
 
     // TEMP
     const logoutUser = () => {
-        
-        setState({...state,
-            isLoggedIn: !state.isLoggedIn
-            
+
+        setState({
+            ...state,
+            isLoggedIn: false
         })
+
         history.push('/')
+        props.dispatch(setInitUserInfo())
+        props.dispatch(initToken())
         console.log(state.isLoggedIn)
-        
+
     }
 
     return (
-        
+
         <>
             {
                 //navbar non va visualizzata quando ci troviamo nel backoffice o nella userPage
                 pathArray[1] !== 'restaurant' && pathArray[1] !== 'quiz' && pathArray[1] !== "memory" &&
-                
+
                 <nav className="navbar">
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA DESKTOP */}
                     <div className='box-desktop'>
@@ -129,10 +140,10 @@ const Navbar = (props) => {
                                 </span>
                             </div>
                         }
-                        
+
                         {/* {/* user LOGGED */}
                         {
-                            
+
                             state.isLoggedIn &&
                             <div className='right-nav-side'>
                                 <span className='right-btn login' style={styleObj} onClick={logoutUser}>
@@ -147,7 +158,7 @@ const Navbar = (props) => {
                                     Order
                                 </span>
                             </div>
-                        } 
+                        }
                     </div>
 
                     {/* VISUALIZZAZIONE ELEMENTI IN MODALITA SMARTPHONE E TABLET */}
@@ -174,13 +185,14 @@ const Navbar = (props) => {
                     </div>
                 </nav>
             }
-           
+
         </>
     );
 
 }
-const mapStateToProps = state => ( {
-    infoDuck: state.infoDuck
-  } )
-  
+const mapStateToProps = state => ({
+    infoDuck: state.infoDuck,
+    tokenDuck: state.tokenDuck
+})
+
 export default connect(mapStateToProps)(Navbar);
