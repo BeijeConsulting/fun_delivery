@@ -63,7 +63,7 @@ class ForgotPassword extends Component {
                     <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>{t('backoffice.screens.forgot_password.title')}</h1>
                     {
                         this.state.warning &&
-                        <h3 class="alert">{t('backoffice.screens.forgot_password.error')}</h3>
+                        <h3 className="alert">{t('backoffice.screens.forgot_password.error')}</h3>
                     }
                     <section className="bo-login-form">
                         <InputBox

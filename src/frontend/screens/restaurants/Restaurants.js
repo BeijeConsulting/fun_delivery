@@ -28,7 +28,10 @@ import { useTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar"
 
 
-
+import genericServices from "../../../common/utils/genericServices"
+import properties from "../../../common/utils/properties"
+import { get as _get } from 'lodash';
+import { connect } from "react-redux"
 
 const Restaurants = (props) => {
 
@@ -41,71 +44,75 @@ const Restaurants = (props) => {
 
 
     //DATA
-    const objectRestaurantsForListReference = [
-        {
-            name: "Nino u Ballerino",
-            category: "hamburger",
-            free_shipping: 0, // non è gratuito
-            restaurant_logo: imagePaniniCaMeusa,
-            rating: 4.5,
-            delivery_time: "35-45 min",
-            number_orders: 200,
-            price_range: 1
-        },
-        {
-            name: "Da Ciro",
-            category: "pizza",
-            free_shipping: 1, //è gratuito
-            restaurant_logo: imagePaniniCaMeusa,
-            rating: 5,
-            delivery_time: "15-35 min",
-            number_orders: 150,
-            price_range: 1
-        },
-        {
-            name: "La Pokentona",
-            category: "poke",
-            free_shipping: 0, // non è gratuito
-            restaurant_logo: imagePaniniCaMeusa,
-            rating: 3.5,
-            delivery_time: "35-45 min",
-            number_orders: 20,
-            price_range: 3
-        },
-        {
-            name: "Sacro Romano Impero",
-            category: "italian",
-            free_shipping: 0, // non è gratuito
-            restaurant_logo: imagePaniniCaMeusa,
-            rating: 4,
-            delivery_time: "20-30 min",
-            number_orders: 50,
-            price_range: 2
-        },
-        {
-            name: "Profumi di mare",
-            category: "sushi",
-            free_shipping: 1, // non è gratuito
-            restaurant_logo: imagePaniniCaMeusa,
-            rating: 5,
-            delivery_time: "35-45 min",
-            number_orders: 300,
-            price_range: 4
-        },
-    ]
+
+    // const objectRestaurantsForListReference = [
+    //     {
+    //         name: "Nino u Ballerino",
+    //         category: "hamburger",
+    //         free_shipping: 0, // non è gratuito
+    //         restaurant_logo: imagePaniniCaMeusa,
+    //         rating: 4.5,
+    //         delivery_time: "35-45 min",
+    //         number_orders: 200,
+    //         price_range: 1
+    //     },
+    //     {
+    //         name: "Da Ciro",
+    //         category: "pizza",
+    //         free_shipping: 1, //è gratuito
+    //         restaurant_logo: imagePaniniCaMeusa,
+    //         rating: 5,
+    //         delivery_time: "15-35 min",
+    //         number_orders: 150,
+    //         price_range: 1
+    //     },
+    //     {
+    //         name: "La Pokentona",
+    //         category: "poke",
+    //         free_shipping: 0, // non è gratuito
+    //         restaurant_logo: imagePaniniCaMeusa,
+    //         rating: 3.5,
+    //         delivery_time: "35-45 min",
+    //         number_orders: 20,
+    //         price_range: 3
+    //     },
+    //     {
+    //         name: "Sacro Romano Impero",
+    //         category: "italian",
+    //         free_shipping: 0, // non è gratuito
+    //         restaurant_logo: imagePaniniCaMeusa,
+    //         rating: 4,
+    //         delivery_time: "20-30 min",
+    //         number_orders: 50,
+    //         price_range: 2
+    //     },
+    //     {
+    //         name: "Profumi di mare",
+    //         category: "sushi",
+    //         free_shipping: 1, // non è gratuito
+    //         restaurant_logo: imagePaniniCaMeusa,
+    //         rating: 5,
+    //         delivery_time: "35-45 min",
+    //         number_orders: 300,
+    //         price_range: 4
+    //     },
+    // ]
 
     //STATE
     const [state, setState] = useState({
         isSideToggle: false,
-        objectRestaurantsForList: objectRestaurantsForListReference,
-        objectRestaurantsForTrend: objectRestaurantsForListReference
+        objectRestaurantsForTrend: [],
+        categoriesRestaurants: [],
+        restaurantsData: []
     })
 
     //USEEFFECT
     useEffect(() => {
-    
+
+        showApi()
+
         let orderedRestaurants = []
-        orderedRestaurants = orderBy(state.objectRestaurantsForList, ['number_orders'], ['desc'])
+        orderedRestaurants = orderBy(state.restaurantsData, ['number_orders'], ['desc'])
         orderedRestaurants = orderedRestaurants.slice(0, 3)
         setState({
             ...state,
@@ -142,43 +149,51 @@ const Restaurants = (props) => {
         tl2.from(restaurantsRowTwo, { y: -50, opacity: 0, stagger: 0.300, duration: 1.5, ease: 'back' })
 
         gsap.fromTo(title, { opacity: 0, scale: 0.2, y: -20, }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "none", })
-        
+
     }, []) //componentDidMount    
 
 
     const orderByRestaurants = (e) => {
         let orderedRestaurants = []
-        e.target.value === "delivery_time" ? orderedRestaurants = orderBy(state.objectRestaurantsForList, [e.target.value], ['asc'])
-            : orderedRestaurants = orderBy(state.objectRestaurantsForList, [e.target.value], ['desc'])
+        e.target.value === "delivery_time" ? orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['asc'])
+            : orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['desc'])
         setState({
             ...state,
             objectRestaurantsForList: orderedRestaurants
         })
+        console.log(e.target.type)
     }
 
     const filterByRestaurants = (e) => {
         let filteredRestaurants = []
-        isNaN(e.target.value) ? filteredRestaurants = filter(objectRestaurantsForListReference, { 'category': e.target.value })
-            : filteredRestaurants = filter(objectRestaurantsForListReference, { 'price_range': parseInt(e.target.value) })
+        isNaN(e.target.value) ? filteredRestaurants = filter(state.restaurantsData, { 'category': e.target.value })
+            : filteredRestaurants = filter(state.restaurantsData, { 'price_range': parseInt(e.target.value) })
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants
         })
+        console.log(e.target.value, ) 
     }
 
-    const filterByDeliveryRestaurants = (e) => {
+    const filterByDeliveryRestaurants = (e)=> {
         let filteredRestaurants = []
-        isNaN(e.target.value) ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.target.value) })
+<<<<<<< HEAD
+        isNaN(e.target.value) ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.target.value) })
+=======
+        e.value ===1 ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.value) })
+>>>>>>> 3fea22ccda559d756844041553bcaeb5694eeef3
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants
         })
+        console.log(e.value, 'gesu')
+        
     }
 
     const clearFilters = () => {
         setState({
             ...state,
-            objectRestaurantsForList: objectRestaurantsForListReference
+            objectRestaurantsForList: state.restaurantsData
         })
     }
 
@@ -199,6 +214,28 @@ const Restaurants = (props) => {
         props.history.push('/menuRestaurant')
     }
 
+
+    const showApi = async () => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET('/restaurantcategories', props.tokenDuck.token)
+        let responseData = await properties.GENERIC_SERVICE.apiGET('/restaurants', props.tokenDuck.token)
+        let statusCode = _get(response, "status", null)
+        let userRole = _get(response, "permission", null)
+        console.log(response, 'response')
+        console.log(responseData)
+        if (statusCode === 401 || userRole === "restaurant") {
+            console.log('error')
+        }
+
+        else {
+            setState({
+                ...state,
+                categoriesRestaurants: response,
+                restaurantsData: responseData
+            })
+        }
+
+    }
     return (
         <>
             <Navbar />
@@ -210,18 +247,42 @@ const Restaurants = (props) => {
                     </div>
                     {/* categorie */}
                     <h2 className='fe-categories-title'>{t('frontend.screens.restaurants.category')}</h2>
+
                     <div className='fe-categories-container'>
+                        {
+                            state.categoriesRestaurants &&
+
+                            state.categoriesRestaurants.map((item, key) => {
+
+                                return (
+                                    <IconCategories key={key}
+                                        caption={item.name}
+                                        value={item.name}
+                                        icon={Pizza}
+                                    />
+
+                                )
+                            })
+                        }
+                    </div>
+
+
+
+
+                    {/* <div className='fe-categories-container'>
                         <IconCategories value={"hamburger"} icon={Burger} caption={"Hamburger"} callback={filterByRestaurants} />
                         <IconCategories value={"italian"} icon={Italian} caption={"Italian"} callback={filterByRestaurants} />
                         <IconCategories value={"mexican"} icon={Mexican} caption={"Mexican"} callback={filterByRestaurants} />
                         <IconCategories value={"pizza"} icon={Pizza} caption={"Pizza"} callback={filterByRestaurants} />
                         <IconCategories value={"poke"} icon={Poke} caption={"Poke"} callback={filterByRestaurants} />
                         <IconCategories value={"sushi"} icon={Sushi} caption={"Sushi"} callback={filterByRestaurants} />
-                    </div>
+                    </div> */}
                     <button className='fe-btn-goTo' onClick={scrollMeTo}>{t('frontend.screens.restaurants.chose')}</button>
                 </section>
 
                 <section className='fe-restaurants-section-two'>
+
+
 
                     <SidebarRestaurants
                         callbackElementRadio={orderByRestaurants}
@@ -232,6 +293,26 @@ const Restaurants = (props) => {
                     />
                     <div className='fe-restaurants-wrapper'>
                         <button className='fe-btn-side-toggler' onClick={sideToggle}>Filters</button>
+                        {/* <div className="fe-restaurants-container row-one">
+                            {
+                                state.restaurantsData &&
+                                state.restaurantsData.map((item, key) => {
+                                    return (
+                                        <SingleRestaurant
+                                            key={key}
+                                            restaurantName={item.name}
+                                            restaurantRating={item.averageReview}
+                                            restaurantShipping={item.restaurantFreeShipping}
+                                            image={imagePaniniCaMeusa}
+                                            classNameWrapper="fe-img-wrapper"
+                                            classNameImage="imageSingleRestaurant"
+                                            callback={goToMenu}
+                                        />
+                                    )
+                                })
+                            }
+
+                        </div> */}
 
                         <div className='trendRestaurants'>
                             <h2 className='fe-trend-title'>{t('frontend.screens.restaurants.trend')}</h2>
@@ -251,6 +332,24 @@ const Restaurants = (props) => {
                                         />
                                     )
                                 })}
+
+                                {
+                                    state.restaurantsData &&
+                                    state.restaurantsData.map((item, key) => {
+                                        return (
+                                            <SingleRestaurant
+                                                key={key}
+                                                restaurantName={item.name}
+                                                restaurantRating={item.averageReview}
+                                                restaurantShipping={item.restaurantFreeShipping}
+                                                image={imagePaniniCaMeusa}
+                                                classNameWrapper="fe-img-wrapper"
+                                                classNameImage="imageSingleRestaurant"
+                                                callback={goToMenu}
+                                            />
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
@@ -258,7 +357,7 @@ const Restaurants = (props) => {
                             <h2 className='fe-near-title'>{t('frontend.screens.restaurants.area')}</h2>
                             {/* tutti */}
                             <div className='fe-restaurants-container row-two'>
-                                {state.objectRestaurantsForList.map((item, key) => {
+                                {state.restaurantsData.map((item, key) => {
                                     return (
                                         <SingleRestaurant
                                             key={key}
@@ -282,4 +381,9 @@ const Restaurants = (props) => {
     )
 }
 
-export default Restaurants;
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+})
+
+
+export default connect(mapStateToProps)(Restaurants);

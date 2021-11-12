@@ -16,6 +16,7 @@ import { setToken } from '../../../common/redux/duck/tokenDuck'
 import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
 import { get as _get } from 'lodash';
+import { setUserInfo } from "../../redux/infoDuck";
 
 
 
@@ -30,7 +31,8 @@ class LoginUser extends React.Component {
             errorMsg: ""
         }
     }
-
+   
+   
 
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -66,20 +68,30 @@ class LoginUser extends React.Component {
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", null)
-            console.log(response)
+            console.log(response, 'TOKEN', response.id, 'RESPONSE')
             if (statusCode === 401 || userRole === "restaurant") {
                 error = true;
             }
             else {
                 // Salvare token nel duck
-                this.props.dispatch(setToken(response.token))
+                let token = this.props.dispatch(setToken(response.token))
+                // // FARE USER + ID PER TROVARE IL NOME
+                // let getId = await properties.GENERIC_SERVICE.apiGET('/user' + {token})
+                // console.log(getId, 'getId')
+                
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
+                let id = response.id
+                console.log(id)
+                let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
+                let gesu = this.props.dispatch(setUserInfo(getId.firstName))
+                console.log(gesu)
+
             }
             this.props.history.push('/userHome')
 
         }
-
+        
         this.setState({
             errorMsg: error
         })
@@ -98,6 +110,7 @@ class LoginUser extends React.Component {
             password: e.target.value
         })
     }
+    
 
     render() {
 
@@ -178,5 +191,8 @@ class LoginUser extends React.Component {
     }
 
 }
-
-export default connect()(withTranslation()(LoginUser));
+const mapStateToProps = state => ( {
+    infoDuck: state.infoDuck
+  } )
+  
+export default connect(mapStateToProps)(withTranslation()(LoginUser));
