@@ -165,7 +165,7 @@ class NewPlate extends Component {
                                 />
 
                                 <InputBox
-                                    type="text"
+                                    type="number"
                                     placeholder={t('backoffice.components.inputbox.price')}
                                     className={`bo-input-box ${this.state.warning.price ? 'alert' : ''}`}
                                     name="price"
