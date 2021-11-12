@@ -111,29 +111,23 @@ class SinglePlate extends Component {
     }
 
     handleVisibility = (e) => {
-        this.setState({
-            /* () => ({
+        this.setState(
+            () => ({
                 visibility: e
             }),
 
-            () => {
+            async () => {
 
-                const plateList = this.storageData.plate_list.map(el => {
-                    if (el.id === this.props.location.state.plateId) {
-                        el.visibility = this.state.visibility
-                    }
-                    return el
-                })
-                this.storageData.plate_list = plateList;
-                localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
-            }) */
-            visibility: e
-        })
+                // Api per modificARE LA VISIBILITY
+                properties.GENERIC_SERVICE = new genericServices()
+                let apivisibility= await properties.GENERIC_SERVICE.apiPUT(`plate/visibility/${this.plateId}`, {}, get(this.props, 'tokenDuck.token', null))
+            }
+        )
     }
 
     handleSubmit = async () => {
         let newData = {
-           // img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
+            // img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
             name: [this.state.data.name[0], this.state.data.name[0] ? false : true],
             description: [this.state.data.description[0], this.state.data.description[0] ? false : true],
             price: [this.state.data.price[0], utils.checkNumber(this.state.data.price[0]) && this.state.data.price[0] ? false : true],
@@ -143,7 +137,7 @@ class SinglePlate extends Component {
         if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
-             //   img: newData.img[0],
+                //   img: newData.img[0],
                 restaurantId: get(this.props, 'restaurantIdDuck.restaurant_id', null),
                 name: newData.name[0],
                 description: newData.description[0],
@@ -157,7 +151,7 @@ class SinglePlate extends Component {
             properties.GENERIC_SERVICE = new genericServices()
             let apiUpdatePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/update/${this.plateId}`, modifiedPlate, get(this.props, 'tokenDuck.token', null))
             console.log('apiUpdatePlate', apiUpdatePlate)
-            
+
             this.setState({
                 data: newData,
                 editData: correctCheck ? false : true,
@@ -166,13 +160,11 @@ class SinglePlate extends Component {
         }
     }
 
-    handleDelete = () => {
-        /* Delete plate from localSotorage */
-        const plateList = this.storageData.plate_list.filter((el, key) => {
-            return el.id !== this.props.location.state.plateId
-        })
-        this.storageData.plate_list = plateList;
-        localStorage.setItem('localStorageData', JSON.stringify(this.storageData));
+    handleDelete = async () => {
+       
+        // Api effettuare l'eliminazione del piatto 
+        properties.GENERIC_SERVICE = new genericServices()
+        let apiDeletePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/delete/${this.plateId}`, true, get(this.props, 'tokenDuck.token', null))
 
         // Find plate category name
         let categoryName = this.state.list_categories.find(el => {
@@ -219,7 +211,7 @@ class SinglePlate extends Component {
 
                             <section>
                                 <SinglePlateCard
-                                   // img={this.state.data.img[0]}
+                                    // img={this.state.data.img[0]}
                                     callback={this.handleCallbackInput}
                                     name={'img'}
                                     newCss=''
@@ -250,7 +242,7 @@ class SinglePlate extends Component {
                                     />
 
                                     <InputBox
-                                        type="text"
+                                        type="number"
                                         placeholder={t('backoffice.components.inputbox.price')}
                                         className={`bo-input-box ${this.state.data.price[1] ? 'alert' : ''}`}
                                         name="price"
