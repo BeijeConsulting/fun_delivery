@@ -4,26 +4,45 @@ import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/L
 import Button from "../../../common/components/ui/button/Button";
 import Timeline from "../../components/ui/timeline/Timeline";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
-import "./SingleOrder.css";
 import BackPageButton from "../../components/ui/backPageButton/BackPageButton";
+import genericServices from '../../../common/utils/genericServices';
+import properties from '../../../common/utils/properties';
+import { connect } from 'react-redux';
+import { get as _get } from 'lodash';
+import "./SingleOrder.css";
+
 class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
-        this.ordersLocalStorage = JSON.parse(localStorage.getItem("localStorageData")); //Necessario per ricavare l'ordine singolo
-        this.foundOrder = this.ordersLocalStorage.order_list.find(
-            (item) => item.order_id === this.props.location.state.order_id
-        );
+        // this.ordersLocalStorage = JSON.parse(localStorage.getItem("localStorageData")); //Necessario per ricavare l'ordine singolo
+        // this.foundOrder = this.ordersLocalStorage.order_list.find(
+        //     (item) => item.order_id === this.props.location.state.order_id
+        // );
         this.state = {
-            order: this.foundOrder,
-            order_status: this.foundOrder.status, //necessario per la timeline
-            showTimeline: this.foundOrder.status !== "pending",
+            order: {},
+            order_status: null, //necessario per la timeline
+            showTimeline: false ,
+            //this.foundOrder.status !== "pending",
             total_price: this.totalPriceOrder(),
         };
     }
 
     //Mapping the food ordered by the customer
-    componentDidMount() {
-        this.totalPriceOrder();
+    componentDidMount = async () => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET(`order/restaurant/${this.props.restaurantIdDuck.restaurant_id}/1`, this.props.tokenDuck.token)
+        let statusCode = _get(response, "status", null)
+        console.log("response: ", response)
+        if (statusCode === "401") {
+            // error = true; //deve dare un errore
+        }
+        else {
+            this.setState({
+                order : response
+            })
+        }
+        
+        this.totalPriceOrder(response);
     }
 
     handleShowTimelineAccept = () => {
@@ -37,9 +56,10 @@ class RestaurantSingleOrder extends Component {
         this.handleStatusTimeline("rejected")
     };
 
-    totalPriceOrder = () => {
+    totalPriceOrder = (order) => {
         let sum = 0;
-        this.foundOrder.ordered.map((item) => (sum += item.price));
+        console.log("order: ", order)
+        order.items.map((item) => (sum += item.price));
         return sum;
     };
 
