@@ -157,17 +157,7 @@ class SinglePlate extends Component {
             properties.GENERIC_SERVICE = new genericServices()
             let apiUpdatePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/update/${this.plateId}`, modifiedPlate, get(this.props, 'tokenDuck.token', null))
             console.log('apiUpdatePlate', apiUpdatePlate)
-            /* const newList = this.storageData.plate_list.map((el) => {
-                if (el.id === this.props.location.state.plateId) {
-                    el = {
-                        ...el,
-                        ...modifiedPlate
-                    }
-                }
-                return el;
-            })
-            this.storageData.plate_list = newList;
-            localStorage.setItem('localStorageData', JSON.stringify(this.storageData)); */
+            
             this.setState({
                 data: newData,
                 editData: correctCheck ? false : true,
