@@ -18,7 +18,6 @@ class MyOrders extends Component {
     constructor(props) {
         super(props);
         this.status = constantsDictionary.ORDER_STATUS
-        // this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
         this.state = {
             all_orders: [],
             all_ordersModifiedStatus: [],
@@ -26,7 +25,6 @@ class MyOrders extends Component {
         }
 
         //Orders with modifed status to show emoji's instead of status
-        // this.all_ordersModifiedStatus = _cloneDeep(this.all_orders)
         this.columns = [
             {
                 title: i18n.t('backoffice.screens.common_screens.order'),
@@ -82,7 +80,7 @@ class MyOrders extends Component {
             },
             {
                 title: i18n.t('backoffice.screens.my_orders.show'),
-                dataIndex: 'order_id',
+                dataIndex: 'id',
                 key: '4',
                 render: (order_id) => (
                     <SearchOutlined onClick={this.handleCallbackPageSingleOrder(order_id)} />

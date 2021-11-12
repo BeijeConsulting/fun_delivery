@@ -14,35 +14,56 @@ import "./SingleOrder.css";
 class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
-        // this.ordersLocalStorage = JSON.parse(localStorage.getItem("localStorageData")); //Necessario per ricavare l'ordine singolo
-        // this.foundOrder = this.ordersLocalStorage.order_list.find(
-        //     (item) => item.order_id === this.props.location.state.order_id
-        // );
+
         this.state = {
-            order: {},
+            order: null,
+            error: false,
             order_status: null, //necessario per la timeline
-            showTimeline: false ,
+            showTimeline: false,
             //this.foundOrder.status !== "pending",
-            total_price: this.totalPriceOrder(),
+            total_price: 0,
         };
     }
 
     //Mapping the food ordered by the customer
     componentDidMount = async () => {
+        let errorToSave = false
+        let sumToSave = 0
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET(`order/restaurant/${this.props.restaurantIdDuck.restaurant_id}/1`, this.props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiGET(`order/${this.props.location.state.order_id}/restaurant`, this.props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
         console.log("response: ", response)
         if (statusCode === "401") {
-            // error = true; //deve dare un errore
+            errorToSave = true; //deve dare un errore
         }
         else {
-            this.setState({
-                order : response
-            })
+            sumToSave = this.totalPriceOrder(response);
         }
-        
-        this.totalPriceOrder(response);
+        this.setState({
+            order: response,
+            total_price: sumToSave,
+            error: errorToSave
+        })
+    }
+
+    getSingleOrder = async () => {
+        let errorToSave = false
+        let sumToSave = 0
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET(`order/${this.props.location.state.order_id}/restaurant`, this.props.tokenDuck.token)
+        let statusCode = _get(response, "status", null)
+        console.log("response: ", response)
+        if (statusCode === "401") {
+            errorToSave = true; //deve dare un errore
+        }
+        else {
+            sumToSave = this.totalPriceOrder(response);
+        }
+        this.setState({
+            order: response,
+            total_price: sumToSave,
+            error: errorToSave
+        })
     }
 
     handleShowTimelineAccept = () => {
@@ -64,134 +85,166 @@ class RestaurantSingleOrder extends Component {
     };
 
     //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
-    handleStatusTimeline = (e) => {
-        this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status = e;
-        localStorage.setItem("localStorageData", JSON.stringify(this.ordersLocalStorage));
+    handleStatusTimeline = async(e) => {
+        let errorToSave = false
+        let orderStatusToSave = null
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET(`/orders/update/${this.props.location.state.order_id}/status/${e}`, this.props.tokenDuck.token)
+        let statusCode = _get(response, "status", null)
+        console.log("response: ", response)
+        if (statusCode === "401") {
+            errorToSave = true; //deve dare un errore
+        }
+        else {
+            orderStatusToSave = e
+        }
+        // this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status = e;
+        // localStorage.setItem("localStorageData", JSON.stringify(this.ordersLocalStorage));
         this.setState({
-            order_status: e,
+            order_status: orderStatusToSave,
+            error: errorToSave
         });
     };
 
     render() {
         const { t } = this.props;
         return (
-            <LayoutBackOffice pageTitle="MY MENU">
-                <div className="bo-profile-container bo-single-order">
-                    <div className="bo-mymenu-first-row">
-                        <div className="bo-mymenu-welcome">
-                            <h2>
-                                {t("backoffice.screens.common_screens.order")}
-                                {" #"}
-                                {this.props.location.state.order_id}
-                            </h2>
-                        </div>
-                        <BackPageButton
-                            classProp={"bo-mymenu-welcome"}
-                            historyProp={this.props.history}
-                        />
+            <>
+                {
+                    this.state.error &&
+                    //Componente errore da creare
+                    <div>
+                        <p>Errore generico</p>
                     </div>
-
-                    <section>
-                        {this.state.showTimeline && this.state.order_status !== "rejected" && (
-                            <div>
-                                <Timeline
-                                    callback={this.handleStatusTimeline}
-                                    currentStep={this.state.order_status}
-                                />
-                            </div>
-                        )}
-
-                        {!this.state.showTimeline && this.state.order_status !== "rejected" && (
-                            <div className="btn-orders-container">
-                                <Button
-                                    className="bo-btn single-order"
-                                    value="approve"
-                                    text={t("backoffice.screens.single_order.approve")}
-                                    callback={this.handleShowTimelineAccept}
-                                />
-                                <Button
-                                    className="bo-btn single-order"
-                                    value="dontapprove"
-                                    text={t("backoffice.screens.single_order.dont_approve")}
-                                    callback={this.handleShowTimelineReject}
-                                />
-                            </div>
-                        )}
-
-                        {this.state.order_status === "rejected" && (
-                            <div className="bo-mymenu-welcome">
-                                <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
-                            </div>
-                        )}
-                    </section>
-
-                    <div className="bo-profile-form">
-
-                        <section>
-                            <div>
-                                <InputBox
-                                    className="bo-input-box"
-                                    name="customer_address"
-                                    disable={true}
-                                    type="text"
-                                    // value={this.props.location.state.order.customer_address}
-                                    value={`${t("backoffice.screens.single_order.date")}: ${this.state.order.date
-                                        }`}
-                                />
-                            </div>
-                            <div className="bo-profile-flex-inputs">
-                                <InputBox
-                                    className="bo-input-box"
-                                    name="customer_name"
-                                    disable={true}
-                                    value={`${t(
-                                        "backoffice.screens.single_order.customer_name"
-                                    )}: ${this.state.order.customer_name}`}
-                                />
-
-                                <InputBox
-                                    className="bo-input-box"
-                                    name="customer_address"
-                                    disable={true}
-                                    value={`${t("backoffice.screens.common_screens.address")}: ${this.state.order.customer_address
-                                        }`}
-                                />
-                            </div>
-                        </section>
-
-                        <section>
-                            <h2> {t("backoffice.screens.single_order.ordered_food")}:</h2>
-
-                            <div className="list-group-item orders" name="foodOrdered">
-                                {this.state.order.ordered.map((item, index) => {
-                                    return (
-                                        <ul
-                                            key={index}
-                                            className="list-style"
-                                            style={{ width: "100%" }}
-                                        >
-                                            <li>
-                                                {item.nameFood} <br />
-                                                {t("backoffice.screens.single_order.price")}: {item.price}{" "}
-                                                <br />
-                                                {t("backoffice.screens.single_order.quantity")}:{" "}
-                                                {item.quantity} <br />
-                                            </li>
-                                        </ul>
-                                    );
-                                })}
-                                <div style={{ padding: "10px" }}>
-                                    {t("backoffice.screens.single_order.total")}: €
-                                    {this.state.total_price}
+                }
+                {this.state.order !== null &&
+                    <LayoutBackOffice pageTitle="MY MENU">
+                        <div className="bo-profile-container bo-single-order">
+                            <div className="bo-mymenu-first-row">
+                                <div className="bo-mymenu-welcome">
+                                    <h2>
+                                        {t("backoffice.screens.common_screens.order")}
+                                        {" #"}
+                                        {this.props.location.state.order_id}
+                                    </h2>
                                 </div>
+                                <BackPageButton
+                                    classProp={"bo-mymenu-welcome"}
+                                    historyProp={this.props.history}
+                                />
                             </div>
-                        </section>
 
-                    </div>
-                </div>
-            </LayoutBackOffice>
+                            <section>
+                                {this.state.showTimeline && this.state.order_status !== "rejected" && (
+                                    <div>
+                                        <Timeline
+                                            callback={this.handleStatusTimeline}
+                                            currentStep={this.state.order_status}
+                                        />
+                                    </div>
+                                )}
+
+                                {!this.state.showTimeline && this.state.order_status !== "rejected" && (
+                                    <div className="btn-orders-container">
+                                        <Button
+                                            className="bo-btn single-order"
+                                            value="approve"
+                                            text={t("backoffice.screens.single_order.approve")}
+                                            callback={this.handleShowTimelineAccept}
+                                        />
+                                        <Button
+                                            className="bo-btn single-order"
+                                            value="dontapprove"
+                                            text={t("backoffice.screens.single_order.dont_approve")}
+                                            callback={this.handleShowTimelineReject}
+                                        />
+                                    </div>
+                                )}
+
+                                {this.state.order_status === "rejected" && (
+                                    <div className="bo-mymenu-welcome">
+                                        <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
+                                    </div>
+                                )}
+                            </section>
+
+                            <div className="bo-profile-form">
+
+                                <section>
+                                    <div>
+                                        <InputBox
+                                            className="bo-input-box"
+                                            name="customer_address"
+                                            disable={true}
+                                            type="text"
+                                            // value={this.props.location.state.order.customer_address}
+                                            value={`${t("backoffice.screens.single_order.date")}: ${this.state.order.date
+                                                }`}
+                                        />
+                                    </div>
+                                    <div className="bo-profile-flex-inputs">
+                                        <InputBox
+                                            className="bo-input-box"
+                                            name="customer_name"
+                                            disable={true}
+                                            value={`${t(
+                                                "backoffice.screens.single_order.customer_name"
+                                            )}: ${this.state.order.userFirstname + " " + this.state.order.userLastname}`}
+                                        />
+
+                                        <InputBox
+                                            className="bo-input-box"
+                                            name="customer_address"
+                                            disable={true}
+                                            value={`${t("backoffice.screens.common_screens.address")}: ${this.state.order.shippingAddress
+                                                }`}
+                                        />
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <h2> {t("backoffice.screens.single_order.ordered_food")}:</h2>
+
+                                    <div className="list-group-item orders" name="foodOrdered">
+                                        {
+                                            this.state.order.items.map((item, index) => {
+                                                return (
+                                                    <ul
+                                                        key={index}
+                                                        className="list-style"
+                                                        style={{ width: "100%" }}
+                                                    >
+                                                        <li>
+                                                            {item.name} <br />
+                                                            {t("backoffice.screens.single_order.price")}:{" "}{item.price}
+                                                            <br />
+                                                            {t("backoffice.screens.single_order.description")}:{" "}
+                                                            {item.description} <br />
+                                                            {t("backoffice.screens.single_order.quantity")}:{" "}
+                                                            {item.quantity} <br />
+                                                        </li>
+                                                    </ul>
+                                                );
+                                            })}
+                                        <div style={{ padding: "10px" }}>
+                                            {t("backoffice.screens.single_order.total")}: €
+                                            {this.state.total_price}
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+                    </LayoutBackOffice>
+                }
+            </>
         );
     }
 }
 
-export default withTranslation()(RestaurantSingleOrder);
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(RestaurantSingleOrder));

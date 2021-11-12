@@ -34,7 +34,6 @@ class ForgotPassword extends Component {
     }
 
     handelSubmit = () => {
-
         let emailChecked = Utils.validateEmail(this.email);
         console.log('emailChecked = ', emailChecked);
         let passwordChecked = Utils.validatePassword(this.password);
