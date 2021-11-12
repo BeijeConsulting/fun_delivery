@@ -76,7 +76,7 @@ class LoginUser extends React.Component {
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
             }
-            this.props.history.push('/restaurants')
+            this.props.history.push('/userHome')
 
         }
 

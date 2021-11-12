@@ -119,7 +119,7 @@ class RegistrationUser extends React.Component {
                     this.props.dispatch(setToken(response.token))
                     // andare avanti nella prossima pagina
                     // localStorage.setItem('token', response.token)
-                    this.props.history.push('/restaurants')
+                    this.props.history.push('/userHome')
                 }
             
             }

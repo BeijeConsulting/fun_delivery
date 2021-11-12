@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { Component } from "react";
+// import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 import { get as _get } from 'lodash';
 
@@ -33,83 +33,109 @@ import genericServices from "../../../common/utils/genericServices";
 
 
 
-const UserHome = (props) => {
-    const [state, setState] = useState({
-        wheelModal: false,
-        wheelAvailable: true,
-        avatarDisplay: false,
-        slideMenu: false,
-        count: 0,
-        active: true,
-        selectedPage: 'homeUser',
-        selectedTab: 'infoUser'
-    })
+class UserHome extends Component {
+    constructor(props) {
+        super(props)
 
-    //Data from localStorage
-    // let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
-    // let userPath = JSON.parse(localStorage.getItem('userInfo'))
-    // let wheelAward = JSON.parse(localStorage.getItem('awards'))
+        this.state = {
+            wheelModal: false,
+            wheelAvailable: true,
+            avatarDisplay: false,
+            slideMenu: false,
+            count: 0,
+            active: true,
+            selectedPage: 'homeUser',
+            selectedTab: 'infoUser',
+            loadingRender: false,
+            dataUser: null,
 
-    //Dichiarazione variabili
-    let history = useHistory();
-
-    let newWheelAvaileble
-    let newDate = new Date().getTime()
-    let difference = newDate - oldDate
-    let compare = difference > 86400000 ? true : false
-    let timer = 86400000 - difference
-
-    let levelExp = 1000
-    let totalExp = dataUser.exp
-    let percentageExp = 0
-
-    let dataUser = null
-    let wheel = null
-    let avatar = null
-    let badge = null
-    let wheelAward = null
-
-    //useEffect
-    useEffect(async () => {
-        if (oldDate) {
-            newWheelAvaileble = compare
+            wheel: null,
+            oldDate: null,
+            avatar: null,
+            badge: null,
+            wheelAward: null,
+            totalExp: 0
         }
 
+        this.newWheelAvaileble = null
+        this.newDate = new Date().getTime()
+        this.difference = null
+        this.compare = false
+        this.timer = 86400000
 
+        this.levelExp = 1000
+        this.percentageExp = 0
+    }
+
+
+    componentDidMount = () => {
+        this.getDataApi()
+    }
+
+    getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        dataUser = await properties.GENERIC_SERVICE.apiGET('/user/1', props.tokenDuck.token)
+        let dataUser = await properties.GENERIC_SERVICE.apiGET('/user/163', this.props.tokenDuck.token)
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
-        wheel = await properties.GENERIC_SERVICE.apiGET('/wheel/1', props.tokenDuck.token)
-        avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', props.tokenDuck.token)
-        badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', props.tokenDuck.token)
-        wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', props.tokenDuck.token)
+        let wheel = await properties.GENERIC_SERVICE.apiGET('/wheel/9', this.props.tokenDuck.token)
+        let oldDate = wheel.startDate
+        let avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', this.props.tokenDuck.token)
+        let badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', this.props.tokenDuck.token)
+        // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
+        let wheelAward = 'Wheel award'
 
-        console.log('get user id: ', dataUser)
 
-        setState({
-            ...state,
-            wheelAvailable: newWheelAvaileble
+        let totalExp = dataUser.exp === null ? 0 : dataUser.exp
+
+        this.difference = this.newDate - oldDate
+        this.compare = this.difference > 86400000 ? true : false
+        this.timer -= this.difference
+
+        if (oldDate) {
+            this.newWheelAvaileble = this.compare
+        }
+
+        this.setState({
+            wheelAvailable: this.newWheelAvaileble,
+            loadingRender: true,
+            dataUser: dataUser,
+            wheel: wheel,
+            oldDate: oldDate,
+            avatar: avatar,
+            badge: badge,
+            wheelAward: wheelAward,
+            totalExp: totalExp
         })
-    }, []);
+    }
+
+    componentDidUpdate = () => {
+        if (this.compare || !this.state.oldDate) {
+            this.newWheelAvaileble = true
+        } else {
+            this.newWheelAvaileble = false
+            setTimeout(() => {
+                this.newWheelAvaileble = true
+                this.setState({
+                    wheelAvailable: this.newWheelAvaileble
+                })
+            }, 86400000 - this.compare);
+        }
+    }
 
     //apre le modali al click delle immagini
-    const callbackSwitcher = (e) => {
+    callbackSwitcher = (e) => {
         let target = e.target.getAttribute('name')
         switch (target) {
             case 'userAvatar':
-                setState({
-                    ...state,
+                this.setState({
                     avatarDisplay: true
                 })
                 break;
             case 'userBadge':
-                console.log('hello userBadge');
                 break;
 
             case 'coinInfo':
-                console.log('hello coins');
                 break;
 
             default:
@@ -119,54 +145,54 @@ const UserHome = (props) => {
     }
 
     //calcola il livello sulla base dell'esperienza
-    const userLevel = () => {
-        if (dataUser.exp < 1000) {
-            percentageExp = totalExp / levelExp * 100
+    userLevel = () => {
+        let totalExp = this.state.totalExp
+        if (totalExp < 1000) {
+            this.percentageExp = totalExp / this.levelExp * 100
             return 1
         }
-        if (dataUser.exp >= 1000 && dataUser.exp < 3000) {
+        if (totalExp >= 1000 && totalExp < 3000) {
             totalExp -= 1000
-            levelExp = 2000
-            percentageExp = totalExp / levelExp * 100
+            this.levelExp = 2000
+            this.percentageExp = totalExp / this.levelExp * 100
             return 2
         }
-        if (dataUser.exp >= 3000 && dataUser.exp < 6000) {
+        if (totalExp >= 3000 && totalExp < 6000) {
             totalExp -= 3000
-            levelExp = 3000
-            percentageExp = totalExp / levelExp * 100
+            this.levelExp = 3000
+            this.percentageExp = totalExp / this.levelExp * 100
             return 3
         }
-        if (dataUser.exp >= 6000 && dataUser.exp < 10000) {
+        if (totalExp >= 6000 && totalExp < 10000) {
             totalExp -= 6000
-            levelExp = 4000
-            percentageExp = totalExp / levelExp * 100
+            this.levelExp = 4000
+            this.percentageExp = totalExp / this.levelExp * 100
             return 4
         }
-        if (dataUser.exp >= 10000 && dataUser.exp < 15000) {
+        if (totalExp >= 10000 && totalExp < 15000) {
             totalExp -= 10000
-            levelExp = 5000
-            percentageExp = totalExp / levelExp * 100
+            this.levelExp = 5000
+            this.percentageExp = totalExp / this.levelExp * 100
             return 5
-        } if (dataUser.exp >= 15000) {
+        } if (totalExp >= 15000) {
             totalExp = 5000
-            levelExp = 5000
-            percentageExp = 100
+            this.levelExp = 5000
+            this.percentageExp = 100
             return 5
         }
     }
 
-    const addExp = () => {
-        dataUser.exp += 250
-        // localStorage.setItem('userInfo', JSON.stringify(userPath))
-        setState({
-            ...state,
-            count: state.count + 1
-        })
-        console.log(state.count)
+    addExp = () => {
+        let totalExp = this.state.totalExp
+        totalExp += 250
 
+        this.setState({
+            count: this.state.count + 1,
+            totalExp: totalExp
+        })
     }
 
-    const msToTime = (milliseconds) => {
+    msToTime = (milliseconds) => {
         let seconds = Math.floor((milliseconds / 1000) % 60)
         let minutes = Math.floor((milliseconds / (1000 * 60)) % 60)
         let hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24)
@@ -178,316 +204,300 @@ const UserHome = (props) => {
         return obj
     }
 
-    if (compare || !oldDate) {
-        newWheelAvaileble = true
-    } else {
-        newWheelAvaileble = false
-        setTimeout(() => {
-            newWheelAvaileble = true
-            setState({
-                ...state,
-                wheelAvailable: newWheelAvaileble
-            })
-        }, 86400000 - compare);
-    }
+
 
 
     //Fortune wheel 
-    const openWheelOfFortuneGame = () => {
+    openWheelOfFortuneGame = () => {
         let newDate = new Date().getTime()
-        
-        // let oldDate = JSON.parse(localStorage.getItem('wheelTimer'))
+        let wheelModal = true
 
-        if (oldDate) {
-            setState({
-                ...state,
-                wheelModal: newDate - oldDate > 86400000 ? true : false
-            })
-        } else {
-            setState({
-                ...state,
-                wheelModal: true
-            })
+        if (this.state.oldDate) {
+            wheelModal = newDate - this.state.oldDate > 86400000 ? true : false
         }
+
+        this.setState({
+            wheelModal: wheelModal
+        })
     }
 
-    const wheelModalClick = () => {
-        setState({
-            ...state,
+    wheelModalClick = () => {
+        this.setState({
             wheelModal: false
         })
     }
 
-    const handleCloseCallback = () => {
-        setState({
-            ...state,
+    handleCloseCallback = () => {
+        this.setState({
             avatarDisplay: false
         })
     }
 
     // Slider menu for mobile
-    const slideMenu = () => {
-        setState({
-            ...state,
-            slideMenu: !state.slideMenu
+    slideMenu = () => {
+        this.setState({
+            slideMenu: !this.state.slideMenu
         })
     }
 
 
     //Button to go to an other page
-    const goToHome = () => {
-        setState({
-            ...state,
+    goToHome = () => {
+        this.setState({
             selectedPage: 'homeUser',
-            slideMenu: !state.slideMenu
+            slideMenu: !this.state.slideMenu
         })
     }
 
-    const goToInformation = () => {
-        setState({
-            ...state,
+    goToInformation = () => {
+        this.setState({
             selectedPage: 'infoUser',
-            slideMenu: !state.slideMenu
+            slideMenu: !this.state.slideMenu
         })
     }
 
-    const goToOrders = () => {
-        setState({
-            ...state,
+    goToOrders = () => {
+        this.setState({
             selectedPage: 'orderUser',
-            slideMenu: !state.slideMenu
+            slideMenu: !this.state.slideMenu
         })
     }
 
-    const goToMissions = () => {
-        setState({
-            ...state,
+    goToMissions = () => {
+        this.setState({
             selectedPage: 'missionUser',
-            slideMenu: !state.slideMenu
+            slideMenu: !this.state.slideMenu
         })
     }
 
-    const showMyInfo = () => {
-        setState({
-            ...state,
+    showMyInfo = () => {
+        this.setState({
             selectedTab: 'infoUser'
         })
     }
-    const showMyOrder = () => {
-        setState({
-            ...state,
+    showMyOrder = () => {
+        this.setState({
             selectedTab: 'orderUser'
         })
     }
-    const showMyMission = () => {
-        setState({
-            ...state,
+    showMyMission = () => {
+        this.setState({
             selectedTab: 'missionUser'
         })
     }
 
-    return (
-        <>
-            <Navbar />
-            <div className='fe-user-page-container'>
+    render() {
+        return (
+            <>
+                {
+                    this.state.loadingRender &&
+                    <>
+                        <Navbar />
+                        <div className='fe-user-page-container'>
 
-                {/* ----- MAIN ----- */}
-                <main className='fe-main-user'>
-                    {/* ----- First section ----- */}
-                    <div className='fe-user-first-section'>
-                        <div style={{ padding: '0 2rem' }}>
-                            <div className='fe-user-header'>
-                                {/* User images */}
-                                <div className='fe-user-images-container'>
-                                    <img className='fe-user-avatar' src={avatar.path} alt="avatar" onClick={callbackSwitcher} name='userAvatar' />
+                            {/* ----- MAIN ----- */}
+                            <main className='fe-main-user'>
+                                {/* ----- First section ----- */}
+                                <div className='fe-user-first-section'>
+                                    <div style={{ padding: '0 2rem' }}>
+                                        <div className='fe-user-header'>
+                                            {/* User images */}
+                                            <div className='fe-user-images-container'>
+                                                {/* <img className='fe-user-avatar' src={avatar.path} alt="avatar" onClick={callbackSwitcher} name='userAvatar' /> */}
 
-                                    <div className='fe-user-badge-container'>
-                                        <img className='fe-user-badge' src={badge.path} alt="badge" onClick={callbackSwitcher} name='userAvatar' />
-                                    </div>
+                                                <div className='fe-user-badge-container'>
+                                                    {/* <img className='fe-user-badge' src={badge.path} alt="badge" onClick={callbackSwitcher} name='userAvatar' /> */}
+                                                </div>
 
-                                    <div className='fe-user-icon-container'>
-                                        <img className='fe-user-icon' src={pencil} alt="pencil" onClick={callbackSwitcher} name='userAvatar' />
+                                                <div className='fe-user-icon-container'>
+                                                    <img className='fe-user-icon' src={pencil} alt="pencil" onClick={this.callbackSwitcher} name='userAvatar' />
+                                                </div>
+                                            </div>
+                                            {/* User name */}
+                                            <div className='fe-user-name-container'>
+                                                <span className='fe-user-name'>{this.state.dataUser.firstName + " " + this.state.dataUser.lastName}</span>
+                                            </div>
+                                        </div>
+                                        {/* Coin info */}
+                                        <div className='fe-user-switching-home-container' style={this.state.selectedPage !== 'homeUser' ? { display: 'none' } : { display: 'block' }}>
+                                            <div className='fe-user-coin-container'>
+                                                <img className='fe-user-coin' src={coin} alt="coin" />
+                                                <span className='fe-coin-number'>{this.state.dataUser.totalCoins}</span>
+                                                <span style={{
+                                                    fontSize: '.9rem',
+                                                    letterSpacing: '1px'
+                                                }}
+                                                >BeijeCoin</span>
+                                            </div>
+                                            {/* Level and experience */}
+                                            <div className='fe-user-level-container'>
+                                                <span style={{
+                                                    position: 'relative',
+                                                    fontSize: '.9rem',
+                                                    letterSpacing: '1px'
+                                                }}>Level:
+                                                    <span className={this.state.totalExp >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{this.userLevel()}</span>
+                                                    {this.state.totalExp >= 15000 &&
+                                                        <span>
+                                                            <img className='fe-user-gif-fire' src={fire} alt="fire" />
+                                                        </span>
+                                                    }
+                                                </span>
+                                                <div className='fe-progress-bar'>
+                                                    <div style={{ width: `${this.percentageExp}%` }} className="fe-progress-exp"></div>
+                                                </div>
+                                                <span
+                                                    style={{
+                                                        fontSize: '.9rem',
+                                                        letterSpacing: '1px',
+                                                        textAlign: 'center'
+                                                    }}
+                                                >Experience
+                                                    <span className='fe-exp-number'>&nbsp;{this.state.totalExp}</span>
+                                                    /{this.levelExp}
+                                                    <Button
+                                                        className={'fe-user-add-experience'}
+                                                        text={'+'}
+                                                        callback={this.addExp}
+                                                    />
+                                                </span>
+
+                                            </div>
+                                            {/* WHeel container */}
+                                            <div className='fe-user-wheel-container'>
+                                                {
+                                                    //mostrare solo se c'è una vincita
+                                                    <span className='fe-wheel-text'>La tua vincita del giorno è: <br />
+                                                        {
+                                                            <span className='fe-wheel-award'>{this.state.wheelAward ? this.state.wheelAward : 'Gira la ruota'}</span>
+                                                        }
+                                                    </span>
+                                                }
+                                                <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
+                                                <Button
+                                                    className={this.newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
+                                                    text={this.newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.timer)} />}
+                                                    callback={this.openWheelOfFortuneGame}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className='fe-user-switching-container'
+                                            style={this.state.selectedPage !== 'infoUser' ? { display: 'none' } : { display: 'block' }}
+                                        >
+                                            <UserInformation /></div>
+
+                                        <div
+                                            className='fe-user-switching-container'
+                                            style={this.state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
+                                        >
+                                            {/* <UserOrders /> */}
+                                        </div>
+
+                                        <div
+                                            className='fe-user-switching-container'
+                                            style={this.state.selectedPage !== 'missionUser' ? { display: 'none' } : { display: 'block' }}
+                                        >
+                                            {/* <Mission /> */}
+                                        </div>
+
+
+                                        {/* Slide Menu closed */}
+                                        <div className='fe-user-slide-menu-closed'>
+                                            <FontAwesomeIcon icon={faChevronUp} className='fe-user-slide-up-arrow' onClick={this.slideMenu} />
+                                        </div>
                                     </div>
-                                </div>
-                                {/* User name */}
-                                <div className='fe-user-name-container'>
-                                    <span className='fe-user-name'>{dataUser.firstName + " " + dataUser.lastName}</span>
-                                </div>
-                            </div>
-                            {/* Coin info */}
-                            <div className='fe-user-switching-home-container' style={state.selectedPage !== 'homeUser' ? { display: 'none' } : { display: 'block' }}>
-                                <div className='fe-user-coin-container'>
-                                    <img className='fe-user-coin' src={coin} alt="coin" />
-                                    <span className='fe-coin-number'>{dataUser.totalCoins}</span>
-                                    <span style={{
-                                        fontSize: '.9rem',
-                                        letterSpacing: '1px'
-                                    }}
-                                    >BeijeCoin</span>
-                                </div>
-                                {/* Level and experience */}
-                                <div className='fe-user-level-container'>
-                                    <span style={{
-                                        position: 'relative',
-                                        fontSize: '.9rem',
-                                        letterSpacing: '1px'
-                                    }}>Level:
-                                        <span className={dataUser.exp >= 15000 ? 'fe-level-number fe-fire' : 'fe-level-number'}>&nbsp;{userLevel()}</span>
-                                        {dataUser.exp >= 15000 &&
-                                            <span>
-                                                <img className='fe-user-gif-fire' src={fire} alt="fire" />
-                                            </span>
-                                        }
-                                    </span>
-                                    <div className='fe-progress-bar'>
-                                        <div style={{ width: `${percentageExp}%` }} className="fe-progress-exp"></div>
-                                    </div>
-                                    <span
-                                        style={{
-                                            fontSize: '.9rem',
-                                            letterSpacing: '1px',
-                                            textAlign: 'center'
-                                        }}
-                                    >Experience
-                                        <span className='fe-exp-number'>&nbsp;{totalExp}</span>
-                                        /{levelExp}
+                                    {/* ----- Slide menu opened ----- */}
+                                    <div className={this.state.slideMenu ? 'fe-user-slide-menu-opened fe-user-slide-menu-animation' : 'fe-user-slide-menu-opened'} >
+                                        <FontAwesomeIcon icon={faChevronDown} className='fe-user-slide-down-arrow' onClick={this.slideMenu} />
                                         <Button
-                                            className={'fe-user-add-experience'}
-                                            text={'+'}
-                                            callback={addExp}
+                                            className={`fe-user-btn-slide-menu ${this.state.selectedPage === 'homeUser' ? 'fe-slide-menu-active' : null}`}
+                                            text={'Home'}
+                                            callback={this.goToHome}
                                         />
-                                    </span>
+                                        <Button
+                                            className={`fe-user-btn-slide-menu ${this.state.selectedPage === 'infoUser' ? 'fe-slide-menu-active' : null}`}
+                                            text={'Le mie informazioni'}
+                                            callback={this.goToInformation}
+                                        />
+                                        <Button
+                                            className={`fe-user-btn-slide-menu ${this.state.selectedPage === 'orderUser' ? 'fe-slide-menu-active' : null}`}
+                                            text={'I miei ordini'}
+                                            callback={this.goToOrders}
+                                        />
+                                        <Button
+                                            className={`fe-user-btn-slide-menu ${this.state.selectedPage === 'missionUser' ? 'fe-slide-menu-active' : null}`}
+                                            text={'Le mie missioni'}
+                                            callback={this.goToMissions}
+                                        />
+                                    </div>
 
                                 </div>
-                                {/* WHeel container */}
-                                <div className='fe-user-wheel-container'>
-                                    {
-                                        //mostrare solo se c'è una vincita
-                                        <span className='fe-wheel-text'>La tua vincita del giorno è: <br />
-                                            {
-                                                <span className='fe-wheel-award'>{wheelAward ? wheelAward : 'Gira la ruota'}</span>
-                                            }
-                                        </span>
-                                    }
-                                    <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
-                                    <Button
-                                        className={newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
-                                        text={newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={msToTime(timer)} />}
-                                        callback={openWheelOfFortuneGame}
+                                {/* ----- Second section ----- */}
+                                <div className='fe-user-second-section'>
+                                    <div className='fe-user-header-tabs'>
+                                        <span
+                                            className={this.state.selectedTab === 'infoUser' ? 'fe-user-tab-active' : null}
+                                            onClick={this.showMyInfo}
+                                        >Le mie informazioni</span>
+                                        <span>|</span>
+                                        <span
+                                            className={this.state.selectedTab === 'orderUser' ? 'fe-user-tab-active' : null}
+                                            onClick={this.showMyOrder}
+                                        >I miei ordini</span>
+                                        <span>|</span>
+                                        <span
+                                            className={this.state.selectedTab === 'missionUser' ? 'fe-user-tab-active' : null}
+                                            onClick={this.showMyMission}
+                                        >Le mie missioni</span>
+                                    </div>
+                                    <div className='fe-user-second-section-content'>
+
+                                        {
+                                            this.state.selectedTab === 'infoUser' &&
+                                            <UserInformation />
+                                        }
+                                        {
+                                            this.state.selectedTab === 'orderUser' &&
+                                            <UserOrders />
+                                        }
+                                        {
+                                            this.state.selectedTab === 'missionUser' &&
+                                            <Mission />
+                                        }
+                                    </div>
+                                </div>
+                            </main>
+
+                            {this.state.wheelModal &&
+
+
+                                <div className="gm-wheel-modal">
+                                    <CloseOutlined onClick={this.wheelModalClick} />
+                                    <Wheel />
+                                </div>
+
+                            }
+
+
+                            {/* ---- AVATAR ----*/}
+                            {this.state.avatarDisplay &&
+                                <div className='frontend-avatar'>
+                                    <Avatar
+                                        closeCallback={this.handleCloseCallback}
                                     />
                                 </div>
-                            </div>
 
-                            <div
-                                className='fe-user-switching-container'
-                                style={state.selectedPage !== 'infoUser' ? { display: 'none' } : { display: 'block' }}
-                            >
-                                <UserInformation /></div>
-
-                            <div
-                                className='fe-user-switching-container'
-                                style={state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
-                            >
-                                <UserOrders /></div>
-
-                            <div
-                                className='fe-user-switching-container'
-                                style={state.selectedPage !== 'missionUser' ? { display: 'none' } : { display: 'block' }}
-                            >
-                                <Mission /></div>
-
-
-                            {/* Slide Menu closed */}
-                            <div className='fe-user-slide-menu-closed'>
-                                <FontAwesomeIcon icon={faChevronUp} className='fe-user-slide-up-arrow' onClick={slideMenu} />
-                            </div>
-                        </div>
-                        {/* ----- Slide menu opened ----- */}
-                        <div className={state.slideMenu ? 'fe-user-slide-menu-opened fe-user-slide-menu-animation' : 'fe-user-slide-menu-opened'} >
-                            <FontAwesomeIcon icon={faChevronDown} className='fe-user-slide-down-arrow' onClick={slideMenu} />
-                            <Button
-                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'homeUser' ? 'fe-slide-menu-active' : null}`}
-                                text={'Home'}
-                                callback={goToHome}
-                            />
-                            <Button
-                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'infoUser' ? 'fe-slide-menu-active' : null}`}
-                                text={'Le mie informazioni'}
-                                callback={goToInformation}
-                            />
-                            <Button
-                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'orderUser' ? 'fe-slide-menu-active' : null}`}
-                                text={'I miei ordini'}
-                                callback={goToOrders}
-                            />
-                            <Button
-                                className={`fe-user-btn-slide-menu ${state.selectedPage === 'missionUser' ? 'fe-slide-menu-active' : null}`}
-                                text={'Le mie missioni'}
-                                callback={goToMissions}
-                            />
-                        </div>
-
-                    </div>
-                    {/* ----- Second section ----- */}
-                    <div className='fe-user-second-section'>
-                        <div className='fe-user-header-tabs'>
-                            <span
-                                className={state.selectedTab === 'infoUser' ? 'fe-user-tab-active' : null}
-                                onClick={showMyInfo}
-                            >Le mie informazioni</span>
-                            <span>|</span>
-                            <span
-                                className={state.selectedTab === 'orderUser' ? 'fe-user-tab-active' : null}
-                                onClick={showMyOrder}
-                            >I miei ordini</span>
-                            <span>|</span>
-                            <span
-                                className={state.selectedTab === 'missionUser' ? 'fe-user-tab-active' : null}
-                                onClick={showMyMission}
-                            >Le mie missioni</span>
-                        </div>
-                        <div className='fe-user-second-section-content'>
-
-                            {
-                                state.selectedTab === 'infoUser' &&
-                                <UserInformation />
                             }
-                            {
-                                state.selectedTab === 'orderUser' &&
-                                <UserOrders />
-                            }
-                            {
-                                state.selectedTab === 'missionUser' &&
-                                <Mission />
-                            }
+
                         </div>
-                    </div>
-                </main>
-
-                {state.wheelModal &&
-
-
-                    <div className="gm-wheel-modal">
-                        <CloseOutlined onClick={wheelModalClick} />
-                        <Wheel />
-                    </div>
-
+                    </>
                 }
+            </>
+        )
+    }
 
-
-                {/* ---- AVATAR ----*/}
-                {state.avatarDisplay &&
-                    <div className='frontend-avatar'>
-                        <Avatar
-                            closeCallback={handleCloseCallback}
-                        />
-                    </div>
-
-                }
-
-            </div>
-        </>
-    )
 }
 
 const mapStateToProps = state => ({

@@ -4,6 +4,7 @@ import { Component } from "react";
 import './UserOrders.css'
 import Coin from '../../../../common/assets/BeijeCoin.png'
 import properties from "../../../../gamification/utilities/properties";
+import { connect } from "react-redux";
 
 
 class UserOrders extends Component {
@@ -18,7 +19,6 @@ class UserOrders extends Component {
             modalAvatar: false,
             storage: this.storage === null ? [] : this.storage,
         }
-        console.log(this.state.storage)
     }
 
     // controllCheck = () => {
@@ -77,5 +77,8 @@ class UserOrders extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+}) 
 
-export default UserOrders;
+export default connect(mapStateToProps)(UserOrders);

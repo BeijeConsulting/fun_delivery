@@ -1,47 +1,55 @@
-import UserNavbar from "../../../../frontend/components/ui/userNavbar/UserNavbar";
-import Button from "../../../../common/components/ui/button/Button"
-import { Component } from "react";
+import React, {Component} from "react";
+
 import './Mission.css'
-import Coin from '../../../assets/images/beijeCoin.png'
-import { isElementOfType } from "react-dom/test-utils";
 import properties from "../../../utilities/properties";
+import genericServices from "../../../../common/utils/genericServices";
+import { get as _get } from 'lodash';
+import { connect } from "react-redux";
+
+//Import img
 import firstOrder2 from "../../../assets/images/badges/firstOrder2.png"
+import Coin from '../../../assets/images/beijeCoin.png'
+
+//Import Components
+import Button from "../../../../common/components/ui/button/Button"
 
 class Mission extends Component {
     constructor(props) {
         super(props);
-        this.storage = JSON.parse(localStorage.getItem('userInfo'))
+        // this.storage = JSON.parse(localStorage.getItem('userInfo'))
         this.missions = properties.missions.map((el, i) => { if (this.storage.mission.includes(i)) { el.claim = true } return el })
 
         this.state = {
             arr: this.missions,
             modalMission: false,
             modalAvatar: false,
-            storage: this.storage === null ? [] : this.storage,
+
+            dataUser: null
+
+            // storage: this.storage === null ? [] : this.storage,
         }
-        console.log(this.state.storage)
     }
 
-    // controllCheck = () => {
-    //     let arr = this.state.arr;
-    //     let count = 0
-    //     arr.map((element, key) => {
-    //         if (element.check === true) {
-    //             count = count + 1
-    //         }
-    //     })
+    componentDidMount = ()=>{
+        this.getDataApi()
+    }
 
-    //     if (count === this.state.arr.length) {
-    //         this.setState({ arr: [] })
+    getDataApi = async () => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let dataUser = await properties.GENERIC_SERVICE.apiGET('/user/163', this.props.tokenDuck.token)
+        console.log('get user id: ', dataUser)
+        let statusCode = _get(dataUser, "status", null)
+        let userRole = _get(dataUser, "permission", [])
 
-    //     }
-    // }
-    // componentDidMount() {
-    //     this.controllCheck()
-    // }
+        this.setState({
+            dataUser: dataUser,
+            loadingRender: true
+        })
+    }
+
 
     handleClaim = (e, i) => () => {
-        let newStorage = this.state.storage
+        let newStorage = this.state.dataUser
         let newArr = this.state.arr
 
         newStorage.mission.push(i)
@@ -129,5 +137,8 @@ class Mission extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+}) 
 
-export default Mission;
+export default connect(mapStateToProps)(Mission);
