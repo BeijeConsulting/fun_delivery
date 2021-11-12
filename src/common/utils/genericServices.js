@@ -1,6 +1,9 @@
 import axios from "axios";
 import properties from "./properties";
 
+import { createStore } from 'redux';
+import rootReducer from '../../rootReducer'
+
 //Roberto structure, to be adapted
 class genericServices {
     constructor() {
@@ -10,32 +13,54 @@ class genericServices {
             timeout: 1000, //MS
         });
 
+        this.store = createStore(rootReducer);
+
         //Si aspetta la funzione per il refresh token
         // Response interceptor for API calls - Waiting for Ivo
-        // this.instance.interceptors.response.use(
-        //     (response) => {
-        //         return response;
-        //     },
-        //     async function (error) {
-        //         console.log("errorInterceptors,", error);
-        //         const originalRequest = error.config;
-        //         if (error.response.status === 403 && !originalRequest._retry) {
-        //             originalRequest._retry = true;
-        //             const access_token = await this.refreshAccessToken();
-        //             axios.defaults.headers.common["Authorization"] =
-        //                 "Bearer " + access_token;
-        //             return axiosApiInstance(originalRequest);
-        //         }
-        //         return Promise.reject(error);
-        //     }
-        // );
+        this.instance.interceptors.response.use(
+            (response) => {
+                return response;
+            },
+            async (error) => {
+                console.log("errorInterceptors,", error);
+
+                const originalRequest = error.config;
+
+                if (error.response.status === 403 && !originalRequest._retry) {
+                    originalRequest._retry = true;
+
+                    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', this.store.getState())
+                    const access_token = await this.refreshAccessToken();
+
+                    axios.defaults.headers.common["Authorization"] =
+                        "Bearer " + access_token;
+                    return this.instance(originalRequest);
+                }
+                return Promise.reject(error);
+            }
+        );
     }
 
+    /* refreshAccessToken = async () => {
+        this.instance.defaults.headers = this.getHeaderWithToken(token);
+        return await this.instance.get(path)
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+                // this.interceptorsResponse()
+            })
+            .catch((error) => {
+                // this.checkErrorStatus(error.response);
+                return error
+            });
+    } */
+
     checkErrorStatus = (errorResponse) => {
-        if (errorResponse.status === 403) {
-            //Fare il refresh token
-            return errorResponse.data;
-        }
+        /*  if (errorResponse.status === 403) {
+             //Fare il refresh token
+             return errorResponse.data;
+         } */
         if (errorResponse.status === 401) {
             //Email o password errati
             console.log("Sto passando: ", errorResponse.data)
@@ -57,9 +82,7 @@ class genericServices {
             Accept: "*/*",
             "Content-type": "application/json; charset=UTF-8",
         };
-        // if (!!lang) {
-        //     headers["AcceptedLang"] = lang;
-        // }
+
         if (!!auth) {
             headers["Authorization"] = "Bearer " + auth;
         }
@@ -78,7 +101,8 @@ class genericServices {
                 // this.interceptorsResponse()
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response);
+                // this.checkErrorStatus(error.response);
+                return error
             });
     };
 
@@ -94,7 +118,8 @@ class genericServices {
             })
             .catch((error) => {
                 console.log("error apiPost: ", error.response)
-                this.checkErrorStatus(error.response);
+                // this.checkErrorStatus(error.response);
+                return error
             });
     };
 
@@ -106,7 +131,8 @@ class genericServices {
                 return response;
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                // this.checkErrorStatus(error.response.status);
+                return error
             });
     };
 
@@ -118,8 +144,10 @@ class genericServices {
                 return response;
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                // this.checkErrorStatus(error.response.status);
+                return error
             });
     };
 }
+
 export default genericServices;
