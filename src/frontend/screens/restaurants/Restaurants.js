@@ -177,11 +177,7 @@ const Restaurants = (props) => {
 
     const filterByDeliveryRestaurants = (e)=> {
         let filteredRestaurants = []
-<<<<<<< HEAD
-        isNaN(e.target.value) ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.target.value) })
-=======
-        e.value ===1 ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.value) })
->>>>>>> 3fea22ccda559d756844041553bcaeb5694eeef3
+        e.value ===1 ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.value) })
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants

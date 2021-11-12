@@ -392,7 +392,7 @@ class UserHome extends Component {
                                             className='fe-user-switching-container'
                                             style={this.state.selectedPage !== 'orderUser' ? { display: 'none' } : { display: 'block' }}
                                         >
-                                            {/* <UserOrders /> */}
+                                            <UserOrders />
                                         </div>
 
                                         <div

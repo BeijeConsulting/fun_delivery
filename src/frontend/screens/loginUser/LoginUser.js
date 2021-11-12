@@ -68,7 +68,6 @@ class LoginUser extends React.Component {
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", null)
-            console.log(response, 'TOKEN', response.id, 'RESPONSE')
             if (statusCode === 401 || userRole === "restaurant") {
                 error = true;
             }
@@ -84,9 +83,7 @@ class LoginUser extends React.Component {
                 let id = response.id
                 console.log(id)
                 let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
-                let gesu = this.props.dispatch(setUserInfo(getId.firstName))
-                console.log(gesu)
-
+                this.props.dispatch(setUserInfo(getId.firstName))
             }
             this.props.history.push('/userHome')
 

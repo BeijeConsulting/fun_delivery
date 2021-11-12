@@ -111,7 +111,6 @@ class RegistrationUser extends React.Component {
                 let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.userInfo.email, password: this.state.userInfo.password })
                 let statusCode = _get(response, "status", null)
                 let userRole = _get(response, "permission", null)
-                console.log(response.token, 'TOKENINO', response, 'response')
                 if (statusCode === 401 || userRole === "restaurant") {
                     error = true;
                 }
