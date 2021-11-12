@@ -399,7 +399,7 @@ class UserHome extends Component {
                                             className='fe-user-switching-container'
                                             style={this.state.selectedPage !== 'missionUser' ? { display: 'none' } : { display: 'block' }}
                                         >
-                                            {/* <Mission /> */}
+                                            <Mission />
                                         </div>
 
 
