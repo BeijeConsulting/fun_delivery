@@ -18,50 +18,47 @@ class RestaurantSingleOrder extends Component {
         this.state = {
             order: null,
             error: false,
-            order_status: null, //necessario per la timeline
+            statuses: null,
             showTimeline: false,
             //this.foundOrder.status !== "pending",
-            total_price: 0,
         };
     }
 
     //Mapping the food ordered by the customer
     componentDidMount = async () => {
-        let errorToSave = false
-        let sumToSave = 0
-        properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET(`order/${this.props.location.state.order_id}/restaurant`, this.props.tokenDuck.token)
-        let statusCode = _get(response, "status", null)
-        console.log("response: ", response)
-        if (statusCode === "401") {
-            errorToSave = true; //deve dare un errore
-        }
-        else {
-            sumToSave = this.totalPriceOrder(response);
-        }
-        this.setState({
-            order: response,
-            total_price: sumToSave,
-            error: errorToSave
-        })
+        this.getSingleOrder()
+        this.getStatusesForTimeline()
     }
 
     getSingleOrder = async () => {
         let errorToSave = false
-        let sumToSave = 0
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiGET(`order/${this.props.location.state.order_id}/restaurant`, this.props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
-        console.log("response: ", response)
         if (statusCode === "401") {
             errorToSave = true; //deve dare un errore
         }
-        else {
-            sumToSave = this.totalPriceOrder(response);
-        }
+
+        console.log("riposta single order: ", response)
         this.setState({
             order: response,
-            total_price: sumToSave,
+            error: errorToSave
+        })
+    }
+
+    getStatusesForTimeline = async() => {
+        let errorToSave = false
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiGET('/orderstatuses', this.props.tokenDuck.token)
+        let statusCode = _get(response, "status", null)
+        if (statusCode === "401") {
+            errorToSave = true; //deve dare un errore
+        }
+
+        console.log("riposta stati response: ", response)
+
+        this.setState({
+            statuses: response,
             error: errorToSave
         })
     }
@@ -70,38 +67,25 @@ class RestaurantSingleOrder extends Component {
         this.setState({
             showTimeline: true,
         });
-        this.handleStatusTimeline("approved")
+        this.handleStatusTimeline(2) //2 è id stato approvato
     };
 
     handleShowTimelineReject = () => {
-        this.handleStatusTimeline("rejected")
+        this.handleStatusTimeline(3) //3 è id stato rifiutato
     };
 
-    totalPriceOrder = (order) => {
-        let sum = 0;
-        console.log("order: ", order)
-        order.items.map((item) => (sum += item.price));
-        return sum;
-    };
-
-    //Funzione per salvare nel local storage va qui. Callback di timeline, nella quale passiamo l'oggetto ordini
+    //Callback di timeline per aggiornare lo stato dell'ordine
     handleStatusTimeline = async(e) => {
         let errorToSave = false
-        let orderStatusToSave = null
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET(`/orders/update/${this.props.location.state.order_id}/status/${e}`, this.props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiPUT(`/order/update/${this.props.location.state.order_id}/status/${e}`, {}, this.props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
-        console.log("response: ", response)
+        console.log("risposta handleStatus: ", response)
         if (statusCode === "401") {
-            errorToSave = true; //deve dare un errore
+            errorToSave = true; 
         }
-        else {
-            orderStatusToSave = e
-        }
-        // this.ordersLocalStorage.order_list.find((item) => item.order_id === this.props.location.state.order_id).status = e;
-        // localStorage.setItem("localStorageData", JSON.stringify(this.ordersLocalStorage));
         this.setState({
-            order_status: orderStatusToSave,
+            order: response.data,
             error: errorToSave
         });
     };
@@ -135,16 +119,17 @@ class RestaurantSingleOrder extends Component {
                             </div>
 
                             <section>
-                                {this.state.showTimeline && this.state.order_status !== "rejected" && (
+                                {this.state.order.statusId !== 3 && this.state.order.statusId !== 1 && (
                                     <div>
                                         <Timeline
                                             callback={this.handleStatusTimeline}
-                                            currentStep={this.state.order_status}
+                                            currentStep={this.state.order.statusId}
+                                            statuses = {this.state.statuses}
                                         />
                                     </div>
                                 )}
 
-                                {!this.state.showTimeline && this.state.order_status !== "rejected" && (
+                                {this.state.order.statusId === 1 && (
                                     <div className="btn-orders-container">
                                         <Button
                                             className="bo-btn single-order"
@@ -161,7 +146,7 @@ class RestaurantSingleOrder extends Component {
                                     </div>
                                 )}
 
-                                {this.state.order_status === "rejected" && (
+                                {this.state.order.statusId === 3 && (
                                     <div className="bo-mymenu-welcome">
                                         <h2>{t("backoffice.screens.single_order.rejected_title")}</h2>
                                     </div>
@@ -216,7 +201,7 @@ class RestaurantSingleOrder extends Component {
                                                     >
                                                         <li>
                                                             {item.name} <br />
-                                                            {t("backoffice.screens.single_order.price")}:{" "}{item.price}
+                                                            {t("backoffice.screens.single_order.price")}:{" €"}{item.price}
                                                             <br />
                                                             {t("backoffice.screens.single_order.description")}:{" "}
                                                             {item.description} <br />
@@ -228,7 +213,7 @@ class RestaurantSingleOrder extends Component {
                                             })}
                                         <div style={{ padding: "10px" }}>
                                             {t("backoffice.screens.single_order.total")}: €
-                                            {this.state.total_price}
+                                            {this.state.order.total}
                                         </div>
                                     </div>
                                 </section>
