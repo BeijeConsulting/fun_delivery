@@ -16,7 +16,7 @@ const SingleRestaurant = (props) => {
                     <div className='ratingRest'> {props.restaurantRating}</div>
                 </div>
                 {/* Sarà una prop e ci va la valutazione*/}
-                <p className='shippingRest'>Consegna: {props.restaurantShipping === 0 ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
+                <p className='shippingRest'>Consegna: {props.restaurantShipping === true ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
 
             </header>
         </article>

@@ -32,6 +32,7 @@ import genericServices from "../../../common/utils/genericServices"
 import properties from "../../../common/utils/properties"
 import { get as _get } from 'lodash';
 import { connect } from "react-redux"
+import { ConsoleSqlOutlined } from "@ant-design/icons"
 
 const Restaurants = (props) => {
 
@@ -43,65 +44,13 @@ const Restaurants = (props) => {
     gsap.registerPlugin(ScrollTrigger);
 
 
-    //DATA
-
-    // const objectRestaurantsForListReference = [
-    //     {
-    //         name: "Nino u Ballerino",
-    //         category: "hamburger",
-    //         free_shipping: 0, // non è gratuito
-    //         restaurant_logo: imagePaniniCaMeusa,
-    //         rating: 4.5,
-    //         delivery_time: "35-45 min",
-    //         number_orders: 200,
-    //         price_range: 1
-    //     },
-    //     {
-    //         name: "Da Ciro",
-    //         category: "pizza",
-    //         free_shipping: 1, //è gratuito
-    //         restaurant_logo: imagePaniniCaMeusa,
-    //         rating: 5,
-    //         delivery_time: "15-35 min",
-    //         number_orders: 150,
-    //         price_range: 1
-    //     },
-    //     {
-    //         name: "La Pokentona",
-    //         category: "poke",
-    //         free_shipping: 0, // non è gratuito
-    //         restaurant_logo: imagePaniniCaMeusa,
-    //         rating: 3.5,
-    //         delivery_time: "35-45 min",
-    //         number_orders: 20,
-    //         price_range: 3
-    //     },
-    //     {
-    //         name: "Sacro Romano Impero",
-    //         category: "italian",
-    //         free_shipping: 0, // non è gratuito
-    //         restaurant_logo: imagePaniniCaMeusa,
-    //         rating: 4,
-    //         delivery_time: "20-30 min",
-    //         number_orders: 50,
-    //         price_range: 2
-    //     },
-    //     {
-    //         name: "Profumi di mare",
-    //         category: "sushi",
-    //         free_shipping: 1, // non è gratuito
-    //         restaurant_logo: imagePaniniCaMeusa,
-    //         rating: 5,
-    //         delivery_time: "35-45 min",
-    //         number_orders: 300,
-    //         price_range: 4
-    //     },
-    // ]
+   
 
     //STATE
     const [state, setState] = useState({
         isSideToggle: false,
         objectRestaurantsForTrend: [],
+        objectRestaurantsForList: [],
         categoriesRestaurants: [],
         restaurantsData: []
     })
@@ -153,41 +102,80 @@ const Restaurants = (props) => {
     }, []) //componentDidMount    
 
 
-    const orderByRestaurants = (e) => {
-        let orderedRestaurants = []
-        e.target.value === "delivery_time" ? orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['asc'])
-            : orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['desc'])
-        setState({
-            ...state,
-            objectRestaurantsForList: orderedRestaurants
-        })
-        console.log(e.target.type)
+    const orderByRestaurants = async (e) => {
+
+        properties.GENERIC_SERVICE = new genericServices();
+        let orderedRestaurants = await properties.GENERIC_SERVICE.apiGET('/restaurants/r', props.tokenDuck.token)
+        let statusCode = _get(orderedRestaurants, "status", null)
+        let userRole = _get(orderedRestaurants, "permission", null)
+        console.log(orderedRestaurants, 'orderedRestaurants')
+        if (statusCode === 401 || userRole === "restaurant") {
+            console.log('error')
+        }
+
+        else {
+            setState({
+                ...state,
+                objectRestaurantsForList: orderedRestaurants
+            })
+
+        }
+
+
+
+        // let orderedRestaurants = []
+        // e.target.value === "averageReview" ? orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'desc') : orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'asc')
+        // console.log(orderedRestaurants)
+
+        // setState({
+        //     ...state,
+        //     objectRestaurantsForList: orderedRestaurants
+        // })
+
     }
 
-    const filterByRestaurants = (e) => {
-        let filteredRestaurants = []
-        isNaN(e.target.value) ? filteredRestaurants = filter(state.restaurantsData, { 'category': e.target.value })
-            : filteredRestaurants = filter(state.restaurantsData, { 'price_range': parseInt(e.target.value) })
-        setState({
-            ...state,
-            objectRestaurantsForList: filteredRestaurants
-        })
-        console.log(e.target.value, ) 
-    }
 
-    const filterByDeliveryRestaurants = (e)=> {
-        let filteredRestaurants = []
-<<<<<<< HEAD
-        isNaN(e.target.value) ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.target.value) })
-=======
-        e.value ===1 ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.value) })
->>>>>>> 3fea22ccda559d756844041553bcaeb5694eeef3
-        setState({
-            ...state,
-            objectRestaurantsForList: filteredRestaurants
-        })
-        console.log(e.value, 'gesu')
-        
+
+    // const filterByRestaurants = (e) => {
+    //     let filteredRestaurants = []
+    //     isNaN(e.target.value) ? filteredRestaurants = filter(state.restaurantsData, { 'category': e.target.value })
+    //         : filteredRestaurants = filter(state.restaurantsData, { 'averageReview': parseInt(e.target.value) })
+    //     setState({
+    //         ...state,
+    //         objectRestaurantsForList: filteredRestaurants
+    //     })
+    //     console.log(e.target.value, ) 
+    // }
+
+
+    
+    //FILTRA IN BASE ALLA REVIEW
+    const filterByDeliveryRestaurants = async (e) => {
+        // let filteredRestaurants = []
+        // e.value === true ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'restaurantFreeShipping': e.value })
+        // setState({
+        //     ...state,
+        //     objectRestaurantsForList: filteredRestaurants
+        // })
+        // console.log(e.value, 'gesu')
+        properties.GENERIC_SERVICE = new genericServices();
+        let orderedRestaurants = await properties.GENERIC_SERVICE.apiGET('/restaurants/r', props.tokenDuck.token)
+        let statusCode = _get(orderedRestaurants, "status", null)
+        let userRole = _get(orderedRestaurants, "permission", null)
+        console.log(orderedRestaurants, 'orderedRestaurants')
+        if (statusCode === 401 || userRole === "restaurant") {
+            console.log('error')
+        }
+
+        else {
+            setState({
+                ...state,
+                objectRestaurantsForList: orderedRestaurants
+            })
+
+        }
+
+       
     }
 
     const clearFilters = () => {
@@ -286,7 +274,7 @@ const Restaurants = (props) => {
 
                     <SidebarRestaurants
                         callbackElementRadio={orderByRestaurants}
-                        callbackButton={filterByRestaurants}
+                        // callbackButton={filterByRestaurants}
                         callbackClearButton={clearFilters}
                         callbackElementRadioDelivery={filterByDeliveryRestaurants}
                         className={state.isSideToggle ? 'sideNav-toggleOn' : 'sideNav'}
@@ -323,9 +311,8 @@ const Restaurants = (props) => {
                                             key={key}
                                             image={item.restaurant_logo}
                                             restaurantName={item.name}
-                                            restaurantRating={item.rating}
-                                            restaurantShipping={item.free_shipping}
-                                            restaurantDeliveryTime={item.delivery_time}
+                                            restaurantRating={item.averageReview}
+                                            restaurantShipping={item.restaurantFreeShipping}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
                                             callback={goToMenu}
@@ -357,15 +344,14 @@ const Restaurants = (props) => {
                             <h2 className='fe-near-title'>{t('frontend.screens.restaurants.area')}</h2>
                             {/* tutti */}
                             <div className='fe-restaurants-container row-two'>
-                                {state.restaurantsData.map((item, key) => {
+                                {state.objectRestaurantsForList.map((item, key) => {
                                     return (
                                         <SingleRestaurant
                                             key={key}
-                                            image={item.restaurant_logo}
+                                            image={imagePaniniCaMeusa}
                                             restaurantName={item.name}
-                                            restaurantRating={item.rating}
-                                            restaurantShipping={item.free_shipping}
-                                            restaurantDeliveryTime={item.delivery_time}
+                                            restaurantRating={item.averageReview}
+                                            restaurantShipping={item.restaurantFreeShipping}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
                                             callback={goToMenu}

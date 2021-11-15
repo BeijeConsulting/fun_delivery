@@ -52,7 +52,7 @@ class SidebarRestaurants extends React.Component {
                 <div className="orderBy pushBottom">
                     <h3 className="titleSideNav">Ordina</h3>
                     {/* <ElementListRadio id={"chosenRadio"} name="chosen" value="chosen for you" for={"chosenRadio"} label={"Chosen for you"} /> Quelli consigliati */}
-                    <ElementListRadio id={"popularRadio"} name="order" value="number_orders" for={"popularRadio"} label={" Più popolari"} callback={this.handleChangeElementRadio} />
+                    <ElementListRadio id={"popularRadio"} name="order" value="averageReview" for={"popularRadio"} label={" Più popolari"} callback={this.handleChangeElementRadio} />
                     <ElementListRadio id={"ratingRadio"} name="order" value="rating" for={"ratingRadio"} label={" Valutazione migliore"} callback={this.handleChangeElementRadio} />
                     <ElementListRadio id={"deliveryTimeRadio"} name="order" value="delivery_time" for={"deliveryTimeRadio"} label={" Tempo di consegna"} callback={this.handleChangeElementRadio} />
                 </div>
@@ -60,8 +60,8 @@ class SidebarRestaurants extends React.Component {
                     <h3 className="titleSideNav">Costo di consegna</h3>
                     
                                 <div className='outer-btn' onClick={this.navOptionSlide}>
-                                    <button value={1} name="delivery" onClick={this.handleChangeElementRadioDelivery} className={`left-inner-text ${this.state.selectedPickup}`}>Tutti</button>
-                                    <button value={0} name="delivery" onClick={this.handleChangeElementRadioDelivery} className={`right-inner-text ${this.state.selectedDelivery}` }>Gratuita</button>
+                                    <button value={false} name="delivery" onClick={this.handleChangeElementRadioDelivery} className={`left-inner-text ${this.state.selectedPickup}`}>Tutti</button>
+                                    <button value={true} name="delivery" onClick={this.handleChangeElementRadioDelivery} className={`right-inner-text ${this.state.selectedDelivery}` }>Gratuita</button>
                                     <div className={`inner-btn ${this.state.navOptionRightLeft}`}></div>
                                 </div>
                             
