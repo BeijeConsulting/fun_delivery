@@ -17,14 +17,9 @@ import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
 import { get as _get } from 'lodash';
 import { setUserInfo } from "../../redux/infoDuck";
-
-
-
-
 class LoginUser extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             email: "",
             password: "",
@@ -33,20 +28,16 @@ class LoginUser extends React.Component {
     }
    
    
-
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
-
         let error = ''
         if (!this.state.email) {
             error = i18n.t('frontend.components.login_page.error_login.email')
         } else if (!this.state.password) {
             error = i18n.t('frontend.components.login_page.error_login.password')
         }
-
         else if (!this.state.email && !this.state.password) {
             error = i18n.t('frontend.components.login_page.error_login.email_password')
-
             // } else if (this.state.email && this.state.password) {
             //     if (storageUserInfo) {
             //         if (storageUserInfo.email === this.state.email &&
@@ -59,9 +50,6 @@ class LoginUser extends React.Component {
             //         this.props.history.push('/registrationUser');
             //     }
             //inserire this.props.history.push('/UserPage")
-
-
-
         }
         else {
             properties.GENERIC_SERVICE = new genericServices();
@@ -84,41 +72,31 @@ class LoginUser extends React.Component {
                 let id = response.id
                 console.log(id)
                 let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
-                let gesu = this.props.dispatch(setUserInfo(getId.firstName))
-                console.log(gesu)
-
+                this.props.dispatch(setUserInfo(getId.firstName))
+                
             }
             this.props.history.push('/restaurants')
-
         }
         
         this.setState({
             errorMsg: error
         })
     }
-
-
-
     onEmailChange = (e) => {
         this.setState({
             email: e.target.value
         })
     }
-
     onPasswordChange = (e) => {
         this.setState({
             password: e.target.value
         })
     }
     
-
     render() {
-
         const { t } = this.props
-
         return (
             <>
-
                 {/* <Helmet>
                     <meta charSet="utf-8" />
                     <meta name="description" content="This is a login page" />
@@ -127,18 +105,12 @@ class LoginUser extends React.Component {
                 <Navbar />
                 <main className="frontend-outer-container fe-login">
                     <div className='frontend-inner-container'>
-
-
                         <HtmlTag
                             tag="h1"
                             text={t('frontend.screens.loginUser.title')}
                             className='frontend-h1'
                         />
-
-
                         <h5 style={{ color: "#F24464" }}>{this.state.errorMsg}</h5>
-
-
                         <InputBox
                             type='email'
                             placeholder={t('frontend.components.login_page.login_placeholder.username')}
@@ -146,9 +118,7 @@ class LoginUser extends React.Component {
                             callback={this.onEmailChange}
                             value={this.state.email}
                             className={'frontend-input'}
-
                         />
-
                         <InputBox
                             type={'password'}
                             placeholder={t('frontend.components.login_page.login_placeholder.password')}
@@ -156,18 +126,13 @@ class LoginUser extends React.Component {
                             callback={this.onPasswordChange}
                             value={this.state.password}
                             className={'frontend-input'}
-
                         />
-
                         <Button
                             text={t('frontend.components.login_page.button.login')}
                             callback={this.validateClick}
                             className={'frontend-primary-btn'}
                         />
-
                     </div>
-
-
                     <Link to="/registrationUser" style={{ textDecoration: 'none' }}>
                         <HtmlTag
                             tag="span"
@@ -175,7 +140,6 @@ class LoginUser extends React.Component {
                             className='frontend-link'
                         />
                     </Link>
-
                     <Link to="/forgotPassword" style={{ textDecoration: 'none' }}>
                         <HtmlTag
                             tag="span"
@@ -183,16 +147,33 @@ class LoginUser extends React.Component {
                             className='frontend-link'
                         />
                     </Link>
-
                     <img className='frontend-img' src={delivery} alt='delivery guy' />
                 </main>
             </>
         )
     }
-
 }
 const mapStateToProps = state => ( {
     infoDuck: state.infoDuck
   } )
   
 export default connect(mapStateToProps)(withTranslation()(LoginUser));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
