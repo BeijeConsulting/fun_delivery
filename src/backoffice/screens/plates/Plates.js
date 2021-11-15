@@ -16,7 +16,6 @@ class Plates extends Component {
 
     constructor(props) {
         super(props)
-        console.log(props);
         this.pageTitle = get(this.props, 'location.state.titlePage', false);
         this.plate_category = get(this.props, 'location.state.category_id', false);
         if (!this.pageTitle || !this.plate_category) {

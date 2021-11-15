@@ -12,11 +12,10 @@ import { get as _get } from 'lodash';
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties';
 import genericServices from '../../../common/utils/genericServices';
-import localStorageData from '../../localStorageData/localStorageData';
-import localStorageRestaurants from '../../localStorageData/localStorageRestaurants';
 import { setToken } from '../../../common/redux/duck/tokenDuck';
 import { connect } from 'react-redux';
 import { setRestaurantId } from '../../../common/redux/duck/restaurantIdDuck';
+import { setRefreshToken} from '../../../common/redux/duck/refreshTokenDuck'
 class Login extends Component {
 
     constructor(props) {
@@ -26,14 +25,6 @@ class Login extends Component {
         this.state = {
             warning: false
         }
-    }
-    componentDidMount = () => {
-        // Salvo nel local Storage i Ristoranti
-        let foundRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-        if (!foundRestaurant) {
-            localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurants));
-        }
-
     }
 
     handleInputEmail = (e) => {
@@ -52,17 +43,18 @@ class Login extends Component {
         } else {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
-            let statusCode = _get(response, "status", null)
+            let statusCode = parseInt(_get(response, "status", null))
             let userRole = _get(response, "permission", null)
             let restaurantId = _get(response, "restaurant_id", null)
 
-            if (statusCode === "401" || !userRole === 'restaurant' || restaurantId === null) {
+            if (statusCode === 401 || !userRole === 'restaurant' || restaurantId === null) {
                 error = true;
             }
             else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
                 this.props.dispatch(setRestaurantId(restaurantId))
+                this.props.dispatch(setRefreshToken(response.refreshToken))
                 // andare avanti nella prossima pagina
                 this.props.history.push(properties.BO_ROUTING.PROFILE)
             }

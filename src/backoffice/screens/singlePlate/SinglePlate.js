@@ -120,7 +120,7 @@ class SinglePlate extends Component {
 
                 // Api per modificARE LA VISIBILITY
                 properties.GENERIC_SERVICE = new genericServices()
-                let apivisibility= await properties.GENERIC_SERVICE.apiPUT(`plate/visibility/${this.plateId}`, {}, get(this.props, 'tokenDuck.token', null))
+                let apivisibility = await properties.GENERIC_SERVICE.apiPUT(`plate/visibility/${this.plateId}`, {}, get(this.props, 'tokenDuck.token', null))
             }
         )
     }
@@ -150,18 +150,16 @@ class SinglePlate extends Component {
             // Api effettuare update del piatto 
             properties.GENERIC_SERVICE = new genericServices()
             let apiUpdatePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/update/${this.plateId}`, modifiedPlate, get(this.props, 'tokenDuck.token', null))
-            console.log('apiUpdatePlate', apiUpdatePlate)
-
-            this.setState({
-                data: newData,
-                editData: correctCheck ? false : true,
-                plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
-            })
+                this.setState({
+                    data: newData,
+                    editData: correctCheck ? false : true,
+                    plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
+                })
         }
     }
 
     handleDelete = async () => {
-       
+
         // Api effettuare l'eliminazione del piatto 
         properties.GENERIC_SERVICE = new genericServices()
         let apiDeletePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/delete/${this.plateId}`, true, get(this.props, 'tokenDuck.token', null))
