@@ -43,11 +43,11 @@ class Login extends Component {
         } else {
             properties.GENERIC_SERVICE = new genericServices();
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.email, password: this.password })
-            let statusCode = _get(response, "status", null)
+            let statusCode = parseInt(_get(response, "status", null))
             let userRole = _get(response, "permission", null)
             let restaurantId = _get(response, "restaurant_id", null)
 
-            if (statusCode === "401" || !userRole === 'restaurant' || restaurantId === null) {
+            if (statusCode === 401 || !userRole === 'restaurant' || restaurantId === null) {
                 error = true;
             }
             else {
