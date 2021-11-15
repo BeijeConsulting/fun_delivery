@@ -1,12 +1,13 @@
 import "./SingleRestaurant.css";
 
 const SingleRestaurant = (props) => {
-    const handleClick = () => {
-        return props.callback()
+    const handleClick = (e) => {
+        return props.callback(e)
     }
     return (
-        <article className={props.classNameWrapper} onClick={handleClick}>
-            <picture>
+        <div id={props.restaurantId}onClick={handleClick}>
+        <article className={props.classNameWrapper} >
+            <picture style={{pointerEvents:'none'}}> 
                 <source srcSet={props.image} media={props.media} />
                 <img className={props.classNameImage} src={props.altImage} alt={props.altText} />
             </picture>
@@ -15,11 +16,11 @@ const SingleRestaurant = (props) => {
                     <h4 className='titleRest'>{props.restaurantName}</h4>
                     <div className='ratingRest'> {props.restaurantRating}</div>
                 </div>
-                {/* Sarà una prop e ci va la valutazione*/}
-                <p className='shippingRest'>Consegna: {props.restaurantShipping === 0 ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
+                <p className='shippingRest'>Consegna: {props.restaurantShipping === false ? "€3.00" : "Gratuita"} • {props.restaurantDeliveryTime}</p> {/* Saranno props*/}
 
             </header>
         </article>
+        </div>
     )
 }
 export default SingleRestaurant;

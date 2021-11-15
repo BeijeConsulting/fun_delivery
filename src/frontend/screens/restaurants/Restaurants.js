@@ -10,9 +10,10 @@ import Burger from '../../assets/images/burger.png'
 import Italian from '../../assets/images/italian.png'
 import Mexican from '../../assets/images/mexican.png'
 import Pizza from '../../assets/images/pizza.png'
+import Altro from '../../assets/images/altro.png'
 import Poke from '../../assets/images/poke.png'
 import Sushi from '../../assets/images/sushi.png'
-
+import {setRestaurantId} from '../../../common/redux/duck/restaurantIdDuck'
 
 /* HOOKS */
 import { useState, useEffect, useRef } from "react"
@@ -101,6 +102,7 @@ const Restaurants = (props) => {
     //STATE
     const [state, setState] = useState({
         isSideToggle: false,
+        objectRestaurantsForList: [],
         objectRestaurantsForTrend: [],
         categoriesRestaurants: [],
         restaurantsData: []
@@ -110,16 +112,8 @@ const Restaurants = (props) => {
     useEffect(() => {
 
         showApi()
-
-        let orderedRestaurants = []
-        orderedRestaurants = orderBy(state.restaurantsData, ['number_orders'], ['desc'])
-        orderedRestaurants = orderedRestaurants.slice(0, 3)
-        setState({
-            ...state,
-            objectRestaurantsForTrend: orderedRestaurants
-        })
-
-
+        console.log(state.restaurantsData, 'RESDATA')
+    
         /* gsap */
         const element = ref.current;
         const title = element.querySelector('.fe-title-main');
@@ -153,40 +147,68 @@ const Restaurants = (props) => {
     }, []) //componentDidMount    
 
 
+    
     const orderByRestaurants = (e) => {
+      
         let orderedRestaurants = []
-        e.target.value === "delivery_time" ? orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['asc'])
-            : orderedRestaurants = orderBy(state.restaurantsData, [e.target.value], ['desc'])
+        e.target.value === "averageReview" ? orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'desc') : orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'asc')
+        console.log(orderedRestaurants)
+
         setState({
             ...state,
             objectRestaurantsForList: orderedRestaurants
         })
-        console.log(e.target.type)
+
     }
 
-    const filterByRestaurants = (e) => {
-        let filteredRestaurants = []
-        isNaN(e.target.value) ? filteredRestaurants = filter(state.restaurantsData, { 'category': e.target.value })
-            : filteredRestaurants = filter(state.restaurantsData, { 'price_range': parseInt(e.target.value) })
-        setState({
-            ...state,
-            objectRestaurantsForList: filteredRestaurants
-        })
-        console.log(e.target.value, ) 
+    // FILTRA RISTORANTI PER CATEGORIA
+    const filterByRestaurants = async (e) => {
+        
+        properties.GENERIC_SERVICE = new genericServices();
+        let orderedRestaurants = await properties.GENERIC_SERVICE.apiGET(`/restaurants/category/${e.target.value}`, props.tokenDuck.token)
+        let statusCode = _get(orderedRestaurants, "status", null)
+        let userRole = _get(orderedRestaurants, "permission", null)
+        console.log(orderedRestaurants, 'orderedRestaurants')
+        if (statusCode === 401 || userRole === "restaurant") {
+            console.log('error')
+        }
+
+        else {
+            
+            if (e.target.value !== undefined){
+                setState({
+                    ...state,
+                    objectRestaurantsForList: orderedRestaurants
+                }) 
+            } else {
+                setState({
+                    ...state,
+                    objectRestaurantsForList: []
+                })
+            }
+        
+        }
     }
+
+    // FILTRA RISTORANTI PER CONSEGNA GRATUITA
 
     const filterByDeliveryRestaurants = (e)=> {
         let filteredRestaurants = []
-<<<<<<< HEAD
-        isNaN(e.target.value) ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.target.value) })
-=======
-        e.value ===1 ? filteredRestaurants = objectRestaurantsForListReference : filteredRestaurants = filter(objectRestaurantsForListReference, { 'free_shipping': parseInt(e.value) })
->>>>>>> 3fea22ccda559d756844041553bcaeb5694eeef3
+        if (e.name === 'free') {
+            filteredRestaurants = filter(state.restaurantsData, { 'restaurantFreeShipping': true })
+            
+            
+        } else if (e.name === 'pay') {
+            console.log('pay')
+            filteredRestaurants = state.restaurantsData
+        }
+        
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants
         })
-        console.log(e.value, 'gesu')
+        console.log('resData', state.restaurantsData)
+        
         
     }
 
@@ -210,8 +232,12 @@ const Restaurants = (props) => {
         })
     }
 
-    const goToMenu = () => {
-        props.history.push('/menuRestaurant')
+    const goToMenu = (e) => {
+
+        let geus = props.dispatch(setRestaurantId(e.target.id))
+        console.log('gesu', geus)
+        console.log(e.target.id, 'id')
+        props.history.push('/menuRestaurant' )
     }
 
 
@@ -222,17 +248,26 @@ const Restaurants = (props) => {
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", null)
         console.log(response, 'response')
-        console.log(responseData)
+
         if (statusCode === 401 || userRole === "restaurant") {
             console.log('error')
         }
 
         else {
+            // SOLO QUELLI CON SPONSOR ATTIVO IN TENDENZE
+            let orderedRestaurants = []
+            orderedRestaurants = filter(responseData, {"sponsorId" : 1})
+            
+            
             setState({
                 ...state,
                 categoriesRestaurants: response,
-                restaurantsData: responseData
+                restaurantsData: responseData,
+                objectRestaurantsForTrend: orderedRestaurants,
+                objectRestaurantsForList: responseData
             })
+            console.log(responseData, 'ges')
+            
         }
 
     }
@@ -256,9 +291,10 @@ const Restaurants = (props) => {
 
                                 return (
                                     <IconCategories key={key}
-                                        caption={item.name}
-                                        value={item.name}
+                                        label={item.name}
+                                        value={item.id}
                                         icon={Pizza}
+                                        callback= {filterByRestaurants}
                                     />
 
                                 )
@@ -293,63 +329,30 @@ const Restaurants = (props) => {
                     />
                     <div className='fe-restaurants-wrapper'>
                         <button className='fe-btn-side-toggler' onClick={sideToggle}>Filters</button>
-                        {/* <div className="fe-restaurants-container row-one">
-                            {
-                                state.restaurantsData &&
-                                state.restaurantsData.map((item, key) => {
+                     
+
+                        <div className='trendRestaurants'>
+                            <h2 className='fe-trend-title'>{t('frontend.screens.restaurants.trend')}</h2>
+                            <div className="fe-restaurants-container row-one">
+                                {state.restaurantsData &&
+                                state.objectRestaurantsForTrend.map((item, key) => {
                                     return (
                                         <SingleRestaurant
                                             key={key}
+                                            restaurantId={item.id}
+                                            image={imagePaniniCaMeusa}
                                             restaurantName={item.name}
                                             restaurantRating={item.averageReview}
                                             restaurantShipping={item.restaurantFreeShipping}
-                                            image={imagePaniniCaMeusa}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
                                             callback={goToMenu}
                                         />
                                     )
                                 })
-                            }
-
-                        </div> */}
-
-                        <div className='trendRestaurants'>
-                            <h2 className='fe-trend-title'>{t('frontend.screens.restaurants.trend')}</h2>
-                            <div className="fe-restaurants-container row-one">
-                                {state.objectRestaurantsForTrend.map((item, key) => {
-                                    return (
-                                        <SingleRestaurant
-                                            key={key}
-                                            image={item.restaurant_logo}
-                                            restaurantName={item.name}
-                                            restaurantRating={item.rating}
-                                            restaurantShipping={item.free_shipping}
-                                            restaurantDeliveryTime={item.delivery_time}
-                                            classNameWrapper="fe-img-wrapper"
-                                            classNameImage="imageSingleRestaurant"
-                                            callback={goToMenu}
-                                        />
-                                    )
-                                })}
-
-                                {
-                                    state.restaurantsData &&
-                                    state.restaurantsData.map((item, key) => {
-                                        return (
-                                            <SingleRestaurant
-                                                key={key}
-                                                restaurantName={item.name}
-                                                restaurantRating={item.averageReview}
-                                                restaurantShipping={item.restaurantFreeShipping}
-                                                image={imagePaniniCaMeusa}
-                                                classNameWrapper="fe-img-wrapper"
-                                                classNameImage="imageSingleRestaurant"
-                                                callback={goToMenu}
-                                            />
-                                        )
-                                    })
                                 }
+
+                               
                             </div>
                         </div>
 
@@ -357,15 +360,15 @@ const Restaurants = (props) => {
                             <h2 className='fe-near-title'>{t('frontend.screens.restaurants.area')}</h2>
                             {/* tutti */}
                             <div className='fe-restaurants-container row-two'>
-                                {state.restaurantsData.map((item, key) => {
+                                {state.objectRestaurantsForList.map((item, key) => {
                                     return (
                                         <SingleRestaurant
                                             key={key}
-                                            image={item.restaurant_logo}
+                                            image={imagePaniniCaMeusa}
                                             restaurantName={item.name}
-                                            restaurantRating={item.rating}
-                                            restaurantShipping={item.free_shipping}
-                                            restaurantDeliveryTime={item.delivery_time}
+                                            restaurantId={item.id}
+                                            restaurantRating={item.averageReview}
+                                            restaurantShipping={item.restaurantFreeShipping}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
                                             callback={goToMenu}
@@ -382,7 +385,8 @@ const Restaurants = (props) => {
 }
 
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
 })
 
 
