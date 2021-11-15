@@ -16,7 +16,6 @@ class Plates extends Component {
 
     constructor(props) {
         super(props)
-        console.log(props);
         this.pageTitle = get(this.props, 'location.state.titlePage', false);
         this.plate_category = get(this.props, 'location.state.category_id', false);
         if (!this.pageTitle || !this.plate_category) {
@@ -33,9 +32,9 @@ class Plates extends Component {
         // If plate was deleted, redirect to my menu page
         const elementDeleted = get(this.props, 'location.state.elementDeleted', false);
 
-        if (elementDeleted === true) {
+       if (elementDeleted === true) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU)
-        }
+        } 
 
         // Api per visualizzare tutti i piatti di quella categoria
         properties.GENERIC_SERVICE = new genericServices()

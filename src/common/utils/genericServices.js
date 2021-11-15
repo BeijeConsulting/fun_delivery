@@ -1,6 +1,7 @@
 import axios from "axios";
 import properties from "./properties";
-
+import { ApplicationStore } from "../../ApplicationStore";
+import { setToken } from "../redux/duck/tokenDuck";
 //Roberto structure, to be adapted
 class genericServices {
     constructor() {
@@ -10,56 +11,63 @@ class genericServices {
             timeout: 1000, //MS
         });
 
-        //Si aspetta la funzione per il refresh token
-        // Response interceptor for API calls - Waiting for Ivo
-        // this.instance.interceptors.response.use(
-        //     (response) => {
-        //         return response;
-        //     },
-        //     async function (error) {
-        //         console.log("errorInterceptors,", error);
-        //         const originalRequest = error.config;
-        //         if (error.response.status === 403 && !originalRequest._retry) {
-        //             originalRequest._retry = true;
-        //             const access_token = await this.refreshAccessToken();
-        //             axios.defaults.headers.common["Authorization"] =
-        //                 "Bearer " + access_token;
-        //             return axiosApiInstance(originalRequest);
-        //         }
-        //         return Promise.reject(error);
-        //     }
-        // );
+        // Richiamo l'application store
+        this.store = ApplicationStore;
+
+        // Response interceptor for API calls
+        this.instance.interceptors.response.use(
+            (response) => {
+                return response;
+            },
+            async (error) => {
+                // console.log("errorInterceptors,", error);
+
+                const originalRequest = error.config;
+                //console.log("originalRequest,", originalRequest);'
+                originalRequest._retry = false
+                console.log('originalRequest._retry',originalRequest)
+                if (error.response.status === 403 && !originalRequest._retry) {
+                    originalRequest._retry = true;
+                    //console.log('STATE_PRIMA', this.store.getState())
+                    const access_token = this.store.getState().refreshTokenDuck.refreshToken
+                    if (access_token !== undefined) {
+                        // Chiamata  per refresciare il token
+                        try {
+                            //this.instance.defaults.headers = this.getHeaderWithToken();
+                            const rs = await this.instance.post("/updateAuthToken", {
+                                refreshToken: access_token
+                            });
+
+                            if (rs.status === 200) {
+                                this.store.dispatch(setToken(rs.data.token))
+                                this.instance.defaults.headers = this.getHeaderWithToken(rs.data.token);
+                                // FUNZIONA 
+                                // console.log('STATE_DOPO', this.store.getState())
+                                // console.log('this.instance.defaults.headers', this.instance.defaults.headers)
+                            }
+                            return this.instance(originalRequest);
+                        } catch (_error) {
+                            return Promise.reject(_error);
+                        }
+                    }
+                }
+
+                /*  if(error.response.status === 401){
+                     console.log('error.response.data',error.response.data)
+                     return error.response.data
+                 } */
+
+                return Promise.reject(error);
+            }
+        );
     }
 
-    checkErrorStatus = (errorResponse) => {
-        if (errorResponse.status === 403) {
-            //Fare il refresh token
-            return errorResponse.data;
-        }
-        if (errorResponse.status === 401) {
-            //Email o password errati
-            console.log("Sto passando: ", errorResponse.data)
-            return errorResponse.data;
-        }
-    };
-
-    //Si aspetta la funzione per il refresh token
-    // getLocalRefreshToken = () => {
-    //     const refreshToken = localStorage.getItem("refreshToken");
-    //     return refreshToken;
-    // };
-
     // funzione per modificare header del server
-    // getHeaderWithToken = (auth, lang) => {
     getHeaderWithToken = (auth) => {
-
         let headers = {
             Accept: "*/*",
             "Content-type": "application/json; charset=UTF-8",
         };
-        // if (!!lang) {
-        //     headers["AcceptedLang"] = lang;
-        // }
         if (!!auth) {
             headers["Authorization"] = "Bearer " + auth;
         }
@@ -75,10 +83,9 @@ class genericServices {
                 if (response.status === 200) {
                     return response.data;
                 }
-                // this.interceptorsResponse()
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response);
+                return error.response.data
             });
     };
 
@@ -93,8 +100,7 @@ class genericServices {
                 }
             })
             .catch((error) => {
-                console.log("error apiPost: ", error.response)
-                this.checkErrorStatus(error.response);
+                return error.response.data
             });
     };
 
@@ -103,10 +109,10 @@ class genericServices {
         this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.put(path, obj)
             .then((response) => {
-                return response;
+                return response.data;
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                return error.response.data
             });
     };
 
@@ -115,11 +121,12 @@ class genericServices {
         this.instance.defaults.headers = this.getHeaderWithToken(token);
         return await this.instance.delete(path)
             .then((response) => {
-                return response;
+                return response.data;
             })
             .catch((error) => {
-                this.checkErrorStatus(error.response.status);
+                return error.response.data
             });
     };
 }
+
 export default genericServices;
