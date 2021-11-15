@@ -22,6 +22,9 @@ const InputBox = (props) => {
             onFocus={handleCallbackOnFocus}
             className={props.className}
             disabled={props.disable}
+            step={props.step}
+            max={props.max}
+            min={props.min}
         />
     );
 }
