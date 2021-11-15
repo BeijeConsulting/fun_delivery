@@ -63,7 +63,7 @@ const Wheel = (props) => {
             if(winner === '100 EXP'){
                 user.experience = user.experience + 100
             }
-            if(winner === '5€ SALES'){
+            if(winner === 'NOTHING'){
                 user.discount = true
             }
             if(winner === 'FREE 🛵'){

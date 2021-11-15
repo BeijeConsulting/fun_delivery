@@ -45,7 +45,7 @@ class UserHome extends Component {
             count: 0,
             active: true,
             selectedPage: 'homeUser',
-            selectedTab: 'infoUser',
+            selectedTab: 'missionUser',
             loadingRender: false,
             dataUser: null,
 

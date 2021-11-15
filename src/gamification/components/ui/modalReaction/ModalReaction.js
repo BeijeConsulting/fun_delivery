@@ -38,7 +38,7 @@ const ModalReaction = (props) => {
                         text={t('gamification.components.modalreaction.mapOrder')} />
                 </Link>
 
-
+                
             </div>
         </div>
 
