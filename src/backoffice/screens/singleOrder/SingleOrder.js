@@ -46,7 +46,7 @@ class RestaurantSingleOrder extends Component {
         })
     }
 
-    getStatusesForTimeline = async() => {
+    getStatusesForTimeline = async () => {
         let errorToSave = false
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiGET('/orderstatuses', this.props.tokenDuck.token)
@@ -75,17 +75,17 @@ class RestaurantSingleOrder extends Component {
     };
 
     //Callback di timeline per aggiornare lo stato dell'ordine
-    handleStatusTimeline = async(e) => {
+    handleStatusTimeline = async (e) => {
         let errorToSave = false
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiPUT(`/order/update/${this.props.location.state.order_id}/status/${e}`, {}, this.props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
         console.log("risposta handleStatus: ", response)
         if (statusCode === "401") {
-            errorToSave = true; 
+            errorToSave = true;
         }
         this.setState({
-            order: response.data,
+            order: response,
             error: errorToSave
         });
     };
@@ -124,7 +124,7 @@ class RestaurantSingleOrder extends Component {
                                         <Timeline
                                             callback={this.handleStatusTimeline}
                                             currentStep={this.state.order.statusId}
-                                            statuses = {this.state.statuses}
+                                            statuses={this.state.statuses}
                                         />
                                     </div>
                                 )}
@@ -211,9 +211,15 @@ class RestaurantSingleOrder extends Component {
                                                     </ul>
                                                 );
                                             })}
+                                        <div className="list-style" style={{ width: "100%" }}>
+                                            {t("backoffice.screens.single_order.total_before_discount")}: €
+                                            {this.state.order.total}<br />
+                                            {t("backoffice.screens.single_order.discount")}: €
+                                            {this.state.order.discountValue}
+                                        </div>
                                         <div style={{ padding: "10px" }}>
                                             {t("backoffice.screens.single_order.total")}: €
-                                            {this.state.order.total}
+                                            {this.state.order.total - this.state.order.discountValue}
                                         </div>
                                     </div>
                                 </section>

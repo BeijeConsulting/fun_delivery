@@ -43,6 +43,8 @@ export const TRANSLATIONS_BACKOFFICE = {
             price: "Price",
             quantity: "Quantity",
             description: "Description",
+            discount: "DISCOUNT",
+            total_before_discount: "TOTAL BEFORE DISCOUNTS",
             total: "TOTAL",
             approve: "Approve",
             dont_approve: "Don't approve",
