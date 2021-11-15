@@ -4,6 +4,7 @@ import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import { EditFilled, SaveOutlined, DollarCircleOutlined } from '@ant-design/icons';
+import coin from '../../../common/assets/BeijeCoin.png'
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import 'antd/dist/antd.css';
@@ -12,16 +13,21 @@ import SinglePlateCard from '../../components/funcComponents/singlePlateCard/Sin
 import localStorageData from "../../localStorageData/localStorageData";
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import properties from "../../../common/utils/properties";
+import genericServices from "../../../common/utils/genericServices";
 
 // const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
-        console.log(props)
+
+        // DA TOGLIERE QUANDO API FUNZIONANO
         this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
         this.storageRestaurants = JSON.parse(localStorage.getItem('localStorageRestaurants'));
         this.activeRestaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
+
+        this.userId = null;
 
         this.state = {
             data: {
@@ -37,60 +43,67 @@ class Profile extends Component {
                 phone_number: ['', false],
                 restaurant_category_id: ['', false],
                 description: ['', false],
-                discount_id: ['', false],
+                discount_value: [0, false],
                 profile_img: ['', false],
                 coins: ['', false],
-                restaurant_free_shipping:true
+                shipping_price: [0, false],
+                restaurant_free_shipping: false
             },
             list_categories: [],
-            discounts: [],
             list_countries: [],
-            editData: false
+            editData: false,
+            firstNameSaved: ''
         }
     }
 
-    componentDidMount() {
-        let restaurant_categories = this.storageData.restaurant_categories;
-        let discounts = this.storageRestaurants.discounts;
+    componentDidMount = async () => {
+        properties.GENERIC_SERVICE = new genericServices;
 
-        // Finding the right restaurant info
-        let restaurant = this.storageRestaurants.restaurant_list.find(item => {
-            return item.id === this.activeRestaurantId;
-        })
+        // Categories
+        let restaurant_categories = await properties.GENERIC_SERVICE.apiGET(`/restaurantcategories`, this.props.tokenDuck.token);
+
+        // Restaurant Info
+        let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
+
+        // User ID
+        this.userId = restaurant.userId
+        // User Info
+        let user = await properties.GENERIC_SERVICE.apiGET(`/user/${this.userId}/info`, this.props.tokenDuck.token);
 
         let data = {
-            firstName: [restaurant.firstName, false],
-            lastName: [restaurant.lastName, false],
-            email: [restaurant.email, false],
-            restaurant_name: [restaurant.restaurant_name, false],
-            street: [restaurant.address.street, false],
-            city: [restaurant.address.city, false],
-            cap: [restaurant.address.cap, false],
-            country_id: [restaurant.address.country_id, false],
-            VAT: [restaurant.VAT, false],
-            phone_number: [restaurant.phone_number, false],
-            restaurant_category_id: [restaurant.restaurant_category_id, false],
+            firstName: [user.firstName, false],
+            lastName: [user.lastName, false],
+            email: [user.email, false],
+            restaurant_name: [restaurant.name, false],
+            street: [restaurant.address, false],
+            city: [restaurant.city, false],
+            cap: [restaurant.postalCode, false],
+            country_id: [restaurant.countryCode, false],
+            VAT: [restaurant.vat, false],
+            phone_number: [restaurant.phoneNumber, false],
+            restaurant_category_id: [restaurant.categoryId, false],
             description: [restaurant.description, false],
-            discount_id: [restaurant.discount_id, false],
-            profile_img: [restaurant.profile_img, false],
-            coins: [restaurant.coins, false],
-            restaurant_free_shipping: restaurant.restaurant_free_shipping
+            discount_value: [restaurant.discountValue !== null ? restaurant.discountValue : 0, false],
+            profile_img: [restaurant.restaurantLogo, false],
+            coins: [restaurant.totalCoin, false],
+            shipping_price: [restaurant.shippingPrice, false],
+            restaurant_free_shipping: restaurant.restaurantFreeShipping
         }
 
         this.setState({
             list_categories: restaurant_categories,
-            list_countries: localStorageData.countries,
-            discounts: discounts,
+            list_countries: localStorageData.countries,            
             data: {
                 ...this.state.data,
                 ...data
-            }
+            },
+            firstNameSaved: data.firstName[0]
         })
     }
 
     handleCallbackInput = (e) => {
         let data = {};
-        if (e.target.name === 'country_id' || e.target.name === 'restaurant_category_id') {
+        if (e.target.name === 'restaurant_category_id') {
             data[e.target.name] = [parseInt(e.target.value), false];
         } else {
             data[e.target.name] = [e.target.value, false];
@@ -126,10 +139,10 @@ class Profile extends Component {
         })
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         let newData = {
-            firstName: [this.state.data.firstName[0], this.state.data.firstName[0].length <= 4],
-            lastName: [this.state.data.lastName[0], this.state.data.lastName[0].length <= 4],
+            firstName: [this.state.data.firstName[0], this.state.data.firstName[0].length <= 1],
+            lastName: [this.state.data.lastName[0], this.state.data.lastName[0].length <= 1],
             email: [this.state.data.email[0], !utils.validateEmail(this.state.data.email[0])],
             restaurant_name: [this.state.data.restaurant_name[0], this.state.data.restaurant_name[0].length <= 4],
             street: [this.state.data.street[0], !utils.validateAddress(this.state.data.street[0])],
@@ -139,8 +152,12 @@ class Profile extends Component {
             VAT: [this.state.data.VAT[0], !utils.validateVAT(this.state.data.VAT[0])],
             phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
             restaurant_category_id: [this.state.data.restaurant_category_id[0], this.state.data.restaurant_category_id[0] !== '' ? false : true],
-            discount_id: [this.state.data.discount_id[0], !this.state.data.discount_id[0]],
-            description: [this.state.data.description[0], this.state.data.description[0].length <= 4]
+            discount_value: [this.state.data.discount_value[0], this.state.data.discount_value[0] > 100 || this.state.data.discount_value[0] < 0],
+            description: [this.state.data.description[0], this.state.data.description[0].length <= 4],
+            shipping_price: [this.state.data.shipping_price[0], false],
+            profile_img: [this.state.data.profile_img[0], false],
+            coins: [this.state.data.coins[0], false],
+            restaurant_free_shipping: this.state.data.restaurant_free_shipping
         }
         let correctCheck = !(!!Object.entries(newData).find((value) => value[1][1] === true))
         this.setState({
@@ -148,12 +165,43 @@ class Profile extends Component {
                 ...this.state.data,
                 ...newData
             },
-            editData: correctCheck ? false : true
+            editData: correctCheck ? false : true,
+            firstNameSaved: newData.firstName[0]
         })
+
 
         // New data for backend
         if (correctCheck) {
-            console.log(newData);
+
+            let newRestaurantInfo = {
+                address: newData.street[0],
+                categoryId: newData.restaurant_category_id[0],
+                city: newData.city[0],
+                countryCode: newData.country_id[0],
+                description: newData.description[0],                
+                name: newData.restaurant_name[0],
+                phoneNumber: newData.phone_number[0],
+                postalCode: newData.cap[0],
+                shippingPrice: newData.shipping_price[0],
+                restaurantLogo: newData.profile_img[0],
+                vat: newData.VAT[0],
+                restaurantFreeShipping: newData.restaurant_free_shipping
+            }          
+
+            let newUserInfo = {
+                firstName: newData.firstName[0],
+                lastName: newData.lastName[0],
+                email: newData.email[0],
+                phoneNumber: newData.phone_number[0]                
+            }
+
+            let newDiscount = {
+                value: newData.discount_value[0] / 100,
+            }            
+
+            let apiUpdateRestaurant = await properties.GENERIC_SERVICE.apiPUT(`/restaurant/update/${this.props.restaurantIdDuck.restaurant_id}`, newRestaurantInfo, this.props.tokenDuck.token);
+            let apiUpdateUser = await properties.GENERIC_SERVICE.apiPUT(`/user/update/${this.userId}`, newUserInfo, this.props.tokenDuck.token);
+            let apiUpdateDiscount = await properties.GENERIC_SERVICE.apiPOST(`/discount`, newDiscount, this.props.tokenDuck.token);            
         }
     }
 
@@ -165,11 +213,11 @@ class Profile extends Component {
 
         return (
             <>
-                <LayoutBackOffice pageTitle={t('backoffice.screens.profile.profile')} handleLogout = {this}>
+                <LayoutBackOffice pageTitle={t('backoffice.screens.profile.profile')} handleLogout={this}>
                     <div className="bo-profile-container">
                         <div className="bo-profile-first-row">
                             <div className="bo-profile-welcome">
-                                <h2>{t('backoffice.screens.profile.welcome')}, {this.state.data.firstName}</h2>
+                                <h2>{t('backoffice.screens.profile.welcome')}, {this.state.firstNameSaved}</h2>
 
                                 {
                                     !this.state.editData &&
@@ -182,12 +230,12 @@ class Profile extends Component {
                                 }
 
                                 <div className="bo-coins-container">
-                                    <span className="bo-icon-edit" title="coins"><DollarCircleOutlined /></span>
+                                    <span className="bo-icon-edit" title="coins"><img src={coin} /></span>
                                     <span className="bo-coin">{this.state.data.coins}</span>
                                 </div>
 
                             </div>
-                            {/* <img src={LogoBeije} alt="" /> */}
+
                             <SinglePlateCard
                                 img={LogoBeije}
                                 callback={this.handleCallbackInput}
@@ -200,16 +248,32 @@ class Profile extends Component {
                         <section className="bo-profile-form">
                             <div className="bo-profile-second-row">
                                 <h2>{t('backoffice.screens.profile.your_data')}</h2>
-                                <div className="bo-profile-switch">
-                                    <p style={{fontSize:'16px'}}>
-                                        {t('backoffice.screens.profile.free_shipping')}
-                                        <span style={{paddingLeft:'10px'}}>
-                                            <SwitchProfile
-                                                handleSwitchCallback={this.handleSwitchCallback}
-                                                value={this.state.data.restaurant_free_shipping}
-                                            />
-                                        </span></p>
-                                </div>
+
+                                {
+                                    this.state.editData &&
+                                    <div className="bo-profile-switch">
+                                        <p style={{ fontSize: '16px' }}>
+                                            {t('backoffice.screens.profile.free_shipping')}
+                                            <span style={{ paddingLeft: '10px' }}>
+                                                <SwitchProfile
+                                                    handleSwitchCallback={this.handleSwitchCallback}
+                                                    value={this.state.data.restaurant_free_shipping}
+                                                />
+                                            </span>
+                                        </p>
+                                    </div>
+                                }
+
+
+                                {
+                                    !this.state.editData &&
+                                    <div className="bo-profile-switch">
+                                        <p style={{ fontSize: '16px' }}>
+                                            Free Shipping: {this.state.data.restaurant_free_shipping === true ? 'ON' : 'OFF'}
+                                        </p>
+                                    </div>
+                                }
+
                             </div>
                             <div className="bo-profile-flex-inputs">
                                 <InputBox
@@ -300,33 +364,17 @@ class Profile extends Component {
                                 />
 
                             </div>
+
                             <div className="bo-profile-flex-inputs">
-
-                                <select
-                                    id='country'
-                                    name='country_id'
-                                    className={`bo-input-box ${this.state.data.country_id[1] ? 'alert' : ''}`}
-                                    onChange={this.handleCallbackInput}
-                                    onFocus={this.handleCallBackFocus}
+                                <InputBox
+                                    type="text"
+                                    placeholder={t('backoffice.screens.profile.state')}
+                                    className={`bo-input-box ${this.state.data.country_id[1] ? 'alert' : ''}`} name="country_id"
+                                    callback={this.handleCallbackInput}
+                                    disable={!this.state.editData}
+                                    callbackOnFocus={this.handleCallBackFocus}
                                     value={this.state.data.country_id[0]}
-                                    disabled={!this.state.editData}
-                                >
-                                    <option disabled value="">{t('backoffice.screens.profile.state')}</option>
-
-                                    {
-                                        this.state.list_countries.map((category, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={category.country_id}
-                                                >
-                                                    {category.country_name}
-                                                </option>
-                                            )
-                                        })
-                                    }
-
-                                </select>
+                                />
 
                                 <InputBox
                                     type="text"
@@ -338,8 +386,8 @@ class Profile extends Component {
                                     callbackOnFocus={this.handleCallBackFocus}
                                     value={this.state.data.city[0]}
                                 />
-
                             </div>
+
                             <div className="bo-profile-flex-inputs">
 
                                 <InputBox
@@ -379,33 +427,34 @@ class Profile extends Component {
                                     }
 
                                 </select>
-                            </div>
+                            </div>                            
 
-                            <select
-                                id='discount_id'
-                                name='discount_id'
-                                onChange={this.handleCallbackInput}
-                                onFocus={this.handleCallBackFocus}
-                                className={`bo-input-box ${this.state.data.discount_id[1] ? 'alert' : ''}`}
-                                value={this.state.data.discount_id[0]}
-                                disabled={!this.state.editData}
-                            >
-                                <option disabled value="">{t('backoffice.screens.profile.discounts')}</option>
+                            <InputBox
+                                type="number"
+                                placeholder={"Discount value %"}
+                                className={`bo-input-box ${this.state.data.discount_value[1] ? 'alert' : ''}`}
+                                name="discount_value"
+                                callback={this.handleCallbackInput}
+                                disable={!this.state.editData}
+                                callbackOnFocus={this.handleCallBackFocus}
+                                value={this.state.data.discount_value[0]}
+                                step="1"
+                                max="100"
+                                min="0"
+                            />
 
-                                {
-                                    this.state.discounts.map((discount, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={discount.id}
-                                            >
-                                                {discount.label}
-                                            </option>
-                                        )
-                                    })
-                                }
-
-                            </select>
+                            <InputBox
+                                type="number"
+                                placeholder={"Shipping price €"}
+                                className={`bo-input-box ${this.state.data.shipping_price[1] ? 'alert' : ''}`}
+                                name="shipping_price"
+                                callback={this.handleCallbackInput}
+                                disable={!this.state.editData}
+                                callbackOnFocus={this.handleCallBackFocus}
+                                value={this.state.data.shipping_price[0]}
+                                step="0.1"
+                                min="0"                                
+                            />
 
 
                             <TextArea
@@ -426,8 +475,9 @@ class Profile extends Component {
     }
 }
 
-const mapStateToProps = state =>({
-    tokenDuck: state.tokenDuck
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
 })
 
 export default connect(mapStateToProps)(withTranslation()(Profile))

@@ -39,7 +39,7 @@ textarea[disabled]::placeholder {
 
 .bo-profile-welcome{
     display: flex;
-    align-items:baseline;
+    align-items:center;
 }
 
 .bo-icon-edit{
@@ -49,6 +49,12 @@ textarea[disabled]::placeholder {
 .bo-icon-edit svg{
     font-size: 30px;
     color: #3F3D56;
+}
+
+.bo-icon-edit img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
 }
 
 .bo-coins-container {
