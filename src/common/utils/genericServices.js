@@ -43,11 +43,6 @@ class genericServices {
         }
     };
 
-    getLocalAccessToken = () => {
-        const accessToken = JSON.parse(localStorage.getItem("user"));
-        return accessToken.token;
-    };
-
     //Si aspetta la funzione per il refresh token
     // getLocalRefreshToken = () => {
     //     const refreshToken = localStorage.getItem("refreshToken");
@@ -66,7 +61,7 @@ class genericServices {
         //     headers["AcceptedLang"] = lang;
         // }
         if (!!auth) {
-            headers["AuthToken"] = "Bearer " + auth;
+            headers["Authorization"] = "Bearer " + auth;
         }
         return headers;
     };
