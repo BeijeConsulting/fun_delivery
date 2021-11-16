@@ -1,7 +1,9 @@
 import axios from "axios";
 import properties from "./properties";
 import { ApplicationStore } from "../../ApplicationStore";
-import { setToken } from "../redux/duck/tokenDuck";
+import { initToken, setToken } from "../redux/duck/tokenDuck";
+import { createBrowserHistory } from "history";
+import { initRestaurantId } from "../redux/duck/restaurantIdDuck";
 //Roberto structure, to be adapted
 class genericServices {
     constructor() {
@@ -13,7 +15,8 @@ class genericServices {
 
         // Richiamo l'application store
         this.store = ApplicationStore;
-
+        this.history = createBrowserHistory()
+        
         // Response interceptor for API calls
         this.instance.interceptors.response.use(
             (response) => {
@@ -25,28 +28,30 @@ class genericServices {
                 const originalRequest = error.config;
                 //console.log("originalRequest,", originalRequest);'
                 originalRequest._retry = false
-                console.log('originalRequest._retry',originalRequest)
                 if (error.response.status === 403 && !originalRequest._retry) {
                     originalRequest._retry = true;
-                    //console.log('STATE_PRIMA', this.store.getState())
-                    const access_token = this.store.getState().refreshTokenDuck.refreshToken
-                    if (access_token !== undefined) {
+                    const refresh_token = this.store.getState().refreshTokenDuck.refreshToken
+                    if (refresh_token !== undefined) {
                         // Chiamata  per refresciare il token
                         try {
-                            //this.instance.defaults.headers = this.getHeaderWithToken();
+                            this.instance.defaults.headers = this.getHeaderWithToken();
                             const rs = await this.instance.post("/updateAuthToken", {
-                                refreshToken: access_token
-                            });
+                                refreshToken: refresh_token
+                            } );
 
                             if (rs.status === 200) {
                                 this.store.dispatch(setToken(rs.data.token))
                                 this.instance.defaults.headers = this.getHeaderWithToken(rs.data.token);
-                                // FUNZIONA 
-                                // console.log('STATE_DOPO', this.store.getState())
-                                // console.log('this.instance.defaults.headers', this.instance.defaults.headers)
+                                originalRequest.headers.Authorization = "Bearer " +  rs.data.token
+                                return this.instance(originalRequest);
                             }
-                            return this.instance(originalRequest);
+                            return false
                         } catch (_error) {
+                            // Rest redux e vado alla login
+                            this.store.dispatch(initToken())
+                            this.store.dispatch(initRestaurantId())
+                            this.history.push('/')
+                            window.location.reload()
                             return Promise.reject(_error);
                         }
                     }
