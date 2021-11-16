@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties'
 import { withTranslation } from 'react-i18next'
+import genericServices from '../../../common/utils/genericServices';
+import { get as _get } from 'lodash'
 
 class ForgotPassword extends Component {
 
@@ -20,6 +22,8 @@ class ForgotPassword extends Component {
         this.state = {
             warning: false
         }
+
+        properties.GENERIC_SERVICE = new genericServices()
     }
 
     handleInputEmail = (e) => {
@@ -36,7 +40,7 @@ class ForgotPassword extends Component {
 
     handelSubmit = async () => {
 
-        let emailChecked = Utils.validateEmail(this.email);        
+        let emailChecked = Utils.validateEmail(this.email);
         // let passwordChecked = Utils.validatePassword(this.password);
 
         let error = this.state.warning
@@ -50,7 +54,16 @@ class ForgotPassword extends Component {
                 password: this.password
             }
 
-            let refreshPassword = await properties.GENERIC_SERVICE.apiPUT(`/user/update/password/${this.props.restaurantIdDuck.restaurant_id}`, );
+            let refreshPassword = await properties.GENERIC_SERVICE.apiPUT('/user/update/password/', newPswInfo);
+            console.log('refreshPsw', refreshPassword)
+            let statusCode = _get(refreshPassword, "status", null);
+            console.log('statusCode', statusCode)
+
+            if (statusCode === 401) {
+                error = true;
+            } else if(statusCode === null) {
+                return this.props.history.push(properties.BO_ROUTING.LOGIN);
+            }
         }
         this.setState({
             warning: error
