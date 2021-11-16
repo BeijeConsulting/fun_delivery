@@ -7,7 +7,8 @@ import Button from '../../../common/components/ui/button/Button'
 import { Link } from 'react-router-dom'
 import Utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties'
-import { withTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next'
+
 class ForgotPassword extends Component {
 
     constructor(props) {
@@ -33,18 +34,23 @@ class ForgotPassword extends Component {
         this.confirmPsw = e.target.value
     }
 
-    handelSubmit = () => {
-        let emailChecked = Utils.validateEmail(this.email);
-        console.log('emailChecked = ', emailChecked);
-        let passwordChecked = Utils.validatePassword(this.password);
-        console.log('passwordChecked = ', passwordChecked);
+    handelSubmit = async () => {
+
+        let emailChecked = Utils.validateEmail(this.email);        
+        // let passwordChecked = Utils.validatePassword(this.password);
 
         let error = this.state.warning
-        if (!emailChecked || !passwordChecked || (this.password !== this.confirmPsw)) {
+        if (!emailChecked || (this.password !== this.confirmPsw)) {
             error = true
         } else {
             error = false
-            this.props.history.goBack()
+
+            let newPswInfo = {
+                email: this.email,
+                password: this.password
+            }
+
+            let refreshPassword = await properties.GENERIC_SERVICE.apiPUT(`/user/update/password/${this.props.restaurantIdDuck.restaurant_id}`, );
         }
         this.setState({
             warning: error
