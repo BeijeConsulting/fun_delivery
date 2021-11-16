@@ -68,8 +68,7 @@ class Mission extends Component {
         console.log('e', e)
         await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${missionId}`, obj, this.props.tokenDuck.token)
         await this.getDataApi()
-
-
+        window.location.reload(false);
     }
 
     checkMissionUser = (e) => () => {

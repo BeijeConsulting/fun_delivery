@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
-import { get as _get } from 'lodash';
+import { get as _get, last } from 'lodash';
 
 import '../userHome/UserHome.css'
 import properties from "../../../common/utils/properties"
@@ -78,13 +78,17 @@ class UserHome extends Component {
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
-        let wheel = await properties.GENERIC_SERVICE.apiGET('/wheel/9', this.props.tokenDuck.token)
-        let oldDate = wheel.startDate
+
+     
         let avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', this.props.tokenDuck.token)
         let badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', this.props.tokenDuck.token)
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
-        let wheelAward = 'Wheel award'
-
+        
+        let wheelUser = await properties.GENERIC_SERVICE.apiGET('/wheel/of_user/163', this.props.tokenDuck.token)
+        let lastWheelUser = wheelUser[wheelUser.length-1]
+        let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
+        let wheelAward = lastWheelUser.award ? lastWheelUser.award : 'Wheel award'
+    
 
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
 
@@ -100,7 +104,7 @@ class UserHome extends Component {
             wheelAvailable: this.newWheelAvaileble,
             loadingRender: true,
             dataUser: dataUser,
-            wheel: wheel,
+
             oldDate: oldDate,
             avatar: avatar,
             badge: badge,

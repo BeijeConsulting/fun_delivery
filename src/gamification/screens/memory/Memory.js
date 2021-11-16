@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './Memory.css'
 import properties from '../../utilities/properties'
+import propertiesGS from '../../../common/utils/properties'
+import genericServices from "../../../common/utils/genericServices";
+
 import { Link } from 'react-router-dom'
 
 import musicMemory from "../../assets/sounds/musicMemory.mp3"
@@ -23,6 +26,7 @@ import i18n from '../../../common/localization/i18n';
 import { withTranslation } from 'react-i18next';
 import ChooseGame from '../../components/funcComponents/chooseGame/ChooseGame'
 import HeaderModalX from '../../components/funcComponents/headerModalX/HeaderModalX'
+import { connect } from 'react-redux'
 
 
 class Memory extends Component {
@@ -85,8 +89,8 @@ class Memory extends Component {
 
     }
 
-    addCoins = () => {
-        let beijeCoin = this.state.storage.beijeCoin
+    addCoins = async () => {
+/*         let beijeCoin = this.state.storage.beijeCoin
         beijeCoin = beijeCoin + 5
 
         let tempObj = this.state.storage
@@ -98,7 +102,9 @@ class Memory extends Component {
         }
         this.setState({
             storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
-        })
+        }) */
+        propertiesGS.GENERIC_SERVICE = new genericServices()
+        await propertiesGS.GENERIC_SERVICE.apiPOST('/minigame/beijecoin/163', {}, this.props.tokenDuck.token)
     }
 
     handleClickMemory = (key) => () => {
@@ -286,5 +292,7 @@ class Memory extends Component {
         )
     }
 }
-
-export default withTranslation()(Memory);
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+})
+export default connect(mapStateToProps)(withTranslation()(Memory));

@@ -7,7 +7,11 @@ import WheelComponentCustom from '../../WheelComponentCustom'
 import wheelSound from "../../../assets/sounds/wheelSound.mp3"
 import tryAgainWheel from "../../../assets/sounds/tryAgainWheel.mp3"
 
+import { connect } from "react-redux";
 import { useState } from 'react'
+
+import genericServices from "../../../../common/utils/genericServices";
+import properties from "../../../../common/utils/properties"
 
 
 const Wheel = (props) => {
@@ -54,31 +58,39 @@ const Wheel = (props) => {
         'rgba(201, 178, 178, 0.904)',
         '#F2CB05',
     ]
-    const onFinished = (winner) => {
+    const onFinished = async (winner) => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = ""
         console.log(user)
         if (winner !== 'TRY AGAIN') {
             if(winner === '10 🥮'){
-                user.beijeCoin = user.beijeCoin + 10
+               response = "10"
             }
             if(winner === '100 EXP'){
-                user.experience = user.experience + 100
+                response = "100"
             }
             if(winner === 'NOTHING'){
-                user.discount = true
+                response = ""
             }
             if(winner === 'FREE 🛵'){
-                user.freeDelivery = true
+                response = "free"
             }
-            
-            // state.awards.push({
-            //     id: state.id++,
-            //     single_award: winner
-            // })
+        
             state.isOnlyOnce = true
             
-            localStorage.setItem('userInfo', JSON.stringify(user))
+            let obj = 
+                {
+                    userId: 163,
+                    startDate: new Date().getTime(),
+                    award: response
+                }
             
-            localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
+
+            await properties.GENERIC_SERVICE.apiPOST('/wheel/insert',obj, this.props.tokenDuck.token)
+
+            // localStorage.setItem('userInfo', JSON.stringify(user))
+            
+            // localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
         }else{
             let audioTryAgain = new Audio(tryAgainWheel)
             audioTryAgain.volume = 0.4
@@ -126,5 +138,7 @@ const Wheel = (props) => {
 
     )
 }
-
-export default Wheel;
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+})
+export default connect(mapStateToProps)(Wheel);
