@@ -66,11 +66,12 @@ class MyMenu extends Component {
                                 <>
                                     {
                                         this.state.categories.map((category, index) => {
+                                            console.log("Immagine: ", category.img)
                                             return (
                                                 <div className="bo-mymenu-flex-cards" key={index}>
                                                     <Card
                                                         title={category.name}
-                                                        //  img={category.img_path}
+                                                        img={category.img}
                                                         callback={this.handleCallbackPagePlates(category.id, category.name)}
                                                     />
                                                 </div>
