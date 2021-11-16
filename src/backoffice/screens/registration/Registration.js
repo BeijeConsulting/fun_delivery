@@ -8,7 +8,9 @@ import localStorageData from '../../localStorageData/localStorageData'
 import utils from '../../../common/utils/utils'
 import properties from '../../../common/utils/properties'
 import genericServices from '../../../common/utils/genericServices';
-import { setToken } from '../../../common/redux/duck/tokenDuck'
+import { setToken } from '../../../common/redux/duck/tokenDuck';
+import { setRestaurantId } from '../../../common/redux/duck/restaurantIdDuck';
+import { setRefreshToken} from '../../../common/redux/duck/refreshTokenDuck'
 import { connect } from 'react-redux';
 import { get as _get, omit as _omit } from 'lodash';
 import './Registration.css'
@@ -101,6 +103,8 @@ class Registration extends Component {
                     }
                     if (!errorToSave){
                         this.props.dispatch(setToken(registrationAPI.token))
+                        this.props.dispatch(setRestaurantId(registrationAPI.restaurantId))
+                        this.props.dispatch(setRefreshToken(registrationAPI.refreshToken))
                         this.props.history.push(properties.BO_ROUTING.PROFILE)
                     }
                     this.setState({
