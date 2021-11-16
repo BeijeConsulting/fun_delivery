@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Button from '../../../common/components/ui/button/Button'
 import InputBox from '../../../common/components/ui/inputBox/InputBox'
-import properties from '../../../common/utils/properties'
-import utils from '../../../common/utils/utils'
 import BannerBackground from '../../components/ui/bannerBackground/BannerBackground'
 import Navbar from '../../components/ui/navbar/Navbar'
 import localStorageData from '../../localStorageData/localStorageData'
+import utils from '../../../common/utils/utils'
+import properties from '../../../common/utils/properties'
+import genericServices from '../../../common/utils/genericServices';
+import { setToken } from '../../../common/redux/duck/tokenDuck'
+import { connect } from 'react-redux';
+import { get as _get, omit as _omit } from 'lodash';
 import './Registration.css'
 class Registration extends Component {
 
@@ -19,45 +23,47 @@ class Registration extends Component {
             email: '',
             password: '',
             confirm_password: '',
-            restaurant_name: '',
-            address: {
-                street: '',
-                city: '',
-                cap: null,
-                country_id: '',
-            },
-            VAT: null,
-            phone_number: null,
-            restaurant_category_id: '',
+            name: '',
+            address: '',
+            city: '',
+            postalCode: null,
+            countryCode: '',
+            vat: null,
+            phoneNumber: null,
+            categoryId: '',
         }
-        this.localStorageData = JSON.parse(localStorage.getItem('localStorageData'))
 
-        if (!this.localStorageData) {
-            this.localStorageData = localStorageData
-            localStorage.setItem('localStorageData', JSON.stringify(localStorageData))
-        }
+        // Al momento prendiamo le categorie e i countries da localStorageData, dovremmo prenderle con le API ma necessitano ancora del token
+        this.restaurant_categories = localStorageData.restaurant_categories
+        this.countries = localStorageData.countries
+
         this.state = {
+            error: false,
             firstName: false,
             lastName: false,
             email: false,
             password: false,
             confirm_password: false,
-            restaurant_name: false,
-            street: false,
+            name: false,
+            address: false,
             city: false,
-            cap: false,
-            country_id: false,
-            VAT: false,
-            phone_number: false,
-            restaurant_category_id: false
+            postalCode: false,
+            countryCode: false,
+            vat: false,
+            phoneNumber: false,
+            categoryId: false
         }
     }
+
+    componentDidMount = async () => {
+        //Prende le categorie
+        // properties.GENERIC_SERVICE = new genericServices();
+        // let categoriesAPI = await properties.GENERIC_SERVICE.apiGET("/restaurantcategories")
+        // this.restaurant_categories = categoriesAPI
+    }
+
     handleCallbackInput = (e) => {
-        if (e.target.name === 'street' || e.target.name === 'city' || e.target.name === 'cap' || e.target.name === 'country_id') {
-            this.objData.address[e.target.name] = e.target.value
-        } else {
-            this.objData[e.target.name] = e.target.value
-        }
+        this.objData[e.target.name] = e.target.value
     }
 
     handleSubmit = () => {
@@ -68,45 +74,40 @@ class Registration extends Component {
                 email: !utils.validateEmail(this.objData.email),
                 password: !utils.validatePassword(this.objData.password),
                 confirm_password: this.objData.password !== this.objData.confirm_password || this.objData.password.length <= 0,
-                restaurant_name: this.objData.restaurant_name.length <= 4,
-                street: !utils.validateAddress(this.objData.address.street),
-                city: !utils.validateCity(this.objData.address.city),
-                cap: !utils.validateCap(this.objData.address.cap),
-                country_id: (this.objData.address.country_id.length <= 0),
-                VAT: !utils.validateVAT(this.objData.VAT),
-                phone_number: !utils.validatePhone(this.objData.phone_number),
-                restaurant_category_id: (this.objData.restaurant_category_id.length <= 0)
+                name: this.objData.name.length <= 4,
+                address: !utils.validateAddress(this.objData.address),
+                city: !utils.validateCity(this.objData.city),
+                postalCode: !utils.validateCap(this.objData.postalCode),
+                countryCode: (this.objData.countryCode.length <= 0),
+                vat: !utils.validateVAT(this.objData.vat),
+                phoneNumber: !utils.validatePhone(this.objData.phoneNumber),
+                categoryId: (this.objData.categoryId.length <= 0)
             },
-            () => {
+            async () => {
                 let responseReady = true;
                 // If any value on the warnings in the state is true, the response is not ready
                 for (let key in this.state) {
-                    if (this.state[key] === true) {
+                    if (this.state[key] === true && key !== "error") {
                         return responseReady = false;
                     }
                 }
-
+                console.log("qui ci entra")
                 if (responseReady === true) {
-                    // Here the validation is good, the registration is allowed!
-                    console.log('registered:', this.objData);
-                    let gamificationData = {
-                        coins: 300,
-                        sponsor: null,
-                    };
-
-                    let localStorageRestaurantsData = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-
-                    localStorageRestaurantsData.restaurant_list.push({
-                        ...this.objData,
-                        ...gamificationData,
-                        id: localStorageRestaurantsData.restaurant_list.length + 1,
-                        description:''
-                    });
-
-                    localStorage.setItem('localStorageRestaurants', JSON.stringify(localStorageRestaurantsData));
-                    localStorage.setItem('activeRestaurantId', JSON.stringify(localStorageRestaurantsData.restaurant_list.length));
-                    this.props.history.push(properties.BO_ROUTING.PROFILE, {
-                        validation: true
+                    console.log("this.objData prima di passarlo al post: ", this.objData)
+                    let errorToSave = false
+                    console.log("error: ", errorToSave)
+                    properties.GENERIC_SERVICE = new genericServices();
+                    let registrationAPI = await properties.GENERIC_SERVICE.apiPOST("/restaurant", _omit(this.objData, 'confirm_password'))
+                    let statusCode = _get(registrationAPI, "status", null)
+                    if (statusCode!==200 && statusCode!== null) {
+                        errorToSave = true; //deve dare un errore
+                    }
+                    if (!errorToSave){
+                        this.props.dispatch(setToken(registrationAPI.token))
+                        this.props.history.push(properties.BO_ROUTING.PROFILE)
+                    }
+                    this.setState({
+                        error: errorToSave
                     })
                 }
             }
@@ -180,7 +181,11 @@ class Registration extends Component {
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
                                 </div>
-
+                                <div>
+                                    {this.state.error &&
+                                        <h3>{t('backoffice.screens.registration.error')}</h3>
+                                    }
+                                </div>
                             </section>
 
 
@@ -193,25 +198,25 @@ class Registration extends Component {
 
                                     <InputBox
                                         type="text"
-                                        className={`bo-input-box ${this.state.restaurant_name ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.name ? 'alert' : ''}`}
                                         placeholder={t('backoffice.components.inputbox.restaurant_name')}
                                         callback={this.handleCallbackInput}
-                                        name='restaurant_name'
+                                        name='name'
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
 
                                     <select
                                         id='category'
-                                        name='restaurant_category_id'
+                                        name='categoryId'
                                         onChange={this.handleCallbackInput}
                                         onFocus={this.handleCallBackFocus}
-                                        className={`bo-input-box ${this.state.restaurant_category_id ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.categoryId ? 'alert' : ''}`}
                                         defaultValue=""
                                     >
                                         <option disabled value="">{t('backoffice.useful_constants.restaurant_categories.title_component')}</option>
 
                                         {
-                                            this.localStorageData.restaurant_categories.map((category, index) => {
+                                            this.restaurant_categories.map((category, index) => {
                                                 return (
                                                     <option
                                                         key={index}
@@ -229,10 +234,10 @@ class Registration extends Component {
                                 <div className="flex-inputs">
                                     <InputBox
                                         type="text"
-                                        className={`bo-input-box ${this.state.street ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.address ? 'alert' : ''}`}
                                         placeholder={t('common.components.inputbox.address')}
                                         callback={this.handleCallbackInput}
-                                        name='street'
+                                        name='address'
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
                                     <InputBox
@@ -248,17 +253,17 @@ class Registration extends Component {
                                 <div className="flex-inputs">
                                     <InputBox
                                         type="text"
-                                        className={`bo-input-box ${this.state.cap ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.postalCode ? 'alert' : ''}`}
                                         placeholder={t('common.components.inputbox.zip')}
                                         callback={this.handleCallbackInput}
-                                        name='cap'
+                                        name='postalCode'
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
 
                                     <select
                                         id='country_id'
-                                        name='country_id'
-                                        className={`bo-input-box ${this.state.country_id ? 'alert' : ''}`}
+                                        name='countryCode'
+                                        className={`bo-input-box ${this.state.countryCode ? 'alert' : ''}`}
                                         onChange={this.handleCallbackInput}
                                         onFocus={this.handleCallBackFocus}
                                         defaultValue=""
@@ -266,11 +271,11 @@ class Registration extends Component {
                                         <option disabled value="">{t('backoffice.useful_constants.countries.titleComponent')}</option>
 
                                         {
-                                            this.localStorageData.countries.map((category, index) => {
+                                            this.countries.map((category, index) => {
                                                 return (
                                                     <option
                                                         key={index}
-                                                        value={category.country_id}
+                                                        value={category.country_code} //questo sarà il codice da prendere dalla API, quindi avrà un nome diverso
                                                     >
                                                         {category.country_name}
                                                     </option>
@@ -284,18 +289,18 @@ class Registration extends Component {
                                 <div className="flex-inputs">
                                     <InputBox
                                         type="tel"
-                                        className={`bo-input-box ${this.state.phone_number ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.phoneNumber ? 'alert' : ''}`}
                                         placeholder={t('common.components.inputbox.number')}
                                         callback={this.handleCallbackInput}
-                                        name='phone_number'
+                                        name='phoneNumber'
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
                                     <InputBox
                                         type="text"
-                                        className={`bo-input-box ${this.state.VAT ? 'alert' : ''}`}
+                                        className={`bo-input-box ${this.state.vat ? 'alert' : ''}`}
                                         placeholder={t('backoffice.components.inputbox.vat')}
                                         callback={this.handleCallbackInput}
-                                        name='VAT'
+                                        name='vat'
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
                                 </div>
@@ -312,4 +317,9 @@ class Registration extends Component {
     }
 }
 
-export default withTranslation()(Registration)
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(Registration))

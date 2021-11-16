@@ -24,6 +24,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             title: "Register your restaurant",
             your_data: "Your data",
             your_restaurant: "Your restaurant",
+            error: "Error during registration"
         },
         my_orders: {
             title: "My orders",
