@@ -15,6 +15,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import properties from "../../../common/utils/properties";
 import genericServices from "../../../common/utils/genericServices";
+import { get } from "lodash";
 
 // const format = 'HH:mm';
 
@@ -57,48 +58,52 @@ class Profile extends Component {
     }
 
     componentDidMount = async () => {
-        properties.GENERIC_SERVICE = new genericServices;
+        let token = get(this.props, 'tokenDuck.token', null)
+        // Controllo se esiste il token quindi se è loggato
+        if (!!token) {
+            properties.GENERIC_SERVICE = new genericServices;
 
-        // Categories
-        let restaurant_categories = await properties.GENERIC_SERVICE.apiGET(`/restaurantcategories`, this.props.tokenDuck.token);
+            // Categories
+            let restaurant_categories = await properties.GENERIC_SERVICE.apiGET(`/restaurantcategories`, this.props.tokenDuck.token);
 
-        // Restaurant Info
-        let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
+            // Restaurant Info
+            let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
 
-        // User ID
-        this.userId = restaurant.userId
-        // User Info
-        let user = await properties.GENERIC_SERVICE.apiGET(`/user/${this.userId}/info`, this.props.tokenDuck.token);
+            // User ID
+            this.userId = restaurant.userId
+            // User Info
+            let user = await properties.GENERIC_SERVICE.apiGET(`/user/${this.userId}/info`, this.props.tokenDuck.token);
 
-        let data = {
-            firstName: [user.firstName, false],
-            lastName: [user.lastName, false],
-            email: [user.email, false],
-            restaurant_name: [restaurant.name, false],
-            street: [restaurant.address, false],
-            city: [restaurant.city, false],
-            cap: [restaurant.postalCode, false],
-            country_id: [restaurant.countryCode, false],
-            VAT: [restaurant.vat, false],
-            phone_number: [restaurant.phoneNumber, false],
-            restaurant_category_id: [restaurant.categoryId, false],
-            description: [restaurant.description, false],
-            discount_value: [restaurant.discountValue !== null ? restaurant.discountValue : 0, false],
-            profile_img: [restaurant.restaurantLogo, false],
-            coins: [restaurant.totalCoin, false],
-            shipping_price: [restaurant.shippingPrice, false],
-            restaurant_free_shipping: restaurant.restaurantFreeShipping
+            let data = {
+                firstName: [user.firstName, false],
+                lastName: [user.lastName, false],
+                email: [user.email, false],
+                restaurant_name: [restaurant.name, false],
+                street: [restaurant.address, false],
+                city: [restaurant.city, false],
+                cap: [restaurant.postalCode, false],
+                country_id: [restaurant.countryCode, false],
+                VAT: [restaurant.vat, false],
+                phone_number: [restaurant.phoneNumber, false],
+                restaurant_category_id: [restaurant.categoryId, false],
+                description: [restaurant.description, false],
+                discount_value: [restaurant.discountValue !== null ? restaurant.discountValue : 0, false],
+                profile_img: [restaurant.restaurantLogo, false],
+                coins: [restaurant.totalCoin, false],
+                shipping_price: [restaurant.shippingPrice, false],
+                restaurant_free_shipping: restaurant.restaurantFreeShipping
+            }
+
+            this.setState({
+                list_categories: restaurant_categories,
+                list_countries: localStorageData.countries,
+                data: {
+                    ...this.state.data,
+                    ...data
+                },
+                firstNameSaved: data.firstName[0]
+            })
         }
-
-        this.setState({
-            list_categories: restaurant_categories,
-            list_countries: localStorageData.countries,            
-            data: {
-                ...this.state.data,
-                ...data
-            },
-            firstNameSaved: data.firstName[0]
-        })
     }
 
     handleCallbackInput = (e) => {
@@ -178,7 +183,7 @@ class Profile extends Component {
                 categoryId: newData.restaurant_category_id[0],
                 city: newData.city[0],
                 countryCode: newData.country_id[0],
-                description: newData.description[0],                
+                description: newData.description[0],
                 name: newData.restaurant_name[0],
                 phoneNumber: newData.phone_number[0],
                 postalCode: newData.cap[0],
@@ -186,22 +191,22 @@ class Profile extends Component {
                 restaurantLogo: newData.profile_img[0],
                 vat: newData.VAT[0],
                 restaurantFreeShipping: newData.restaurant_free_shipping
-            }          
+            }
 
             let newUserInfo = {
                 firstName: newData.firstName[0],
                 lastName: newData.lastName[0],
                 email: newData.email[0],
-                phoneNumber: newData.phone_number[0]                
+                phoneNumber: newData.phone_number[0]
             }
 
             let newDiscount = {
                 value: newData.discount_value[0] / 100,
-            }            
+            }
 
             let apiUpdateRestaurant = await properties.GENERIC_SERVICE.apiPUT(`/restaurant/update/${this.props.restaurantIdDuck.restaurant_id}`, newRestaurantInfo, this.props.tokenDuck.token);
             let apiUpdateUser = await properties.GENERIC_SERVICE.apiPUT(`/user/update/${this.userId}`, newUserInfo, this.props.tokenDuck.token);
-            let apiUpdateDiscount = await properties.GENERIC_SERVICE.apiPOST(`/discount`, newDiscount, this.props.tokenDuck.token);            
+            let apiUpdateDiscount = await properties.GENERIC_SERVICE.apiPOST(`/discount`, newDiscount, this.props.tokenDuck.token);
         }
     }
 
@@ -427,7 +432,7 @@ class Profile extends Component {
                                     }
 
                                 </select>
-                            </div>                            
+                            </div>
 
                             <InputBox
                                 type="number"
@@ -453,7 +458,7 @@ class Profile extends Component {
                                 callbackOnFocus={this.handleCallBackFocus}
                                 value={this.state.data.shipping_price[0]}
                                 step="0.1"
-                                min="0"                                
+                                min="0"
                             />
 
 
