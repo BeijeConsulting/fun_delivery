@@ -158,7 +158,7 @@ class Profile extends Component {
             phone_number: [this.state.data.phone_number[0], !utils.validatePhone(this.state.data.phone_number[0])],
             restaurant_category_id: [this.state.data.restaurant_category_id[0], this.state.data.restaurant_category_id[0] !== '' ? false : true],
             discount_value: [this.state.data.discount_value[0], this.state.data.discount_value[0] > 100 || this.state.data.discount_value[0] < 0],
-            description: [this.state.data.description[0], this.state.data.description[0].length <= 4],
+            description: [this.state.data.description[0], false],
             shipping_price: [this.state.data.shipping_price[0], false],
             profile_img: [this.state.data.profile_img[0], false],
             coins: [this.state.data.coins[0], false],

@@ -86,7 +86,8 @@ export const TRANSLATIONS_BACKOFFICE = {
             vat: 'VAT',
             categories: 'Category',
             discounts: 'Discounts',
-            restaurant_description: 'Restaurant description'
+            restaurant_description: 'Restaurant description',
+            conjunction: 'and'
         },
         plates:{
             title:'Plates list',
