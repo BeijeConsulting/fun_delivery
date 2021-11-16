@@ -1,6 +1,10 @@
 export const TRANSLATIONS_COMMON = {
     screens: {
-
+        generic_not_found: {
+            not_found: 'Pagina o risorsa non trovata.',
+            server_error: 'Il server è momentaneamente non disponibile',
+            go_home_page: 'Torna alla home'
+        }
     },
     components: {
         inputbox: {

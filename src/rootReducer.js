@@ -6,9 +6,10 @@ import { combineReducers } from "redux";
 import tokenDuck from './common/redux/duck/tokenDuck';
 import infoDuck from './frontend/redux/infoDuck'
 import restaurantIdDuck from "./common/redux/duck/restaurantIdDuck";
+import refreshTokenDuck from "./common/redux/duck/refreshTokenDuck";
 const rootReducer = combineReducers({
     tokenDuck,
     restaurantIdDuck,
-    infoDuck
+    refreshTokenDuck,
 })
 export default rootReducer

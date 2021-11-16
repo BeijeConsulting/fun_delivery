@@ -1,5 +1,6 @@
 import './LayoutBackOffice.css';
 import 'antd/dist/antd.css';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../../common/components/ui/button/Button';
 import { Layout } from 'antd';
@@ -9,15 +10,31 @@ import { useLocation } from 'react-router-dom';
 import properties from '../../../../common/utils/properties';
 import { useHistory } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { initToken } from '../../../../common/redux/duck/tokenDuck';
+import { initRestaurantId } from '../../../../common/redux/duck/restaurantIdDuck';
+import { useEffect } from 'react';
+import { get } from 'lodash';
 const { Content, Sider } = Layout;
 
 const LayoutBackOffice = (props) => {
 
+    // To push in login page
     const pathname = useLocation().pathname;
     let history = useHistory();
-    const handleLogout = () => {
-        localStorage.removeItem('activeRestaurantId');
-        history.push(properties.BO_ROUTING.LOGIN)
+
+    useEffect(() => {
+        let token = get(props.tokenDuck, 'token', null);
+
+        if(!token) {
+            return history.push(properties.BO_ROUTING.LOGIN);
+        }
+    }, [])
+
+    const handleLogout = () => {   
+        props.dispatch(initToken());  
+        props.dispatch(initRestaurantId());             
+        history.push(properties.BO_ROUTING.LOGIN);
     }
     const { t } = props
     return (
@@ -66,4 +83,9 @@ const LayoutBackOffice = (props) => {
     )
 }
 
-export default withTranslation()(LayoutBackOffice);
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(LayoutBackOffice));

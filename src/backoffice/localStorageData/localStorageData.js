@@ -99,11 +99,13 @@ const localStorageData = {
   countries:[
     {
       country_name: constantsDictionary.COUNTRIES.italy,
-      country_id: 1
+      country_id: 1,
+      country_code: "IT"
     },
     {
       country_name: constantsDictionary.COUNTRIES.england,
-      country_id: 2
+      country_id: 2,
+      country_code: "EN"
     }
   ],
   plate_list: [

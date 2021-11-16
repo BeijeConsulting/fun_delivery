@@ -44,7 +44,7 @@ class NewPlate extends Component {
     componentDidMount = async () => {
         // Api per avere tutte le categorie dei piatti
          properties.GENERIC_SERVICE = new genericServices()
-         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'tokenDuck.token', null))
+         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'toenDuck.token', null))
         this.setState({
             list_categories: apiCategories
         })
