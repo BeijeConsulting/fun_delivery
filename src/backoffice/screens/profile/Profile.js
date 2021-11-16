@@ -3,18 +3,18 @@ import './Profile.css';
 import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
-import { EditFilled, SaveOutlined, DollarCircleOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
+import { EditFilled, SaveOutlined } from '@ant-design/icons';
 import coin from '../../../common/assets/BeijeCoin.png'
 import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SwitchProfile from "../../components/ui/switch/SwitchProfile";
-import 'antd/dist/antd.css';
 import utils from '../../../common/utils/utils'
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard'
-import localStorageData from "../../localStorageData/localStorageData";
-import { withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
 import properties from "../../../common/utils/properties";
 import genericServices from "../../../common/utils/genericServices";
+import localStorageData from "../../localStorageData/localStorageData";
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { get } from "lodash";
 
 // const format = 'HH:mm';

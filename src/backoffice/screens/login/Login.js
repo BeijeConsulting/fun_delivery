@@ -20,6 +20,10 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
+        if(this.props.restaurantIdDuck.restaurant_id && this.props.tokenDuck.token){
+            console.log("sono entrato")
+            this.props.history.push(properties.BO_ROUTING.PROFILE)
+        }
         this.email = ''
         this.password = ''
         this.state = {
@@ -115,4 +119,9 @@ class Login extends Component {
     }
 }
 
-export default connect()(withTranslation()(Login));
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(withTranslation()(Login));
