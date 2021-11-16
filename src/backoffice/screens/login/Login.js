@@ -21,7 +21,6 @@ class Login extends Component {
     constructor(props) {
         super(props)
         if(this.props.restaurantIdDuck.restaurant_id && this.props.tokenDuck.token){
-            console.log("sono entrato")
             this.props.history.push(properties.BO_ROUTING.PROFILE)
         }
         this.email = ''

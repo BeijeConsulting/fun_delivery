@@ -14,7 +14,6 @@ import "./SingleOrder.css";
 class RestaurantSingleOrder extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             order: null,
             error: false,
@@ -22,7 +21,6 @@ class RestaurantSingleOrder extends Component {
             showTimeline: false,
             //this.foundOrder.status !== "pending",
         };
-        console.log("props: ", props)
     }
 
     //Mapping the food ordered by the customer
@@ -39,8 +37,6 @@ class RestaurantSingleOrder extends Component {
         if (statusCode === "401") {
             errorToSave = true; //deve dare un errore
         }
-
-        console.log("riposta single order: ", response)
         this.setState({
             order: response,
             error: errorToSave
@@ -55,9 +51,6 @@ class RestaurantSingleOrder extends Component {
         if (statusCode === "401") {
             errorToSave = true; //deve dare un errore
         }
-
-        console.log("riposta stati response: ", response)
-
         this.setState({
             statuses: response,
             error: errorToSave
@@ -81,7 +74,6 @@ class RestaurantSingleOrder extends Component {
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiPUT(`/order/update/${this.props.location.state.order_id}/status/${e}`, {}, this.props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
-        console.log("risposta handleStatus: ", response)
         if (statusCode === "401") {
             errorToSave = true;
         }

@@ -91,11 +91,8 @@ class Registration extends Component {
                         return responseReady = false;
                     }
                 }
-                console.log("qui ci entra")
                 if (responseReady === true) {
-                    console.log("this.objData prima di passarlo al post: ", this.objData)
                     let errorToSave = false
-                    console.log("error: ", errorToSave)
                     properties.GENERIC_SERVICE = new genericServices();
                     let registrationAPI = await properties.GENERIC_SERVICE.apiPOST("/restaurant", _omit(this.objData, 'confirm_password'))
                     let statusCode = _get(registrationAPI, "status", null)
