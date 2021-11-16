@@ -1,6 +1,9 @@
 export const TRANSLATIONS_COMMON = {
     screens: {
-
+        generic_not_found: {
+            not_found: 'Page not found.',
+            go_home_page: 'Go to homepage'
+        }
     },
     components: {
         inputbox: {
