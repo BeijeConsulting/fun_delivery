@@ -66,7 +66,7 @@ class Profile extends Component {
             // Categories
             let restaurant_categories = await properties.GENERIC_SERVICE.apiGET(`/restaurantcategories`, this.props.tokenDuck.token);
 
-            // Restaurant Info
+            // Restaurant Info1
             let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
 
             // User ID

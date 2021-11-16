@@ -16,7 +16,7 @@ class genericServices {
         // Richiamo l'application store
         this.store = ApplicationStore;
         this.history = createBrowserHistory()
-        
+
         // Response interceptor for API calls
         this.instance.interceptors.response.use(
             (response) => {
@@ -37,12 +37,12 @@ class genericServices {
                             this.instance.defaults.headers = this.getHeaderWithToken();
                             const rs = await this.instance.post("/updateAuthToken", {
                                 refreshToken: refresh_token
-                            } );
+                            });
 
                             if (rs.status === 200) {
                                 this.store.dispatch(setToken(rs.data.token))
                                 this.instance.defaults.headers = this.getHeaderWithToken(rs.data.token);
-                                originalRequest.headers.Authorization = "Bearer " +  rs.data.token
+                                originalRequest.headers.Authorization = "Bearer " + rs.data.token
                                 return this.instance(originalRequest);
                             }
                             return false
@@ -57,10 +57,19 @@ class genericServices {
                     }
                 }
 
-                /*  if(error.response.status === 401){
-                     console.log('error.response.data',error.response.data)
-                     return error.response.data
-                 } */
+                if (error.response.status === 404) {
+                    this.store.dispatch(initToken())
+                    this.store.dispatch(initRestaurantId())
+                    this.history.push('/not-found')
+                    window.location.reload()
+                }
+
+                if (error.response.status === 500) {
+                    this.store.dispatch(initToken())
+                    this.store.dispatch(initRestaurantId())
+                    this.history.push(`/not-found`, { error: 500 })
+                    window.location.reload()
+                }
 
                 return Promise.reject(error);
             }
