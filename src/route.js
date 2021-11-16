@@ -28,14 +28,16 @@ import RestaurantSingleOrder from './backoffice/screens/singleOrder/SingleOrder'
 import RestaurantIncomingOrders from './backoffice/screens/incomingOrders/IncomingOrders';
 import RestaurantSponsor from './backoffice/screens/sponsor/Sponsor';
 
-
 // GAMIFICATION SCREENS
 import Quiz from "./gamification/screens/quiz/Quiz";
 import Memory from './gamification/screens/memory/Memory'
 
+// 404 SCREEN
+import GenericNotFound from "./common/screens/genericNotFound/GenericNotFound";
+
 import properties from "./common/utils/properties";
 
-//Redux + persist
+// Redux + persist
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, ApplicationStore} from "./ApplicationStore";
 import { Provider } from "react-redux";
@@ -80,6 +82,8 @@ const Routing = () => {
                         <Route path="/quiz" component={Quiz} />
                         <Route path="/memory" component={Memory} />
 
+                        {/* 404 */}
+                        <Route component={GenericNotFound} />
 
                     </Switch>
                 </Router>
