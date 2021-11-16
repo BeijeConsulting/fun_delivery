@@ -15,11 +15,9 @@ import './IncomingOrders.css';
 class IncomingOrders extends Component {
     constructor(props) {
         super(props);
-        // this.all_orders = JSON.parse(localStorage.getItem('localStorageData')).order_list
         this.state={
             in_pending_orders: []
         }
-        // this.in_pending_orders = this.all_orders.filter(item => item.status==="pending")
     }
 
     componentDidMount = async() =>{
@@ -38,11 +36,8 @@ class IncomingOrders extends Component {
     }
 
     handleCallbackPageSingleOrder = (orderID) => () => {
-        // let foundOrder = {}
-        // foundOrder = this.in_pending_orders.find((order) => order.order_id === orderID)
+        
         this.props.history.push(properties.BO_ROUTING.SINGLE_ORDER, {
-            // order: foundOrder,
-            // titlePage: "#" + orderID,
             order_id: orderID,
         })
     }
@@ -68,7 +63,7 @@ class IncomingOrders extends Component {
                                         user={item.userFirstname + " " + item.userLastname}
                                         ordered_text={t('backoffice.screens.incoming_orders.ordered_text')}
                                         button_text={t('common.components.button.show')}
-                                        callbackRedirect={this.handleCallbackPageSingleOrder(item.order_id)} />
+                                        callbackRedirect={this.handleCallbackPageSingleOrder(item.id)} />
                                 )
                             })}
                         </section>

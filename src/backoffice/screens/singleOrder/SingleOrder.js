@@ -22,6 +22,7 @@ class RestaurantSingleOrder extends Component {
             showTimeline: false,
             //this.foundOrder.status !== "pending",
         };
+        console.log("props: ", props)
     }
 
     //Mapping the food ordered by the customer
