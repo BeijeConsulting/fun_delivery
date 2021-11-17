@@ -3,7 +3,7 @@ const SET_USERID = 'web/userID/SET_USERID'
 const INIT_USERID = 'web/userID/INIT_USERID'
 
 // Creator Action setColor
-export function setUserID(value) {
+export function setUserId(value) {
     return {
         type: SET_USERID,
         payload: {
@@ -12,7 +12,7 @@ export function setUserID(value) {
     }
 }
 // Creator Action
-export function initUserID() {
+export function initUserId() {
     return {
         type: INIT_USERID,
         payload: {

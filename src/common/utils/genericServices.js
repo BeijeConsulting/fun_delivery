@@ -4,6 +4,8 @@ import { ApplicationStore } from "../../ApplicationStore";
 import { initToken, setToken } from "../redux/duck/tokenDuck";
 import { createBrowserHistory } from "history";
 import { initRestaurantId } from "../redux/duck/restaurantIdDuck";
+import { initUserId } from "../../frontend/redux/userId"
+
 //Roberto structure, to be adapted
 class genericServices {
     constructor() {
@@ -52,6 +54,7 @@ class genericServices {
                             // Rest redux e vado alla login
                             this.store.dispatch(initToken())
                             this.store.dispatch(initRestaurantId())
+                            this.store.dispatch(initUserId())
                             this.history.push('/')
                             window.location.reload()
                             return Promise.reject(_error);
@@ -62,13 +65,15 @@ class genericServices {
                 if(this.errorAgain){
                     this.store.dispatch(initToken())
                     this.store.dispatch(initRestaurantId())
-                    this.history.push('/not-authorized', { error: 500 })
+                    this.store.dispatch(initUserId())
+                    this.history.push('/not-authorized', { error: 403 })
                     window.location.reload()
                 }
 
                 if (error.response.status === 404) {
                     this.store.dispatch(initToken())
                     this.store.dispatch(initRestaurantId())
+                    this.store.dispatch(initUserId())
                     this.history.push('/not-found')
                     window.location.reload()
                 }
@@ -76,6 +81,7 @@ class genericServices {
                 if (error.response.status === 500) {
                     this.store.dispatch(initToken())
                     this.store.dispatch(initRestaurantId())
+                    this.store.dispatch(initUserId())
                     this.history.push(`/not-found`, { error: 500 })
                     window.location.reload()
                 }
