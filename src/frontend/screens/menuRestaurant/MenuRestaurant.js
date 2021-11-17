@@ -4,7 +4,7 @@ import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate
 import AOS from 'aos';
 import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
-// import filter from "lodash/filter"
+import _ from 'lodash';
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
 import Secondi from '../../../backoffice/assets/images/secondi.jfif'
@@ -235,10 +235,13 @@ class MenuRestaurant extends React.Component {
             isClick: false,
             totalPrice: 0,
             adressRestaurant: '',
+            resturantInfo: '',
             restaurantName: '',
             filteredList: this.arrPlate_categories,
             categoryList: [],
+            quantityCounter: 0,
             cartToggle: 'fe-menu-cart',
+            recapOrder: [],
         }
     }
 
@@ -267,8 +270,10 @@ class MenuRestaurant extends React.Component {
         let idRestaurant = this.props.restaurantIdDuck.restaurant_id
         let response = await properties.GENERIC_SERVICE.apiGET(`/platecategories/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
         // NAME NON AUTH
-        let responseName = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
+        let responseName = await properties.GENERIC_SERVICE.apiGET(`/restaurant/info/${idRestaurant}`, this.props.tokenDuck.token)
+        console.log(responseName, 'EEEE')
         let responsePlate = await properties.GENERIC_SERVICE.apiGET(`/plates/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
+        
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", [])
         // AUTORIZZ?
@@ -298,26 +303,18 @@ class MenuRestaurant extends React.Component {
             this.setState({
                 categoryList: this.categoriesArr,
                 restaurantName: responseName.name,
+                restaurantInfo: responseName.city +  ' ' + ' • ' + responseName.averageReview + ' ⭐ ',
                 adressRestaurant: responseName.address
                 
             })
-            // this.arrPlate_categories = response
-            // let res = this.arrPlate_categories.map((item) => {
-            //     return item
-            // })
-            // console.log(this.arrPlate_categories, 'plateCat')
-            // console.log(res, 'res')
-            
            
-
-            // andare avanti nella prossima pagina
 
         }
 
         
     }
 
-
+    
     scrollOnTop = () => {
         window.scrollTo(0, 0)
     }
@@ -328,57 +325,73 @@ class MenuRestaurant extends React.Component {
         })
     }
 
-    operatorSwitch = (e) => {
-        let operator = e.target.getAttribute('operator')
-        switch (operator) {
-            case '+':
-                this.add(e);
-                break;
-            case '-':
-                this.remove(e);
-            default:
-                break;
-        }
-    }
-    add = (e) => {
+    operatorSwitch = async(q, e) => {
+        console.log('switch', e.target)
+        
+        await e.preventDefault()
         let currentTarget = e.target.value
-        let tempArr = this.state.menuArray;
-        for (let i = 0; i < tempArr.length; i++) {
-            const element = tempArr[i];
-            if (element.plate_name === currentTarget) {
-                this.setState({
-                    menuArray: [...this.menuArray,
-                    this.menuArray[i].plate_quantity++],
-                    totalPrice: this.state.totalPrice + this.menuArray[i].price
+        let currentName = e.target.name
+        let currentPrice = e.target.price
+        let findOrder = undefined
+
+        console.log('price', currentPrice)
+        let recapOrder = this.state.recapOrder
+
+        if(recapOrder.length === 0){
+            recapOrder.push({
+                plateId: currentTarget,
+                quantity: q,
+                name: currentName,
+                price: currentPrice
+            })
+        }
+        else{
+            findOrder = _.find(recapOrder, (item, key)=>{
+                return item.plateId === currentTarget
+                // console.log(item.plateId, 'plateId')
+                
+            })
+
+            if(findOrder === undefined){
+                recapOrder.push({
+                    plateId: currentTarget,
+                    quantity: q,
+                    name: currentName,
+                    price: currentPrice
                 })
             }
-        }
-    }
-    remove = (e) => {
-        let currentTarget = e.target.value
-        let tempArr = this.state.menuArray;
-        for (let i = 0; i < tempArr.length; i++) {
-            const element = tempArr[i];
-
-            if (element.plate_name === currentTarget) {
-                if (element.plate_quantity == 0) { return; }
-                this.setState({
-                    menuArray: [...this.menuArray,
-                    this.menuArray[i].plate_quantity--],
-                    totalPrice: this.state.totalPrice - this.menuArray[i].price
-
-                })
+            else{
+                findOrder.quantity = q
             }
         }
-    }
 
-    goToFinalPage = () => {
-        localStorage.setItem('orderConfirmed', JSON.stringify(this.state.menuArray.filter(item => item.plate_quantity > 0)));
+
+
+        this.setState({
+            recapOrder: findOrder === undefined?recapOrder:findOrder,
+            quantityCounter: q
+
+        })
+        
+
+    }
+        
+    
+
+    goToFinalPage = async() => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiPOST('/order', JSON.stringify(this.state.recapOrder),this.props.tokenDuck.token )
+        console.log(response, 'response')
+        
+        
+        
         this.props.history.push('/orderConfirmed');
     }
 
     render() {
         const { t } = this.props
+
+        console.log('recapOrder',this.state.recapOrder)
         return (
             <>
                 <Navbar />
@@ -388,7 +401,7 @@ class MenuRestaurant extends React.Component {
                         <div className='fe-menu-header-restaurant' data-aos="zoom-in">
                             <div className='fe-menu-info-container'>
                                 <h2 className='fe-menu-restaurant-name'>{this.state.restaurantName}</h2>
-                                <p className='fe-menu-restaurant-price'>Costo 1.90€ • 30-40 min  • 4.5 </p>
+                                <p className='fe-menu-restaurant-price'>{this.state.restaurantInfo}</p>
                             </div>
                             <div className='fe-menu-filter-blur'></div>
                         </div>
@@ -432,21 +445,22 @@ class MenuRestaurant extends React.Component {
                                 {t('frontend.components.my_cart.cart')}
                             </h2>
 
-                            <div className='fe-menu-cart-content'>
+                            {/* <div className='fe-menu-cart-content'>
                                 {
                                     // item.plate_quantity > 0
-                                    this.state.menuArray.filter((item) => {
+                                    this.state.recapOrder.filter((item) => {
                                         return item
                                     }).map((item, index) => {
+                                        console.log(item, 'item')
                                         return (
                                             <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
-                                                <span> {item.name}</span>
+                                                <span> {item.name}•{item.quantity} * {item.price}</span>
                                                 <span>{(item.price).toFixed(2)}€</span>
                                             </div>
                                         )
                                     })
                                 }
-                            </div>
+                            </div> */}
 
 
                             {this.state.totalPrice > 0 ? (
@@ -480,14 +494,13 @@ class MenuRestaurant extends React.Component {
                                                     this.menuArray.map((item, key) => {
                                                         return (
                                                             <SinglePlate
-
                                                                 key={key}
                                                                 image={item.img}
                                                                 descriptPlate={item.description}
                                                                 plateName={item.name}
+                                                                valueId={item.id}
                                                                 platePrice={item.price}
-                                                                // quantity={item.plate_quantity}
-                                                                // counter={item.plate_quantity}
+                                                                // quantity={this.state.quantityCounter}
                                                                 classNameWrapper="fe-menu-single-plate"
                                                                 classNameImage="imageSinglePlate"
                                                                 callbackHandler={this.operatorSwitch}
