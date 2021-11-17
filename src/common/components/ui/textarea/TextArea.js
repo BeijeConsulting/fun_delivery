@@ -25,6 +25,7 @@ const TextArea = (props) => {
             placeholder={props.placeholder}
             value={props.value}
             disabled={props.disable}
+            title={props.title}
         />                    
     )
 }

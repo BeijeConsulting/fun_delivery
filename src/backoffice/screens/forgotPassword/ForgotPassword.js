@@ -55,9 +55,7 @@ class ForgotPassword extends Component {
             }
 
             let refreshPassword = await properties.GENERIC_SERVICE.apiPUT('/user/update/password/', newPswInfo);
-            console.log('refreshPsw', refreshPassword)
             let statusCode = _get(refreshPassword, "status", null);
-            console.log('statusCode', statusCode)
 
             if (statusCode === 401) {
                 error = true;
