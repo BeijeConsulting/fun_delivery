@@ -12,6 +12,8 @@ class genericServices {
             baseURL: properties.BASE_URL, // base url del server
             timeout: 1000, //MS
         });
+        this.errorAgain = false;
+
 
         // Richiamo l'application store
         this.store = ApplicationStore;
@@ -24,11 +26,11 @@ class genericServices {
             },
             async (error) => {
                 // console.log("errorInterceptors,", error);
-
                 const originalRequest = error.config;
                 //console.log("originalRequest,", originalRequest);'
                 originalRequest._retry = false
-                if (error.response.status === 403 && !originalRequest._retry) {
+                if (error.response.status === 403 && !originalRequest._retry && !this.errorAgain) {
+                    this.errorAgain = true
                     originalRequest._retry = true;
                     const refresh_token = this.store.getState().refreshTokenDuck.refreshToken
                     if (refresh_token !== undefined) {
@@ -55,6 +57,13 @@ class genericServices {
                             return Promise.reject(_error);
                         }
                     }
+                }
+
+                if(this.errorAgain){
+                    this.store.dispatch(initToken())
+                    this.store.dispatch(initRestaurantId())
+                    this.history.push('/not-authorized', { error: 500 })
+                    window.location.reload()
                 }
 
                 if (error.response.status === 404) {
