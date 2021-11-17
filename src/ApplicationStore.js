@@ -8,11 +8,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
     key: 'tokenDuck',
     storage: storage,
-<<<<<<< HEAD
-    whitelist: ['tokenDuck','restaurantIdDuck','refreshTokenDuck','infoDuck'] // which reducer want to store
-=======
     whitelist: ['tokenDuck','restaurantIdDuck','refreshTokenDuck', 'infoDuck'] // which reducer want to store
->>>>>>> develop
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);

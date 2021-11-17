@@ -205,9 +205,6 @@ const Restaurants = (props) => {
 
     const filterByDeliveryRestaurants = (e)=> {
         let filteredRestaurants = []
-<<<<<<< HEAD
-        e.value ===1 ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'free_shipping': parseInt(e.value) })
-=======
         if (e.name === 'free') {
             filteredRestaurants = filter(state.restaurantsData, { 'restaurantFreeShipping': true })
             
@@ -217,7 +214,6 @@ const Restaurants = (props) => {
             filteredRestaurants = state.restaurantsData
         }
         
->>>>>>> develop
         setState({
             ...state,
             objectRestaurantsForList: filteredRestaurants

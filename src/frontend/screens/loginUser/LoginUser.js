@@ -72,15 +72,9 @@ class LoginUser extends React.Component {
                 console.log(id)
                 let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
                 this.props.dispatch(setUserInfo(getId.firstName))
-<<<<<<< HEAD
             }
             this.props.history.push('/userHome')
 
-=======
-                
-            }
-            this.props.history.push('/restaurants')
->>>>>>> develop
         }
         
         this.setState({
