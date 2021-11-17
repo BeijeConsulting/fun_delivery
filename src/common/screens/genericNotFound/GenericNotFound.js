@@ -21,7 +21,7 @@ const GenericNotFound = (props) => {
                 {errorFound === 500 && (
                     <p>{t('common.screens.generic_not_found.server_error')}</p>
                 )}
-                {errorFound === 404 && (
+                {errorFound === null && (
                     <p>{t('common.screens.generic_not_found.not_found')}</p>
                 )}
                 <div>

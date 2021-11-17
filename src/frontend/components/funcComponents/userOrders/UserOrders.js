@@ -27,12 +27,10 @@ class UserOrders extends Component {
 
     getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let ordersUser = await properties.GENERIC_SERVICE.apiGET('/order/user/4', this.props.tokenDuck.token)
+        let ordersUser = await properties.GENERIC_SERVICE.apiGET(`/order/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let statusCode = _get(ordersUser, "status", null)
         let userRole = _get(ordersUser, "permission", [])
-
         let listRestaurants = await properties.GENERIC_SERVICE.apiGET('/restaurants', this.props.tokenDuck.token)
-        console.log('listRestaurants', listRestaurants)
 
         this.setState({
             loadingRender: true,
@@ -69,7 +67,6 @@ class UserOrders extends Component {
     filterRestaurant = (e) => () => {
         let restaurantName = this.state.listRestaurants.filter((item) => {
             if (item.id === e.restaurantId) {
-                // console.log(item.name)
                 return (item.name)
             }
         })
@@ -85,7 +82,7 @@ class UserOrders extends Component {
                     <div className="MissionContainer">
                         <h1 style={{ fontSize: '1.4rem', color: 'var(--primary-dark)' }}>I miei ordini</h1>
                         {
-                            this.state.ordersUser.map(this.printOrders)
+                            this.state.ordersUser.length>0 ? this.state.ordersUser.map(this.printOrders) : <p>Nessun ordine</p>
                         }
                     </div>
                 }
@@ -95,7 +92,8 @@ class UserOrders extends Component {
 }
 
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 
 export default connect(mapStateToProps)(UserOrders);

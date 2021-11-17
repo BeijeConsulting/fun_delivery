@@ -3,7 +3,7 @@ import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from "../../../common/assets/delivery.png"
-import "./LoginUser.css"
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 // import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
@@ -11,13 +11,14 @@ import { Helmet } from "react-helmet";
 import i18n from "../../../common/localization/i18n";
 import { withTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar";
-import { connect } from 'react-redux';
-import { setToken } from '../../../common/redux/duck/tokenDuck'
 import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
+import { setToken } from '../../../common/redux/duck/tokenDuck'
+import { setRefreshToken} from '../../../common/redux/duck/refreshTokenDuck'
 import { get as _get } from 'lodash';
 import { setUserInfo } from "../../redux/infoDuck";
 import { setUserId } from "../../redux/userIdDuck";
+import "./LoginUser.css"
 class LoginUser extends React.Component {
     constructor(props) {
         super(props)
@@ -64,6 +65,7 @@ class LoginUser extends React.Component {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
                 this.props.dispatch(setUserId(response.id))
+                this.props.dispatch(setRefreshToken(response.refreshToken))
                 // let getId = await properties.GENERIC_SERVICE.apiGET('/user' + {token})
                 // console.log(getId, 'getId')
 
