@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+
+//Import style
 import './Sponsor.css';
-import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
-import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
-// import CountDownTimer from "../../../gamification/components/funcComponents/CountDownTimer";
+
+//Import icons
 import coin from '../../../common/assets/BeijeCoin.png'
-// import { HourglassOutlined } from '@ant-design/icons';
+
+//Import component
 import SingleSponsor from "./singleSponsor/SingleSponsor";
+import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
+import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
+
 class Profile extends Component {
     constructor(props) {
         let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
@@ -17,14 +23,9 @@ class Profile extends Component {
             choice: storage === null ? '' : storage,
             expireData: null,
             sponsorAvailable: true,
-
             sponsorSelected: storageRestaurantSelected === null ? '' : storageRestaurantSelected,
-
-
-
             objRestaurant: null
         }
-
     }
 
 
@@ -40,52 +41,45 @@ class Profile extends Component {
 
 
         // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-        console.log('risto attivo : ', this.activeRestaurant)
 
     }
 
     handleOnClick = (e) => () => {
-        let choice = this.state.choice;
-        choice = e;
+        if (this.state.choice === '') {
 
-        this.totalRestaurant.restaurant_list.map(element => {
-            if (element.id === this.restaurantId) {
-                if (this.activeRestaurant.coins >= choice.price) {
+            let choice = this.state.choice;
+            choice = e;
 
-                    let result = this.activeRestaurant.coins - choice.price;
-                    console.log(result)
-                    this.activeRestaurant.coins = result;
-                    console.log('activeRestaurant: ', this.activeRestaurant)
+            this.totalRestaurant.restaurant_list.map(element => {
+                if (element.id === this.restaurantId) {
+                    if (this.activeRestaurant.coins >= choice.price) {
 
-                    localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-                    //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
-                    element.sponsor = true;
-                    element = this.activeRestaurant;
-                    localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
-                    console.log(this.state.choice)
-                    console.log('EEEEEEEEE: ', e)
-                    let newChoice = e.durata + this.newDate;
-                    for (let key in e) {
-                        if (key === 'durata') {
-                            e[key] = newChoice;
+                        let result = this.activeRestaurant.coins - choice.price;
+                        this.activeRestaurant.coins = result;
+
+                        localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+                        //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
+                        element.sponsor = true;
+                        element = this.activeRestaurant;
+                        localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
+                        let newChoice = e.durata + this.newDate;
+                        for (let key in e) {
+                            if (key === 'durata') {
+                                e[key] = newChoice;
+                            }
                         }
+                        this.setState({
+                            choice: e,
+                            sponsorSelected: this.activeRestaurant
+                        })
+                        localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
                     }
-
-
-
-                    this.setState({
-                        choice: e,
-                        sponsorSelected: this.activeRestaurant
-                    })
-                    console.log('choice post set state ', choice)
-                    localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
+                    else {
+                        console.log('sei povero!')
+                    }
                 }
-                else {
-                    console.log('sei povero!')
-                }
-            }
-        })
-
+            })
+        }
 
     }
 
@@ -117,7 +111,6 @@ class Profile extends Component {
 
 
     render() {
-        console.log(this.state.sponsorSelected)
         return (
             <>
 
@@ -133,7 +126,8 @@ class Profile extends Component {
 
 
                                 <div style={{ marginBottom: '10px' }}>
-                                    <span>{this.state.sponsorSelected.coins}</span>
+                                    {/* <span>{this.state.sponsorSelected.coins}</span> */}
+                                    <span>Inutile da fixare</span>
                                     <img style={{ width: '20px', height: '20px' }} src={coin} alt="beijecoin" />
                                 </div>
 
@@ -152,7 +146,7 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-1'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Povero', id: 1, durata: 86400000, price: 10 })}
                             />
                             <SingleSponsor
@@ -165,7 +159,7 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-2'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Borghese', id: 2, durata: 604800000, price: 50 })}
                             />
                             <SingleSponsor
@@ -178,15 +172,15 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-3'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtnDisable'}
+                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick({ name: 'Milanese imbruttito', id: 3, durata: 2592000000, price: 100 })}
                             />
                         </div>
 
                         {
                             this.state.choice !== '' &&
-                            <div>
-                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>La durata di {this.state.choice.name} é: </h1>
+                            <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>Termine sponsorizzazione di {this.state.choice.name} in: </h1>
                                 <h3 style={{ color: 'red' }}> {this.state.expireData}</h3>
 
 
@@ -210,4 +204,8 @@ class Profile extends Component {
     }
 }
 
-export default Profile
+const mapStateToProps = state =>({
+    tokenDuck: state.tokenDuck
+})
+
+export default connect(mapStateToProps)(Profile)

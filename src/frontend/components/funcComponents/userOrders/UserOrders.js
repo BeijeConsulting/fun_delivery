@@ -1,62 +1,63 @@
 
-import Button from "../../../../common/components/ui/button/Button"
-import { Component } from "react";
+import React, { Component } from "react";
 import './UserOrders.css'
-import Coin from '../../../../common/assets/BeijeCoin.png'
-import properties from "../../../../gamification/utilities/properties";
-
+import properties from "../../../../common/utils/properties";
+import genericServices from "../../../../common/utils/genericServices";
+import { connect } from "react-redux";
+import { get as _get } from 'lodash';
+import moment from "moment";
 
 class UserOrders extends Component {
     constructor(props) {
         super(props);
-        this.storage = JSON.parse(localStorage.getItem('userInfo'))
-        this.userOrders = properties.userOrders
 
         this.state = {
             arr: this.userOrders,
             modalMission: false,
             modalAvatar: false,
-            storage: this.storage === null ? [] : this.storage,
+            loadingRender: false,
+            ordersUser: null,
+            listRestaurants: null
         }
-        console.log(this.state.storage)
     }
 
-    // controllCheck = () => {
-    //     let arr = this.state.arr;
-    //     let count = 0
-    //     arr.map((element, key) => {
-    //         if (element.check === true) {
-    //             count = count + 1
-    //         }
-    //     })
+    componentDidMount = () => {
+        this.getDataApi()
+    }
 
-    //     if (count === this.state.arr.length) {
-    //         this.setState({ arr: [] })
+    getDataApi = async () => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let ordersUser = await properties.GENERIC_SERVICE.apiGET('/order/user/4', this.props.tokenDuck.token)
+        let statusCode = _get(ordersUser, "status", null)
+        let userRole = _get(ordersUser, "permission", [])
 
-    //     }
-    // }
-    // componentDidMount() {
-    //     this.controllCheck()
-    // }
+        let listRestaurants = await properties.GENERIC_SERVICE.apiGET('/restaurants', this.props.tokenDuck.token)
+        console.log('listRestaurants', listRestaurants)
+
+        this.setState({
+            loadingRender: true,
+            ordersUser: ordersUser,
+            listRestaurants: listRestaurants
+        })
+    }
 
 
-
-    printMissions = (e, i) => {
+    printOrders = (e, i) => {
 
         return <div key={i} className="MissionMenuContainer">
             <ul className="UserOrdersMenu">
 
                 <li className='UserOrderSingle'>
                     <div className="OrderSingleTitle">
-                        <h2 style={{ color: 'var(--primary-dark' }}><span style={{ color: 'var(--primary-dark)', fontSize: "16px" }}>Ristorante:&nbsp;&nbsp;&nbsp;</span>{e.title}</h2>
+                        <h2 style={{ color: 'var(--primary-dark' }}><span style={{ color: 'var(--primary-dark)', fontSize: "16px" }}>Ristorante:&nbsp;&nbsp;&nbsp;</span>{this.filterRestaurant(e)()}</h2>
                     </div>
                     <div className="UserOrdersDatas">
-                        <p>Data: {e.description}</p>
+                        <p>Data: {moment(e.date).format('L')}</p>
                         <span className="MissionSub">
                             <span>
                                 Fattura:&nbsp;&nbsp;
                             </span>
-                            €{e.cost}
+                            €{e.total}
                         </span>
                     </div>
                 </li>
@@ -65,17 +66,36 @@ class UserOrders extends Component {
     }
 
 
+    filterRestaurant = (e) => () => {
+        let restaurantName = this.state.listRestaurants.filter((item) => {
+            if (item.id === e.restaurantId) {
+                // console.log(item.name)
+                return (item.name)
+            }
+        })
+        return(restaurantName[0].name)
+    }
+
+
     render() {
         return (
-            <div className="MissionContainer">
-                <h1 style={{ fontSize: '1.4rem', color: 'var(--primary-dark)' }}>I miei ordini</h1>
+            <>
                 {
-                    this.state.arr.map(this.printMissions)
+                    this.state.loadingRender &&
+                    <div className="MissionContainer">
+                        <h1 style={{ fontSize: '1.4rem', color: 'var(--primary-dark)' }}>I miei ordini</h1>
+                        {
+                            this.state.ordersUser.map(this.printOrders)
+                        }
+                    </div>
                 }
-            </div>
+            </>
         )
     }
 }
 
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck
+})
 
-export default UserOrders;
+export default connect(mapStateToProps)(UserOrders);
