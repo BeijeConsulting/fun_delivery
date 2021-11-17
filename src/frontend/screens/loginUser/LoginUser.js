@@ -58,7 +58,7 @@ class LoginUser extends React.Component {
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", null)
-            if (statusCode === 401 || userRole === "restaurant") {
+            if (statusCode === "401" || userRole === "restaurant") {
                 error = true;
             }
             else {
@@ -133,6 +133,10 @@ class LoginUser extends React.Component {
                             callback={this.validateClick}
                             className={'frontend-primary-btn'}
                         />
+                        {
+                            this.state.errorMsg &&
+                            <p>{t('backoffice.screens.login.error')}</p>
+                        }
                     </div>
                     <Link to="/registrationUser" style={{ textDecoration: 'none' }}>
                         <HtmlTag
