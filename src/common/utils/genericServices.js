@@ -4,6 +4,8 @@ import { ApplicationStore } from "../../ApplicationStore";
 import { initToken, setToken } from "../redux/duck/tokenDuck";
 import { createBrowserHistory } from "history";
 import { initRestaurantId } from "../redux/duck/restaurantIdDuck";
+import { initUserId } from "../../frontend/redux/userIdDuck"
+
 //Roberto structure, to be adapted
 class genericServices {
     constructor() {
@@ -12,6 +14,8 @@ class genericServices {
             baseURL: properties.BASE_URL, // base url del server
             timeout: 1000, //MS
         });
+        this.errorAgain = false;
+
 
         // Richiamo l'application store
         this.store = ApplicationStore;
@@ -24,11 +28,11 @@ class genericServices {
             },
             async (error) => {
                 // console.log("errorInterceptors,", error);
-
                 const originalRequest = error.config;
                 //console.log("originalRequest,", originalRequest);'
                 originalRequest._retry = false
-                if (error.response.status === 403 && !originalRequest._retry) {
+                if (error.response.status === 403 && !originalRequest._retry && !this.errorAgain) {
+                    this.errorAgain = true
                     originalRequest._retry = true;
                     const refresh_token = this.store.getState().refreshTokenDuck.refreshToken
                     if (refresh_token !== undefined) {
@@ -50,6 +54,7 @@ class genericServices {
                             // Rest redux e vado alla login
                             this.store.dispatch(initToken())
                             this.store.dispatch(initRestaurantId())
+                            this.store.dispatch(initUserId())
                             this.history.push('/')
                             window.location.reload()
                             return Promise.reject(_error);
@@ -57,9 +62,18 @@ class genericServices {
                     }
                 }
 
+                if(this.errorAgain){
+                    // this.store.dispatch(initToken())
+                    // this.store.dispatch(initRestaurantId())
+                    // this.store.dispatch(initUserId())
+                    // this.history.push('/not-authorized', { error: 403 })
+                    // window.location.reload()
+                }
+
                 if (error.response.status === 404) {
                     this.store.dispatch(initToken())
                     this.store.dispatch(initRestaurantId())
+                    this.store.dispatch(initUserId())
                     this.history.push('/not-found')
                     window.location.reload()
                 }
@@ -67,6 +81,7 @@ class genericServices {
                 if (error.response.status === 500) {
                     this.store.dispatch(initToken())
                     this.store.dispatch(initRestaurantId())
+                    this.store.dispatch(initUserId())
                     this.history.push(`/not-found`, { error: 500 })
                     window.location.reload()
                 }

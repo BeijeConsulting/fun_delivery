@@ -3,7 +3,8 @@ export const TRANSLATIONS_COMMON = {
         generic_not_found: {
             not_found: 'Page or resource not found.',
             server_error: 'The server is temporarily unavailable',
-            go_home_page: 'Go to homepage'
+            not_authorized: 'You are not authorized to access this page',
+            go_home_page: 'Go back to the homepage'
         }
     },
     components: {

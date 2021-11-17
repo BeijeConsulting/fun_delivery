@@ -74,21 +74,21 @@ class UserHome extends Component {
 
     getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let dataUser = await properties.GENERIC_SERVICE.apiGET('/user/163', this.props.tokenDuck.token)
+        let dataUser = await properties.GENERIC_SERVICE.apiGET(`/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
 
-     
-        let avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', this.props.tokenDuck.token)
-        let badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', this.props.tokenDuck.token)
+
+        let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+        // let badge = await properties.GENERIC_SERVICE.apiGET(`/badge/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
-        
-        let wheelUser = await properties.GENERIC_SERVICE.apiGET('/wheel/of_user/163', this.props.tokenDuck.token)
-        let lastWheelUser = wheelUser[wheelUser.length-1]
+
+        let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+        let lastWheelUser = wheelUser[wheelUser.length - 1]
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
-        let wheelAward = lastWheelUser.award ? lastWheelUser.award : 'Wheel award'
-    
+        let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
+        console.log(wheelAward)
 
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
 
@@ -100,6 +100,8 @@ class UserHome extends Component {
             this.newWheelAvaileble = this.compare
         }
 
+        console.log("avatar: ", avatar)
+
         this.setState({
             wheelAvailable: this.newWheelAvaileble,
             loadingRender: true,
@@ -107,7 +109,7 @@ class UserHome extends Component {
 
             oldDate: oldDate,
             avatar: avatar,
-            badge: badge,
+            // badge: badge,
             wheelAward: wheelAward,
             totalExp: totalExp
         })
@@ -307,7 +309,7 @@ class UserHome extends Component {
                                         <div className='fe-user-header'>
                                             {/* User images */}
                                             <div className='fe-user-images-container'>
-                                                {/* <img className='fe-user-avatar' src={avatar.path} alt="avatar" onClick={callbackSwitcher} name='userAvatar' /> */}
+                                                <img className='fe-user-avatar' src={this.state.avatar.path} alt="avatar" onClick={this.callbackSwitcher} name='userAvatar' />
 
                                                 <div className='fe-user-badge-container'>
                                                     {/* <img className='fe-user-badge' src={badge.path} alt="badge" onClick={callbackSwitcher} name='userAvatar' /> */}
@@ -505,7 +507,8 @@ class UserHome extends Component {
 }
 
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 
 export default connect(mapStateToProps)(UserHome);
