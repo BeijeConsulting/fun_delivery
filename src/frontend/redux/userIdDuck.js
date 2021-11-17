@@ -16,13 +16,13 @@ export function initUserId() {
     return {
         type: INIT_USERID,
         payload: {
-            userID: ''
+            userID: null
         }
     }
 }
 
 const INIT_STATE = {
-    userID: ''
+    userID: null
 }
 
 // Reducer (Quello che gestirà l'azione)
@@ -34,7 +34,7 @@ export default function userIdDuck(state = INIT_STATE, action) {
             return newState;
         case INIT_USERID:
             var newState = Object.assign({}, state);
-            newState.userID = '';
+            newState.userID = null;
             return newState;
         default:
             return state

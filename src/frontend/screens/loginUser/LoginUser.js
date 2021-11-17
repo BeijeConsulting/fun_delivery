@@ -17,6 +17,7 @@ import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
 import { get as _get } from 'lodash';
 import { setUserInfo } from "../../redux/infoDuck";
+import { setUserId } from "../../redux/userIdDuck";
 class LoginUser extends React.Component {
     constructor(props) {
         super(props)
@@ -26,8 +27,8 @@ class LoginUser extends React.Component {
             errorMsg: ""
         }
     }
-   
-   
+
+
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
         let error = ''
@@ -61,22 +62,21 @@ class LoginUser extends React.Component {
             }
             else {
                 // Salvare token nel duck
-                let token = this.props.dispatch(setToken(response.token))
-                // // FARE USER + ID PER TROVARE IL NOME
+                this.props.dispatch(setToken(response.token))
+                this.props.dispatch(setUserId(response.id))
                 // let getId = await properties.GENERIC_SERVICE.apiGET('/user' + {token})
                 // console.log(getId, 'getId')
-                
+
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
                 let id = response.id
                 console.log(id)
                 let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
                 this.props.dispatch(setUserInfo(getId.firstName))
+                this.props.history.push('/userHome')
             }
-            this.props.history.push('/userHome')
-
         }
-        
+
         this.setState({
             errorMsg: error
         })
@@ -91,7 +91,7 @@ class LoginUser extends React.Component {
             password: e.target.value
         })
     }
-    
+
     render() {
         const { t } = this.props
         return (
@@ -152,10 +152,11 @@ class LoginUser extends React.Component {
         )
     }
 }
-const mapStateToProps = state => ( {
-    infoDuck: state.infoDuck
-  } )
-  
+const mapStateToProps = state => ({
+    infoDuck: state.infoDuck,
+    userIdDuck: state.userIdDuck
+})
+
 export default connect(mapStateToProps)(withTranslation()(LoginUser));
 
 

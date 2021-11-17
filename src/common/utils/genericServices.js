@@ -4,7 +4,7 @@ import { ApplicationStore } from "../../ApplicationStore";
 import { initToken, setToken } from "../redux/duck/tokenDuck";
 import { createBrowserHistory } from "history";
 import { initRestaurantId } from "../redux/duck/restaurantIdDuck";
-import { initUserId } from "../../frontend/redux/userId"
+import { initUserId } from "../../frontend/redux/userIdDuck"
 
 //Roberto structure, to be adapted
 class genericServices {

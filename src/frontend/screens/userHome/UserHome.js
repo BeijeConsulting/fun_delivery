@@ -65,6 +65,7 @@ class UserHome extends Component {
 
         this.levelExp = 1000
         this.percentageExp = 0
+        console.log(this.props)
     }
 
 
@@ -74,21 +75,21 @@ class UserHome extends Component {
 
     getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let dataUser = await properties.GENERIC_SERVICE.apiGET('/user/163', this.props.tokenDuck.token)
+        let dataUser = await properties.GENERIC_SERVICE.apiGET(`/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
 
-     
-        let avatar = await properties.GENERIC_SERVICE.apiGET('/avatar/detail/1', this.props.tokenDuck.token)
-        let badge = await properties.GENERIC_SERVICE.apiGET('/badge/1', this.props.tokenDuck.token)
+
+        let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+        let badge = await properties.GENERIC_SERVICE.apiGET(`/badge/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
-        
+
         let wheelUser = await properties.GENERIC_SERVICE.apiGET('/wheel/of_user/163', this.props.tokenDuck.token)
-        let lastWheelUser = wheelUser[wheelUser.length-1]
+        let lastWheelUser = wheelUser[wheelUser.length - 1]
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
         let wheelAward = lastWheelUser.award ? lastWheelUser.award : 'Wheel award'
-    
+
 
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
 
@@ -505,7 +506,8 @@ class UserHome extends Component {
 }
 
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 
 export default connect(mapStateToProps)(UserHome);

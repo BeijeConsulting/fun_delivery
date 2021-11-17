@@ -6,7 +6,9 @@ import { withTranslation } from 'react-i18next';
 import { get as _get } from 'lodash';
 
 const GenericNotFound = (props) => {
+    console.log("props: ", props)
     const errorFound = _get(props, 'location.state.error', null)
+    //fixare e mettere sia location.state.error e location.history error 
     const { t } = props;
     return (
         <div className="generic-not-found">
