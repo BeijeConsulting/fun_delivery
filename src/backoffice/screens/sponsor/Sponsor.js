@@ -15,6 +15,7 @@ import coin from '../../../common/assets/BeijeCoin.png'
 import SingleSponsor from "./singleSponsor/SingleSponsor";
 import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
+import { difference } from "lodash";
 
 class Sponsor extends Component {
     constructor(props) {
@@ -73,6 +74,7 @@ class Sponsor extends Component {
 
         let cost = null
         let sponsorName = null
+        let difference = null
         let newCoins = this.state.totalCoin
         if (e === 1) {
             cost = 10
@@ -92,18 +94,22 @@ class Sponsor extends Component {
             if (e === 1) {
                 sponsorName = "Povero"
                 newCoins -= 10
+                difference = 86400000
             }
             if (e === 7) {
                 sponsorName = "Borghese"
                 newCoins -= 50
+                difference = 604800000
             }
             if (e === 30) {
                 sponsorName = "Milanese imbruttito"
                 newCoins -= 100
+                difference = 2592000000
             }
             this.setState({
                 sponsorName: sponsorName,
-                totalCoin: newCoins
+                totalCoin: newCoins,
+                difference: difference
             })
         }/* else sei povero */
 
@@ -196,7 +202,7 @@ class Sponsor extends Component {
                         </div>
 
                         {
-                            this.state.difference > 0 &&
+                            this.state.difference > 0 && this.state.sponsorName.length >0 &&
 
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                                 <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>Termine sponsorizzazione di {this.state.sponsorName} in: </h1>
