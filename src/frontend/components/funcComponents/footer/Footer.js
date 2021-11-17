@@ -29,7 +29,7 @@ const Footer = ({ t, i18n }) => {
         <footer>
             <div className="fe-footer-container">
 
-                <div class="fe-footer-logo">
+                <div className="fe-footer-logo">
 
                     <img className="fe-logoRosa-style" src={logo_beijeRosa} />
 
@@ -37,7 +37,7 @@ const Footer = ({ t, i18n }) => {
                 </div>
 
 
-                <div class="fe-footer-icons">
+                <div className="fe-footer-icons">
                     <HtmlTag
                         tag='p'
                         text={t('frontend.components.landing_page.footer.paragraph.third')}
@@ -53,7 +53,7 @@ const Footer = ({ t, i18n }) => {
 
 
 
-                <div class="fe-footer-right">
+                <div className="fe-footer-right">
 
                     <p>{t('frontend.components.landing_page.footer.paragraph.first')}</p>
 

@@ -90,6 +90,7 @@
 .left-inner-text,
 .right-inner-text{
     font-weight: 700;
+    background-color: transparent;
     z-index: 20;
     color: var(--primary-dark);
     position: absolute;

@@ -5,8 +5,22 @@ import Item from "antd/lib/list/Item";
 
 const SinglePlate = (props) => {
   
-    const addRemove = (e) =>{
-        return props.callbackHandler(e);
+    const [state,setState] = useState({
+        quantity: 0
+    })
+
+
+    const add = (e) => {
+        let q = state.quantity + 1
+        setState({quantity :  q})
+
+        props.callbackHandler(q, e);
+        
+    }
+    const remove = (e) => {
+        let q = state.quantity - 1
+        setState({quantity :  q})
+        props.callbackHandler(q, e);
     }
   
     return (
@@ -19,17 +33,21 @@ const SinglePlate = (props) => {
                         <div className='pricePlate'> {props.platePrice}€</div>
                         <div className='orderSection'>
                             <button 
+                                id={props.id}
                                 className='buttonAddOrder' 
-                                value={props.plateName}
+                                name={props.plateName}
+                                value={props.valueId}
                                 operator={'+'} 
-                                onClick={addRemove} >+
+                                onClick={add} >+
                             </button>
-                            <p className='counterOrder'>{props.quantity}</p>
+                            <p className='counterOrder'>{state.quantity}</p>
                             <button 
                                 className='buttonRemoveOrder' 
                                 operator={'-'} 
-                                onClick={addRemove} 
-                                value={props.plateName} >-
+                                id={props.idKey}
+                                onClick={remove} 
+                                name={props.plateName}
+                                value={props.valueId} >-
                             </button>
                         </div>
                     </div>
