@@ -254,7 +254,7 @@ const Restaurants = (props) => {
 
     const showApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/restaurantcategories', props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiGET('/platecategories', props.tokenDuck.token)
         let responseData = await properties.GENERIC_SERVICE.apiGET('/restaurants', props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", null)
@@ -304,7 +304,7 @@ const Restaurants = (props) => {
                                     <IconCategories key={key}
                                         label={item.name}
                                         value={item.id}
-                                        icon={Pizza}
+                                        icon={item.img}
                                         callback= {filterByRestaurants}
                                     />
 

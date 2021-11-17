@@ -6,7 +6,7 @@ const IconCategories = (props) => {
 
     return (
         <button className={'icon'} onClick={handleClick} value={props.value}>
-            <img src={props.icon} style={ { width: '55%' , pointerEvents: "none"} } alt={props.altText} />
+            <img src={props.icon} style={ { width: '120px' ,height:'100px', pointerEvents: "none"} } alt={props.altText} />
             {props.label}
             
         </button>
