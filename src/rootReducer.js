@@ -11,5 +11,6 @@ const rootReducer = combineReducers({
     tokenDuck,
     restaurantIdDuck,
     refreshTokenDuck,
+    infoDuck
 })
 export default rootReducer
