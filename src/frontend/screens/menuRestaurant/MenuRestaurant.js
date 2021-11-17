@@ -1,12 +1,10 @@
 import React from 'react'
 import './MenuRestaurant.css'
-import SingleRestaurant from '../../components/classComponents/singleRestaurant/SingleRestaurant'
-import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
 import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate'
 import AOS from 'aos';
 import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
-import filter from "lodash/filter"
+import _ from 'lodash';
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
 import Secondi from '../../../backoffice/assets/images/secondi.jfif'
@@ -19,7 +17,7 @@ import Poke from '../../../backoffice/assets/images/poke.jpg'
 import Sushi from '../../../backoffice/assets/images/sushi.png'
 import Altro from '../../../backoffice/assets/images/altro.jpg'
 import Navbar from '../../components/ui/navbar/Navbar'
-import { createRef } from 'react/cjs/react.production.min'
+// import { createRef } from 'react/cjs/react.production.min'
 
 import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
@@ -49,184 +47,186 @@ class MenuRestaurant extends React.Component {
         //     8: 'Cinese'
         // }
 
-        this.arrPlate_categories = [
-            {
-                id: 1,
-                name: 'Primi',
-                img_path: Primi
-            },
-            {
-                id: 2,
-                name: 'Secondi',
-                img_path: Secondi
-            },
-            {
-                id: 3,
-                name: 'Contorni',
-                img_path: Contorni
-            },
-            {
-                id: 4,
-                name: 'Dessert',
-                img_path: Dessert
-            },
-            {
-                id: 5,
-                name: 'Panini',
-                img_path: Panini
-            },
-            {
-                id: 6,
-                name: 'Pizze',
-                img_path: Pizze
-            },
-            {
-                id: 7,
-                name: 'Messicani',
-                img_path: Messicano
-            },
-            {
-                id: 8,
-                name: 'Pokè',
-                img_path: Poke
-            },
-            {
-                id: 9,
-                name: 'Sushi',
-                img_path: Sushi
-            },
-            {
-                id: 10,
-                name: 'Altro',
-                img_path: Altro
-            },
-        ]
+        this.arrPlate_categories = [];
+            // {
+            //     id: 1,
+            //     name: 'Primi',
+            //     img_path: Primi
+            // },
+            // {
+            //     id: 2,
+            //     name: 'Secondi',
+            //     img_path: Secondi
+            // },
+            // {
+            //     id: 3,
+            //     name: 'Contorni',
+            //     img_path: Contorni
+            // },
+            // {
+            //     id: 4,
+            //     name: 'Dessert',
+            //     img_path: Dessert
+            // },
+            // {
+            //     id: 5,
+            //     name: 'Panini',
+            //     img_path: Panini
+            // },
+            // {
+            //     id: 6,
+            //     name: 'Pizze',
+            //     img_path: Pizze
+            // },
+            // {
+            //     id: 7,
+            //     name: 'Messicani',
+            //     img_path: Messicano
+            // },
+            // {
+            //     id: 8,
+            //     name: 'Pokè',
+            //     img_path: Poke
+            // },
+            // {
+            //     id: 9,
+            //     name: 'Sushi',
+            //     img_path: Sushi
+            // },
+            // {
+            //     id: 10,
+            //     name: 'Altro',
+            //     img_path: Altro
+            // },
+        
 
 
-        this.newPlateCategories = {}
-        for (const iterator of this.arrPlate_categories) {
-            this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
-        }
-        this.categoriesSet = new Set();
-        this.categoriesArr = []
-        for (const key in this.newPlateCategories) {
-            this.categoriesSet.add(this.newPlateCategories[key].name)
-        }
-        for (const iterator of this.categoriesSet) {
-            this.categoriesArr.push(iterator);
-        }
+        this.newPlateCategories = []
+        // for (const iterator of this.arrPlate_categories) {
+        //     this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
+        // }
+        
+        // console.log(this.newPlateCategories, 'SDAD')
+        // this.categoriesSet = new Set();
+         this.categoriesArr = []
+        // for (const key in this.newPlateCategories) {
+        //     this.categoriesSet.add(this.newPlateCategories[key].name)
+        // }
+        // for (const iterator of this.categoriesSet) {
+        //     this.categoriesArr.push(iterator);
+        // }
 
         this.menuArray = [
-            {
-                id: 1,
-                plate_img: Primi,
-                plate_name: 'Spaghetti alla carbonara',
-                plate_description: 'Il piatto più buono',
-                plate_price: 15,
-                plate_category_id: 1,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 2,
-                plate_img: Primi,
-                plate_name: 'Spaghetti al Pesto',
-                plate_description: 'Il piatto più buono',
-                plate_price: 12,
-                plate_category_id: 1,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 3,
-                plate_img: Secondi,
-                plate_name: 'Bistecca',
-                plate_description: 'Il piatto più buono',
-                plate_price: 32.3,
-                plate_category_id: 2,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 4,
-                plate_img: Contorni,
-                plate_name: 'Insalata',
-                plate_description: 'Il piatto più buono',
-                plate_price: 10,
-                plate_category_id: 3,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 5,
-                plate_img: Dessert,
-                plate_name: 'Torta',
-                plate_description: 'Il piatto più buono',
-                plate_price: 6,
-                plate_category_id: 4,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 6,
-                plate_img: Panini,
-                plate_name: 'Panino al salame',
-                plate_description: 'Il piatto più buono',
-                plate_price: 5,
-                plate_category_id: 5,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 7,
-                plate_img: Pizze,
-                plate_name: 'Margherita',
-                plate_description: 'Il piatto più buono',
-                plate_price: 7,
-                plate_category_id: 6,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 8,
-                plate_img: Messicano,
-                plate_name: 'Tacos',
-                plate_description: 'Il piatto più buono',
-                plate_price: 8,
-                plate_category_id: 7,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 9,
-                plate_img: Poke,
-                plate_name: 'Poke',
-                plate_description: 'Il Poke più buono',
-                plate_price: 9,
-                plate_category_id: 8,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 10,
-                plate_img: Sushi,
-                plate_name: 'Sushi',
-                plate_description: 'Il piatto più buono',
-                plate_price: 17,
-                plate_category_id: 9,
-                plate_visibility: true,
-                plate_quantity: 0
-            },
-            {
-                id: 11,
-                plate_img: Altro,
-                plate_name: 'Vermi fritti',
-                plate_description: 'Il piatto più buono',
-                plate_price: 0,
-                plate_category_id: 10,
-                plate_visibility: true,
-                plate_quantity: 0
-            }
+            // {
+            //     id: 1,
+            //     plate_img: Primi,
+            //     plate_name: 'Spaghetti alla carbonara',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 15,
+            //     plate_category_id: 1,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 2,
+            //     plate_img: Primi,
+            //     plate_name: 'Spaghetti al Pesto',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 12,
+            //     plate_category_id: 1,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 3,
+            //     plate_img: Secondi,
+            //     plate_name: 'Bistecca',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 32.3,
+            //     plate_category_id: 2,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 4,
+            //     plate_img: Contorni,
+            //     plate_name: 'Insalata',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 10,
+            //     plate_category_id: 3,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 5,
+            //     plate_img: Dessert,
+            //     plate_name: 'Torta',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 6,
+            //     plate_category_id: 4,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 6,
+            //     plate_img: Panini,
+            //     plate_name: 'Panino al salame',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 5,
+            //     plate_category_id: 5,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 7,
+            //     plate_img: Pizze,
+            //     plate_name: 'Margherita',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 7,
+            //     plate_category_id: 6,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 8,
+            //     plate_img: Messicano,
+            //     plate_name: 'Tacos',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 8,
+            //     plate_category_id: 7,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 9,
+            //     plate_img: Poke,
+            //     plate_name: 'Poke',
+            //     plate_description: 'Il Poke più buono',
+            //     plate_price: 9,
+            //     plate_category_id: 8,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 10,
+            //     plate_img: Sushi,
+            //     plate_name: 'Sushi',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 17,
+            //     plate_category_id: 9,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // },
+            // {
+            //     id: 11,
+            //     plate_img: Altro,
+            //     plate_name: 'Vermi fritti',
+            //     plate_description: 'Il piatto più buono',
+            //     plate_price: 0,
+            //     plate_category_id: 10,
+            //     plate_visibility: true,
+            //     plate_quantity: 0
+            // }
         ]
         /* END DATA */
 
@@ -234,8 +234,14 @@ class MenuRestaurant extends React.Component {
             menuArray: this.menuArray,
             isClick: false,
             totalPrice: 0,
+            adressRestaurant: '',
+            resturantInfo: '',
+            restaurantName: '',
             filteredList: this.arrPlate_categories,
+            categoryList: [],
+            quantityCounter: 0,
             cartToggle: 'fe-menu-cart',
+            recapOrder: [],
         }
     }
 
@@ -254,27 +260,61 @@ class MenuRestaurant extends React.Component {
             duration: 1000
         })
         // REF
+        console.log()
+        
 
         this.scrollOnTop()
 
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/platecategorys')
+        
+        let idRestaurant = this.props.restaurantIdDuck.restaurant_id
+        let response = await properties.GENERIC_SERVICE.apiGET(`/platecategories/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
+        // NAME NON AUTH
+        let responseName = await properties.GENERIC_SERVICE.apiGET(`/restaurant/info/${idRestaurant}`, this.props.tokenDuck.token)
+        console.log(responseName, 'EEEE')
+        let responsePlate = await properties.GENERIC_SERVICE.apiGET(`/plates/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
+        
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", [])
-        if (statusCode === "401" || !userRole.includes("USER")) {
+        // AUTORIZZ?
+        if (statusCode === 401 || userRole === "restaurant") {
             console.log('error')
         }
         else {
-            // Salvare token nel duck
-            this.props.dispatch(setToken(response.token))
-            console.log(response)
+        
+            this.arrPlate_categories = response
+            this.newPlateCategories = this.arrPlate_categories.map((item) => {
+                return item
+            })
+            console.log(this.newPlateCategories, 'di')
+            this.categoriesSet = new Set();
+            this.categoriesArr = []
+            for (const key in this.newPlateCategories) {
+                this.categoriesSet.add(this.newPlateCategories[key].name)
+            }
+            console.log(this.categoriesSet, 'Set')
+            for (const iterator of this.categoriesSet) {
+                this.categoriesArr.push(iterator);
+            }
+            console.log(this.categoriesArr, 'ARR')
+            this.menuArray = responsePlate;
+            console.log(this.menuArray ,' array')
 
-            // andare avanti nella prossima pagina
+            this.setState({
+                categoryList: this.categoriesArr,
+                restaurantName: responseName.name,
+                restaurantInfo: responseName.city +  ' ' + ' • ' + responseName.averageReview + ' ⭐ ',
+                adressRestaurant: responseName.address
+                
+            })
+           
 
         }
+
+        
     }
 
-
+    
     scrollOnTop = () => {
         window.scrollTo(0, 0)
     }
@@ -285,57 +325,73 @@ class MenuRestaurant extends React.Component {
         })
     }
 
-    operatorSwitch = (e) => {
-        let operator = e.target.getAttribute('operator')
-        switch (operator) {
-            case '+':
-                this.add(e);
-                break;
-            case '-':
-                this.remove(e);
-            default:
-                break;
-        }
-    }
-    add = (e) => {
+    operatorSwitch = async(q, e) => {
+        console.log('switch', e.target)
+        
+        await e.preventDefault()
         let currentTarget = e.target.value
-        let tempArr = this.state.menuArray;
-        for (let i = 0; i < tempArr.length; i++) {
-            const element = tempArr[i];
-            if (element.plate_name === currentTarget) {
-                this.setState({
-                    menuArray: [...this.menuArray,
-                    this.menuArray[i].plate_quantity++],
-                    totalPrice: this.state.totalPrice + this.menuArray[i].plate_price
+        let currentName = e.target.name
+        let currentPrice = e.target.price
+        let findOrder = undefined
+
+        console.log('price', currentPrice)
+        let recapOrder = this.state.recapOrder
+
+        if(recapOrder.length === 0){
+            recapOrder.push({
+                plateId: currentTarget,
+                quantity: q,
+                name: currentName,
+                price: currentPrice
+            })
+        }
+        else{
+            findOrder = _.find(recapOrder, (item, key)=>{
+                return item.plateId === currentTarget
+                // console.log(item.plateId, 'plateId')
+                
+            })
+
+            if(findOrder === undefined){
+                recapOrder.push({
+                    plateId: currentTarget,
+                    quantity: q,
+                    name: currentName,
+                    price: currentPrice
                 })
             }
-        }
-    }
-    remove = (e) => {
-        let currentTarget = e.target.value
-        let tempArr = this.state.menuArray;
-        for (let i = 0; i < tempArr.length; i++) {
-            const element = tempArr[i];
-
-            if (element.plate_name === currentTarget) {
-                if (element.plate_quantity == 0) { return; }
-                this.setState({
-                    menuArray: [...this.menuArray,
-                    this.menuArray[i].plate_quantity--],
-                    totalPrice: this.state.totalPrice - this.menuArray[i].plate_price
-
-                })
+            else{
+                findOrder.quantity = q
             }
         }
-    }
 
-    goToFinalPage = () => {
-        localStorage.setItem('orderConfirmed', JSON.stringify(this.state.menuArray.filter(item => item.plate_quantity > 0)));
+
+
+        this.setState({
+            recapOrder: findOrder === undefined?recapOrder:findOrder,
+            quantityCounter: q
+
+        })
+        
+
+    }
+        
+    
+
+    goToFinalPage = async() => {
+        properties.GENERIC_SERVICE = new genericServices();
+        let response = await properties.GENERIC_SERVICE.apiPOST('/order', JSON.stringify(this.state.recapOrder),this.props.tokenDuck.token )
+        console.log(response, 'response')
+        
+        
+        
         this.props.history.push('/orderConfirmed');
     }
 
     render() {
         const { t } = this.props
+
+        console.log('recapOrder',this.state.recapOrder)
         return (
             <>
                 <Navbar />
@@ -344,8 +400,8 @@ class MenuRestaurant extends React.Component {
                     <div className='fe-menu-header-center'>
                         <div className='fe-menu-header-restaurant' data-aos="zoom-in">
                             <div className='fe-menu-info-container'>
-                                <h2 className='fe-menu-restaurant-name'>Nome Ristorante</h2>
-                                <p className='fe-menu-restaurant-price'>Costo 1.90€ • 30-40 min  • 4.5 </p>
+                                <h2 className='fe-menu-restaurant-name'>{this.state.restaurantName}</h2>
+                                <p className='fe-menu-restaurant-price'>{this.state.restaurantInfo}</p>
                             </div>
                             <div className='fe-menu-filter-blur'></div>
                         </div>
@@ -354,12 +410,12 @@ class MenuRestaurant extends React.Component {
 
                     <div className='fe-menu-restaurant-address' data-aos="zoom-in">
                         {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
-                        <p style={{ marginTop: '' }} >Via da Cacacas 22 Milano (MI)</p>
+                        <p style={{ marginTop: '' }} >{this.state.adressRestaurant}</p>
                     </div>
                     <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">{t('frontend.components.menu_restaurant.sombreroWeek')}</h2>
                     <div className='fe-menu-categories-picker' data-aos="">
                         {
-                            this.categoriesArr.map((item, index) => {
+                            this.state.categoryList.map((item, index) => {
                                 return (
                                     <button key={index} className='voicePlate'>{item}</button>
                                 )
@@ -389,20 +445,22 @@ class MenuRestaurant extends React.Component {
                                 {t('frontend.components.my_cart.cart')}
                             </h2>
 
-                            <div className='fe-menu-cart-content'>
+                            {/* <div className='fe-menu-cart-content'>
                                 {
-                                    this.state.menuArray.filter((item) => {
-                                        return item.plate_quantity > 0
+                                    // item.plate_quantity > 0
+                                    this.state.recapOrder.filter((item) => {
+                                        return item
                                     }).map((item, index) => {
+                                        console.log(item, 'item')
                                         return (
                                             <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
-                                                <span>{item.plate_quantity} {item.plate_name}</span>
-                                                <span>{(item.plate_price * item.plate_quantity).toFixed(2)}€</span>
+                                                <span> {item.name}•{item.quantity} * {item.price}</span>
+                                                <span>{(item.price).toFixed(2)}€</span>
                                             </div>
                                         )
                                     })
                                 }
-                            </div>
+                            </div> */}
 
 
                             {this.state.totalPrice > 0 ? (
@@ -431,19 +489,18 @@ class MenuRestaurant extends React.Component {
 
 
                                                 {this.menuArray
-                                                    .filter((item) => { return (this.newPlateCategories[item.plate_category_id].name === itemCategory) })
+                                                    .filter((item) => { return (this.newPlateCategories[item.id] === itemCategory) }) &&
 
-                                                    .map((item, key) => {
+                                                    this.menuArray.map((item, key) => {
                                                         return (
                                                             <SinglePlate
-
                                                                 key={key}
-                                                                image={item.plate_img}
-                                                                descriptPlate={item.plate_description}
-                                                                plateName={item.plate_name}
-                                                                platePrice={item.plate_price}
-                                                                quantity={item.plate_quantity}
-                                                                counter={item.plate_quantity}
+                                                                image={item.img}
+                                                                descriptPlate={item.description}
+                                                                plateName={item.name}
+                                                                valueId={item.id}
+                                                                platePrice={item.price}
+                                                                // quantity={this.state.quantityCounter}
                                                                 classNameWrapper="fe-menu-single-plate"
                                                                 classNameImage="imageSinglePlate"
                                                                 callbackHandler={this.operatorSwitch}
@@ -462,4 +519,9 @@ class MenuRestaurant extends React.Component {
         )
     }
 }
-export default connect()(withTranslation()(MenuRestaurant));
+
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
+})
+export default connect(mapStateToProps)(withTranslation()(MenuRestaurant));

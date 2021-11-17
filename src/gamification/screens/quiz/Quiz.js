@@ -7,6 +7,9 @@ import win from "../../assets/sounds/win.mp3"
 import lose from "../../assets/sounds/lose.wav"
 import { Link } from "react-router-dom"
 
+import propertiesGS from '../../../common/utils/properties'
+import genericServices from "../../../common/utils/genericServices";
+import { connect } from 'react-redux'
 
 import './Quiz.css'
 import '../../../common/components/ui/button/Button.css'
@@ -220,8 +223,8 @@ class Quiz extends Component {
         )
     }
 
-    addCoins = () => {
-        let beijeCoin = this.state.storage.beijeCoin
+    addCoins = async() => {
+/*         let beijeCoin = this.state.storage.beijeCoin
         beijeCoin = beijeCoin + 5
 
         let tempObj = this.state.storage
@@ -233,8 +236,9 @@ class Quiz extends Component {
         }
         this.setState({
             storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
-        })
-
+        }) */
+        propertiesGS.GENERIC_SERVICE = new genericServices()
+        await propertiesGS.GENERIC_SERVICE.apiPOST('/minigame/beijecoin/163', {}, this.props.tokenDuck.token)
     }
 
 
@@ -324,4 +328,7 @@ class Quiz extends Component {
 }
 
 
-export default withTranslation()(Quiz);
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+})
+export default connect(mapStateToProps)(withTranslation()(Quiz));

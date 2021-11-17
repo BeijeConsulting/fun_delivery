@@ -5,7 +5,7 @@ import './SingleSponsor.css'
 import coin from '../../../../common/assets/BeijeCoin.png'
 
 const SingleSponsor = (props) => {
-    const callBackClick = () => {
+    const callBackClick = async() => {
         props.callbacksponsor()
     }
     return (

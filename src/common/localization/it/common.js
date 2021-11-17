@@ -3,6 +3,7 @@ export const TRANSLATIONS_COMMON = {
         generic_not_found: {
             not_found: 'Pagina o risorsa non trovata.',
             server_error: 'Il server è momentaneamente non disponibile',
+            not_authorized: 'Non sei autorizzato ad accedere a questa pagina',
             go_home_page: 'Torna alla home'
         }
     },

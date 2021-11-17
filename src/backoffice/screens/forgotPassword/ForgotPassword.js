@@ -55,9 +55,7 @@ class ForgotPassword extends Component {
             }
 
             let refreshPassword = await properties.GENERIC_SERVICE.apiPUT('/user/update/password/', newPswInfo);
-            console.log('refreshPsw', refreshPassword)
             let statusCode = _get(refreshPassword, "status", null);
-            console.log('statusCode', statusCode)
 
             if (statusCode === 401) {
                 error = true;
@@ -81,7 +79,7 @@ class ForgotPassword extends Component {
                     <h1 style={{ marginTop: '60px', marginBottom: '20px' }}>{t('backoffice.screens.forgot_password.title')}</h1>
                     {
                         this.state.warning &&
-                        <h3 class="alert">{t('backoffice.screens.forgot_password.error')}</h3>
+                        <h3 className="alert">{t('backoffice.screens.forgot_password.error')}</h3>
                     }
                     <section className="bo-login-form">
                         <InputBox

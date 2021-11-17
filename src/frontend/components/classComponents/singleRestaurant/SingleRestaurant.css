@@ -20,9 +20,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    pointer-events: none;
 }
 .ratingRest{
     margin-right:5px;
+    pointer-events: none;
 }
 
 .imageSingleRestaurant{
@@ -31,6 +33,7 @@
     max-width: 100%;
     object-fit: cover;
     overflow:hidden;
+    pointer-events: none;
 }
 .shippingRest {
     font-weight: 300;
