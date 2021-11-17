@@ -3,14 +3,13 @@ import './Avatar.css';
 import { CloseOutlined } from '@ant-design/icons';
 import { Component } from 'react';
 import properties from '../../../utilities/properties.js'
+import propertiesCommon from '../../../../common/utils/properties'
+import genericServices from '../../../../common/utils/genericServices'
 import { get } from 'lodash'
-
+import { connect } from 'react-redux';
 import buyAvatarBadge from "../../../assets/sounds/buyAvatarBadge.mp3"
-
 import coin from '../../../../common/assets/BeijeCoin.png'
-
 import Button from '../../../../common/components/ui/button/Button.js'
-
 import shelf from '../../../assets/images/badges/white_shelf.png'
 
 class Avatar extends Component {
@@ -18,23 +17,33 @@ class Avatar extends Component {
     super(props)
 
     this.difference = null
-
     this.userPath = JSON.parse(localStorage.getItem('userInfo'))
-
-
-
     this.state = {
-
+      error: false,
       gamification: properties.gamification,
-
       avatar_list: properties.avatar_list,
+      avatar_list_api: [],
       badge_list: properties.badge_list,
-
       avatarDetailModal: false,
       avatarDetail: null,
       avatar_page: true,
       selectedBadge: this.userPath.badge.selectedBadge,
     }
+  }
+
+  getAvatarList = async() => {
+    let errorToSave = false
+    propertiesCommon.GENERIC_SERVICE = new genericServices()
+    let avatarListAPI = propertiesCommon.GENERIC_SERVICE.apiGET("/avatars", this.props.tokenDuck.token)
+    let statusCode = get(avatarListAPI, "status", null)
+    console.log("avatarList: ", avatarListAPI)
+        if (statusCode === "401") {
+            errorToSave = true; //deve dare un errore
+        }
+        this.setState({
+            avatar_list_api: avatarListAPI,
+            error: errorToSave
+        })
   }
 
   avatarPageRedirect = () => {
@@ -202,4 +211,9 @@ class Avatar extends Component {
   }
 }
 
-export default Avatar;
+const mapStateToProps = state => ({
+  tokenDuck: state.tokenDuck,
+  restaurantIdDuck: state.restaurantIdDuck
+})
+
+export default connect(mapStateToProps)(Avatar);
