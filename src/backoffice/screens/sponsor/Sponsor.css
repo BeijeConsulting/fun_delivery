@@ -159,7 +159,9 @@
 .gm-classNameBtnDisable {
     background: #dddddd;
     color: #3f3d56;
-    cursor: default
+    cursor: default;
+    position: relative;
+    z-index: -1;
 }
 
 .gm-sponsor-coin {
