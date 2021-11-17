@@ -56,6 +56,9 @@ html {
 
 .icon {
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -81,6 +84,8 @@ html {
 
 .fe-img-wrapper {
     margin-right: 20px;
+    pointer-events: none;
+    
 }
 
 .fe-restaurants-container {

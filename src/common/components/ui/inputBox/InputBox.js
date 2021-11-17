@@ -25,6 +25,7 @@ const InputBox = (props) => {
             step={props.step}
             max={props.max}
             min={props.min}
+            title={props.title}
         />
     );
 }

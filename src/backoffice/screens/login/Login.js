@@ -59,7 +59,7 @@ class Login extends Component {
                 this.props.dispatch(setRestaurantId(restaurantId))
                 this.props.dispatch(setRefreshToken(response.refreshToken))
                 // andare avanti nella prossima pagina
-                this.props.history.push(properties.BO_ROUTING.PROFILE)
+                return this.props.history.push(properties.BO_ROUTING.PROFILE)
             }
         }
 

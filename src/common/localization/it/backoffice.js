@@ -83,7 +83,8 @@ export const TRANSLATIONS_BACKOFFICE = {
             vat: 'P.IVA',
             categories: 'Categoria',
             discounts: 'Sconti',
-            restaurant_description: 'Descrizione ristorante'
+            restaurant_description: 'Descrizione ristorante',
+            conjunction: 'e'
         },
         plates: {
             title: 'Lista Piatti',

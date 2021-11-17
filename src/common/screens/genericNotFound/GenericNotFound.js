@@ -6,10 +6,10 @@ import { withTranslation } from 'react-i18next';
 import {get as _get} from 'lodash';
 
 const GenericNotFound = (props) => {
-    const errorFound = _get(props, 'location.history.state.error', null)
+    const errorFound = _get(props, 'history.location.state.error', null)
     const { t } = props;
-
-    return(
+    console.log(props);
+    return(        
         <div className="generic-not-found">
             <div className="not-found-content">
                 <img src={logoBeije} alt="logo-fun-delivery" />
