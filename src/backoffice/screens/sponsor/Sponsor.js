@@ -38,21 +38,24 @@ class Sponsor extends Component {
 
         let allSponsor = await properties.GENERIC_SERVICE.apiGET(`/sponsor/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token)
         let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
-        let totalCoin = restaurant.totalCoin
+        let totalCoin = restaurant.totalCoin ? restaurant.totalCoin : 0
         let noSponsor = null
         let lastSponsor = allSponsor.length > 0 ? allSponsor[allSponsor.length - 1] : noSponsor
         this.newDate = new Date().getTime()
-        let expireDate = new Date(lastSponsor.sponsorExpired).getTime()
-        let difference = expireDate - this.newDate + 3600000
+        let expireDate = lastSponsor? new Date(lastSponsor.sponsorExpired).getTime() : null
+        let difference = expireDate? expireDate - this.newDate + 3600000 : null
         let sponsorName = null
-        if (lastSponsor.sponsorValuePeriod === 1) {
-            sponsorName = "Povero"
-        }
-        if (lastSponsor.sponsorValuePeriod === 7) {
-            sponsorName = "Borghese"
-        }
-        if (lastSponsor.sponsorValuePeriod === 30) {
-            sponsorName = "Milanese imbruttito"
+
+        if(lastSponsor){
+            if (lastSponsor.sponsorValuePeriod === 1) {
+                sponsorName = "Povero"
+            }
+            if (lastSponsor.sponsorValuePeriod === 7) {
+                sponsorName = "Borghese"
+            }
+            if (lastSponsor.sponsorValuePeriod === 30) {
+                sponsorName = "Milanese imbruttito"
+            }
         }
 
         this.setState({
@@ -67,7 +70,7 @@ class Sponsor extends Component {
 
 
     handleOnClick = (e) => async () => {
- 
+
         let cost = null
         let sponsorName = null
         let newCoins = this.state.totalCoin
@@ -151,8 +154,7 @@ class Sponsor extends Component {
 
                             </div>
                             <SingleSponsor
-                                /* className={this.state.choice.id === 1 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
-                                className="gm-singlecontainer"
+                                className={this.state.sponsorName === "Povero" || this.state.sponsorName === null ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
                                 defaultValue={"sponsor 24 ore"}
                                 title="24 ore"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 24H!"
@@ -161,13 +163,12 @@ class Sponsor extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-1'}
-                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
-                                classNameBtn={"gm-classNameBtn"}
+                                classNameBtn={this.state.sponsorName === null ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
+
                                 callbacksponsor={this.handleOnClick(1)}
                             />
                             <SingleSponsor
-                                /* className={this.state.choice.id === 2 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
-                                className="gm-singlecontainer"
+                                className={this.state.sponsorName === "Borghese" || this.state.sponsorName === null ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
                                 defaultValue={'sponsor1'}
                                 title="7 giorni"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 7gg!"
@@ -176,13 +177,11 @@ class Sponsor extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-2'}
-                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
-                                classNameBtn={"gm-classNameBtn"}
+                                classNameBtn={this.state.sponsorName === null ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick(7)}
                             />
                             <SingleSponsor
-                                /* className={this.state.choice.id === 3 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
-                                className="gm-singlecontainer"
+                                className={this.state.sponsorName === "Milanese imbruttito" || this.state.sponsorName === null ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
                                 defaultValue={'sponsor1'}
                                 title="30 giorni"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 30gg!"
@@ -191,8 +190,7 @@ class Sponsor extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-3'}
-                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
-                                classNameBtn={"gm-classNameBtn"}
+                                classNameBtn={this.state.sponsorName === null ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
                                 callbacksponsor={this.handleOnClick(30)}
                             />
                         </div>
