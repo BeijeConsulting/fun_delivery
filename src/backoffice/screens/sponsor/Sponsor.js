@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import './Sponsor.css';
 import 'antd/dist/antd.css';
 
+import properties from "../../../common/utils/properties";
+import genericServices from "../../../common/utils/genericServices";
+
 //Import icons
 import coin from '../../../common/assets/BeijeCoin.png'
 
@@ -13,76 +16,96 @@ import SingleSponsor from "./singleSponsor/SingleSponsor";
 import CountDownDaysTimer from "../../../gamification/components/funcComponents/CountDownDaysTimer";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 
-class Profile extends Component {
+class Sponsor extends Component {
     constructor(props) {
-        let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
-        let storageRestaurantSelected = JSON.parse(localStorage.getItem('activeRestaurant'))
-
+        /*let storage = JSON.parse(localStorage.getItem('selectedSponsor'))
+        let storageRestaurantSelected = JSON.parse(localStorage.getItem('activeRestaurant')) */
         super(props);
+        this.id = this.props.restaurantIdDuck.restaurant_id
         this.state = {
-            choice: storage === null ? '' : storage,
-            expireData: null,
-            sponsorAvailable: true,
-            sponsorSelected: storageRestaurantSelected === null ? '' : storageRestaurantSelected,
-            objRestaurant: null
+            duration: null,
+            difference: null,
+            sponsorName: null,
+            totalCoin: null
+
         }
     }
 
 
-    componentDidMount() {
-        this.totalRestaurant = JSON.parse(localStorage.getItem('localStorageRestaurants'));
-        this.restaurantId = JSON.parse(localStorage.getItem('activeRestaurantId'));
-        this.activeRestaurant = this.totalRestaurant.restaurant_list.find(el => {
-            return el.id === this.restaurantId
-        })
-        // this.qualcosa = localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
+    componentDidMount = async () => {
 
+        properties.GENERIC_SERVICE = new genericServices();
+
+        let allSponsor = await properties.GENERIC_SERVICE.apiGET(`/sponsor/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token)
+        let restaurant = await properties.GENERIC_SERVICE.apiGET(`/restaurant/${this.props.restaurantIdDuck.restaurant_id}`, this.props.tokenDuck.token);
+        let totalCoin = restaurant.totalCoin
+        let noSponsor = null
+        let lastSponsor = allSponsor.length > 0 ? allSponsor[allSponsor.length - 1] : noSponsor
         this.newDate = new Date().getTime()
-
-
-        // localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-
-    }
-
-    handleOnClick = (e) => () => {
-        if (this.state.choice === '') {
-
-            let choice = this.state.choice;
-            choice = e;
-
-            this.totalRestaurant.restaurant_list.map(element => {
-                if (element.id === this.restaurantId) {
-                    if (this.activeRestaurant.coins >= choice.price) {
-
-                        let result = this.activeRestaurant.coins - choice.price;
-                        this.activeRestaurant.coins = result;
-
-                        localStorage.setItem('activeRestaurant', JSON.stringify(this.activeRestaurant))
-                        //*IN LOCAL STORAGE BACKOFFICE SPONSOR DIVENTA DA NULL A TRUE 
-                        element.sponsor = true;
-                        element = this.activeRestaurant;
-                        localStorage.setItem('localStorageRestaurants', JSON.stringify(this.totalRestaurant))
-                        let newChoice = e.durata + this.newDate;
-                        for (let key in e) {
-                            if (key === 'durata') {
-                                e[key] = newChoice;
-                            }
-                        }
-                        this.setState({
-                            choice: e,
-                            sponsorSelected: this.activeRestaurant
-                        })
-                        localStorage.setItem('selectedSponsor', JSON.stringify(this.state.choice))
-                    }
-                    else {
-                        console.log('sei povero!')
-                    }
-                }
-            })
+        let expireDate = new Date(lastSponsor.sponsorExpired).getTime()
+        let difference = expireDate - this.newDate + 3600000
+        let sponsorName = null
+        if (lastSponsor.sponsorValuePeriod === 1) {
+            sponsorName = "Povero"
+        }
+        if (lastSponsor.sponsorValuePeriod === 7) {
+            sponsorName = "Borghese"
+        }
+        if (lastSponsor.sponsorValuePeriod === 30) {
+            sponsorName = "Milanese imbruttito"
         }
 
+        this.setState({
+            difference: difference,
+            totalCoin: totalCoin,
+            sponsorName: sponsorName
+        })
+        console.log(lastSponsor);
+
     }
 
+
+
+    handleOnClick = (e) => async () => {
+ 
+        let cost = null
+        let sponsorName = null
+        let newCoins = this.state.totalCoin
+        if (e === 1) {
+            cost = 10
+        }
+        if (e === 7) {
+            cost = 50
+        }
+        if (e === 30) {
+            cost = 100
+        }
+        if (this.state.totalCoin > cost) {
+            let obj = {
+                restaurantId: this.props.restaurantIdDuck.restaurant_id,
+                sponsorValuePeriod: e
+            }
+            await properties.GENERIC_SERVICE.apiPOST("/sponsor", obj, this.props.tokenDuck.token)
+            if (e === 1) {
+                sponsorName = "Povero"
+                newCoins -= 10
+            }
+            if (e === 7) {
+                sponsorName = "Borghese"
+                newCoins -= 50
+            }
+            if (e === 30) {
+                sponsorName = "Milanese imbruttito"
+                newCoins -= 100
+            }
+            this.setState({
+                sponsorName: sponsorName,
+                totalCoin: newCoins
+            })
+        }/* else sei povero */
+
+
+    }
 
     msToTime = (milliseconds) => {
 
@@ -101,15 +124,6 @@ class Profile extends Component {
         return obj
     }
 
-
-
-
-
-
-
-
-
-
     render() {
         return (
             <>
@@ -127,7 +141,7 @@ class Profile extends Component {
 
                                 <div style={{ marginBottom: '10px' }}>
                                     {/* <span>{this.state.sponsorSelected.coins}</span> */}
-                                    <span>Inutile da fixare</span>
+                                    <span>{this.state.totalCoin}</span>
                                     <img style={{ width: '20px', height: '20px' }} src={coin} alt="beijecoin" />
                                 </div>
 
@@ -137,7 +151,8 @@ class Profile extends Component {
 
                             </div>
                             <SingleSponsor
-                                className={this.state.choice.id === 1 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
+                                /* className={this.state.choice.id === 1 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
+                                className="gm-singlecontainer"
                                 defaultValue={"sponsor 24 ore"}
                                 title="24 ore"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 24H!"
@@ -146,11 +161,13 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-1'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
-                                callbacksponsor={this.handleOnClick({ name: 'Povero', id: 1, durata: 86400000, price: 10 })}
+                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick(1)}
                             />
                             <SingleSponsor
-                                className={this.state.choice.id === 2 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
+                                /* className={this.state.choice.id === 2 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
+                                className="gm-singlecontainer"
                                 defaultValue={'sponsor1'}
                                 title="7 giorni"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 7gg!"
@@ -159,11 +176,13 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-2'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
-                                callbacksponsor={this.handleOnClick({ name: 'Borghese', id: 2, durata: 604800000, price: 50 })}
+                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick(7)}
                             />
                             <SingleSponsor
-                                className={this.state.choice.id === 3 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"}
+                                /* className={this.state.choice.id === 3 || this.state.choice === '' ? "gm-singlecontainer" : "gm-singlecontainerBlur gm-singlecontainer"} */
+                                className="gm-singlecontainer"
                                 defaultValue={'sponsor1'}
                                 title="30 giorni"
                                 description="Applica lo sponsor al tuo ristorante per salire in cima alle ricerche per 30gg!"
@@ -172,28 +191,20 @@ class Profile extends Component {
                                 label={'Sponsorizza'}
                                 coinClass="gm-sponsor-coin"
                                 glassClass={'hourglass glass-3'}
-                                classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'}
-                                callbacksponsor={this.handleOnClick({ name: 'Milanese imbruttito', id: 3, durata: 2592000000, price: 100 })}
+                                /* classNameBtn={this.state.choice === '' ? "gm-classNameBtn" : 'gm-classNameBtn gm-classNameBtnDisable'} */
+                                classNameBtn={"gm-classNameBtn"}
+                                callbacksponsor={this.handleOnClick(30)}
                             />
                         </div>
 
                         {
-                            this.state.choice !== '' &&
-                            <div style={{ display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center' }}>
-                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>Termine sponsorizzazione di {this.state.choice.name} in: </h1>
-                                <h3 style={{ color: 'red' }}> {this.state.expireData}</h3>
+                            this.state.difference > 0 &&
 
-
-                                {this.state.choice.durata !== null &&
-                                    <div>
-
-                                        <CountDownDaysTimer time={this.msToTime(this.state.choice.durata - new Date().getTime())} />
-
-                                    </div>
-
-                                }
-
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <h1 style={{ width: "100%", display: "block", marginTop: "100px" }}>Termine sponsorizzazione di {this.state.sponsorName} in: </h1>
+                                <CountDownDaysTimer time={this.msToTime(this.state.difference)} />
                             </div>
+
 
                         }
 
@@ -204,8 +215,9 @@ class Profile extends Component {
     }
 }
 
-const mapStateToProps = state =>({
-    tokenDuck: state.tokenDuck
+const mapStateToProps = state => ({
+    tokenDuck: state.tokenDuck,
+    restaurantIdDuck: state.restaurantIdDuck
 })
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps)(Sponsor)
