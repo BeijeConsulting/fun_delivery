@@ -127,7 +127,7 @@ class SinglePlate extends Component {
 
     handleSubmit = async () => {
         let newData = {
-            // img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
+            img: [this.state.data.img[0], this.state.data.img[0] ? false : true],
             name: [this.state.data.name[0], this.state.data.name[0] ? false : true],
             description: [this.state.data.description[0], this.state.data.description[0] ? false : true],
             price: [this.state.data.price[0], utils.checkNumber(this.state.data.price[0]) && this.state.data.price[0] ? false : true],
@@ -137,7 +137,7 @@ class SinglePlate extends Component {
         if (correctCheck) {
             // Saving modified plate on localStorage
             let modifiedPlate = {
-                //   img: newData.img[0],
+                img: newData.img[0],
                 restaurantId: get(this.props, 'restaurantIdDuck.restaurant_id', null),
                 name: newData.name[0],
                 description: newData.description[0],
@@ -209,7 +209,7 @@ class SinglePlate extends Component {
 
                             <section>
                                 <SinglePlateCard
-                                    // img={this.state.data.img[0]}
+                                    img={this.state.data.img[0]}
                                     callback={this.handleCallbackInput}
                                     name={'img'}
                                     newCss=''

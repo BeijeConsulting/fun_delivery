@@ -43,8 +43,8 @@ class NewPlate extends Component {
 
     componentDidMount = async () => {
         // Api per avere tutte le categorie dei piatti
-         properties.GENERIC_SERVICE = new genericServices()
-         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'toenDuck.token', null))
+        properties.GENERIC_SERVICE = new genericServices()
+        let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories`, get(this.props, 'toenDuck.token', null))
         this.setState({
             list_categories: apiCategories
         })
@@ -54,14 +54,60 @@ class NewPlate extends Component {
         this.props.history.goBack()
     }
 
-    handleCallbackInput = (e) => {
+    handleCallbackInput = async (e) => {
         if (e.target.name === 'categoryId') {
             this.new_plate[e.target.name] = parseInt(e.target.value);
+        } else if (e.target.name === 'img') {
+            let file = e.target.files[0]
+            let fileName = this.snakeCaseString(e.target.files[0].name)
+            this.getBase64(file)
+                .then(async result => {
+                    file["base64"] = result;
+                    console.log('result', result)
+                    properties.GENERIC_SERVICE = new genericServices()
+                    let img = await properties.GENERIC_SERVICE.apiPOST('fileupload',
+                        {
+                            file_base64: result,
+                            file_name: fileName,
+                            category:'plate'
+                        },
+                        get(this.props, 'tokenDuck.token', null)
+                    )
+                    console.log('img', img)
+
+                    this.new_plate[e.target.name] = img
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
         } else {
             this.new_plate[e.target.name] = e.target.value
         }
     }
-
+    snakeCaseString = (str) => {
+        return str && str.match(
+            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(s => s.toLowerCase())
+            .join('_');
+    }
+    getBase64 = file => {
+        return new Promise(resolve => {
+            let baseURL = "";
+            // Make new FileReader
+            let reader = new FileReader();
+            // Convert the file to base64 text
+            reader.readAsDataURL(file);
+            // on reader load somthing...
+            reader.onload = () => {
+                // Make a fileInfo Object
+                baseURL = reader.result;
+                // console.log(baseURL);
+                resolve(baseURL);
+            };
+            // console.log(fileInfo);
+        });
+    };
     handleSwitchCallback = (e) => {
         this.new_plate.visibility = e
     }
@@ -106,7 +152,7 @@ class NewPlate extends Component {
                     let categoryName = this.state.list_categories.find((category) => {
                         return category.id === this.new_plate.categoryId;
                     }).name;
-                     this.props.history.push(properties.BO_ROUTING.PLATES, {
+                    this.props.history.push(properties.BO_ROUTING.PLATES, {
                         category_id: parseInt(this.new_plate.categoryId),
                         titlePage: categoryName.toUpperCase()
                     })

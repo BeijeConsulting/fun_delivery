@@ -40,6 +40,7 @@ class Plates extends Component {
         properties.GENERIC_SERVICE = new genericServices()
         let categoryPlates = await properties.GENERIC_SERVICE.apiGET(`plates/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}/${this.plate_category}`,
             get(this.props, 'tokenDuck.token', null))
+            console.log('categoryPlates',categoryPlates)
         this.setState({
             plates: categoryPlates
         })
@@ -86,7 +87,7 @@ class Plates extends Component {
                                                 <div className="bo-mymenu-flex-cards" key={index}>
                                                     <Card
                                                         title={plate.name}
-                                                        // img={plate.img}
+                                                        img={plate.img}
                                                         callback={this.handleCallbackSinglePlates(plate.id, plate.name, plate.categoryId)}
                                                     />
                                                 </div>
