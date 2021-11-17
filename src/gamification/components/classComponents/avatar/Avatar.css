@@ -8,6 +8,9 @@
     backdrop-filter: blur(2px);
     position: relative;
     z-index: 300;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .avatar-container {

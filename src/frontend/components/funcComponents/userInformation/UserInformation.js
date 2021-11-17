@@ -25,7 +25,7 @@ const UserInformation = (props) => {
 
     const getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let dataUser = await properties.GENERIC_SERVICE.apiGET('/user/163', props.tokenDuck.token)
+        let dataUser = await properties.GENERIC_SERVICE.apiGET(`/user/${props.userIdDuck.userID}`, props.tokenDuck.token)
         let statusCode = _get(dataUser, "status", null)
         let userRole = _get(dataUser, "permission", [])
 
@@ -102,7 +102,7 @@ const UserInformation = (props) => {
                 phoneNumber: newData.phoneNumber[0]
             }
 
-        await properties.GENERIC_SERVICE.apiPUT('/user/update/163', dataUserUpdate, props.tokenDuck.token)
+        await properties.GENERIC_SERVICE.apiPUT(`/user/update/${props.userIdDuck.userID}`, dataUserUpdate, props.tokenDuck.token)
         }
     }
 
@@ -179,7 +179,8 @@ const UserInformation = (props) => {
 }
 
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 
 export default connect(mapStateToProps)(UserInformation)
