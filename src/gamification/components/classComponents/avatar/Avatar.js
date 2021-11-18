@@ -12,6 +12,7 @@ import coin from '../../../../common/assets/BeijeCoin.png'
 import Button from '../../../../common/components/ui/button/Button.js'
 import shelf from '../../../assets/images/badges/white_shelf.png'
 
+
 class Avatar extends Component {
   constructor(props) {
     super(props)
@@ -19,11 +20,12 @@ class Avatar extends Component {
     this.difference = null
     this.userPath = JSON.parse(localStorage.getItem('userInfo'))
     this.state = {
+      dataUser: null,
       error: false,
       gamification: properties.gamification,
-      avatar_list: properties.avatar_list,
-      avatar_list_api: [],
-      badge_list: properties.badge_list,
+      avatar_list: [],
+      avatar_owned:[],
+      badge_list: [],
       avatarDetailModal: false,
       avatarDetail: null,
       avatar_page: true,
@@ -31,18 +33,33 @@ class Avatar extends Component {
     }
   }
 
+  componentDidMount = () =>{
+    this.getAvatarList()
+  }
+
   getAvatarList = async() => {
     let errorToSave = false
     propertiesCommon.GENERIC_SERVICE = new genericServices()
-    let avatarListAPI = propertiesCommon.GENERIC_SERVICE.apiGET("/avatars", this.props.tokenDuck.token)
+
+    let dataUser = await propertiesCommon.GENERIC_SERVICE.apiGET(`/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    console.log(dataUser);
+    let avatarListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/avatars", this.props.tokenDuck.token)
+    let avatarsOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    let badgeListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
+    let avatarsOwnedId = avatarsOwned.map(el=>el= el.avatarId)
+    
     let statusCode = get(avatarListAPI, "status", null)
-    console.log("avatarList: ", avatarListAPI)
+
+    
         if (statusCode === "401") {
             errorToSave = true; //deve dare un errore
         }
         this.setState({
-            avatar_list_api: avatarListAPI,
-            error: errorToSave
+            dataUser: dataUser,
+            avatar_list: avatarListAPI,
+            badge_list: badgeListAPI,
+            error: errorToSave,
+            avatar_owned: avatarsOwnedId
         })
   }
 
@@ -62,13 +79,18 @@ class Avatar extends Component {
     }
   }
 
-  avatarDetailModal = (key) => () => {
-    if (get(this.userPath.avatar, "userAvatars").includes(key)) {
-      this.userPath.avatar.selectedAvatar = key
-      localStorage.setItem('userInfo', JSON.stringify(this.userPath))
+  avatarDetailModal = (key) => async () => {
+    let avatarDetailModal = true
+    if (this.state.avatar_owned.includes(key+1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        avatarId: key+1
+      }
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
+      avatarDetailModal = false
     }
     this.setState({
-      avatarDetailModal: true,
+      avatarDetailModal: avatarDetailModal,
       avatarDetail: key,
     })
   }
@@ -121,8 +143,11 @@ class Avatar extends Component {
       <div key={key} className='badge-page-container'>
         <div className='badge-icon-container'>
           <div 
-          style={this.state.selectedBadge === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
-          className={this.userPath.badge.userBadges.includes(key) ? `badge-icon` : "badge-icon badges-not-owned"}><img  onClick={this.clickSelectedBadge(key)} src={badge.image} alt={'badge'} /></div>
+          // style={this.state.selectedBadge === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
+          // className={this.userPath.badge.userBadges.includes(key) ? `badge-icon` : "badge-icon badges-not-owned"}
+          className="badge-icon"
+          >
+            <img  onClick={this.clickSelectedBadge(key)} src={badge.path} alt={'badge'} /></div>
         </div>
       </div>
     )
@@ -137,7 +162,7 @@ class Avatar extends Component {
       <div className='avatar-page-container'>
         <div className='avatar-container'>
           <div className='gm-icons-container'>
-            <div className='gm-current-coins'>{this.userPath.beijeCoin}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
+            <div className='gm-current-coins'>{get(this.state.dataUser, "totalCoins")}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
             <CloseOutlined className='gm-close-icon' onClick={this.closeHandleClick} />
           </div>
           <div className='links-container'>
@@ -151,11 +176,15 @@ class Avatar extends Component {
               {this.state.avatar_list.map((avatar, key) => {
                 return (
                   <div key={key} className='avatar-icon-container'>
-                    <div className={get(this.userPath.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}><img onClick={this.avatarDetailModal(key)} src={avatar.image} alt={'avatar'} /></div>
-                    {
-                      this.userPath.avatar.userAvatars.includes(key) !== true &&
+                    <div 
+                    className='avatar-icon'
+                    // className={get(this.userPath.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}
+                    >
+                      <img onClick={this.avatarDetailModal(key)} src={avatar.path} alt={'avatar'} /></div>
+                     {
+                      this.state.avatar_owned.includes(key+1) !== true &&
                       <div className='avatar-cost'>{avatar.cost}<img src={coin} alt={'price'} /></div>
-                    }
+                    } 
                   </div>
                 )
               })}
@@ -166,7 +195,7 @@ class Avatar extends Component {
             <div className="avatar-detail-modal">
               <CloseOutlined onClick={this.closeAvatarDetailModal} className='gm-close-icon close-avatar-detail' />
               <div className="avatar-selected-content">
-                <img className={"avatar-detail-img"} src={this.state.avatar_list[this.state.avatarDetail].image} alt='detail-avatar' />
+                <img className={"avatar-detail-img"} src={this.state.avatar_list[this.state.avatarDetail].path} alt='detail-avatar' />
 
                 <div className='toast-container'>
                   <div className='modal-avatar-cost'>{this.state.avatar_list[this.state.avatarDetail].cost}<img src={coin} alt={'price'} />
@@ -213,7 +242,8 @@ class Avatar extends Component {
 
 const mapStateToProps = state => ({
   tokenDuck: state.tokenDuck,
-  restaurantIdDuck: state.restaurantIdDuck
+  restaurantIdDuck: state.restaurantIdDuck,
+  userIdDuck: state.userIdDuck
 })
 
 export default connect(mapStateToProps)(Avatar);
