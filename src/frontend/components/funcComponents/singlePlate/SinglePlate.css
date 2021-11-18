@@ -123,16 +123,16 @@
 }
 .wrapRatingPlate {
    display: flex;
+   min-width: 50%;
     flex-direction: column;
     justify-content: space-between;
 }
 
 
-  @media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 1024px) {
-
-   
-  }
-  
+@media screen and (max-width: 768px) {
+   .rowButton {
+      
+       min-width: 200px;
+   }
+}
   

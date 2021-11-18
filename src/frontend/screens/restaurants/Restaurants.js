@@ -3,21 +3,13 @@ import "./Restaurants.css"
 import SingleRestaurant from "../../components/classComponents/singleRestaurant/SingleRestaurant"
 import SidebarRestaurants from "../../components/classComponents/sidebarRestaurants/SidebarRestaurants"
 import IconCategories from "../../components/funcComponents/iconCategories/IconCategories"
-import orderBy from "lodash/orderBy"
 import filter from "lodash/filter"
 import imagePaniniCaMeusa from "../../assets/images/imagePaniniCaMeusa.png"
-import Burger from '../../assets/images/burger.png'
-import Italian from '../../assets/images/italian.png'
-import Mexican from '../../assets/images/mexican.png'
-import Pizza from '../../assets/images/pizza.png'
-import Altro from '../../assets/images/altro.png'
-import Poke from '../../assets/images/poke.png'
-import Sushi from '../../assets/images/sushi.png'
 import {setRestaurantId} from '../../../common/redux/duck/restaurantIdDuck'
-
+import margherita from '../../assets/images/Margherita.jpg'
 /* HOOKS */
 import { useState, useEffect, useRef } from "react"
-import { useHistory } from "react-router"
+
 
 
 //gsap
@@ -33,7 +25,7 @@ import genericServices from "../../../common/utils/genericServices"
 import properties from "../../../common/utils/properties"
 import { get as _get } from 'lodash';
 import { connect } from "react-redux"
-import { ConsoleSqlOutlined } from "@ant-design/icons"
+
 
 const Restaurants = (props) => {
 
@@ -117,60 +109,11 @@ const Restaurants = (props) => {
 
 
 
-        // let orderedRestaurants = []
-        // e.target.value === "averageReview" ? orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'desc') : orderedRestaurants = orderBy(state.restaurantsData, "averageReview", 'asc')
-        // console.log(orderedRestaurants)
-
-        // setState({
-        //     ...state,
-        //     objectRestaurantsForList: orderedRestaurants
-        // })
 
     }
 
 
 
-    // const filterByRestaurants = (e) => {
-    //     let filteredRestaurants = []
-    //     isNaN(e.target.value) ? filteredRestaurants = filter(state.restaurantsData, { 'category': e.target.value })
-    //         : filteredRestaurants = filter(state.restaurantsData, { 'averageReview': parseInt(e.target.value) })
-    //     setState({
-    //         ...state,
-    //         objectRestaurantsForList: filteredRestaurants
-    //     })
-    //     console.log(e.target.value, ) 
-    // }
-
-
-    
-    //FILTRA IN BASE ALLA REVIEW
-    // const filterByDeliveryRestaurants = async (e) => {
-    //     // let filteredRestaurants = []
-    //     // e.value === true ? filteredRestaurants = state.restaurantsData : filteredRestaurants = filter(state.restaurantsData, { 'restaurantFreeShipping': e.value })
-    //     // setState({
-    //     //     ...state,
-    //     //     objectRestaurantsForList: filteredRestaurants
-    //     // })
-    //     // console.log(e.value, 'gesu')
-    //     properties.GENERIC_SERVICE = new genericServices();
-    //     let orderedRestaurants = await properties.GENERIC_SERVICE.apiGET('/restaurants/r', props.tokenDuck.token)
-    //     let statusCode = _get(orderedRestaurants, "status", null)
-    //     let userRole = _get(orderedRestaurants, "permission", null)
-    //     console.log(orderedRestaurants, 'orderedRestaurants')
-    //     if (statusCode === 401 || userRole === "restaurant") {
-    //         console.log('error')
-    //     }
-
-    //     else {
-    //         setState({
-    //             ...state,
-    //             objectRestaurantsForList: orderedRestaurants
-    //         })
-
-    //     }
-
-       
-    
   
     // FILTRA RISTORANTI PER CATEGORIA
     const filterByRestaurants = async (e) => {
@@ -254,7 +197,7 @@ const Restaurants = (props) => {
 
     const showApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiGET('/platecategories', props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiGET('/restaurantcategories', props.tokenDuck.token)
         let responseData = await properties.GENERIC_SERVICE.apiGET('/restaurants', props.tokenDuck.token)
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", null)
@@ -351,7 +294,7 @@ const Restaurants = (props) => {
                                         <SingleRestaurant
                                             key={key}
                                             restaurantId={item.id}
-                                            image={imagePaniniCaMeusa}
+                                            image={margherita}
                                             restaurantName={item.name}
                                             restaurantRating={item.averageReview}
                                             restaurantShipping={item.restaurantFreeShipping}
@@ -375,7 +318,7 @@ const Restaurants = (props) => {
                                     return (
                                         <SingleRestaurant
                                             key={key}
-                                            image={imagePaniniCaMeusa}
+                                            image={margherita}
                                             restaurantName={item.name}
                                             restaurantId={item.id}
                                             restaurantRating={item.averageReview}
