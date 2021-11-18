@@ -4,6 +4,7 @@ import properties from "../../../common/utils/properties";
 import genericServices from "../../../common/utils/genericServices";
 import { setToken } from "../../../common/redux/duck/tokenDuck";
 import { setUserInfo } from "../../redux/infoDuck";
+import { setUserId } from "../../redux/userIdDuck";
 import { get as _get } from 'lodash';
 
 //import Button
@@ -96,7 +97,6 @@ class RegistrationUser extends React.Component {
                 email: this.state.userInfo.email,
                 phoneNumber: this.state.userInfo.phone,
                 password: this.state.userInfo.password,
-
             })
 
             let statusCode = _get(response, "status", null)
@@ -106,38 +106,27 @@ class RegistrationUser extends React.Component {
                 error = true;
             }
             else {
-
-                properties.GENERIC_SERVICE = new genericServices();
-                let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.userInfo.email, password: this.state.userInfo.password })
-                let statusCode = _get(response, "status", null)
-                let userRole = _get(response, "permission", null)
-                if (statusCode === 401 || userRole === "restaurant") {
-                    error = true;
-                }
-                else {
-                    // Salvare token nel duck
-                    this.props.dispatch(setToken(response.token))
-                    this.props.dispatch(setUserInfo(this.state.userInfo.userName))
-                    // andare avanti nella prossima pagina
-                    // localStorage.setItem('token', response.token)
-                    this.props.history.push('/userHome')
-                }
-            
+                // properties.GENERIC_SERVICE = new genericServices();
+                // let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.userInfo.email, password: this.state.userInfo.password })
+                // let statusCode = _get(response, "status", null)
+                // let userRole = _get(response, "permission", null)
+                // if (statusCode === 401 || userRole === "restaurant") {
+                //     error = true;
+                // }
+                // else {
+                // Salvare token nel duck
+                this.props.dispatch(setToken(response.token))
+                this.props.dispatch(setUserId(response.id))
+                this.props.dispatch(setUserInfo(this.state.userInfo.userName))
+                // andare avanti nella prossima pagina
+                // localStorage.setItem('token', response.token)
+                this.props.history.push('/userHome')
+                // }
             }
-
-
         }
-
-
-
-
         this.setState({
             errormsg: error
         })
-
-        
-
-
     }
 
     handleClickCloseModal = () => {
@@ -237,9 +226,9 @@ class RegistrationUser extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ( {
+const mapStateToProps = state => ({
     infoDuck: state.infoDuck
-  } )
-  
+})
+
 
 export default connect(mapStateToProps)(withTranslation()(RegistrationUser))

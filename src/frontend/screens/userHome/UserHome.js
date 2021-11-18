@@ -79,10 +79,9 @@ class UserHome extends Component {
         let userRole = _get(dataUser, "permission", [])
 
 
-        let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+        let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${dataUser.avatarId}`, this.props.tokenDuck.token)
         let badge = await properties.GENERIC_SERVICE.apiGET(`/badges`, this.props.tokenDuck.token)
-        let badgePath = badge.find(item => item.id===dataUser.id).path
-        console.log("percorso: ", badgePath)
+        let badgePath = badge.find(item => item.id===dataUser.badgeId).path
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
 
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
