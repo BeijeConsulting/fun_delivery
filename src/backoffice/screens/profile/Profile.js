@@ -16,6 +16,7 @@ import localStorageData from "../../localStorageData/localStorageData";
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { get } from "lodash";
+import logoBeije from '../../assets/images/logo_beijeRosa.png'
 
 class Profile extends Component {
     constructor(props) {
@@ -288,7 +289,7 @@ class Profile extends Component {
                             </div>
 
                             <SinglePlateCard
-                                img={this.state.data.profile_img[0]}
+                                img={this.state.data.profile_img[0]?this.state.data.profile_img[0]:logoBeije}
                                 callback={this.handleCallbackInput}
                                 name={'profile_img'}
                                 disable={!this.state.editData}
