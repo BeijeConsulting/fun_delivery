@@ -25,8 +25,9 @@ const LayoutBackOffice = (props) => {
 
     useEffect(() => {
         let token = get(props.tokenDuck, 'token', null);
+        let restaurantId = get(props.restaurantIdDuck, 'restaurant_id', null)
 
-        if(!token) {
+        if(!token || !restaurantId) {
             return history.push(properties.BO_ROUTING.LOGIN);
         }
     }, [])

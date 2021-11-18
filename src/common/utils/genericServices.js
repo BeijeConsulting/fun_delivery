@@ -45,7 +45,7 @@ class genericServices {
 
                             if (rs.status === 200) {
                                 this.store.dispatch(setToken(rs.data.token))
-                                this.instance.defaults.headers = this.getHeaderWithToken(rs.data.token);
+                                //this.instance.defaults.headers = this.getHeaderWithToken(rs.data.token);
                                 originalRequest.headers.Authorization = "Bearer " + rs.data.token
                                 return this.instance(originalRequest);
                             }

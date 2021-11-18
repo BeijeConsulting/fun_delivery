@@ -1,6 +1,5 @@
 import { Component } from "react";
 import './Profile.css';
-import LogoBeije from '../../assets/images/logo_beijeRosa.png';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
@@ -16,8 +15,6 @@ import localStorageData from "../../localStorageData/localStorageData";
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { get } from "lodash";
-
-// const format = 'HH:mm';
 
 class Profile extends Component {
     constructor(props) {
@@ -114,9 +111,9 @@ class Profile extends Component {
         else if (e.target.name === 'profile_img') {
 
             let file = e.target.files[0]
-            let fileName = this.snakeCaseString(e.target.files[0].name);
+            let fileName = utils.snakeCaseString(e.target.files[0].name);
 
-            await this.getBase64(file)
+            await utils.getBase64(file)
                 .then(async result => {
                     properties.GENERIC_SERVICE = new genericServices()
                     let img = await properties.GENERIC_SERVICE.apiPUT(`restaurant/upload/logo/${this.props.restaurantIdDuck.restaurant_id}`,

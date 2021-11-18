@@ -90,7 +90,7 @@ const Navbar = (props) => {
 
         history.push('/')
         props.dispatch(setInitUserInfo())
-        // props.dispatch(initToken())
+        props.dispatch(initToken())
         console.log(state.isLoggedIn)
 
     }
