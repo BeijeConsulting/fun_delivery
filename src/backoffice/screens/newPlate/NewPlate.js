@@ -8,6 +8,7 @@ import TextArea from "../../../common/components/ui/textarea/TextArea";
 import SinglePlateCard from '../../components/funcComponents/singlePlateCard/SinglePlateCard';
 import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';
+import utils from "../../../common/utils/utils";
 import 'antd/dist/antd.css';
 import './NewPlate.css';
 
@@ -59,22 +60,18 @@ class NewPlate extends Component {
             this.new_plate[e.target.name] = parseInt(e.target.value);
         } else if (e.target.name === 'img') {
             let file = e.target.files[0]
-            let fileName = this.snakeCaseString(e.target.files[0].name)
-            this.getBase64(file)
+            let fileName = utils.snakeCaseString(e.target.files[0].name)
+            await utils.getBase64(file)
                 .then(async result => {
-                    file["base64"] = result;
-                    console.log('result', result)
                     properties.GENERIC_SERVICE = new genericServices()
                     let img = await properties.GENERIC_SERVICE.apiPOST('fileupload',
                         {
                             file_base64: result,
                             file_name: fileName,
-                            category:'plate'
+                            category: 'plate'
                         },
                         get(this.props, 'tokenDuck.token', null)
                     )
-                    console.log('img', img)
-
                     this.new_plate[e.target.name] = img
                 })
                 .catch(err => {
@@ -85,29 +82,6 @@ class NewPlate extends Component {
             this.new_plate[e.target.name] = e.target.value
         }
     }
-    snakeCaseString = (str) => {
-        return str && str.match(
-            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(s => s.toLowerCase())
-            .join('_');
-    }
-    getBase64 = file => {
-        return new Promise(resolve => {
-            let baseURL = "";
-            // Make new FileReader
-            let reader = new FileReader();
-            // Convert the file to base64 text
-            reader.readAsDataURL(file);
-            // on reader load somthing...
-            reader.onload = () => {
-                // Make a fileInfo Object
-                baseURL = reader.result;
-                // console.log(baseURL);
-                resolve(baseURL);
-            };
-            // console.log(fileInfo);
-        });
-    };
     handleSwitchCallback = (e) => {
         this.new_plate.visibility = e
     }

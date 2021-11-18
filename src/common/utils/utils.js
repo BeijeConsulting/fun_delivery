@@ -10,7 +10,28 @@ const utils = {
     validateCity: (params) => { return /^[a-zA-Z',.\s-]{2,25}$/i.test(params) },
     validateAddress: (params) => { return /^[a-zA-Z]([a-zA-Z-]+\s)+\d{1,4}$/i.test(params) },
     checkNumber: (params) => { return /(\d+(?:\.\d+)?)/.test(params) },
-    handleCallbackGoBack: (params) => {params.goBack()}
+    handleCallbackGoBack: (params) => {params.goBack()},
+    snakeCaseString:(str) => {
+        return str && str.match(
+            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(s => s.toLowerCase())
+            .join('.');
+    },
+    getBase64: file => {
+        return new Promise(resolve => {
+            let baseURL = "";
+            // Make new FileReader
+            let reader = new FileReader();
+            // Convert the file to base64 text
+            reader.readAsDataURL(file);
+            // on reader load somthing...
+            reader.onload = () => {
+                // Make a fileInfo Object
+                baseURL = reader.result;
+                resolve(baseURL);
+            };
+        });
+    }
 }
 
 export default utils
