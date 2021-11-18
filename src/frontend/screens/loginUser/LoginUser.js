@@ -19,6 +19,7 @@ import { get as _get } from 'lodash';
 import { setUserInfo } from "../../redux/infoDuck";
 import { setUserId } from "../../redux/userIdDuck";
 import "./LoginUser.css"
+import { initRestaurantId } from "../../../common/redux/duck/restaurantIdDuck";
 class LoginUser extends React.Component {
     constructor(props) {
         super(props)
@@ -32,6 +33,7 @@ class LoginUser extends React.Component {
 
     validateClick = async () => {
         // let storageUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+        
         let error = ''
         if (!this.state.email) {
             error = i18n.t('frontend.components.login_page.error_login.email')
@@ -66,6 +68,7 @@ class LoginUser extends React.Component {
                 this.props.dispatch(setToken(response.token))
                 this.props.dispatch(setUserId(response.id))
                 this.props.dispatch(setRefreshToken(response.refreshToken))
+                this.props.dispatch(initRestaurantId())
                 // let getId = await properties.GENERIC_SERVICE.apiGET('/user' + {token})
                 // console.log(getId, 'getId')
 
@@ -82,6 +85,7 @@ class LoginUser extends React.Component {
         this.setState({
             errorMsg: error
         })
+
     }
     onEmailChange = (e) => {
         this.setState({
