@@ -14,15 +14,16 @@ const GenericNotFound = (props) => {
         <div className="generic-not-found">
             <div className="not-found-content">
                 <img src={logoBeije} alt="logo-fun-delivery" />
+                <h1>Oops!</h1>
                 {errorFound === 403 && (
-                    <p>{t('common.screens.generic_not_found.not_authorized')}</p>
+                    <p>403 {t('common.screens.generic_not_found.not_authorized')}</p>
                 )}
 
                 {errorFound === 500 && (
-                    <p>{t('common.screens.generic_not_found.server_error')}</p>
+                    <p>500 {t('common.screens.generic_not_found.server_error')}</p>
                 )}
                 {errorFound === null && (
-                    <p>{t('common.screens.generic_not_found.not_found')}</p>
+                    <p>404 {t('common.screens.generic_not_found.not_found')}</p>
                 )}
                 <div>
                     <Link to={'/'}>{t('common.screens.generic_not_found.go_home_page')}</Link>
