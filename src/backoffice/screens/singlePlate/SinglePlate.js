@@ -17,7 +17,9 @@ import './SinglePlate.css';
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
-        // this.storageData = JSON.parse(localStorage.getItem('localStorageData'));
+        this.plateId = get(this.props, 'location.state.plateId', false);
+        this.plateName = get(this.props, 'location.state.plateName', false);
+        this.plateCategoryId = get(this.props, 'location.state.plateCategoryId', false)
         this.state = {
             list_categories: [],
             plate_show_title: "",
@@ -32,23 +34,9 @@ class SinglePlate extends Component {
             editData: false,
             visibility: true
         }
-        /*
-        categoryId: 1
-        description: "pomodoro, mozzarella, basilico fresco"
-        disableDate: null
-        img: ""
-        name: "Pizza Margherita"
-        price: 10
-        restaurantId: 3
-        visibility: true
-        */
     }
 
     componentDidMount = async () => {
-        this.plateId = get(this.props, 'location.state.plateId', false);
-        this.plateName = get(this.props, 'location.state.plateName', false);
-        this.plateCategoryId = get(this.props, 'location.state.plateCategoryId', false)
-
         if (!this.plateId || !this.plateName || !this.plateCategoryId) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU);
         } else {
@@ -58,7 +46,9 @@ class SinglePlate extends Component {
                 get(this.props, 'tokenDuck.token', null))
 
             let plate = categoryPlates.find(el => {
-                return el.id === this.props.location.state.plateId
+                if(this.plateId){
+                    return el.id === this.plateId
+                }return null
             });
 
             let plateData = {
@@ -90,9 +80,35 @@ class SinglePlate extends Component {
         })
     }
 
-    handleCallbackInput = (e) => {
+    handleCallbackInput = async (e) => {
         let data = this.state.data;
-        data[e.target.name] = e.target.name === 'categoryId' ? [parseInt(e.target.value), false] : [e.target.value, false]
+        if (e.target.name === 'categoryId') {
+            data[e.target.name] = [parseInt(e.target.value), false];
+        } 
+        else if (e.target.name === 'img') {
+
+            let file = e.target.files[0]
+            let fileName = utils.snakeCaseString(e.target.files[0].name);
+
+            await utils.getBase64(file)
+                .then(async result => {
+                    properties.GENERIC_SERVICE = new genericServices()
+                    let img = await properties.GENERIC_SERVICE.apiPUT(`plate/upload/image/${this.plateId}`,
+                        {
+                            file_base64: result,
+                            file_name: fileName,
+                        },
+                        get(this.props, 'tokenDuck.token', null)
+                    )                    
+                    data[e.target.name] = [img.img, false];
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        else{
+            data[e.target.name] =[e.target.value, false]
+        }
         this.setState({
             data: data
         });
