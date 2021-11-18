@@ -6,16 +6,7 @@ import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
 import _, { concat } from 'lodash';
 // Plate categories images
-import Primi from '../../../backoffice/assets/images/primi.png'
-import Secondi from '../../../backoffice/assets/images/secondi.jfif'
-import Contorni from '../../../backoffice/assets/images/contorni.jpg'
-import Dessert from '../../../backoffice/assets/images/dessert.png'
-import Panini from '../../../backoffice/assets/images/hamburger.jpg'
-import Pizze from '../../../backoffice/assets/images/pizza2.png'
-import Messicano from '../../../backoffice/assets/images/messicano.jpg'
-import Poke from '../../../backoffice/assets/images/poke.jpg'
-import Sushi from '../../../backoffice/assets/images/sushi.png'
-import Altro from '../../../backoffice/assets/images/altro.jpg'
+
 import Navbar from '../../components/ui/navbar/Navbar'
 // import { createRef } from 'react/cjs/react.production.min'
 
@@ -35,200 +26,19 @@ class MenuRestaurant extends React.Component {
 
 
 
-        /* DATA */
-        // this.restaurant_categories = {
-        //     1: 'Pizza',
-        //     2: 'Pokè',
-        //     3: 'Sushi',
-        //     4: "Messicano",
-        //     5: 'Italiano',
-        //     6: 'Hamburger',
-        //     7: 'Altro',
-        //     8: 'Cinese'
-        // }
 
         this.arrPlate_categories = [];
-        // {
-        //     id: 1,
-        //     name: 'Primi',
-        //     img_path: Primi
-        // },
-        // {
-        //     id: 2,
-        //     name: 'Secondi',
-        //     img_path: Secondi
-        // },
-        // {
-        //     id: 3,
-        //     name: 'Contorni',
-        //     img_path: Contorni
-        // },
-        // {
-        //     id: 4,
-        //     name: 'Dessert',
-        //     img_path: Dessert
-        // },
-        // {
-        //     id: 5,
-        //     name: 'Panini',
-        //     img_path: Panini
-        // },
-        // {
-        //     id: 6,
-        //     name: 'Pizze',
-        //     img_path: Pizze
-        // },
-        // {
-        //     id: 7,
-        //     name: 'Messicani',
-        //     img_path: Messicano
-        // },
-        // {
-        //     id: 8,
-        //     name: 'Pokè',
-        //     img_path: Poke
-        // },
-        // {
-        //     id: 9,
-        //     name: 'Sushi',
-        //     img_path: Sushi
-        // },
-        // {
-        //     id: 10,
-        //     name: 'Altro',
-        //     img_path: Altro
-        // },
 
 
 
         this.newPlateCategories = []
-        // for (const iterator of this.arrPlate_categories) {
-        //     this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
-        // }
 
-        // console.log(this.newPlateCategories, 'SDAD')
-        // this.categoriesSet = new Set();
         this.categoriesArr = []
-        // for (const key in this.newPlateCategories) {
-        //     this.categoriesSet.add(this.newPlateCategories[key].name)
-        // }
-        // for (const iterator of this.categoriesSet) {
-        //     this.categoriesArr.push(iterator);
-        // }
 
         this.menuArray = [
-            // {
-            //     id: 1,
-            //     plate_img: Primi,
-            //     plate_name: 'Spaghetti alla carbonara',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 15,
-            //     plate_category_id: 1,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 2,
-            //     plate_img: Primi,
-            //     plate_name: 'Spaghetti al Pesto',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 12,
-            //     plate_category_id: 1,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 3,
-            //     plate_img: Secondi,
-            //     plate_name: 'Bistecca',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 32.3,
-            //     plate_category_id: 2,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 4,
-            //     plate_img: Contorni,
-            //     plate_name: 'Insalata',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 10,
-            //     plate_category_id: 3,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 5,
-            //     plate_img: Dessert,
-            //     plate_name: 'Torta',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 6,
-            //     plate_category_id: 4,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 6,
-            //     plate_img: Panini,
-            //     plate_name: 'Panino al salame',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 5,
-            //     plate_category_id: 5,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 7,
-            //     plate_img: Pizze,
-            //     plate_name: 'Margherita',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 7,
-            //     plate_category_id: 6,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 8,
-            //     plate_img: Messicano,
-            //     plate_name: 'Tacos',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 8,
-            //     plate_category_id: 7,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 9,
-            //     plate_img: Poke,
-            //     plate_name: 'Poke',
-            //     plate_description: 'Il Poke più buono',
-            //     plate_price: 9,
-            //     plate_category_id: 8,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 10,
-            //     plate_img: Sushi,
-            //     plate_name: 'Sushi',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 17,
-            //     plate_category_id: 9,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // },
-            // {
-            //     id: 11,
-            //     plate_img: Altro,
-            //     plate_name: 'Vermi fritti',
-            //     plate_description: 'Il piatto più buono',
-            //     plate_price: 0,
-            //     plate_category_id: 10,
-            //     plate_visibility: true,
-            //     plate_quantity: 0
-            // }
+
         ]
-        /* END DATA */
+
 
         this.state = {
             menuArray: this.menuArray,
@@ -333,9 +143,6 @@ class MenuRestaurant extends React.Component {
 
         let check = this.state.recapOrder
 
-        let totale = 0
-        let totalPlate = 0
-        let somma = []
 
         check.push({
             plateId: currentTarget,
@@ -348,32 +155,38 @@ class MenuRestaurant extends React.Component {
             if (check[i].plateId == currentTarget) {
                 check[i].quantity = q
             }
-            totalPlate = (check[i].quantity * Number(check[i].price))
-            if (totalPlate > 0) {
-                somma.push(totalPlate)
-            }
+
         }
 
 
-         for (let j = 0; j < somma.length; j++) {
-             totale = totale + somma[j]
-         }
 
-
-        console.log(somma, 'somma')
         let unique = _.uniqBy(check, "plateId");
 
         this.setState({
             recapOrder: unique,
-            totalPrice: totale
+
         })
+        this.calculateSum()
+    }
+
+    calculateSum = () => {
+
+        let sum = 0
+        for (let i = 0; i < this.state.recapOrder.length; i++) {
+            sum += (this.state.recapOrder[i].quantity * Number(this.state.recapOrder[i].price))
+
+        }
+        this.setState({
+            totalPrice: sum
+        })
+
+        console.log(sum, "sum")
 
     }
 
-
     goToFinalPage = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiPOST('/order',this.state.recapOrder, this.props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiPOST('/order', this.state.recapOrder, this.props.tokenDuck.token)
         console.log(response, 'response')
 
 
@@ -439,18 +252,18 @@ class MenuRestaurant extends React.Component {
                                 {t('frontend.components.my_cart.cart')}
                             </h2>
 
-                            {
-                                this.state.recapOrder.map((item, key) => {
-                                    return (
-                                        <div key={key}>
-                                            <p>Nome: {item.name}</p>
-                                            <p>Quantità: {item.quantity}</p>
-                                            <p>Prezzo: {item.price}</p>
-                                        </div>
-                                    )
-                                })
-
-                            }
+                            {this.state.recapOrder.filter((item) => {
+                                return item.quantity > 0
+                            }).map((item, key) => {
+                                return (
+                                    <div key={key}>
+                                        <p>Nome: {item.name}</p>
+                                        <p>Quantità: {item.quantity}</p>
+                                        <p>Prezzo: {item.price}</p>
+                                        <hr></hr>
+                                    </div>
+                                )
+                            })}
 
 
                             {this.state.totalPrice > 0 ? (
