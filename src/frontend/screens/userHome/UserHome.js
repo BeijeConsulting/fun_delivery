@@ -233,7 +233,8 @@ class UserHome extends Component {
         })
     }
 
-    handleCloseCallback = () => {
+    handleCloseCallback = async() => {
+        await this.getDataApi()
         this.setState({
             avatarDisplay: false
         })

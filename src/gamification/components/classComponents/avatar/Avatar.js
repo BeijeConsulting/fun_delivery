@@ -16,7 +16,6 @@ import shelf from '../../../assets/images/badges/white_shelf.png'
 class Avatar extends Component {
   constructor(props) {
     super(props)
-
     this.difference = null
     this.userPath = JSON.parse(localStorage.getItem('userInfo'))
     this.state = {
@@ -26,10 +25,11 @@ class Avatar extends Component {
       avatar_list: [],
       avatar_owned: [],
       badge_list: [],
+      badge_owned: [],
       avatarDetailModal: false,
       avatarDetail: null,
       avatar_page: true,
-      selectedBadge: this.userPath.badge.selectedBadge,
+      badgeSelected: null,
       avatarSelected: null
     }
   }
@@ -50,6 +50,11 @@ class Avatar extends Component {
     let avatarsOwnedId = avatarsOwned.map(el => el = el.avatarId)
 
     let badgeListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
+    let badgeSelected = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge/detail/${dataUser.badgeId}`, this.props.tokenDuck.token)
+    let badgeOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    let badgeOwnedId = badgeOwned.map(el => el = el.badgeId)
+
+    // console.log(badgeSelected)
 
     let statusCode = get(avatarListAPI, "status", null)
     if (statusCode === "401") {
@@ -61,7 +66,9 @@ class Avatar extends Component {
       badge_list: badgeListAPI,
       error: errorToSave,
       avatar_owned: avatarsOwnedId,
-      avatarSelected: avatarSelected
+      avatarSelected: avatarSelected,
+      badge_owned: badgeOwnedId,
+      badgeSelected: badgeSelected
     })
   }
 
@@ -84,18 +91,23 @@ class Avatar extends Component {
   avatarDetailModal = (key) => async () => {
     console.log(this.state.avatar_owned.includes(key + 1), "MUCCAAAAA")
     let avatarDetailModal = true
+    let avatarSelected = this.state.avatarSelected
     if (this.state.avatar_owned.includes(key + 1)) {
       let obj = {
         userId: this.props.userIdDuck.userID,
         avatarId: key + 1
       }
+      avatarSelected = key
       await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
       avatarDetailModal = false
       await this.getDataApi()
     }
+    console.log(avatarDetailModal)
     this.setState({
       avatarDetailModal: avatarDetailModal,
       avatarDetail: key,
+      avatarSelected: avatarSelected
+      
     })
   }
 
@@ -123,13 +135,14 @@ class Avatar extends Component {
       await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
       avatarSelected = obj.avatarId
       await this.getDataApi()
-      // let audio = new Audio(buyAvatarBadge)
-      // audio.volume = 0.1
-      // audio.play()
+      let audio = new Audio(buyAvatarBadge)
+      audio.volume = 0.1
+      audio.play()
     }
     this.setState({
       avatarDetailModal: this.difference > -1 ? false : true,
-      avatarDetail: avatarSelected
+      avatarDetail: avatarSelected,
+      avatarSelected: avatarSelected-1
     })
   }
 
@@ -187,7 +200,7 @@ class Avatar extends Component {
                   <div key={key} className='avatar-icon-container'>
                     <div
                       className='avatar-icon'
-                    // className={get(this.userPath.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}
+                      className={this.state.avatarSelected !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}
                     >
                       <img onClick={this.avatarDetailModal(key)} src={avatar.path} alt={'avatar'} /></div>
                     {
@@ -200,7 +213,7 @@ class Avatar extends Component {
             </div>
           }
           {
-            this.state.avatarDetailModal && get(this.state, "avatar_owned").includes(this.state.avatarDetail) !== true &&
+            this.state.avatarDetailModal &&
             <div className="avatar-detail-modal">
               <CloseOutlined onClick={this.closeAvatarDetailModal} className='gm-close-icon close-avatar-detail' />
               <div className="avatar-selected-content">
