@@ -82,8 +82,8 @@ class UserHome extends Component {
         let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${dataUser.avatarId}`, this.props.tokenDuck.token)
         console.log("avatar",avatar);
         let badge = await properties.GENERIC_SERVICE.apiGET(`/badges`, this.props.tokenDuck.token)
-        let badgePath = badge.find(item => item.id===dataUser.id).path
-        console.log("percorso: ", badgePath)
+        // let badgePath = badge.find(item => item.id===dataUser.id).path
+
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
 
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
@@ -111,7 +111,7 @@ class UserHome extends Component {
 
             oldDate: oldDate,
             avatar: avatar,
-            badge: badgePath,
+            // badge: badgePath,
             wheelAward: wheelAward,
             totalExp: totalExp
         })

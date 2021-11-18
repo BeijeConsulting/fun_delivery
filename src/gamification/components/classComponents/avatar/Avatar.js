@@ -34,10 +34,10 @@ class Avatar extends Component {
   }
 
   componentDidMount = () =>{
-    this.getAvatarList()
+    this.getDataApi()
   }
 
-  getAvatarList = async() => {
+  getDataApi = async() => {
     let errorToSave = false
     propertiesCommon.GENERIC_SERVICE = new genericServices()
 
@@ -49,8 +49,6 @@ class Avatar extends Component {
     let avatarsOwnedId = avatarsOwned.map(el=>el= el.avatarId)
     
     let statusCode = get(avatarListAPI, "status", null)
-
-    
         if (statusCode === "401") {
             errorToSave = true; //deve dare un errore
         }
