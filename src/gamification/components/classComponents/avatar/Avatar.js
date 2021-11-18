@@ -23,8 +23,8 @@ class Avatar extends Component {
       error: false,
       gamification: properties.gamification,
       avatar_list: [],
-      avatar_owned: [],
       badge_list: [],
+      avatar_owned: [],
       badge_owned: [],
       avatarDetailModal: false,
       avatarDetail: null,
@@ -50,23 +50,25 @@ class Avatar extends Component {
     let avatarsOwnedId = avatarsOwned.map(el => el = el.avatarId)
 
     let badgeListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
-    let badgeSelected = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge/detail/${dataUser.badgeId}`, this.props.tokenDuck.token)
+    let badgeSelected = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge/${dataUser.badgeId}`, this.props.tokenDuck.token)
     let badgeOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
     let badgeOwnedId = badgeOwned.map(el => el = el.badgeId)
 
-    // console.log(badgeSelected)
 
     let statusCode = get(avatarListAPI, "status", null)
     if (statusCode === "401") {
       errorToSave = true; //deve dare un errore
     }
     this.setState({
-      dataUser: dataUser,
-      avatar_list: avatarListAPI,
-      badge_list: badgeListAPI,
       error: errorToSave,
+
+      dataUser: dataUser,
+
+      avatar_list: avatarListAPI,
       avatar_owned: avatarsOwnedId,
       avatarSelected: avatarSelected,
+
+      badge_list: badgeListAPI,
       badge_owned: badgeOwnedId,
       badgeSelected: badgeSelected
     })
@@ -88,37 +90,15 @@ class Avatar extends Component {
     }
   }
 
-  avatarDetailModal = (key) => async () => {
-    console.log(this.state.avatar_owned.includes(key + 1), "MUCCAAAAA")
-    let avatarDetailModal = true
-    let avatarSelected = this.state.avatarSelected
-    if (this.state.avatar_owned.includes(key + 1)) {
-      let obj = {
-        userId: this.props.userIdDuck.userID,
-        avatarId: key + 1
-      }
-      avatarSelected = key
-      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
-      avatarDetailModal = false
-      await this.getDataApi()
-    }
-    console.log(avatarDetailModal)
-    this.setState({
-      avatarDetailModal: avatarDetailModal,
-      avatarDetail: key,
-      avatarSelected: avatarSelected
-      
-    })
-  }
-
+  
   closeAvatarDetailModal = () => {
     this.setState({
       avatarDetailModal: false
     })
-
+    
     this.difference = null
   }
-
+  
   buyAvatar = async () => {
     let avatarDetails = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar/detail/${this.state.avatarDetail + 1}`, this.props.tokenDuck.token)
 
@@ -131,7 +111,7 @@ class Avatar extends Component {
       }
       console.log(obj, "OBJJJJJJ");
       await propertiesCommon.GENERIC_SERVICE.apiPOST(`/avatar_user/insert`, obj, this.props.tokenDuck.token)
-
+      
       await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
       avatarSelected = obj.avatarId
       await this.getDataApi()
@@ -142,20 +122,45 @@ class Avatar extends Component {
     this.setState({
       avatarDetailModal: this.difference > -1 ? false : true,
       avatarDetail: avatarSelected,
-      avatarSelected: avatarSelected-1
+      avatarSelected: avatarSelected - 1
     })
   }
+  
+  
+  avatarDetailModal = (key) => async () => {
+    let avatarDetailModal = true
+    let avatarSelected = this.state.avatarSelected
+    if (this.state.avatar_owned.includes(key + 1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        avatarId: key + 1
+      }
+      avatarSelected = key
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
+      avatarDetailModal = false
+      await this.getDataApi()
+    }
 
+    this.setState({
+      avatarDetailModal: avatarDetailModal,
+      avatarDetail: key,
+      avatarSelected: avatarSelected
 
-  clickSelectedBadge = (key) => () => {
-    if (this.userPath.badge.userBadges.includes(key)) {
-      this.userPath.badge.selectedBadge = key
-      localStorage.setItem('userInfo', JSON.stringify(this.userPath))
-
-      let newSelectedBadge = this.userPath.badge.selectedBadge
-
+    })
+  }
+  clickSelectedBadge = (key) => async () => {
+    let badgeSelected = this.state.badgeSelected
+    badgeSelected = key
+    if (this.state.badge_owned.includes(key+1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        badgeId: key+1
+      }
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/badge_user/select`, obj, this.props.tokenDuck.token)
+      await this.getDataApi()
+console.log()
       this.setState({
-        selectedBadge: newSelectedBadge
+        badgeSelected: badgeSelected
       })
     }
   }
@@ -165,9 +170,9 @@ class Avatar extends Component {
       <div key={key} className='badge-page-container'>
         <div className='badge-icon-container'>
           <div
-            // style={this.state.selectedBadge === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
-            // className={this.userPath.badge.userBadges.includes(key) ? `badge-icon` : "badge-icon badges-not-owned"}
-            className="badge-icon"
+            style={this.state.badgeSelected === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
+            className={this.state.badge_owned.includes(key + 1) ? `badge-icon` : "badge-icon badges-not-owned"}
+
           >
             <img onClick={this.clickSelectedBadge(key)} src={badge.path} alt={'badge'} /></div>
         </div>
