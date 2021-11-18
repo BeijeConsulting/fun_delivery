@@ -57,7 +57,6 @@ class UserHome extends Component {
             totalExp: 0
         }
 
-        this.newWheelAvaileble = null
         this.newDate = new Date().getTime()
         this.difference = null
         this.compare = false
@@ -86,6 +85,11 @@ class UserHome extends Component {
 
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let lastWheelUser = wheelUser[wheelUser.length - 1]
+
+
+
+
+        console.log("ruote",this.props.tokenDuck.token);
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
         let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
         console.log(wheelAward)
@@ -95,15 +99,15 @@ class UserHome extends Component {
         this.difference = this.newDate - oldDate
         this.compare = this.difference > 86400000 ? true : false
         this.timer -= this.difference
-
-        if (oldDate) {
-            this.newWheelAvaileble = this.compare
-        }
+        let newWheelAvaileble=false
+        if (oldDate === 0) {
+            newWheelAvaileble = this.compare
+        }else
 
         console.log("avatar: ", avatar)
 
         this.setState({
-            wheelAvailable: this.newWheelAvaileble,
+            wheelAvailable: newWheelAvaileble,
             loadingRender: true,
             dataUser: dataUser,
 
@@ -116,14 +120,15 @@ class UserHome extends Component {
     }
 
     componentDidUpdate = () => {
+        let newWheelAvaileble=null
         if (this.compare || !this.state.oldDate) {
-            this.newWheelAvaileble = true
+            newWheelAvaileble = true
         } else {
-            this.newWheelAvaileble = false
+            newWheelAvaileble = false
             setTimeout(() => {
-                this.newWheelAvaileble = true
+                newWheelAvaileble = true
                 this.setState({
-                    wheelAvailable: this.newWheelAvaileble
+                    wheelAvailable: newWheelAvaileble
                 })
             }, 86400000 - this.compare);
         }
@@ -381,8 +386,8 @@ class UserHome extends Component {
                                                 }
                                                 <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
                                                 <Button
-                                                    className={this.newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
-                                                    text={this.newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.timer)} />}
+                                                    className={this.state.wheelAvailable ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
+                                                    text={this.state.wheelAvailable ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.timer)} />}
                                                     callback={this.openWheelOfFortuneGame}
                                                 />
                                             </div>
