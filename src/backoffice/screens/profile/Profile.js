@@ -231,32 +231,7 @@ class Profile extends Component {
         }
     }
 
-    handleEdit = () => { this.setState({ editData: true }) }
-
-    getBase64 = file => {
-        return new Promise(resolve => {
-            let baseURL = "";
-            // Make new FileReader
-            let reader = new FileReader();
-            // Convert the file to base64 text
-            reader.readAsDataURL(file);
-            // on reader load somthing...
-            reader.onload = () => {
-                // Make a fileInfo Object
-                baseURL = reader.result;
-                // console.log(baseURL);
-                resolve(baseURL);
-            };
-            // console.log(fileInfo);
-        });
-    };
-
-    snakeCaseString = (str) => {
-        return str && str.match(
-            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(s => s.toLowerCase())
-            .join('_');
-    }
+    handleEdit = () => { this.setState({ editData: true }) }    
 
     render() {
 
