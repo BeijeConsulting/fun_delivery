@@ -5,6 +5,9 @@ html {
 /* ----- SECTION ONE ----- */
 .fe-main-screen-container {
     padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .fe-title-main {
@@ -14,16 +17,23 @@ html {
 
 .fe-restaurants-section-one {
     min-height: calc(100vh - 83px);
+    width: 100%;
 }
 
+.trendRestaurant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .fe-restaurants-banner {
     border-radius: 10px;
     height: 250px;
     width: 100%;
     margin: 2rem 0;
-    background-image: url("../../../gamification/assets/images/sombrerosWeek.jpg");
+    background-image: url("../../../frontend/assets/images/nachos.png");
     overflow:"hidden";
-    background-position-y: center;
+    background-size: cover;
+    /* background-position-y: center; */
 }
 
 .fe-categories-title {
@@ -83,8 +93,8 @@ html {
 }
 
 .fe-img-wrapper {
-    margin-right: 20px;
     pointer-events: none;
+    margin-right: 20px;
     
 }
 
@@ -186,7 +196,9 @@ html {
         grid-template-columns: 1fr 1fr;
         gap: 10px;
     }
-
+.fe-img-wrapper{
+    margin-right: 0;
+}
 }
 
 @media screen and (max-width: 624px) {
@@ -203,8 +215,9 @@ html {
 
     .sideNav-toggleOn {
         position: absolute;
-        width: 100%;
-        border: 2px solid var(--primary-strawberry);
+        width: 310px;
+        height: 60vh;
+        left: -1px;
         padding: 1rem
     }
     .fe-restaurants-banner{
