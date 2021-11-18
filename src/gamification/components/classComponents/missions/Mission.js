@@ -96,15 +96,17 @@ class Mission extends Component {
             <>
                 {this.state.loadingRender &&
                     <div className="MissionContainer">
+                        <div className={"pseudo-mission pseudo-2-mission"}></div>
                         <h1 style={{ fontSize: '1.4rem', color: 'var(--primary-dark)' }}>Le mie missioni</h1>
                         {
                             this.state.allMissions.map((e, i) => {
                                 let missionCompleted = this.checkMissionUser(e)()
                                 let isClaimed = this.isClaimed(e)()
                                 return <div key={i} className="MissionMenuContainer">
+                                        <div className={"pseudo-mission pseudo-1-mission"}></div>
                                     <ul className="MissionMenu">
                                         <li
-                                            style={missionCompleted ? { backgroundColor: '#B6B1B1' } : null}
+                                            style={missionCompleted ? { backgroundColor: "#b6b1b1ce" } : null}
                                             className='MissionSingle'>
                                             <div className="MissionSingleTitle">
                                                 <h2 style={{ color: 'var(--primary-dark', textAlign: 'center' }}>{e.title}</h2>
