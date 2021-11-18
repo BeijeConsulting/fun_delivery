@@ -15,22 +15,20 @@ import properties from "../../../../common/utils/properties"
 
 
 const Wheel = (props) => {
-    let user = JSON.parse(localStorage.getItem('userInfo'))
     let audio = new Audio(wheelSound)
 
-    console.log(user)
-    useEffect(()=>{
+    useEffect(() => {
         const actualState = "(╯°□°)╯︵ ┻━┻"
         const canvas = document.getElementById('canvas')
         const ctx = canvas.getContext('2d')
-        const x = canvas.width/2
+        const x = canvas.width / 2
         ctx.textAlign = 'center'
-        ctx.moveTo(x,0)
-    },[])
+        ctx.moveTo(x, 0)
+    }, [])
 
-    let storage = JSON.parse(localStorage.getItem('awards'))
+    // let storage = JSON.parse(localStorage.getItem('awards'))
     const [state, setState] = useState({
-        awards: storage === null ? [] : storage,
+        // awards: storage === null ? [] : storage,
         premio: '',
         id: 0,
         isOnlyOnce: false
@@ -61,37 +59,36 @@ const Wheel = (props) => {
     const onFinished = async (winner) => {
         properties.GENERIC_SERVICE = new genericServices();
         let response = ""
-        console.log(user)
         if (winner !== 'TRY AGAIN') {
-            if(winner === '10 🥮'){
-               response = "10"
+            if (winner === '10 🥮') {
+                response = "10"
             }
-            if(winner === '100 EXP'){
+            if (winner === '100 EXP') {
                 response = "100"
             }
-            if(winner === 'NOTHING'){
+            if (winner === 'NOTHING') {
                 response = ""
             }
-            if(winner === 'FREE 🛵'){
+            if (winner === 'FREE 🛵') {
                 response = "free"
             }
-        
-            state.isOnlyOnce = true
-            
-            let obj = 
-                {
-                    userId: 163,
-                    startDate: new Date().getTime(),
-                    award: response
-                }
-            
 
-            await properties.GENERIC_SERVICE.apiPOST('/wheel/insert',obj, this.props.tokenDuck.token)
+            state.isOnlyOnce = true
+
+            let obj =
+            {
+                userId: props.userIdDuck.userID,
+                startDate: new Date().getTime(),
+                award: response
+            }
+
+
+            await properties.GENERIC_SERVICE.apiPOST('/wheel/insert', obj, props.tokenDuck.token)
 
             // localStorage.setItem('userInfo', JSON.stringify(user))
-            
+
             // localStorage.setItem('wheelTimer', JSON.stringify(new Date().getTime()))
-        }else{
+        } else {
             let audioTryAgain = new Audio(tryAgainWheel)
             audioTryAgain.volume = 0.4
             audioTryAgain.play()
@@ -100,12 +97,12 @@ const Wheel = (props) => {
         setState(
             {
                 ...state,
-                awards: state.awards,
+                // awards: state.awards,
                 premio: winner
             }
-            )
-            localStorage.setItem('awards', JSON.stringify(winner))
-            audio.pause()
+        )
+        // localStorage.setItem('awards', JSON.stringify(winner))
+        audio.pause()
     }
 
     const handleClick = () => {
@@ -117,8 +114,8 @@ const Wheel = (props) => {
 
     return (
 
-        <div style={{margin: "0 auto"}} onClick={handleClick}>
-            
+        <div style={{ margin: "0 auto" }} onClick={handleClick}>
+
             <WheelComponentCustom
                 segments={segments}
                 segColors={segColors}
@@ -139,6 +136,7 @@ const Wheel = (props) => {
     )
 }
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 export default connect(mapStateToProps)(Wheel);

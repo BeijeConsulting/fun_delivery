@@ -3,7 +3,7 @@ import Button from "../../../common/components/ui/button/Button";
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import HtmlTag from "../../components/funcComponents/htmlTag/HtmlTag";
 import delivery from "../../../common/assets/delivery.png"
-import "./LoginUser.css"
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 // import utils from "../../../common/utils/utils";
 // import utilities from "../../utilities/utilities";
@@ -11,13 +11,14 @@ import { Helmet } from "react-helmet";
 import i18n from "../../../common/localization/i18n";
 import { withTranslation } from 'react-i18next';
 import Navbar from "../../components/ui/navbar/Navbar";
-import { connect } from 'react-redux';
-import { setToken } from '../../../common/redux/duck/tokenDuck'
 import genericServices from "../../../common/utils/genericServices";
 import properties from "../../../common/utils/properties";
+import { setToken } from '../../../common/redux/duck/tokenDuck'
+import { setRefreshToken} from '../../../common/redux/duck/refreshTokenDuck'
 import { get as _get } from 'lodash';
 import { setUserInfo } from "../../redux/infoDuck";
 import { setUserId } from "../../redux/userIdDuck";
+import "./LoginUser.css"
 class LoginUser extends React.Component {
     constructor(props) {
         super(props)
@@ -57,13 +58,14 @@ class LoginUser extends React.Component {
             let response = await properties.GENERIC_SERVICE.apiPOST('/signin', { email: this.state.email, password: this.state.password })
             let statusCode = _get(response, "status", null)
             let userRole = _get(response, "permission", null)
-            if (statusCode === 401 || userRole === "restaurant") {
+            if (statusCode === "401" || userRole === "restaurant") {
                 error = true;
             }
             else {
                 // Salvare token nel duck
                 this.props.dispatch(setToken(response.token))
                 this.props.dispatch(setUserId(response.id))
+                this.props.dispatch(setRefreshToken(response.refreshToken))
                 // let getId = await properties.GENERIC_SERVICE.apiGET('/user' + {token})
                 // console.log(getId, 'getId')
 
@@ -131,6 +133,10 @@ class LoginUser extends React.Component {
                             callback={this.validateClick}
                             className={'frontend-primary-btn'}
                         />
+                        {
+                            this.state.errorMsg &&
+                            <p>{t('backoffice.screens.login.error')}</p>
+                        }
                     </div>
                     <Link to="/registrationUser" style={{ textDecoration: 'none' }}>
                         <HtmlTag

@@ -42,7 +42,7 @@ class Mission extends Component {
         console.log('get allMissions: ', allMissions)
         let statusCode = _get(allMissions, "status", null)
         let userRole = _get(allMissions, "permission", [])
-        let missionUser = await properties.GENERIC_SERVICE.apiGET('/user_mission/list/163', this.props.tokenDuck.token)
+        let missionUser = await properties.GENERIC_SERVICE.apiGET(`/user_mission/list/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         this.setState({
             allMissions: allMissions,
             loadingRender: true,
@@ -61,14 +61,14 @@ class Mission extends Component {
         console.log('missionId', missionId)
         let obj = {
             id: Number(missionId),
-            userId: 163,
+            userId: this.props.userIdDuck.userID,
             missionId: e.id,
             checked: 1
         }
-        console.log('e', e)
-        await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${missionId}`, obj, this.props.tokenDuck.token)
+        console.log('obj ', obj)
+        await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${Number(missionId)}`, obj, this.props.tokenDuck.token)
         await this.getDataApi()
-        window.location.reload(false);
+        // window.location.reload(false);
     }
 
     checkMissionUser = (e) => () => {
@@ -160,6 +160,7 @@ class Mission extends Component {
     }
 }
 const mapStateToProps = state => ({
-    tokenDuck: state.tokenDuck
+    tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 export default connect(mapStateToProps)(Mission);

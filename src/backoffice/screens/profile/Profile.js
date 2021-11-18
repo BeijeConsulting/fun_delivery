@@ -106,11 +106,33 @@ class Profile extends Component {
         }
     }
 
-    handleCallbackInput = (e) => {
+    handleCallbackInput = async (e) => {
         let data = {};
         if (e.target.name === 'restaurant_category_id') {
             data[e.target.name] = [parseInt(e.target.value), false];
-        } else {
+        } 
+        else if (e.target.name === 'profile_img') {
+
+            let file = e.target.files[0]
+            let fileName = this.snakeCaseString(e.target.files[0].name);
+
+            await this.getBase64(file)
+                .then(async result => {
+                    properties.GENERIC_SERVICE = new genericServices()
+                    let img = await properties.GENERIC_SERVICE.apiPUT(`restaurant/upload/logo/${this.props.restaurantIdDuck.restaurant_id}`,
+                        {
+                            file_base64: result,
+                            file_name: fileName,
+                        },
+                        get(this.props, 'tokenDuck.token', null)
+                    )                    
+                    data[e.target.name] = [img.restaurantLogo, false];
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        else {
             data[e.target.name] = [e.target.value, false];
         }
 
@@ -212,6 +234,31 @@ class Profile extends Component {
 
     handleEdit = () => { this.setState({ editData: true }) }
 
+    getBase64 = file => {
+        return new Promise(resolve => {
+            let baseURL = "";
+            // Make new FileReader
+            let reader = new FileReader();
+            // Convert the file to base64 text
+            reader.readAsDataURL(file);
+            // on reader load somthing...
+            reader.onload = () => {
+                // Make a fileInfo Object
+                baseURL = reader.result;
+                // console.log(baseURL);
+                resolve(baseURL);
+            };
+            // console.log(fileInfo);
+        });
+    };
+
+    snakeCaseString = (str) => {
+        return str && str.match(
+            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(s => s.toLowerCase())
+            .join('_');
+    }
+
     render() {
 
         const { t } = this.props;
@@ -242,7 +289,7 @@ class Profile extends Component {
                             </div>
 
                             <SinglePlateCard
-                                img={LogoBeije}
+                                img={this.state.data.profile_img[0]}
                                 callback={this.handleCallbackInput}
                                 name={'profile_img'}
                                 disable={!this.state.editData}

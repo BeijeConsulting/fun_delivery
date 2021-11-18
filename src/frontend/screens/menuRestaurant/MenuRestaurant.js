@@ -4,7 +4,7 @@ import SinglePlate from '../../components/funcComponents/singlePlate/SinglePlate
 import AOS from 'aos';
 import { withTranslation } from 'react-i18next';
 import 'aos/dist/aos.css';
-import _ from 'lodash';
+import _, { concat } from 'lodash';
 // Plate categories images
 import Primi from '../../../backoffice/assets/images/primi.png'
 import Secondi from '../../../backoffice/assets/images/secondi.jfif'
@@ -48,67 +48,67 @@ class MenuRestaurant extends React.Component {
         // }
 
         this.arrPlate_categories = [];
-            // {
-            //     id: 1,
-            //     name: 'Primi',
-            //     img_path: Primi
-            // },
-            // {
-            //     id: 2,
-            //     name: 'Secondi',
-            //     img_path: Secondi
-            // },
-            // {
-            //     id: 3,
-            //     name: 'Contorni',
-            //     img_path: Contorni
-            // },
-            // {
-            //     id: 4,
-            //     name: 'Dessert',
-            //     img_path: Dessert
-            // },
-            // {
-            //     id: 5,
-            //     name: 'Panini',
-            //     img_path: Panini
-            // },
-            // {
-            //     id: 6,
-            //     name: 'Pizze',
-            //     img_path: Pizze
-            // },
-            // {
-            //     id: 7,
-            //     name: 'Messicani',
-            //     img_path: Messicano
-            // },
-            // {
-            //     id: 8,
-            //     name: 'Pokè',
-            //     img_path: Poke
-            // },
-            // {
-            //     id: 9,
-            //     name: 'Sushi',
-            //     img_path: Sushi
-            // },
-            // {
-            //     id: 10,
-            //     name: 'Altro',
-            //     img_path: Altro
-            // },
-        
+        // {
+        //     id: 1,
+        //     name: 'Primi',
+        //     img_path: Primi
+        // },
+        // {
+        //     id: 2,
+        //     name: 'Secondi',
+        //     img_path: Secondi
+        // },
+        // {
+        //     id: 3,
+        //     name: 'Contorni',
+        //     img_path: Contorni
+        // },
+        // {
+        //     id: 4,
+        //     name: 'Dessert',
+        //     img_path: Dessert
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Panini',
+        //     img_path: Panini
+        // },
+        // {
+        //     id: 6,
+        //     name: 'Pizze',
+        //     img_path: Pizze
+        // },
+        // {
+        //     id: 7,
+        //     name: 'Messicani',
+        //     img_path: Messicano
+        // },
+        // {
+        //     id: 8,
+        //     name: 'Pokè',
+        //     img_path: Poke
+        // },
+        // {
+        //     id: 9,
+        //     name: 'Sushi',
+        //     img_path: Sushi
+        // },
+        // {
+        //     id: 10,
+        //     name: 'Altro',
+        //     img_path: Altro
+        // },
+
 
 
         this.newPlateCategories = []
         // for (const iterator of this.arrPlate_categories) {
         //     this.newPlateCategories[iterator.id] = { name: iterator.name, img_path: iterator.name }
         // }
-        
+
         // console.log(this.newPlateCategories, 'SDAD')
         // this.categoriesSet = new Set();
-         this.categoriesArr = []
+        this.categoriesArr = []
         // for (const key in this.newPlateCategories) {
         //     this.categoriesSet.add(this.newPlateCategories[key].name)
         // }
@@ -260,20 +260,18 @@ class MenuRestaurant extends React.Component {
             duration: 1000
         })
         // REF
-        console.log()
-        
 
         this.scrollOnTop()
 
         properties.GENERIC_SERVICE = new genericServices();
-        
+
         let idRestaurant = this.props.restaurantIdDuck.restaurant_id
         let response = await properties.GENERIC_SERVICE.apiGET(`/platecategories/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
         // NAME NON AUTH
         let responseName = await properties.GENERIC_SERVICE.apiGET(`/restaurant/info/${idRestaurant}`, this.props.tokenDuck.token)
         console.log(responseName, 'EEEE')
         let responsePlate = await properties.GENERIC_SERVICE.apiGET(`/plates/restaurant/${idRestaurant}`, this.props.tokenDuck.token)
-        
+
         let statusCode = _get(response, "status", null)
         let userRole = _get(response, "permission", [])
         // AUTORIZZ?
@@ -281,7 +279,7 @@ class MenuRestaurant extends React.Component {
             console.log('error')
         }
         else {
-        
+
             this.arrPlate_categories = response
             this.newPlateCategories = this.arrPlate_categories.map((item) => {
                 return item
@@ -298,23 +296,23 @@ class MenuRestaurant extends React.Component {
             }
             console.log(this.categoriesArr, 'ARR')
             this.menuArray = responsePlate;
-            console.log(this.menuArray ,' array')
+            console.log(this.menuArray, ' array')
 
             this.setState({
                 categoryList: this.categoriesArr,
                 restaurantName: responseName.name,
-                restaurantInfo: responseName.city +  ' ' + ' • ' + responseName.averageReview + ' ⭐ ',
+                restaurantInfo: responseName.city + ' ' + ' • ' + responseName.averageReview + ' ⭐ ',
                 adressRestaurant: responseName.address
-                
+
             })
-           
+
 
         }
 
-        
+
     }
 
-    
+
     scrollOnTop = () => {
         window.scrollTo(0, 0)
     }
@@ -325,73 +323,69 @@ class MenuRestaurant extends React.Component {
         })
     }
 
-    operatorSwitch = async(q, e) => {
-        console.log('switch', e.target)
-        
+    operatorSwitch = async (q, e) => {
+
+
         await e.preventDefault()
         let currentTarget = e.target.value
         let currentName = e.target.name
-        let currentPrice = e.target.price
-        let findOrder = undefined
+        let currentPrice = e.target.id
 
-        console.log('price', currentPrice)
-        let recapOrder = this.state.recapOrder
+        let check = this.state.recapOrder
 
-        if(recapOrder.length === 0){
-            recapOrder.push({
-                plateId: currentTarget,
-                quantity: q,
-                name: currentName,
-                price: currentPrice
-            })
-        }
-        else{
-            findOrder = _.find(recapOrder, (item, key)=>{
-                return item.plateId === currentTarget
-                // console.log(item.plateId, 'plateId')
-                
-            })
+        let totale = 0
+        let totalPlate = 0
+        let somma = []
 
-            if(findOrder === undefined){
-                recapOrder.push({
-                    plateId: currentTarget,
-                    quantity: q,
-                    name: currentName,
-                    price: currentPrice
-                })
+        check.push({
+            plateId: currentTarget,
+            quantity: q,
+            name: currentName,
+            price: currentPrice
+        })
+
+        for (let i = 0; i < check.length; i++) {
+            if (check[i].plateId == currentTarget) {
+                check[i].quantity = q
             }
-            else{
-                findOrder.quantity = q
+            totalPlate = (check[i].quantity * Number(check[i].price))
+            if (totalPlate > 0) {
+                somma.push(totalPlate)
             }
         }
 
 
+         for (let j = 0; j < somma.length; j++) {
+             totale = totale + somma[j]
+         }
+
+
+        console.log(somma, 'somma')
+        let unique = _.uniqBy(check, "plateId");
 
         this.setState({
-            recapOrder: findOrder === undefined?recapOrder:findOrder,
-            quantityCounter: q
-
+            recapOrder: unique,
+            totalPrice: totale
         })
-        
 
     }
-        
-    
 
-    goToFinalPage = async() => {
+
+    goToFinalPage = async () => {
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiPOST('/order', JSON.stringify(this.state.recapOrder),this.props.tokenDuck.token )
+        let response = await properties.GENERIC_SERVICE.apiPOST('/order',this.state.recapOrder, this.props.tokenDuck.token)
         console.log(response, 'response')
-        
-        
-        
+
+
+
         this.props.history.push('/orderConfirmed');
     }
 
     render() {
         const { t } = this.props
 
-        console.log('recapOrder',this.state.recapOrder)
+        console.log('recapOrder', this.state.recapOrder)
+
         return (
             <>
                 <Navbar />
@@ -445,29 +439,25 @@ class MenuRestaurant extends React.Component {
                                 {t('frontend.components.my_cart.cart')}
                             </h2>
 
-                            {/* <div className='fe-menu-cart-content'>
-                                {
-                                    // item.plate_quantity > 0
-                                    this.state.recapOrder.filter((item) => {
-                                        return item
-                                    }).map((item, index) => {
-                                        console.log(item, 'item')
-                                        return (
-                                            <div className='fe-menu-cart-single' key={index} style={{ paddingBottom: '.3rem' }}>
-                                                <span> {item.name}•{item.quantity} * {item.price}</span>
-                                                <span>{(item.price).toFixed(2)}€</span>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div> */}
+                            {
+                                this.state.recapOrder.map((item, key) => {
+                                    return (
+                                        <div key={key}>
+                                            <p>Nome: {item.name}</p>
+                                            <p>Quantità: {item.quantity}</p>
+                                            <p>Prezzo: {item.price}</p>
+                                        </div>
+                                    )
+                                })
+
+                            }
 
 
                             {this.state.totalPrice > 0 ? (
                                 <div className=''>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem' }}>
                                         <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>TOTALE: </span>
-                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice.toFixed(2)}€</span>
+                                        <span style={{ fontWeight: 'bolder', fontSize: '18px', marginTop: '1rem' }}>{this.state.totalPrice}€</span>
 
                                     </div>
                                     {this.state.cartToggle === 'fe-menu-cart' && <button className='fe-menu-cart-btn fe-menu-cart-media-btn' onClick={this.goToFinalPage}>{t('frontend.components.goTo_checkout.check')}</button>}
@@ -499,7 +489,7 @@ class MenuRestaurant extends React.Component {
                                                                 descriptPlate={item.description}
                                                                 plateName={item.name}
                                                                 valueId={item.id}
-                                                                platePrice={item.price}
+                                                                idPrice={item.price}
                                                                 // quantity={this.state.quantityCounter}
                                                                 classNameWrapper="fe-menu-single-plate"
                                                                 classNameImage="imageSinglePlate"

@@ -63,11 +63,11 @@ class genericServices {
                 }
 
                 if(this.errorAgain){
-                    this.store.dispatch(initToken())
-                    this.store.dispatch(initRestaurantId())
-                    this.store.dispatch(initUserId())
-                    this.history.push('/not-authorized', { error: 403 })
-                    window.location.reload()
+                    // this.store.dispatch(initToken())
+                    // this.store.dispatch(initRestaurantId())
+                    // this.store.dispatch(initUserId())
+                    // this.history.push('/not-authorized', { error: 403 })
+                    // window.location.reload()
                 }
 
                 if (error.response.status === 404) {
