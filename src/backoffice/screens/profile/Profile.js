@@ -3,6 +3,7 @@ import './Profile.css';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
+import { message} from 'antd';
 import { EditFilled, SaveOutlined } from '@ant-design/icons';
 import coin from '../../../common/assets/BeijeCoin.png'
 import TextArea from "../../../common/components/ui/textarea/TextArea";
@@ -124,6 +125,7 @@ class Profile extends Component {
                         get(this.props, 'tokenDuck.token', null)
                     )                    
                     data[e.target.name] = [img.restaurantLogo, false];
+                    message.success('Immagine salvata correttamente',2);  
                 })
                 .catch(err => {
                     console.log(err);

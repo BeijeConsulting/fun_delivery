@@ -1,5 +1,6 @@
 import { DeleteOutlined, EditFilled, SaveOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import { message} from 'antd';
 import { get } from "lodash";
 import { Component } from "react";
 import { withTranslation } from "react-i18next";
@@ -88,8 +89,7 @@ class SinglePlate extends Component {
         else if (e.target.name === 'img') {
 
             let file = e.target.files[0]
-            let fileName = utils.snakeCaseString(e.target.files[0].name);
-
+            let fileName = utils.snakeCaseString(file.name);
             await utils.getBase64(file)
                 .then(async result => {
                     properties.GENERIC_SERVICE = new genericServices()
@@ -99,7 +99,8 @@ class SinglePlate extends Component {
                             file_name: fileName,
                         },
                         get(this.props, 'tokenDuck.token', null)
-                    )                    
+                    )            
+                    message.success('Immagine salvata correttamente',2);        
                     data[e.target.name] = [img.img, false];
                 })
                 .catch(err => {
