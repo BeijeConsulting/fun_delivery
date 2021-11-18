@@ -20,11 +20,11 @@ class Avatar extends Component {
     this.difference = null
     this.userPath = JSON.parse(localStorage.getItem('userInfo'))
     this.state = {
+      dataUser: null,
       error: false,
       gamification: properties.gamification,
       avatar_list: [],
       avatar_owned:[],
-      
       badge_list: [],
       avatarDetailModal: false,
       avatarDetail: null,
@@ -40,6 +40,9 @@ class Avatar extends Component {
   getAvatarList = async() => {
     let errorToSave = false
     propertiesCommon.GENERIC_SERVICE = new genericServices()
+
+    let dataUser = await propertiesCommon.GENERIC_SERVICE.apiGET(`/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    console.log(dataUser);
     let avatarListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/avatars", this.props.tokenDuck.token)
     let avatarsOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
     let badgeListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
@@ -52,6 +55,7 @@ class Avatar extends Component {
             errorToSave = true; //deve dare un errore
         }
         this.setState({
+            dataUser: dataUser,
             avatar_list: avatarListAPI,
             badge_list: badgeListAPI,
             error: errorToSave,
@@ -75,13 +79,18 @@ class Avatar extends Component {
     }
   }
 
-  avatarDetailModal = (key) => () => {
-    if (get(this.userPath.avatar, "userAvatars").includes(key)) {
-      this.userPath.avatar.selectedAvatar = key
-      localStorage.setItem('userInfo', JSON.stringify(this.userPath))
+  avatarDetailModal = (key) => async () => {
+    let avatarDetailModal = true
+    if (this.state.avatar_owned.includes(key+1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        avatarId: key+1
+      }
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
+      avatarDetailModal = false
     }
     this.setState({
-      avatarDetailModal: true,
+      avatarDetailModal: avatarDetailModal,
       avatarDetail: key,
     })
   }
@@ -153,7 +162,7 @@ class Avatar extends Component {
       <div className='avatar-page-container'>
         <div className='avatar-container'>
           <div className='gm-icons-container'>
-            <div className='gm-current-coins'>{this.userPath.beijeCoin}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
+            <div className='gm-current-coins'>{get(this.state.dataUser, "totalCoins")}<img className='coin-avatar-image' src={coin} alt={'coins'} /></div>
             <CloseOutlined className='gm-close-icon' onClick={this.closeHandleClick} />
           </div>
           <div className='links-container'>
@@ -173,7 +182,7 @@ class Avatar extends Component {
                     >
                       <img onClick={this.avatarDetailModal(key)} src={avatar.path} alt={'avatar'} /></div>
                      {
-                       this.state.avatar_owned.includes(key+1) !== true &&
+                      this.state.avatar_owned.includes(key+1) !== true &&
                       <div className='avatar-cost'>{avatar.cost}<img src={coin} alt={'price'} /></div>
                     } 
                   </div>
