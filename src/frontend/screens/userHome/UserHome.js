@@ -109,7 +109,7 @@ class UserHome extends Component {
 
             oldDate: oldDate,
             avatar: avatar,
-            badge: badgePath,
+            // badge: badgePath,
             wheelAward: wheelAward,
             totalExp: totalExp
         })
