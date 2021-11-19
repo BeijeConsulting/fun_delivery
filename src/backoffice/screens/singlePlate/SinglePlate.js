@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditFilled, SaveOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { message} from 'antd';
+import { message } from 'antd';
 import { get } from "lodash";
 import { Component } from "react";
 import { withTranslation } from "react-i18next";
@@ -15,6 +15,8 @@ import SwitchProfile from "../../components/ui/switch/SwitchProfile";
 import { connect } from 'react-redux';
 import genericServices from '../../../common/utils/genericServices';
 import './SinglePlate.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 class SinglePlate extends Component {
     constructor(props) {
         super(props)
@@ -41,15 +43,16 @@ class SinglePlate extends Component {
         if (!this.plateId || !this.plateName || !this.plateCategoryId) {
             this.props.history.push(properties.BO_ROUTING.MY_MENU);
         } else {
+            AOS.init({ duration: 1000 })
             // Api per visualizzare tutti i piatti di quella categoria
             properties.GENERIC_SERVICE = new genericServices()
             let categoryPlates = await properties.GENERIC_SERVICE.apiGET(`plates/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}/${this.plateCategoryId}`,
                 get(this.props, 'tokenDuck.token', null))
 
             let plate = categoryPlates.find(el => {
-                if(this.plateId){
+                if (this.plateId) {
                     return el.id === this.plateId
-                }return null
+                } return null
             });
 
             let plateData = {
@@ -85,7 +88,7 @@ class SinglePlate extends Component {
         let data = this.state.data;
         if (e.target.name === 'categoryId') {
             data[e.target.name] = [parseInt(e.target.value), false];
-        } 
+        }
         else if (e.target.name === 'img') {
 
             let file = e.target.files[0]
@@ -99,16 +102,16 @@ class SinglePlate extends Component {
                             file_name: fileName,
                         },
                         get(this.props, 'tokenDuck.token', null)
-                    )            
-                    message.success('Immagine salvata correttamente',2);        
+                    )
+                    message.success('Immagine salvata correttamente', 2);
                     data[e.target.name] = [img.img, false];
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
-        else{
-            data[e.target.name] =[e.target.value, false]
+        else {
+            data[e.target.name] = [e.target.value, false]
         }
         this.setState({
             data: data
@@ -167,11 +170,11 @@ class SinglePlate extends Component {
             // Api effettuare update del piatto 
             properties.GENERIC_SERVICE = new genericServices()
             let apiUpdatePlate = await properties.GENERIC_SERVICE.apiPUT(`plate/update/${this.plateId}`, modifiedPlate, get(this.props, 'tokenDuck.token', null))
-                this.setState({
-                    data: newData,
-                    editData: correctCheck ? false : true,
-                    plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
-                })
+            this.setState({
+                data: newData,
+                editData: correctCheck ? false : true,
+                plate_show_title: correctCheck ? newData.name[0] : this.state.plate_show_title
+            })
         }
     }
 
@@ -205,7 +208,7 @@ class SinglePlate extends Component {
                         <div className="bo-profile-form">
                             <div className="bo-mymenu-first-row">
                                 <div className="bo-mymenu-welcome">
-                                    <h2>{this.state.plate_show_title}</h2>
+                                    <h2 data-aos="fade-left">{this.state.plate_show_title}</h2>
                                     {
                                         this.state.editData &&
                                         <>
@@ -225,13 +228,17 @@ class SinglePlate extends Component {
                             </div>
 
                             <section>
-                                <SinglePlateCard
-                                    img={this.state.data.img[0]}
-                                    callback={this.handleCallbackInput}
-                                    name={'img'}
-                                    newCss=''
-                                    disable={!this.state.editData}
-                                />
+
+                                <div data-aos="zoom-in">
+                                    <SinglePlateCard
+                                        img={this.state.data.img[0]}
+                                        callback={this.handleCallbackInput}
+                                        name={'img'}
+                                        newCss=''
+                                        disable={!this.state.editData}
+                                    />
+                                </div>
+
 
                                 <div className="bo-profile-switch">
                                     <p style={{ fontSize: '16px' }}>{t('backoffice.screens.single_plate.visibility')}

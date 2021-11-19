@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import genericServices from "../../../common/utils/genericServices";
 import { get } from 'lodash'
 import AddPlate from '../../assets/images/plus.png'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 class MyMenu extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +20,7 @@ class MyMenu extends Component {
     }
 
     componentDidMount = async () => {
+        AOS.init({duration: 1000})
         // Api per avere tutte le categorie dei piatti
         properties.GENERIC_SERVICE = new genericServices()
         let apiCategories = await properties.GENERIC_SERVICE.apiGET(`platecategories/restaurant/${get(this.props, 'restaurantIdDuck.restaurant_id', null)}`, get(this.props, 'tokenDuck.token', null))
@@ -48,7 +51,7 @@ class MyMenu extends Component {
 
                         <div className="bo-mymenu-first-row align-left">
                             <div className="bo-mymenu-welcome">
-                                <h2>{t('backoffice.screens.my_menu.title')}</h2>
+                                <h2 data-aos='fade-right'>{t('backoffice.screens.my_menu.title')}</h2>
                             </div>
                         </div>
 
