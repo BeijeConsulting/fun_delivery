@@ -12,9 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
 import Navbar from '../../components/ui/navbar/Navbar';
 import Footer from '../../components/funcComponents/footer/Footer'
+import properties from '../../../common/utils/properties';
+import genericServices from '../../../common/utils/genericServices';
 
 const Landing = (props) => {
-    const ref = useRef(null);
 
     const [t, i18n] = useTranslation()
     //STATE
@@ -41,18 +42,13 @@ const Landing = (props) => {
         })
     }
     const handleCallbackBtn = (e) => {
-        props.history.push('/restaurants')
+        if(state.addressValue) {
+            properties.GENERIC_SERVICE = new genericServices()
+            let addressInfo = properties.GENERIC_SERVICE.apiPOST()
+            props.history.push('/restaurants')            
+        }
     }
-    const mouseMoveFunction = (e) => {
-        setState({
-            ...state,
-            burgerOnPage: {
-                bottom: e.pageY / 80,
-                left: -e.pageX / 80,
-            },
-        })
-    }
-
+    
     const changeLanguages = (e) => {
         i18n.changeLanguage(e.target.value)
     }
@@ -60,7 +56,7 @@ const Landing = (props) => {
     return (
         <>
             <Navbar/>
-            <div className='landing-screen' ref={ref} onMouseMove={mouseMoveFunction}>
+            <div className='landing-screen'>
                 {/* <video src={Video}autoPlay="true"/> */}
                 <img className='foodBack' src={backgroundFood} data-aos="fade-up" />
                 <div className='landing-content' data-aos="fade-up">
@@ -80,7 +76,7 @@ const Landing = (props) => {
 
                     <div className='main-box'>
                         <Input
-                            placeholder='via Roma n.173'
+                            placeholder={t('frontend.screens.landing_page.address_placeholder')}
                             name='addressValue'
                             type='text'
                             value={state.addressValue}

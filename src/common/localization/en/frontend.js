@@ -29,7 +29,8 @@ export const TRANSLATIONS_FRONTEND = {
         },
         landing_page: {
             title: "Hungry?",
-            titleFame: "Let's eat!"
+            titleFame: "Let's eat!",
+            address_placeholder: "Enter your delivery address here"
         }
     },
 

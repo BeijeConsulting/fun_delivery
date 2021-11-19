@@ -30,7 +30,8 @@ export const TRANSLATIONS_FRONTEND = {
 
         landing_page:{
             title : "Fame?",
-            titleFame: 'Si mangia!'
+            titleFame: 'Si mangia!',
+            address_placeholder: "Inserisci qui l'indirizzo di consegna"
         }
 
     },
