@@ -105,8 +105,8 @@ const Landing = (props) => {
                         />
                     </div>
                     <div className="translation-container">
-                        <button style={{fontSize:25}} value="it" onClick={changeLanguages}>🇮🇹</button>
-                        <button style={{fontSize:25}} value="en" onClick={changeLanguages}>🇬🇧</button>
+                        <button value="it" onClick={changeLanguages}>IT</button>
+                        <button value="en" onClick={changeLanguages}>EN</button>
                     </div>
 
 
