@@ -89,7 +89,7 @@ class UserHome extends Component {
 
 
 
-        console.log("ruote",this.props.tokenDuck.token);
+        console.log("ruote",wheelUser);
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
         let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
         console.log(wheelAward)
@@ -232,7 +232,8 @@ class UserHome extends Component {
         })
     }
 
-    wheelModalClick = () => {
+    wheelModalClick = async() => {
+        await this.getDataApi()
         this.setState({
             wheelModal: false
         })
