@@ -53,6 +53,7 @@ class Mission extends Component {
     }
 
     handleClaim = (e, i) => async () => {
+        
         let missionId = this.state.missionUser.map(el => {
             if (el.missionId === e.id) {
                 return el = el.id
@@ -69,7 +70,9 @@ class Mission extends Component {
 
         await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${Number(missionId)}`, obj, this.props.tokenDuck.token)
         await this.getDataApi()
-
+        if(this.props.callbackState){
+            this.props.callbackState()
+        }
     }
 
     checkMissionUser = (e) => () => {

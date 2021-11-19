@@ -30,6 +30,7 @@ import UserInformation from "../../components/funcComponents/userInformation/Use
 
 import Navbar from "../../components/ui/navbar/Navbar";
 import genericServices from "../../../common/utils/genericServices";
+import getStoredState from "redux-persist/es/getStoredState";
 
 
 
@@ -48,7 +49,7 @@ class UserHome extends Component {
             selectedTab: 'infoUser',
             loadingRender: false,
             dataUser: null,
-
+            timer:86400000,
             wheel: null,
             oldDate: null,
             avatar: null,
@@ -60,7 +61,6 @@ class UserHome extends Component {
         this.newDate = new Date().getTime()
         this.difference = null
         this.compare = false
-        this.timer = 86400000
 
         this.levelExp = 1000
         this.percentageExp = 0
@@ -91,9 +91,10 @@ class UserHome extends Component {
 
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
 
-        this.difference = this.newDate - oldDate
+        this.difference = (this.newDate +1) - oldDate
         this.compare = this.difference > 86400000 ? true : false
-        this.timer -= this.difference
+        let timer = this.state.timer
+        timer -= this.difference
         let newWheelAvaileble=false
         if (oldDate === 0) {
             newWheelAvaileble = this.compare
@@ -104,7 +105,7 @@ class UserHome extends Component {
             wheelAvailable: newWheelAvaileble,
             loadingRender: true,
             dataUser: dataUser,
-
+            timer:timer,
             oldDate: oldDate,
             avatar: avatar,
             badge: badgePath,
@@ -229,7 +230,7 @@ class UserHome extends Component {
     wheelModalClick = async() => {
         await this.getDataApi()
         this.setState({
-            wheelModal: false
+            wheelModal: false,
         })
     }
 
@@ -291,6 +292,10 @@ class UserHome extends Component {
         this.setState({
             selectedTab: 'missionUser'
         })
+    }
+
+    getState = async () => {
+        await this.getDataApi()
     }
 
     render() {
@@ -383,7 +388,7 @@ class UserHome extends Component {
                                                 <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
                                                 <Button
                                                     className={this.state.wheelAvailable ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
-                                                    text={this.state.wheelAvailable ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.timer)} />}
+                                                    text={this.state.wheelAvailable ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.state.timer)} />}
                                                     callback={this.openWheelOfFortuneGame}
                                                 />
                                             </div>
@@ -471,7 +476,7 @@ class UserHome extends Component {
                                         }
                                         {
                                             this.state.selectedTab === 'missionUser' &&
-                                            <Mission />
+                                            <Mission callbackState={this.getState}/>
                                         }
                                     </div>
                                 </div>
