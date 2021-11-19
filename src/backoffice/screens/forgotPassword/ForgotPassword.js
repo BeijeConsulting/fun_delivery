@@ -100,6 +100,7 @@ class ForgotPassword extends Component {
                             placeholder={t('backoffice.components.inputbox.confirm_password')}
                             callback={this.handleInputConfirmPsw}
                         />
+                         <p style={{fontSize:'14px',marginTop:'10px'}}>*{t('frontend.components.login_page.error_registration.passwordGenerality')}</p>
                         <Button
                             text='RESET PASSWORD'
                             className='bo-btn'

@@ -97,10 +97,10 @@ export const TRANSLATIONS_FRONTEND = {
                 surname: 'Cognome non valido',
                 email: 'Email non valida',
                 phone: 'Numero non valido',
-                password: 'Password non valida, deve contenere almeno 8 caratteri, un numero, un carattere speciale',
+                password: 'Password non valida, deve contenere almeno 6 caratteri, un numero e un carattere speciale',
                 confirm_password: 'Password non corrispondono',
                 registration_accept: 'Registration effettuata',
-                passwordGenerality:'La password deve contenere almeno 8 caratteri, un numero, un carattere speciale e un numero'
+                passwordGenerality:'La password deve contenere almeno 6 caratteri, un numero e un carattere speciale.'
             },
             error_forgot: {
                 email: 'Email non valida',

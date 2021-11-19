@@ -22,7 +22,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             title: "Registra il tuo ristorante",
             your_data: "I tuoi dati",
             your_restaurant: "Il tuo ristorante",
-            error: "Errore durante la registrazione"
+            error: "Errore durante la registrazione: email o numero di telefono già presenti"
         },
         my_orders: {
             title: "I miei ordini",

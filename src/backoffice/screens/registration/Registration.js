@@ -182,9 +182,10 @@ class Registration extends Component {
                                         callbackOnFocus={this.handleCallBackFocus}
                                     />
                                 </div>
+                                <p style={{fontSize:'14px',marginTop:'10px'}}>*{t('frontend.components.login_page.error_registration.passwordGenerality')}</p>
                                 <div>
                                     {this.state.error &&
-                                        <h3>{t('backoffice.screens.registration.error')}</h3>
+                                        <h3>❌ {t('backoffice.screens.registration.error')}</h3>
                                     }
                                 </div>
                             </section>

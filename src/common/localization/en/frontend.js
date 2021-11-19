@@ -95,10 +95,10 @@ export const TRANSLATIONS_FRONTEND = {
                 surname: 'Invalid surname',
                 email: 'Invalid email',
                 phone: 'Invalid phone',
-                password: 'Invalid password, it must contain at least 8 characters, a number, a special character',
+                password: 'Invalid password, it must contain at least 6 characters, a number, a special character',
                 confirm_password: 'Password does not match',
                 registration_accept: 'Registration made',
-                passwordGenerality:'The password must contain at least 8 characters, a number, a special character and a number'
+                passwordGenerality:'The password must contain at least 6 characters, a number and a special character.'
             },
             error_forgot: {
                 email: 'Invalid Email',
