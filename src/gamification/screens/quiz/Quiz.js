@@ -54,7 +54,6 @@ class Quiz extends Component {
             iconButton: '',
             choiceDone: false,
             showLoader: false,
-            beijeCoin: storage.beijeCoin,
             translate: false,
             audio: false,
             chooseGame: false,
@@ -62,22 +61,11 @@ class Quiz extends Component {
     }
 
     componentDidMount() {
-        // console.log('SINGLE OBJjjjjjjjj', this.singleObj)
-        // console.log('quiz' , this.quiz)
-        // console.log('quizData', this.quizProva)
-        /*         let audio = new Audio(musicQuiz);
-                audio.volume = 0.2;
-                audio.play(); */
-        // document.addEventListener('click', this.handleClickButton);
-        // console.log('sono componentDidMount')
-        // console.log('COMPONENT DID MOUNT BEIJECOIN: ', this.state.beijeCoin)
+
         document.addEventListener('load', this.setTimeout);
 
     }
-    // componentDidUpdate(prevProps, prevState){
-    //     console.log('STATO PRECEDENTE DI SINGLE OBJ: ', prevState.singleObjSt)
-    //     this.prova = prevState.singleObjSt;
-    // }
+   
 
 
     getRndQuestion(arr) {
@@ -224,21 +212,9 @@ class Quiz extends Component {
     }
 
     addCoins = async() => {
-/*         let beijeCoin = this.state.storage.beijeCoin
-        beijeCoin = beijeCoin + 5
 
-        let tempObj = this.state.storage
-
-        for (let key in tempObj.userInfo) {
-            if (key === 'beijeCoin') {
-                tempObj.userInfo[key] = beijeCoin;
-            }
-        }
-        this.setState({
-            storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
-        }) */
         propertiesGS.GENERIC_SERVICE = new genericServices()
-        await propertiesGS.GENERIC_SERVICE.apiPOST('/minigame/beijecoin/163', {}, this.props.tokenDuck.token)
+        await propertiesGS.GENERIC_SERVICE.apiPOST(`/minigame/beijecoin/${this.props.userIdDuck.userID}`, {}, this.props.tokenDuck.token)
     }
 
 
@@ -330,5 +306,6 @@ class Quiz extends Component {
 
 const mapStateToProps = state => ({
     tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 export default connect(mapStateToProps)(withTranslation()(Quiz));
