@@ -14,7 +14,7 @@ const properties = {
         SPONSOR: '/restaurant/sponsor'
     },
     PATH_IMAGE: '../../assets/images/',
-    BASE_URL: 'http://fundelivery-test.eba-banmpye7.eu-south-1.elasticbeanstalk.com/',
+    BASE_URL: 'https://fundelivery-api.beije.it/',
     GENERIC_SERVICE: null,
 }
 

@@ -11,10 +11,14 @@
 }
 
 .translation-container>button{
-    width: 25%;
-    padding: 5px;
+    padding: 5px 5px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
     margin: 5px;
-    border-radius:25px;
+    border-radius:50%;
     background-color: white;
 }
 .landing-screen{
@@ -56,6 +60,22 @@
     /* TO BE re-checked */
     /* 
     border: 3px solid rgb(48, 124, 211); */
+}
+.landing-none {
+    width: 700px;
+    margin-right: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    box-shadow: 0px 7px 20px rgb(75, 66, 66);
+    animation: 1s animate linear infinite;
+}
+@keyframes animate {
+    0% {
+        box-shadow: 0px 7px 20px rgb(167, 147, 147);
+    }
+    100% {
+        box-shadow: 0px 7px 10px rgb(26, 25, 25);
+    }
 }
 .landing-screen .landing-btn{
     width: 700px;

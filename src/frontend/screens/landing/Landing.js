@@ -10,10 +10,13 @@ import AOS from 'aos';
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
-import Navbar from '../../components/ui/navbar/Navbar';
-import Footer from '../../components/funcComponents/footer/Footer'
 import properties from '../../../common/utils/properties';
 import genericServices from '../../../common/utils/genericServices';
+import Navbar from '../../components/ui/navbar/Navbar';
+import Footer from '../../components/funcComponents/footer/Footer'
+import { setAddress } from '../../redux/addressDuck';
+import { connect } from "react-redux";
+
 
 const Landing = (props) => {
 
@@ -22,6 +25,7 @@ const Landing = (props) => {
     const [state, setState] = useState({
         addressValue: '',
         hourValue: '',
+        errorMsg: '',
         burgerOnPage: {
             bottom: 0,
             left: 10,
@@ -40,15 +44,19 @@ const Landing = (props) => {
             ...state,
             [e.target.name]: e.target.value
         })
-    }
-    const handleCallbackBtn = (e) => {
-        if(state.addressValue) {
-            properties.GENERIC_SERVICE = new genericServices()
-            let addressInfo = properties.GENERIC_SERVICE.apiPOST()
-            props.history.push('/restaurants')            
-        }
+        props.dispatch(setAddress(e.target.value))
+       
     }
     
+    const handleCallbackBtn = (e) => {
+        if(state.addressValue) {
+            props.history.push('/restaurants')            
+        } else {
+            setState({errorMsg: 'Devi inserire un indirizzo di consegna'})
+        }
+    }
+   
+
     const changeLanguages = (e) => {
         i18n.changeLanguage(e.target.value)
     }
@@ -75,8 +83,9 @@ const Landing = (props) => {
                      
 
                     <div className='main-box'>
+                    <span style={{color: 'white', fontSize: 15}}>{state.errorMsg}</span>
                         <Input
-                            placeholder={t('frontend.screens.landing_page.address_placeholder')}
+                            placeholder='Es. Via Roma, 17'
                             name='addressValue'
                             type='text'
                             value={state.addressValue}
@@ -96,8 +105,8 @@ const Landing = (props) => {
                         />
                     </div>
                     <div className="translation-container">
-                        <button value="it" onClick={changeLanguages}>IT</button>
-                        <button value="en" onClick={changeLanguages}>EN</button>
+                        <button style={{fontSize:25}} value="it" onClick={changeLanguages}>🇮🇹</button>
+                        <button style={{fontSize:25}} value="en" onClick={changeLanguages}>🇬🇧</button>
                     </div>
 
 
@@ -110,4 +119,8 @@ const Landing = (props) => {
         </>
     );
 }
-export default Landing;
+
+const mapStateToProps = state => ({
+    addressDuck: state.addressDuck
+})
+export default connect(mapStateToProps)(Landing);
