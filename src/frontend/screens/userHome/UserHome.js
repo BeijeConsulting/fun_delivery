@@ -80,25 +80,27 @@ class UserHome extends Component {
 
         let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${dataUser.avatarId}`, this.props.tokenDuck.token)
         let badge = await properties.GENERIC_SERVICE.apiGET(`/badges`, this.props.tokenDuck.token)
-        let badgePath = badge.find(item => item.id===dataUser.badgeId).path
+        let badgePath = badge.find(item => item.id === dataUser.badgeId).path
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
 
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let lastWheelUser = wheelUser[wheelUser.length - 1]
 
-        let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
-        let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
-
+        let wheelAward = 'Wheel award'
+        let oldDate = 0
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
-
-        this.difference = (this.newDate +1) - oldDate
-        this.compare = this.difference > 86400000 ? true : false
         let timer = this.state.timer
-        timer -= this.difference
-        let newWheelAvaileble=false
-        if (oldDate === 0) {
+        let newWheelAvaileble = true
+        if (wheelUser.length > 0) {
+            oldDate = lastWheelUser.startDate
+            wheelAward = lastWheelUser.award
+            this.difference =   this.newDate - oldDate
+            this.compare = this.difference > 86400000 ? true : false          
+            timer -= this.difference
             newWheelAvaileble = this.compare
         }
+
+
 
 
         this.setState({
@@ -115,7 +117,7 @@ class UserHome extends Component {
     }
 
     componentDidUpdate = () => {
-        let newWheelAvaileble=null
+        let newWheelAvaileble = null
         if (this.compare || !this.state.oldDate) {
             newWheelAvaileble = true
         } else {
@@ -215,11 +217,11 @@ class UserHome extends Component {
 
     //Fortune wheel 
     openWheelOfFortuneGame = () => {
-        let newDate = new Date().getTime()
+
         let wheelModal = true
 
         if (this.state.oldDate) {
-            wheelModal = newDate - this.state.oldDate > 86400000 ? true : false
+            wheelModal = this.newDate - this.state.oldDate > 86400000 ? true : false
         }
 
         this.setState({
@@ -227,14 +229,18 @@ class UserHome extends Component {
         })
     }
 
-    wheelModalClick = async() => {
-        await this.getDataApi()
+    wheelModalClick = async () => {
+        this.newDate = new Date().getTime()
+        let timer = this.state.timer
         this.setState({
             wheelModal: false,
+            timer: timer,
+
         })
+        await this.getDataApi()
     }
 
-    handleCloseCallback = async() => {
+    handleCloseCallback = async () => {
         await this.getDataApi()
         this.setState({
             avatarDisplay: false
