@@ -16,7 +16,6 @@ html {
 }
 
 .fe-restaurants-section-one {
-    min-height: calc(100vh - 83px);
     width: 100%;
 }
 
@@ -69,7 +68,17 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: transparent;
+    box-shadow: 1px 1px 13px rgb(196, 192, 192);
 }
+.icon:hover {
+    box-shadow: 1px 1px 23px rgb(226, 222, 222);
+}
+.icon:focus {
+    transform: scale(1.2);
+}
+
+
 
 
 /* ----- SECTION TWO ----- */
@@ -169,10 +178,11 @@ html {
 
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .fe-restaurants-section-two {
         padding-top: 6rem;
     }
+
 
     .fe-trend-title {
         text-align: left;
@@ -184,6 +194,10 @@ html {
 
     .icon {
         width: calc(95% / 2);
+    }
+    .icon:focus {
+        transform: scale(1.05);
+        box-shadow: 1px 1px 13px rgb(141, 134, 134);
     }
 
     .fe-restaurants-container {
