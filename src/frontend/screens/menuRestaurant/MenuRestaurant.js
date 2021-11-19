@@ -70,7 +70,7 @@ class MenuRestaurant extends React.Component {
             duration: 1000
         })
         // REF
-        
+
         this.scrollOnTop()
 
         properties.GENERIC_SERVICE = new genericServices();
@@ -167,7 +167,7 @@ class MenuRestaurant extends React.Component {
 
         })
 
-        
+
         console.log(this.props.addressDuck.address, 'address')
         this.calculateSum()
     }
@@ -189,7 +189,7 @@ class MenuRestaurant extends React.Component {
 
     goToFinalPage = async () => {
         let plates = this.state.recapOrder
-        let orderAddress = {plates: plates, address: this.props.addressDuck.address}
+        let orderAddress = { plates: plates, address: this.props.addressDuck.address }
         properties.GENERIC_SERVICE = new genericServices();
         let response = await properties.GENERIC_SERVICE.apiPOST('/order', orderAddress, this.props.tokenDuck.token)
         console.log(response, 'response')
@@ -288,19 +288,21 @@ class MenuRestaurant extends React.Component {
                         <div className='fe-menu-all-categories' >
 
                             {
-                                this.categoriesArr.map((itemCategory, index) => {
+                                this.newPlateCategories.map((itemCategory, index) => {
                                     return (
                                         <div className='fe-menu-category-container' key={index}>
                                             <h2 className='fe-menu-category-title'
-                                                data-aos="fade-right" >{itemCategory}</h2>
+                                                data-aos="fade-right" >{itemCategory.name}</h2>
                                             <div className="fe-menu-plate-container">
 
 
-                                                {this.menuArray
-                                                    .filter((item) => { return (this.newPlateCategories[item.id] === itemCategory) }) &&
+                                                {
 
                                                     this.menuArray.map((item, key) => {
                                                         return (
+
+                                                             itemCategory.id === item.categoryId &&
+
                                                             <SinglePlate
                                                                 key={key}
                                                                 image={item.img}
@@ -313,6 +315,8 @@ class MenuRestaurant extends React.Component {
                                                                 classNameImage="imageSinglePlate"
                                                                 callbackHandler={this.operatorSwitch}
                                                             />
+
+
                                                         )
                                                     })}
                                             </div>
