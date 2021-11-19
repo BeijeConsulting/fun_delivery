@@ -71,7 +71,7 @@ class Plates extends Component {
                         <div className="bo-mymenu-first-row">
 
                             <div className="bo-mymenu-welcome">
-                                <h2 data-aos="fade-left">{this.pageTitle}</h2>
+                                <h2>{this.pageTitle}</h2>
                             </div>
 
                             <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t('backoffice.components.back')}</h3> </div>

@@ -152,7 +152,7 @@ class NewPlate extends Component {
                         <div className="bo-mymenu-first-row">
 
                             <div className="bo-mymenu-welcome">
-                                <h2 data-aos="fade-left">{t('backoffice.screens.new_plate.create_plate')}</h2>
+                                <h2>{t('backoffice.screens.new_plate.create_plate')}</h2>
                                 <span className="bo-icon-edit" title={t('backoffice.screens.single_plate.save_plate')}><SaveOutlined onClick={this.handleSubmit} /></span>
                             </div>
 
@@ -160,7 +160,7 @@ class NewPlate extends Component {
                         </div>
 
                         <section>
-                            <div data-aos="zoom-in">
+                            <div>
                                 <SinglePlateCard
                                     name='img'
                                     img={upload_white}

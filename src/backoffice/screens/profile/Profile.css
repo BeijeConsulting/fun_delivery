@@ -143,10 +143,14 @@ select[name="discount"]{
 }
 
 @media screen and (max-width: 960px) {
+    .bo-profile-welcome {
+        flex-direction: column;
+        justify-content: center;        
+    }    
     .bo-profile-first-row {
         flex-direction: column-reverse;
         align-items: center;
-    }
+    }    
     .bo-profile-second-row {
         flex-direction: column;
         align-items: center;

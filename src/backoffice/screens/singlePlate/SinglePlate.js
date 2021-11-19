@@ -208,7 +208,7 @@ class SinglePlate extends Component {
                         <div className="bo-profile-form">
                             <div className="bo-mymenu-first-row">
                                 <div className="bo-mymenu-welcome">
-                                    <h2 data-aos="fade-left">{this.state.plate_show_title}</h2>
+                                    <h2>{this.state.plate_show_title}</h2>
                                     {
                                         this.state.editData &&
                                         <>
@@ -228,8 +228,6 @@ class SinglePlate extends Component {
                             </div>
 
                             <section>
-
-                                <div data-aos="zoom-in">
                                     <SinglePlateCard
                                         img={this.state.data.img[0]}
                                         callback={this.handleCallbackInput}
@@ -237,9 +235,6 @@ class SinglePlate extends Component {
                                         newCss=''
                                         disable={!this.state.editData}
                                     />
-                                </div>
-
-
                                 <div className="bo-profile-switch">
                                     <p style={{ fontSize: '16px' }}>{t('backoffice.screens.single_plate.visibility')}
                                         <span style={{ paddingLeft: '10px' }}>
