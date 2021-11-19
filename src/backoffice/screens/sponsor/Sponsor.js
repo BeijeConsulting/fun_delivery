@@ -150,7 +150,7 @@ class Sponsor extends Component {
 
                                 <div style={{ marginBottom: '10px' }}>
                                     {/* <span>{this.state.sponsorSelected.coins}</span> */}
-                                    <span>{this.state.totalCoin}</span>
+                                    <span style={{paddingRight:'10px'}}>{this.state.totalCoin}</span>
                                     <img style={{ width: '20px', height: '20px' }} src={coin} alt="beijecoin" />
                                 </div>
 
