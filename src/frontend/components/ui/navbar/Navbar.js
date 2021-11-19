@@ -182,6 +182,16 @@ const Navbar = (props) => {
                             </div>
 
                         </div>
+                        {
+                            state.isLoggedIn &&
+                            <div className={`drop-down-link-box ${state.isBurgerClicked ? 'drop' : ''}`}>
+                            <div className='link-container'>
+                                <span style={{ cursor: 'pointer', fontSize: '20px' }} onClick={goToSelectedPage('/userHome')}>User</span>
+                                <span style={{ cursor: 'pointer', fontSize: '20px' }} onClick={logoutUser}>Logout</span>
+                            </div>
+
+                        </div>
+                        }
                     </div>
                 </nav>
             }

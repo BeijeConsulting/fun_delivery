@@ -49,11 +49,18 @@ const Landing = (props) => {
     }
     
     const handleCallbackBtn = (e) => {
-        if(state.addressValue) {
-            props.history.push('/restaurants')            
-        } else {
-            setState({errorMsg: 'Devi inserire un indirizzo di consegna'})
+        if (!state.addressValue && props.tokenDuck.token === '') {
+            setState({errorMsg: 'Devi essere loggato e inserire un indirizzo!'})
         }
+        else if(!state.addressValue) {
+            setState({errorMsg: 'Devi inserire un indirizzo di consegna'})
+        } else if (props.tokenDuck.token === ''){
+            setState({errorMsg: 'Devi essere loggato!'})
+        } 
+            else {
+            props.history.push('/restaurants')
+        }
+         
     }
    
 
@@ -85,7 +92,7 @@ const Landing = (props) => {
                     <div className='main-box'>
                     <span style={{color: 'white', fontSize: 15}}>{state.errorMsg}</span>
                         <Input
-                            placeholder='Es. Via Roma, 17'
+                            placeholder='Inserisci il tuo indirizzo di consegna!'
                             name='addressValue'
                             type='text'
                             value={state.addressValue}
@@ -121,6 +128,7 @@ const Landing = (props) => {
 }
 
 const mapStateToProps = state => ({
-    addressDuck: state.addressDuck
+    addressDuck: state.addressDuck,
+    tokenDuck: state.tokenDuck
 })
 export default connect(mapStateToProps)(Landing);
