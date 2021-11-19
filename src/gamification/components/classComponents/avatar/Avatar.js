@@ -16,7 +16,6 @@ import shelf from '../../../assets/images/badges/white_shelf.png'
 class Avatar extends Component {
   constructor(props) {
     super(props)
-
     this.difference = null
     this.userPath = JSON.parse(localStorage.getItem('userInfo'))
     this.state = {
@@ -24,41 +23,55 @@ class Avatar extends Component {
       error: false,
       gamification: properties.gamification,
       avatar_list: [],
-      avatar_owned:[],
       badge_list: [],
+      avatar_owned: [],
+      badge_owned: [],
       avatarDetailModal: false,
       avatarDetail: null,
       avatar_page: true,
-      selectedBadge: this.userPath.badge.selectedBadge,
+      badgeSelected: null,
+      avatarSelected: null
     }
   }
 
-  componentDidMount = () =>{
+  componentDidMount = () => {
     this.getDataApi()
   }
 
-  getDataApi = async() => {
+  getDataApi = async () => {
+
     let errorToSave = false
     propertiesCommon.GENERIC_SERVICE = new genericServices()
 
     let dataUser = await propertiesCommon.GENERIC_SERVICE.apiGET(`/user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
-    console.log(dataUser);
+    let avatarSelected = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar/detail/${dataUser.avatarId}`, this.props.tokenDuck.token)
     let avatarListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/avatars", this.props.tokenDuck.token)
     let avatarsOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    let avatarsOwnedId = avatarsOwned.map(el => el = el.avatarId)
+
     let badgeListAPI = await propertiesCommon.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
-    let avatarsOwnedId = avatarsOwned.map(el=>el= el.avatarId)
-    
+    let badgeSelected = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge/${dataUser.badgeId}`, this.props.tokenDuck.token)
+    let badgeOwned = await propertiesCommon.GENERIC_SERVICE.apiGET(`/badge_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
+    let badgeOwnedId = badgeOwned.map(el => el = el.badgeId)
+
+
     let statusCode = get(avatarListAPI, "status", null)
-        if (statusCode === "401") {
-            errorToSave = true; //deve dare un errore
-        }
-        this.setState({
-            dataUser: dataUser,
-            avatar_list: avatarListAPI,
-            badge_list: badgeListAPI,
-            error: errorToSave,
-            avatar_owned: avatarsOwnedId
-        })
+    if (statusCode === "401") {
+      errorToSave = true; //deve dare un errore
+    }
+    this.setState({
+      error: errorToSave,
+
+      dataUser: dataUser,
+
+      avatar_list: avatarListAPI,
+      avatar_owned: avatarsOwnedId,
+      avatarSelected: avatarSelected,
+
+      badge_list: badgeListAPI,
+      badge_owned: badgeOwnedId,
+      badgeSelected: badgeSelected
+    })
   }
 
   avatarPageRedirect = () => {
@@ -77,75 +90,91 @@ class Avatar extends Component {
     }
   }
 
-  avatarDetailModal = (key) => async () => {
-    let avatarDetailModal = true
-    if (this.state.avatar_owned.includes(key+1)) {
-      let obj = {
-        userId: this.props.userIdDuck.userID,
-        avatarId: key+1
-      }
-      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
-      avatarDetailModal = false
-    }
-    this.setState({
-      avatarDetailModal: avatarDetailModal,
-      avatarDetail: key,
-    })
-  }
-
+  
   closeAvatarDetailModal = () => {
     this.setState({
       avatarDetailModal: false
     })
-
+    
     this.difference = null
   }
+  
+  buyAvatar = async () => {
+    let avatarDetails = await propertiesCommon.GENERIC_SERVICE.apiGET(`/avatar/detail/${this.state.avatarDetail + 1}`, this.props.tokenDuck.token)
 
-  buyAvatar = () => {
-
-    this.difference = this.userPath.beijeCoin - this.state.avatar_list[this.state.avatarDetail].cost
-
+    this.difference = this.state.dataUser.totalCoins - avatarDetails.cost
+    let avatarSelected = this.state.avatarDetail
     if (this.difference > -1) {
-      this.userPath.beijeCoin = this.difference
-      this.userPath.avatar.userAvatars.push(this.state.avatarDetail)
-      this.userPath.avatar.selectedAvatar = this.state.avatarDetail
+      let obj = {
+        avatarId: avatarDetails.id,
+        userId: this.props.userIdDuck.userID
+      }
+      console.log(obj, "OBJJJJJJ");
+      await propertiesCommon.GENERIC_SERVICE.apiPOST(`/avatar_user/insert`, obj, this.props.tokenDuck.token)
+      
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
+      avatarSelected = obj.avatarId
+      await this.getDataApi()
       let audio = new Audio(buyAvatarBadge)
       audio.volume = 0.1
       audio.play()
     }
-
     this.setState({
-      avatarDetailModal: this.difference > -1 ? false : true
+      avatarDetailModal: this.difference > -1 ? false : true,
+      avatarDetail: avatarSelected,
+      avatarSelected: avatarSelected - 1
     })
-
-    localStorage.setItem('userInfo', JSON.stringify(this.userPath))
-
   }
-
   
-  clickSelectedBadge = (key) =>() =>{
-   if(this.userPath.badge.userBadges.includes(key)){
-    this.userPath.badge.selectedBadge = key
-    localStorage.setItem('userInfo', JSON.stringify(this.userPath))
-
-    let newSelectedBadge = this.userPath.badge.selectedBadge
+  
+  avatarDetailModal = (key) => async () => {
+    let avatarDetailModal = true
+    let avatarSelected = this.state.avatarSelected
+    if (this.state.avatar_owned.includes(key + 1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        avatarId: key + 1
+      }
+      avatarSelected = key
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
+      avatarDetailModal = false
+      await this.getDataApi()
+    }
 
     this.setState({
-      selectedBadge: newSelectedBadge 
+      avatarDetailModal: avatarDetailModal,
+      avatarDetail: key,
+      avatarSelected: avatarSelected
+
     })
-   }
+  }
+  clickSelectedBadge = (key) => async () => {
+    let badgeSelected = this.state.badgeSelected
+    badgeSelected = key
+    if (this.state.badge_owned.includes(key+1)) {
+      let obj = {
+        userId: this.props.userIdDuck.userID,
+        badgeId: key+1
+      }
+      await propertiesCommon.GENERIC_SERVICE.apiPUT(`/badge_user/select`, obj, this.props.tokenDuck.token)
+      await this.getDataApi()
+console.log()
+      this.setState({
+        badgeSelected: badgeSelected
+      })
+    }
   }
 
   printBadge = (badge, key) => {
     return (
       <div key={key} className='badge-page-container'>
         <div className='badge-icon-container'>
-          <div 
-          // style={this.state.selectedBadge === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
-          // className={this.userPath.badge.userBadges.includes(key) ? `badge-icon` : "badge-icon badges-not-owned"}
-          className="badge-icon"
+          <div
+            style={this.state.badgeSelected === key ? {filter: "drop-shadow(2px 2px 4px green)"} : null}
+            className={this.state.badge_owned.includes(key + 1) ? `badge-icon` : "badge-icon badges-not-owned"}
+
           >
-            <img  onClick={this.clickSelectedBadge(key)} src={badge.path} alt={'badge'} /></div>
+            <img onClick={this.clickSelectedBadge(key)} src={badge.path} alt={'badge'} /></div>
         </div>
       </div>
     )
@@ -174,22 +203,22 @@ class Avatar extends Component {
               {this.state.avatar_list.map((avatar, key) => {
                 return (
                   <div key={key} className='avatar-icon-container'>
-                    <div 
-                    className='avatar-icon'
-                    // className={get(this.userPath.avatar, "selectedAvatar") !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}
+                    <div
+                      className='avatar-icon'
+                      className={this.state.avatarSelected !== key ? 'avatar-icon' : 'avatar-icon avatar-icon-selected'}
                     >
                       <img onClick={this.avatarDetailModal(key)} src={avatar.path} alt={'avatar'} /></div>
-                     {
-                      this.state.avatar_owned.includes(key+1) !== true &&
+                    {
+                      this.state.avatar_owned.includes(key + 1) !== true &&
                       <div className='avatar-cost'>{avatar.cost}<img src={coin} alt={'price'} /></div>
-                    } 
+                    }
                   </div>
                 )
               })}
             </div>
           }
           {
-            this.state.avatarDetailModal && get(this.userPath.avatar, "userAvatars").includes(this.state.avatarDetail) !== true &&
+            this.state.avatarDetailModal &&
             <div className="avatar-detail-modal">
               <CloseOutlined onClick={this.closeAvatarDetailModal} className='gm-close-icon close-avatar-detail' />
               <div className="avatar-selected-content">
