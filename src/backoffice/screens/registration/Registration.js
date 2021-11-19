@@ -98,14 +98,15 @@ class Registration extends Component {
                     properties.GENERIC_SERVICE = new genericServices();
                     let registrationAPI = await properties.GENERIC_SERVICE.apiPOST("/restaurant", _omit(this.objData, 'confirm_password'))
                     let statusCode = _get(registrationAPI, "status", null)
-                    if (statusCode!==200 && statusCode!== null) {
-                        errorToSave = true; //deve dare un errore
+
+                    if (statusCode !==200 && statusCode !== null) {
+                        errorToSave = true; //deve dare un errore                        
                     }
                     if (!errorToSave){
                         this.props.dispatch(setToken(registrationAPI.token))
                         this.props.dispatch(setRestaurantId(registrationAPI.restaurantId))
                         this.props.dispatch(setRefreshToken(registrationAPI.refreshToken))
-                        this.props.history.push(properties.BO_ROUTING.PROFILE)
+                        return this.props.history.push(properties.BO_ROUTING.PROFILE)
                     }
                     this.setState({
                         error: errorToSave
@@ -172,6 +173,7 @@ class Registration extends Component {
                                         callback={this.handleCallbackInput}
                                         name='password'
                                         callbackOnFocus={this.handleCallBackFocus}
+                                        title="6 caratteri, %&_.$, 0-9"
                                     />
                                     <InputBox
                                         type="password"
@@ -179,12 +181,12 @@ class Registration extends Component {
                                         placeholder={t('common.components.inputbox.confirm_password')}
                                         callback={this.handleCallbackInput}
                                         name='confirm_password'
-                                        callbackOnFocus={this.handleCallBackFocus}
+                                        callbackOnFocus={this.handleCallBackFocus}                                        
                                     />
                                 </div>
                                 <div>
                                     {this.state.error &&
-                                        <h3>{t('backoffice.screens.registration.error')}</h3>
+                                        <h3>❌ {t('backoffice.screens.registration.error')}</h3>
                                     }
                                 </div>
                             </section>

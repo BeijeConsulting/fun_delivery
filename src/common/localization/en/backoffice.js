@@ -24,7 +24,7 @@ export const TRANSLATIONS_BACKOFFICE = {
             title: "Register your restaurant",
             your_data: "Your data",
             your_restaurant: "Your restaurant",
-            error: "Error during registration"
+            error: "Error during registration: email or telephone already exist."
         },
         my_orders: {
             title: "My orders",

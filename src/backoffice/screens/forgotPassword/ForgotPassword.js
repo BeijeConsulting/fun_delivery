@@ -41,10 +41,10 @@ class ForgotPassword extends Component {
     handelSubmit = async () => {
 
         let emailChecked = Utils.validateEmail(this.email);
-        // let passwordChecked = Utils.validatePassword(this.password);
+        let passwordChecked = Utils.validatePassword(this.password);
 
         let error = this.state.warning
-        if (!emailChecked || (this.password !== this.confirmPsw)) {
+        if (!emailChecked || !passwordChecked || (this.password !== this.confirmPsw)) {
             error = true
         } else {
             error = false
@@ -93,6 +93,7 @@ class ForgotPassword extends Component {
                             className='bo-input-box'
                             placeholder='Password'
                             callback={this.handleInputPassword}
+                            title="6 caratteri, %&_.$, 0-9"
                         />
                         <InputBox
                             type={'password'}
