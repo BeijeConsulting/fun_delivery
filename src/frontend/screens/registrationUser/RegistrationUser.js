@@ -206,6 +206,8 @@ class RegistrationUser extends React.Component {
                             callback={this.handleInputChange}
                             className={"frontend-input"}
                         />
+
+                        <p style={{fontSize:'12px',marginTop:'10px'}}>*{t('frontend.components.login_page.error_registration.password')}</p>
                         {/* validazione dati e invio dei dati */}
                         <Button
                             text={t('frontend.components.login_page.button.register')}
