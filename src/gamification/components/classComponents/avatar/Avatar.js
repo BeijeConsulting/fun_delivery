@@ -109,7 +109,6 @@ class Avatar extends Component {
         avatarId: avatarDetails.id,
         userId: this.props.userIdDuck.userID
       }
-      console.log(obj, "OBJJJJJJ");
       await propertiesCommon.GENERIC_SERVICE.apiPOST(`/avatar_user/insert`, obj, this.props.tokenDuck.token)
       
       await propertiesCommon.GENERIC_SERVICE.apiPUT(`/avatar_user/select`, obj, this.props.tokenDuck.token)
@@ -158,7 +157,6 @@ class Avatar extends Component {
       }
       await propertiesCommon.GENERIC_SERVICE.apiPUT(`/badge_user/select`, obj, this.props.tokenDuck.token)
       await this.getDataApi()
-console.log()
       this.setState({
         badgeSelected: badgeSelected
       })

@@ -45,7 +45,7 @@ class UserHome extends Component {
             count: 0,
             active: true,
             selectedPage: 'homeUser',
-            selectedTab: 'missionUser',
+            selectedTab: 'infoUser',
             loadingRender: false,
             dataUser: null,
 
@@ -89,10 +89,8 @@ class UserHome extends Component {
 
 
 
-        console.log("ruote",wheelUser);
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
         let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
-        console.log(wheelAward)
 
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
 
@@ -104,7 +102,6 @@ class UserHome extends Component {
             newWheelAvaileble = this.compare
         }else
 
-        console.log("avatar: ", avatar)
 
         this.setState({
             wheelAvailable: newWheelAvaileble,

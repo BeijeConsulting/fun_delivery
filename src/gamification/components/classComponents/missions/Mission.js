@@ -28,6 +28,7 @@ class Mission extends Component {
             loadingRender: false,
             allMissions: null,
             missionUser: null,
+            badge_list: [],
             count: 1
 
             // storage: this.storage === null ? [] : this.storage,
@@ -39,14 +40,15 @@ class Mission extends Component {
     getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
         let allMissions = await properties.GENERIC_SERVICE.apiGET('/mission/list', this.props.tokenDuck.token)
-        console.log('get allMissions: ', allMissions)
+        let badgeListAPI = await properties.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
         let statusCode = _get(allMissions, "status", null)
         let userRole = _get(allMissions, "permission", [])
         let missionUser = await properties.GENERIC_SERVICE.apiGET(`/user_mission/list/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         this.setState({
             allMissions: allMissions,
             loadingRender: true,
-            missionUser: missionUser
+            missionUser: missionUser,
+            badge_list: badgeListAPI
         })
     }
 
@@ -58,17 +60,16 @@ class Mission extends Component {
         })
             .filter(el => Number.isInteger(el) ? el : null)
             .join()
-        console.log('missionId', missionId)
         let obj = {
             id: Number(missionId),
             userId: this.props.userIdDuck.userID,
             missionId: e.id,
             checked: 1
         }
-        console.log('obj ', obj)
+
         await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${Number(missionId)}`, obj, this.props.tokenDuck.token)
         await this.getDataApi()
-    
+
     }
 
     checkMissionUser = (e) => () => {
@@ -103,7 +104,7 @@ class Mission extends Component {
                                 let missionCompleted = this.checkMissionUser(e)()
                                 let isClaimed = this.isClaimed(e)()
                                 return <div key={i} className="MissionMenuContainer">
-                                        <div className={"pseudo-mission pseudo-1-mission"}></div>
+                                    <div className={"pseudo-mission pseudo-1-mission"}></div>
                                     <ul className="MissionMenu">
                                         <li
                                             style={missionCompleted ? { backgroundColor: "#b6b1b1ce" } : null}
@@ -134,15 +135,15 @@ class Mission extends Component {
                                                         </span>
                                                     </>
                                                 }
-                                                {/*                         {
-                            e.badge !== null &&
-                            <span className="MissionSub">
-                                <span>
-                                    Badge: &nbsp;
-                                </span>      
-                                <img className="badgeMission" src={firstOrder2} alt="Badge" />
-                            </span>
-                        } */}
+                                                {
+                                                    e.badgeId !== null &&
+                                                    <span className="MissionSub">
+                                                         <span>
+                                                            Badge: &nbsp;
+                                                        </span>
+                                                        <img className="badgeMission" src={this.state.badge_list[e.badgeId-1].path} alt="Badge" />
+                                                    </span>
+                                                }
                                             </div>
                                             {missionCompleted && !isClaimed.includes(e.id) &&
                                                 <Button
