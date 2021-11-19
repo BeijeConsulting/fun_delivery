@@ -120,7 +120,7 @@ class RegistrationUser extends React.Component {
                 this.props.dispatch(setUserInfo(this.state.userInfo.userName))
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
-                this.props.history.push('/userHome')
+                this.props.history.push('/')
                 // }
             }
         }
@@ -207,7 +207,8 @@ class RegistrationUser extends React.Component {
                             className={"frontend-input"}
                         />
 
-                        <p style={{fontSize:'12px',marginTop:'10px'}}>*{t('frontend.components.login_page.error_registration.password')}</p>
+                        <p style={{fontSize:'12px',marginTop:'10px'}}>*{t('frontend.components.login_page.error_registration.passwordGenerality')}</p>
+
                         {/* validazione dati e invio dei dati */}
                         <Button
                             text={t('frontend.components.login_page.button.register')}

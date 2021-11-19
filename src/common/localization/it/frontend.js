@@ -100,6 +100,7 @@ export const TRANSLATIONS_FRONTEND = {
                 password: 'Password non valida, deve contenere almeno 8 caratteri, un numero, un carattere speciale',
                 confirm_password: 'Password non corrispondono',
                 registration_accept: 'Registration effettuata',
+                passwordGenerality:'La password deve contenere almeno 8 caratteri, un numero, un carattere speciale e un numero'
             },
             error_forgot: {
                 email: 'Email non valida',
