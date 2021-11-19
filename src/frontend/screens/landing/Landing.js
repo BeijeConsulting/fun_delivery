@@ -25,6 +25,7 @@ const Landing = (props) => {
     const [state, setState] = useState({
         addressValue: '',
         hourValue: '',
+        errorMsg: '',
         burgerOnPage: {
             bottom: 0,
             left: 10,
@@ -49,9 +50,9 @@ const Landing = (props) => {
     
     const handleCallbackBtn = (e) => {
         if(state.addressValue) {
-            properties.GENERIC_SERVICE = new genericServices()
-            let addressInfo = properties.GENERIC_SERVICE.apiPOST()
             props.history.push('/restaurants')            
+        } else {
+            setState({errorMsg: 'Devi inserire un indirizzo di consegna'})
         }
     }
    
@@ -82,8 +83,9 @@ const Landing = (props) => {
                      
 
                     <div className='main-box'>
+                    <span style={{color: 'white', fontSize: 15}}>{state.errorMsg}</span>
                         <Input
-                            placeholder='inserisci indirizzo di consegna'
+                            placeholder='Es. Via Roma, 17'
                             name='addressValue'
                             type='text'
                             value={state.addressValue}
@@ -103,8 +105,8 @@ const Landing = (props) => {
                         />
                     </div>
                     <div className="translation-container">
-                        <button value="it" onClick={changeLanguages}>IT</button>
-                        <button value="en" onClick={changeLanguages}>EN</button>
+                        <button style={{fontSize:25}} value="it" onClick={changeLanguages}>🇮🇹</button>
+                        <button style={{fontSize:25}} value="en" onClick={changeLanguages}>🇬🇧</button>
                     </div>
 
 
