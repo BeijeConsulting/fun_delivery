@@ -16,7 +16,7 @@ const SingleSponsor = (props) => {
             </div>
                 <p>{props.description}</p>
             <p className="gm-sponsor-price">{props.price}
-                <img className={props.coinClass} src={coin}></img>
+                <img className={props.coinClass}  style={{marginLeft:'10px'}} src={coin}></img>
             </p>
             <button className={props.classNameBtn} onClick={callBackClick}>
                 {props.label}
