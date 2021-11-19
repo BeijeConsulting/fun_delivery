@@ -42,7 +42,12 @@
     .bo-mymenu-first-row {
         flex-direction: column;
     }
-
+    .bo-mymenu-welcome h2{
+        font-size: 20px;
+    }
+    .bo-mymenu-first-row.align-left{
+        justify-content: center;
+    }
     .bo-mymenu-form {
         flex-wrap: wrap;
     }

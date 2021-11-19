@@ -10,7 +10,8 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import genericServices from "../../../common/utils/genericServices";
 // images
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 class Plates extends Component {
 
@@ -28,7 +29,7 @@ class Plates extends Component {
     }
 
     componentDidMount = async () => {
-
+        AOS.init({ duration: 1000 })
         // If plate was deleted, redirect to my menu page
         const elementDeleted = get(this.props, 'location.state.elementDeleted', false);
 
@@ -70,7 +71,7 @@ class Plates extends Component {
                         <div className="bo-mymenu-first-row">
 
                             <div className="bo-mymenu-welcome">
-                                <h2>{this.pageTitle}</h2>
+                                <h2 data-aos="fade-left">{this.pageTitle}</h2>
                             </div>
 
                             <div className="bo-mymenu-welcome" onClick={this.handleCallbackGoBack}> <h3><LeftOutlined /></h3> <h3>{t('backoffice.components.back')}</h3> </div>
