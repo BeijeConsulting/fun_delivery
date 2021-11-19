@@ -33,13 +33,13 @@ class ForgotPassword extends Component {
     handleSignUp = () => {
         let error = this.state.errormsg
         if (utils.validateEmail(this.state.email) === false) {
-            error = i18n.t('frontend.components.error_forgot.email')
+            error = i18n.t('frontend.components.login_page.error_forgot.email')
         } else if (utils.validatePassword(this.state.password) === false) {
-            error = i18n.t('frontend.components.error_forgot.password')
+            error = i18n.t('frontend.components.login_page.error_forgot.password')
         } else if (this.state.confpsw !== this.state.password) {
-            error = i18n.t('frontend.components.error_forgot.confirm_password')
+            error = i18n.t('frontend.components.login_page.error_forgot.confirm_password')
         } else {
-            error = i18n.t('frontend.components.error_forgot.forgot_accept')
+            error = i18n.t('frontend.components.login_page.error_forgot.forgot_accept')
         }
 
         this.setState({
