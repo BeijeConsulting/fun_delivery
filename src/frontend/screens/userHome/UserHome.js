@@ -504,6 +504,7 @@ class UserHome extends Component {
                                 <div className='frontend-avatar'>
                                     <Avatar
                                         closeCallback={this.handleCloseCallback}
+                                        callbackState={this.getState}
                                     />
                                 </div>
 

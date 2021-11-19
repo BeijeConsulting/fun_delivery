@@ -123,6 +123,10 @@ class Avatar extends Component {
       avatarDetail: avatarSelected,
       avatarSelected: avatarSelected - 1
     })
+
+    if(this.props.callbackState){
+      this.props.callbackState()
+  }
   }
   
   
@@ -246,14 +250,15 @@ class Avatar extends Component {
               <div className='badge-list-container'>
                 {this.state.badge_list.map(this.printBadge)}
               </div>
-
               {
+                
                 this.state.badge_list.map((badge, key) => {
-                  return (key + 1) % 3 === 0 &&
-                    (
-                      <div key={key} className='badge-shelf'><img src={shelf} alt='shelf' /></div>
+                  return (key+3) % 3 === 0  &&
+                  (
+                    <div key={key} className='badge-shelf'><img src={shelf} alt='shelf' /></div>
                     )
-                })
+                  })
+      
               }
             </>
           }
