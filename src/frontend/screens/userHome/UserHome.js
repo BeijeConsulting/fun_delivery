@@ -86,9 +86,6 @@ class UserHome extends Component {
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let lastWheelUser = wheelUser[wheelUser.length - 1]
 
-
-
-
         let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
         let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
 
@@ -100,7 +97,7 @@ class UserHome extends Component {
         let newWheelAvaileble=false
         if (oldDate === 0) {
             newWheelAvaileble = this.compare
-        }else
+        }
 
 
         this.setState({

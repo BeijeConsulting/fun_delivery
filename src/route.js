@@ -48,8 +48,6 @@ const Routing = () => {
         <Provider store={ApplicationStore}>
             <PersistGate loading={null} persistor={persistor}>
                 <Router>
-                    <Switch>
-                    </Switch>
                     {/* <Navbar /> */}
                     <Switch>
                         {/* FRONTEND ROUTES */}
