@@ -96,7 +96,7 @@ export const TRANSLATIONS_FRONTEND = {
                 surname: 'Cognome non valido',
                 email: 'Email non valida',
                 phone: 'Numero non valido',
-                password: 'Password non valiida,deve contenere almeno 8 caratteri,un numero,un carattere speciale',
+                password: 'Password non valida, deve contenere almeno 8 caratteri, un numero, un carattere speciale',
                 confirm_password: 'Password non corrispondono',
                 registration_accept: 'Registration effettuata',
             },

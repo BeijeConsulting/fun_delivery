@@ -10,6 +10,7 @@ import upload_white from '../../assets/images/upload_white.png';
 import SwitchProfile from '../../components/ui/switch/SwitchProfile';
 import utils from "../../../common/utils/utils";
 import 'antd/dist/antd.css';
+import { message} from 'antd';
 import './NewPlate.css';
 
 // Default Image for new plates
@@ -60,9 +61,10 @@ class NewPlate extends Component {
             this.new_plate[e.target.name] = parseInt(e.target.value);
         } else if (e.target.name === 'img') {
             let file = e.target.files[0]
-            let fileName = utils.snakeCaseString(e.target.files[0].name)
+            let fileName = utils.snakeCaseString(file.name)
             await utils.getBase64(file)
                 .then(async result => {
+                    console.log('imgbase64:',result);
                     properties.GENERIC_SERVICE = new genericServices()
                     let img = await properties.GENERIC_SERVICE.apiPOST('fileupload',
                         {
@@ -73,6 +75,7 @@ class NewPlate extends Component {
                         get(this.props, 'tokenDuck.token', null)
                     )
                     this.new_plate[e.target.name] = img
+                    message.success('Immagine salvata correttamente',2);
                 })
                 .catch(err => {
                     console.log(err);

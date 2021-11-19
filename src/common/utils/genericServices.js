@@ -12,7 +12,7 @@ class genericServices {
         // inizializzo axios in una variabile globale
         this.instance = axios.create({
             baseURL: properties.BASE_URL, // base url del server
-            timeout: 1000, //MS
+            timeout: 20000, //MS
         });
         this.errorAgain = false;
 
@@ -27,9 +27,7 @@ class genericServices {
                 return response;
             },
             async (error) => {
-                // console.log("errorInterceptors,", error);
                 const originalRequest = error.config;
-                //console.log("originalRequest,", originalRequest);'
                 originalRequest._retry = false
                 if (error.response.status === 403 && !originalRequest._retry && !this.errorAgain) {
                     this.errorAgain = true
@@ -51,7 +49,7 @@ class genericServices {
                             }
                             return false
                         } catch (_error) {
-                            // Rest redux e vado alla login
+                            // Reset redux e vado alla login
                             this.store.dispatch(initToken())
                             this.store.dispatch(initRestaurantId())
                             this.store.dispatch(initUserId())
@@ -62,12 +60,12 @@ class genericServices {
                     }
                 }
 
-                if(this.errorAgain){
-                    // this.store.dispatch(initToken())
-                    // this.store.dispatch(initRestaurantId())
-                    // this.store.dispatch(initUserId())
-                    // this.history.push('/not-authorized', { error: 403 })
-                    // window.location.reload()
+                if (this.errorAgain) {
+                    this.store.dispatch(initToken())
+                    this.store.dispatch(initRestaurantId())
+                    this.store.dispatch(initUserId())
+                    this.history.push('/not-authorized', { error: 403 })
+                    window.location.reload()
                 }
 
                 if (error.response.status === 404) {

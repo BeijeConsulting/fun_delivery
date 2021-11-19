@@ -3,6 +3,7 @@ import './Profile.css';
 import InputBox from "../../../common/components/ui/inputBox/InputBox";
 import LayoutBackOffice from "../../components/funcComponents/layoutBackOffice/LayoutBackOffice";
 import 'antd/dist/antd.css';
+import { message} from 'antd';
 import { EditFilled, SaveOutlined } from '@ant-design/icons';
 import coin from '../../../common/assets/BeijeCoin.png'
 import TextArea from "../../../common/components/ui/textarea/TextArea";
@@ -15,6 +16,7 @@ import localStorageData from "../../localStorageData/localStorageData";
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { get } from "lodash";
+import logoBeije from '../../assets/images/logo_beijeRosa.png'
 
 class Profile extends Component {
     constructor(props) {
@@ -124,6 +126,7 @@ class Profile extends Component {
                         get(this.props, 'tokenDuck.token', null)
                     )                    
                     data[e.target.name] = [img.restaurantLogo, false];
+                    message.success('Immagine salvata correttamente',2);  
                 })
                 .catch(err => {
                     console.log(err);
@@ -229,32 +232,7 @@ class Profile extends Component {
         }
     }
 
-    handleEdit = () => { this.setState({ editData: true }) }
-
-    getBase64 = file => {
-        return new Promise(resolve => {
-            let baseURL = "";
-            // Make new FileReader
-            let reader = new FileReader();
-            // Convert the file to base64 text
-            reader.readAsDataURL(file);
-            // on reader load somthing...
-            reader.onload = () => {
-                // Make a fileInfo Object
-                baseURL = reader.result;
-                // console.log(baseURL);
-                resolve(baseURL);
-            };
-            // console.log(fileInfo);
-        });
-    };
-
-    snakeCaseString = (str) => {
-        return str && str.match(
-            /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-            .map(s => s.toLowerCase())
-            .join('_');
-    }
+    handleEdit = () => { this.setState({ editData: true }) }    
 
     render() {
 
@@ -286,7 +264,7 @@ class Profile extends Component {
                             </div>
 
                             <SinglePlateCard
-                                img={this.state.data.profile_img[0]}
+                                img={this.state.data.profile_img[0]?this.state.data.profile_img[0]:logoBeije}
                                 callback={this.handleCallbackInput}
                                 name={'profile_img'}
                                 disable={!this.state.editData}
