@@ -28,6 +28,7 @@ class Mission extends Component {
             loadingRender: false,
             allMissions: null,
             missionUser: null,
+            badge_list: [],
             count: 1
 
             // storage: this.storage === null ? [] : this.storage,
@@ -39,18 +40,20 @@ class Mission extends Component {
     getDataApi = async () => {
         properties.GENERIC_SERVICE = new genericServices();
         let allMissions = await properties.GENERIC_SERVICE.apiGET('/mission/list', this.props.tokenDuck.token)
-        console.log('get allMissions: ', allMissions)
+        let badgeListAPI = await properties.GENERIC_SERVICE.apiGET("/badges", this.props.tokenDuck.token)
         let statusCode = _get(allMissions, "status", null)
         let userRole = _get(allMissions, "permission", [])
         let missionUser = await properties.GENERIC_SERVICE.apiGET(`/user_mission/list/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         this.setState({
             allMissions: allMissions,
             loadingRender: true,
-            missionUser: missionUser
+            missionUser: missionUser,
+            badge_list: badgeListAPI
         })
     }
 
     handleClaim = (e, i) => async () => {
+        
         let missionId = this.state.missionUser.map(el => {
             if (el.missionId === e.id) {
                 return el = el.id
@@ -58,17 +61,18 @@ class Mission extends Component {
         })
             .filter(el => Number.isInteger(el) ? el : null)
             .join()
-        console.log('missionId', missionId)
         let obj = {
             id: Number(missionId),
             userId: this.props.userIdDuck.userID,
             missionId: e.id,
             checked: 1
         }
-        console.log('obj ', obj)
+
         await properties.GENERIC_SERVICE.apiPUT(`/user_mission/update/${Number(missionId)}`, obj, this.props.tokenDuck.token)
         await this.getDataApi()
-        window.location.reload(false);
+        if(this.props.callbackState){
+            this.props.callbackState()
+        }
     }
 
     checkMissionUser = (e) => () => {
@@ -96,15 +100,17 @@ class Mission extends Component {
             <>
                 {this.state.loadingRender &&
                     <div className="MissionContainer">
+                        <div className={"pseudo-mission pseudo-2-mission"}></div>
                         <h1 style={{ fontSize: '1.4rem', color: 'var(--primary-dark)' }}>Le mie missioni</h1>
                         {
                             this.state.allMissions.map((e, i) => {
                                 let missionCompleted = this.checkMissionUser(e)()
                                 let isClaimed = this.isClaimed(e)()
                                 return <div key={i} className="MissionMenuContainer">
+                                    <div className={"pseudo-mission pseudo-1-mission"}></div>
                                     <ul className="MissionMenu">
                                         <li
-                                            style={missionCompleted ? { backgroundColor: '#B6B1B1' } : null}
+                                            style={missionCompleted ? { backgroundColor: "#b6b1b1ce" } : null}
                                             className='MissionSingle'>
                                             <div className="MissionSingleTitle">
                                                 <h2 style={{ color: 'var(--primary-dark', textAlign: 'center' }}>{e.title}</h2>
@@ -132,15 +138,15 @@ class Mission extends Component {
                                                         </span>
                                                     </>
                                                 }
-                                                {/*                         {
-                            e.badge !== null &&
-                            <span className="MissionSub">
-                                <span>
-                                    Badge: &nbsp;
-                                </span>      
-                                <img className="badgeMission" src={firstOrder2} alt="Badge" />
-                            </span>
-                        } */}
+                                                {
+                                                    e.badgeId !== null &&
+                                                    <span className="MissionSub">
+                                                         <span>
+                                                            Badge: &nbsp;
+                                                        </span>
+                                                        <img className="badgeMission" src={this.state.badge_list[e.badgeId-1].path} alt="Badge" />
+                                                    </span>
+                                                }
                                             </div>
                                             {missionCompleted && !isClaimed.includes(e.id) &&
                                                 <Button

@@ -35,14 +35,14 @@ const Wheel = (props) => {
     })
     const segments = [
         'TRY AGAIN',
-        '10 🥮',
         '100 EXP',
-        '5€ SALES',
+        '10 🥮',
         'FREE 🛵',
+        '100 EXP',
+        '10 🥮',
         'NOTHING WON',
-        '10 🥮',
         '100 EXP',
-        'FREE 🛵',
+        '10 🥮',
     ]
 
     const segColors = [

@@ -14,22 +14,25 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .MissionMenuContainer {
     height: 95%;
     width: 90%;
+    position:relative;
 }
 
 .MissionMenu {
     height: 100%;
     width: 100%;
+    
 }
 
 ul.MissionMenu li.MissionSingle {
     border-color: none;
     border-radius: 5px;
-    background-color: var(--primary-desaturated-strawberry);
+    background-color:  #f67a91ce;
     /* debug */
     color: white;
     /*debug*/
@@ -41,6 +44,8 @@ ul.MissionMenu li.MissionSingle {
     flex-direction: column;
     justify-content: space-around;
     transition-duration: 0.4s;
+    z-index: 2;
+    position: relative;
 }
 
 ul.MissionMenu li.MissionSingle:hover {
@@ -71,6 +76,7 @@ div.MissionAward {
 .BeijeCoinMission {
     width: 20px;
     height: 20px;
+    margin-left: 5px;
 }
 
 .badgeMission {
@@ -89,3 +95,65 @@ div.MissionAward {
         padding: 5px 10px;
     }
 }
+
+
+
+
+.pseudo-mission {
+    content: "";
+    height: 50px;
+    width: 50px;
+    border: 5px solid var(--primary-strawberry);
+    border-radius: 15%;
+    position: absolute;
+    z-index: 0;
+}
+
+.pseudo-1-mission {
+    left: -4%;
+    top: 75%;
+    height: 50px;
+    width: 50px;
+    animation-name: pseudo-1-mission;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    border: 4px solid var(--primary-strawberry);
+
+}
+
+.pseudo-2-mission {
+    right: 6.5%;
+    top: 1%;
+    height: 75px;
+    width: 75px;
+    animation-name: pseudo-2-mission;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes pseudo-2-mission {
+    0% {
+        transform: rotate(0deg);
+        top: 25px
+    }
+    50% {
+        transform: rotate(1500deg);
+        top: 94%
+    }
+    100% {
+        transform: rotate(0deg);
+        top:  25px
+    }
+}
+
+@keyframes pseudo-1-mission {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+

@@ -30,6 +30,7 @@ import UserInformation from "../../components/funcComponents/userInformation/Use
 
 import Navbar from "../../components/ui/navbar/Navbar";
 import genericServices from "../../../common/utils/genericServices";
+import getStoredState from "redux-persist/es/getStoredState";
 
 
 
@@ -45,10 +46,10 @@ class UserHome extends Component {
             count: 0,
             active: true,
             selectedPage: 'homeUser',
-            selectedTab: 'missionUser',
+            selectedTab: 'infoUser',
             loadingRender: false,
             dataUser: null,
-
+            timer:86400000,
             wheel: null,
             oldDate: null,
             avatar: null,
@@ -57,11 +58,9 @@ class UserHome extends Component {
             totalExp: 0
         }
 
-        this.newWheelAvaileble = null
         this.newDate = new Date().getTime()
         this.difference = null
         this.compare = false
-        this.timer = 86400000
 
         this.levelExp = 1000
         this.percentageExp = 0
@@ -81,32 +80,34 @@ class UserHome extends Component {
 
         let avatar = await properties.GENERIC_SERVICE.apiGET(`/avatar/detail/${dataUser.avatarId}`, this.props.tokenDuck.token)
         let badge = await properties.GENERIC_SERVICE.apiGET(`/badges`, this.props.tokenDuck.token)
-        let badgePath = badge.find(item => item.id===dataUser.badgeId).path
+        let badgePath = badge.find(item => item.id === dataUser.badgeId).path
         // wheelAward = await properties.GENERIC_SERVICE.apiGET('custumerdiscount/1', this.props.tokenDuck.token)
 
         let wheelUser = await properties.GENERIC_SERVICE.apiGET(`/wheel/of_user/${this.props.userIdDuck.userID}`, this.props.tokenDuck.token)
         let lastWheelUser = wheelUser[wheelUser.length - 1]
-        let oldDate = wheelUser.length > 0 ? lastWheelUser.startDate : 0
-        let wheelAward = lastWheelUser ? lastWheelUser.award : 'Wheel award'
-        console.log(wheelAward)
 
+        let wheelAward = 'Wheel award'
+        let oldDate = 0
         let totalExp = dataUser.exp === null ? 0 : dataUser.exp
-
-        this.difference = this.newDate - oldDate
-        this.compare = this.difference > 86400000 ? true : false
-        this.timer -= this.difference
-
-        if (oldDate) {
-            this.newWheelAvaileble = this.compare
+        let timer = this.state.timer
+        let newWheelAvaileble = true
+        if (wheelUser.length > 0) {
+            oldDate = lastWheelUser.startDate
+            wheelAward = lastWheelUser.award
+            this.difference =   this.newDate - oldDate
+            this.compare = this.difference > 86400000 ? true : false          
+            timer -= this.difference
+            newWheelAvaileble = this.compare
         }
 
-        console.log("avatar: ", avatar)
+
+
 
         this.setState({
-            wheelAvailable: this.newWheelAvaileble,
+            wheelAvailable: newWheelAvaileble,
             loadingRender: true,
             dataUser: dataUser,
-
+            timer:timer,
             oldDate: oldDate,
             avatar: avatar,
             badge: badgePath,
@@ -116,14 +117,15 @@ class UserHome extends Component {
     }
 
     componentDidUpdate = () => {
+        let newWheelAvaileble = null
         if (this.compare || !this.state.oldDate) {
-            this.newWheelAvaileble = true
+            newWheelAvaileble = true
         } else {
-            this.newWheelAvaileble = false
+            newWheelAvaileble = false
             setTimeout(() => {
-                this.newWheelAvaileble = true
+                newWheelAvaileble = true
                 this.setState({
-                    wheelAvailable: this.newWheelAvaileble
+                    wheelAvailable: newWheelAvaileble
                 })
             }, 86400000 - this.compare);
         }
@@ -215,11 +217,11 @@ class UserHome extends Component {
 
     //Fortune wheel 
     openWheelOfFortuneGame = () => {
-        let newDate = new Date().getTime()
+
         let wheelModal = true
 
         if (this.state.oldDate) {
-            wheelModal = newDate - this.state.oldDate > 86400000 ? true : false
+            wheelModal = this.newDate - this.state.oldDate > 86400000 ? true : false
         }
 
         this.setState({
@@ -227,13 +229,19 @@ class UserHome extends Component {
         })
     }
 
-    wheelModalClick = () => {
+    wheelModalClick = async () => {
+        this.newDate = new Date().getTime()
+        let timer = this.state.timer
         this.setState({
-            wheelModal: false
+            wheelModal: false,
+            timer: timer,
+
         })
+        await this.getDataApi()
     }
 
-    handleCloseCallback = () => {
+    handleCloseCallback = async () => {
+        await this.getDataApi()
         this.setState({
             avatarDisplay: false
         })
@@ -290,6 +298,10 @@ class UserHome extends Component {
         this.setState({
             selectedTab: 'missionUser'
         })
+    }
+
+    getState = async () => {
+        await this.getDataApi()
     }
 
     render() {
@@ -381,8 +393,8 @@ class UserHome extends Component {
                                                 }
                                                 <img className='fe-user-wheel' src={luckySpinMobile} alt="wheel" />
                                                 <Button
-                                                    className={this.newWheelAvaileble ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
-                                                    text={this.newWheelAvaileble ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.timer)} />}
+                                                    className={this.state.wheelAvailable ? 'fe-btn-wheel-playable fe-btn-wheel' : 'fe-btn-wheel-not-playable fe-btn-wheel'}
+                                                    text={this.state.wheelAvailable ? 'TAP TO SPIN' : <CountDownTimer time={this.msToTime(this.state.timer)} />}
                                                     callback={this.openWheelOfFortuneGame}
                                                 />
                                             </div>
@@ -470,7 +482,7 @@ class UserHome extends Component {
                                         }
                                         {
                                             this.state.selectedTab === 'missionUser' &&
-                                            <Mission />
+                                            <Mission callbackState={this.getState}/>
                                         }
                                     </div>
                                 </div>

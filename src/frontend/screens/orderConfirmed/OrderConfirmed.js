@@ -43,7 +43,7 @@ const OrderConfirmed = ({ t, i18n }) => {
     // }
 
     const goToMenuRestaurant = () => {
-        history.goBack('/menuRestaurant')
+        history.push("/userHome")
     }
 
     return (

@@ -48,7 +48,6 @@ class Memory extends Component {
             memoryCardsPair: properties.memoryCardsPair,
             winModal: false,
             loseModal: false,
-            beijeCoin: storage.beijeCoin,
             audio: false,
             chooseGame: false,
             countSec: 60
@@ -90,21 +89,9 @@ class Memory extends Component {
     }
 
     addCoins = async () => {
-/*         let beijeCoin = this.state.storage.beijeCoin
-        beijeCoin = beijeCoin + 5
 
-        let tempObj = this.state.storage
-
-        for (let key in tempObj) {
-            if (key === 'beijeCoin') {
-                tempObj[key] = beijeCoin;
-            }
-        }
-        this.setState({
-            storage: localStorage.setItem('userInfo', JSON.stringify(tempObj))
-        }) */
         propertiesGS.GENERIC_SERVICE = new genericServices()
-        await propertiesGS.GENERIC_SERVICE.apiPOST('/minigame/beijecoin/163', {}, this.props.tokenDuck.token)
+        await propertiesGS.GENERIC_SERVICE.apiPOST(`/minigame/beijecoin/${this.props.userIdDuck.userID}`, {}, this.props.tokenDuck.token)
     }
 
     handleClickMemory = (key) => () => {
@@ -294,5 +281,6 @@ class Memory extends Component {
 }
 const mapStateToProps = state => ({
     tokenDuck: state.tokenDuck,
+    userIdDuck: state.userIdDuck
 })
 export default connect(mapStateToProps)(withTranslation()(Memory));

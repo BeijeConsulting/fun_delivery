@@ -75,7 +75,6 @@ class LoginUser extends React.Component {
                 // andare avanti nella prossima pagina
                 // localStorage.setItem('token', response.token)
                 let id = response.id
-                console.log(id)
                 let getId = await properties.GENERIC_SERVICE.apiGET(`/user/${id}`, response.token)
                 this.props.dispatch(setUserInfo(getId.firstName))
                 this.props.history.push('/userHome')
