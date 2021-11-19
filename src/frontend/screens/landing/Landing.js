@@ -10,10 +10,13 @@ import AOS from 'aos';
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { i18n } from 'i18next';
-import Navbar from '../../components/ui/navbar/Navbar';
-import Footer from '../../components/funcComponents/footer/Footer'
 import properties from '../../../common/utils/properties';
 import genericServices from '../../../common/utils/genericServices';
+import Navbar from '../../components/ui/navbar/Navbar';
+import Footer from '../../components/funcComponents/footer/Footer'
+import { setAddress } from '../../redux/addressDuck';
+import { connect } from "react-redux";
+
 
 const Landing = (props) => {
 
@@ -40,7 +43,10 @@ const Landing = (props) => {
             ...state,
             [e.target.name]: e.target.value
         })
+        props.dispatch(setAddress(e.target.value))
+       
     }
+    
     const handleCallbackBtn = (e) => {
         if(state.addressValue) {
             properties.GENERIC_SERVICE = new genericServices()
@@ -48,7 +54,8 @@ const Landing = (props) => {
             props.history.push('/restaurants')            
         }
     }
-    
+   
+
     const changeLanguages = (e) => {
         i18n.changeLanguage(e.target.value)
     }
@@ -76,7 +83,7 @@ const Landing = (props) => {
 
                     <div className='main-box'>
                         <Input
-                            placeholder={t('frontend.screens.landing_page.address_placeholder')}
+                            placeholder='inserisci indirizzo di consegna'
                             name='addressValue'
                             type='text'
                             value={state.addressValue}
@@ -110,4 +117,8 @@ const Landing = (props) => {
         </>
     );
 }
-export default Landing;
+
+const mapStateToProps = state => ({
+    addressDuck: state.addressDuck
+})
+export default connect(mapStateToProps)(Landing);

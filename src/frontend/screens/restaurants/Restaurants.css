@@ -95,8 +95,9 @@ html {
 .fe-img-wrapper {
     pointer-events: none;
     margin-right: 20px;
-    
+  
 }
+
 
 .fe-restaurants-container {
     display: grid;

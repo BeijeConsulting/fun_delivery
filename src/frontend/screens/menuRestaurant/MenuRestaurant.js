@@ -70,7 +70,7 @@ class MenuRestaurant extends React.Component {
             duration: 1000
         })
         // REF
-
+        
         this.scrollOnTop()
 
         properties.GENERIC_SERVICE = new genericServices();
@@ -112,7 +112,7 @@ class MenuRestaurant extends React.Component {
                 categoryList: this.categoriesArr,
                 restaurantName: responseName.name,
                 restaurantInfo: responseName.city + ' ' + ' • ' + responseName.averageReview + ' ⭐ ',
-                adressRestaurant: responseName.address
+                addressRestaurant: responseName.address
 
             })
 
@@ -166,6 +166,9 @@ class MenuRestaurant extends React.Component {
             recapOrder: unique,
 
         })
+
+        
+        console.log(this.props.addressDuck.address, 'address')
         this.calculateSum()
     }
 
@@ -185,8 +188,10 @@ class MenuRestaurant extends React.Component {
     }
 
     goToFinalPage = async () => {
+        let plates = this.state.recapOrder
+        let orderAddress = {plates: plates, address: this.props.addressDuck.address}
         properties.GENERIC_SERVICE = new genericServices();
-        let response = await properties.GENERIC_SERVICE.apiPOST('/order', this.state.recapOrder, this.props.tokenDuck.token)
+        let response = await properties.GENERIC_SERVICE.apiPOST('/order', orderAddress, this.props.tokenDuck.token)
         console.log(response, 'response')
 
 
@@ -325,6 +330,7 @@ class MenuRestaurant extends React.Component {
 
 const mapStateToProps = state => ({
     tokenDuck: state.tokenDuck,
-    restaurantIdDuck: state.restaurantIdDuck
+    restaurantIdDuck: state.restaurantIdDuck,
+    addressDuck: state.addressDuck
 })
 export default connect(mapStateToProps)(withTranslation()(MenuRestaurant));

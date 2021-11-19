@@ -321,7 +321,7 @@ const Restaurants = (props) => {
                                             image={margherita}
                                             restaurantName={item.name}
                                             restaurantId={item.id}
-                                            restaurantRating={item.averageReview}
+                                            restaurantRating={item.averageReview ? item.averageReview : 'Nessuna Recensione'}
                                             restaurantShipping={item.restaurantFreeShipping}
                                             classNameWrapper="fe-img-wrapper"
                                             classNameImage="imageSingleRestaurant"
