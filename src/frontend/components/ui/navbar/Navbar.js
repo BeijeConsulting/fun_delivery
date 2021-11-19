@@ -135,7 +135,7 @@ const Navbar = (props) => {
                                     {/* <Link style={styleObj} to="/registrationUser">Registrati</Link> */}
                                 </span>
 
-                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/restaurants')}>
+                                <span className='right-btn register' style={styleObj} onClick={goToSelectedPage('/loginUser')}>
                                     Order
                                 </span>
                             </div>
