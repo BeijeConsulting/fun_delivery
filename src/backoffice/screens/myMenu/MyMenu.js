@@ -51,7 +51,7 @@ class MyMenu extends Component {
 
                         <div className="bo-mymenu-first-row align-left">
                             <div className="bo-mymenu-welcome">
-                                <h2 data-aos='fade-right'>{t('backoffice.screens.my_menu.title')}</h2>
+                                <h2>{t('backoffice.screens.my_menu.title')}</h2>
                             </div>
                         </div>
 
