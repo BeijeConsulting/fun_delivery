@@ -108,6 +108,10 @@ class MenuRestaurant extends React.Component {
             this.menuArray = responsePlate;
             console.log(this.menuArray, ' array')
 
+            if (responseName.averageReview === null) {
+                responseName.averageReview = 'Non recensito'
+            }
+
             this.setState({
                 categoryList: this.categoriesArr,
                 restaurantName: responseName.name,
@@ -221,7 +225,7 @@ class MenuRestaurant extends React.Component {
                     </div>
 
                     <div className='fe-menu-restaurant-address' data-aos="zoom-in">
-                        {/* <p style={{ fontWeight: '600', fontSize: '25px' }}>Pizza 🍕</p> */}
+                        
                         <p style={{ marginTop: '' }} >{this.state.adressRestaurant}</p>
                     </div>
                     <h2 style={{ fontSize: '30px', zIndex: '5' }} data-aos="fade-right">{t('frontend.components.menu_restaurant.sombreroWeek')}</h2>

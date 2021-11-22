@@ -230,7 +230,7 @@ html {
 
     .sideNav-toggleOn {
         position: absolute;
-        width: 310px;
+        width: 88vw;
         height: 60vh;
         left: -1px;
         padding: 1rem
