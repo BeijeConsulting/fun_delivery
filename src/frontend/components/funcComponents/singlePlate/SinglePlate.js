@@ -41,16 +41,16 @@ const SinglePlate = (props) => {
                                 name={props.plateName}
                                 value={props.valueId}
                                 operator={'+'}
-                                onClick={add} >+
+                                onClick={remove} >-
                             </button>
                             <p className='counterOrder'>{state.quantity}</p>
                             <button
                                 className='buttonRemoveOrder'
                                 operator={'-'}
                                 id={props.idPrice}
-                                onClick={remove}
+                                onClick={add}
                                 name={props.plateName}
-                                value={props.valueId} >-
+                                value={props.valueId} >+
                             </button>
                         </div>
                     </div>
