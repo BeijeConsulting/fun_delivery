@@ -59,7 +59,7 @@ export const TRANSLATIONS_FRONTEND = {
         },
         order_confirmed: {
             button: 'Play with us',
-            buttonBack: 'Come back'
+            buttonBack: 'Your Account'
         },
 
         login_page: {

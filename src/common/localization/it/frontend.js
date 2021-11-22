@@ -61,7 +61,7 @@ export const TRANSLATIONS_FRONTEND = {
         },
         order_confirmed: {
             button: 'Gioca con noi',
-            buttonBack: 'Torna indietro'
+            buttonBack: 'Vai al profilo'
         },
 
         login_page: {
